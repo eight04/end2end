@@ -10,7 +10,7 @@
 @window-lg: 1440px;
 @window-xl: 1920px;
 
-@color: lighten(black, 20%);
+@color: lighten(black, 24%);
 @border: lighten(black, 40%);
 @primary: darken(#7DC94D, 7%);
 @highlight: #ffa92e;
@@ -99,25 +99,21 @@ p {
 }
 
 // row and columns
-[class|="row"] {
+.row() {
 	margin-left: -@gap;
 	margin-right: -@gap;
-	letter-spacing: -1em;
-	
-	> [class*="col-"] {
-		padding-left: @gap;
-		padding-right: @gap;
-		vertical-align: top;
-		letter-spacing: normal;
+	letter-spacing: -1em;	
+}
 
-		.row-bottom > & {
-			vertical-align: bottom;
-		}
+[class|="row"] {
+	.row();
+}
 
-		.row-middle > & {
-			vertical-align: middle;
-		}
-	}
+[class|="col"] {
+	padding-left: @gap;
+	padding-right: @gap;
+	vertical-align: top;
+	letter-spacing: normal;
 }
 
 // set columns width
@@ -181,79 +177,6 @@ p {
 	}
 }
 
-.stack {
-	@grid: max(@grids);
-	
-	.make-stack-col(@grid, xs, @window-sm, 1);
-	
-	@media (min-width: @window-sm) {
-		.make-stack-col(@grid, sm, @window-sm, 1);
-	}
-	
-	@media (min-width: @window-md) {
-		.make-stack-col(@grid, md, @window-md, 1);
-	}
-	
-	@media (min-width: @window-lg) {
-		.make-stack-col(@grid, lg, @window-lg, 1);
-	}
-}
-
-// Stack
-.make-stack(@grids, @count) when (@count =< length(@grids)){
-	@grid: extract(@grids, @count);
-	
-	.stack-@{grid} {
-		.make-stack-col(@grid, xs, @window-sm, 1);
-		
-		@media (min-width: @window-sm) {
-			.make-stack-col(@grid, sm, @window-md, 1);
-		}
-		
-		@media (min-width: @window-md) {
-			.make-stack-col(@grid, md, @window-lg, 1);
-		}
-		
-		@media (min-width: @window-lg) {
-			.make-stack-col(@grid, lg, @window-xl, 1);
-		}
-	}
-	
-	.make-stack(@grids, @count + 1);
-}
-.make-stack(@grids, 1);
-
-// Stack style
-[class|="stack"] {
-	text-align: justify;
-	line-height: 0;
-	background: silver;
-	
-	&:after {
-		content: ".";
-		display: inline-block;
-		width: 100%;
-		visibility: hidden;
-	}
-	
-	> [class*="col-"] {
-		line-height: @line-height;
-		vertical-align: top;
-		background: grey;
-	}
-}
-
-// make stack col
-.make-stack-col(@cols, @size, @width, @count) when (@count =< @cols) {
-	
-	& > .col-@{size}-@{count} {
-		// width: calc(~"(100% - ((@{cols} - 1) * @{gap} * 2)) * @{count} / @{cols} + (@{count} - 1) * @{gap} * 2");
-		width: percentage(((@width - (@cols - 1) * @gap * 2) * @count / @cols + @gap * 2 * (@count - 1)) / (@width - 2 * @gap));
-	}
-	.make-stack-col(@cols, @size, @width, @count + 1);
-}
-
-// spec columns style
 .col-grid() {
 	display: inline-block;
 }
@@ -277,5 +200,28 @@ p {
 @media (min-width: @window-lg) {
 	[class*="col-lg-"] {
 		.col-grid();
+	}
+}
+
+.vcenter > * {
+	vertical-align: middle;
+}
+
+.vbottom > * {
+	vertical-align: bottom;
+}
+
+.table {
+	.row();
+	
+	> [class|="row"] {
+		display: table;
+		margin: 0;
+		width: 100%;
+		border-collapse: collapse;
+		
+		> [class|="col"] {
+			display: table-cell;
+		}
 	}
 }
