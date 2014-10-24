@@ -22,5 +22,8 @@
     "test",
     "tests"
   ],
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "respond": "~1.4.2"
+  }
 }

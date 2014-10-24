@@ -249,8 +249,8 @@ p {
 	
 	& > .col-@{size}-@{count} {
 		width: calc(~"(100% - ((@{cols} - 1) * @{gap} * 2)) * @{count} / @{cols} + (@{count} - 1) * @{gap} * 2");
-		// width: percentage(((@width - @cols * @gap * 2) * @count / @cols + @gap * 2 * (@count - 1)) / (@width - 2 * @gap));
-		// width: percentage(((@@wsize - (@cols - 1) * @gap * 2) * @count + @gap * 2 * (@count - 1)) / @@wsize);
+		// width: percentage(((@width - (@cols - 1) * @gap * 2) * @count / @cols + @gap * 2 * (@count - 1)) / (@width - 2 * @gap));
+		// width: percentage(@count / @cols);
 	}
 	.make-stack-col(@cols, @size, @width, @count + 1);
 }
