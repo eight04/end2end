@@ -10,7 +10,7 @@ body {
 }
 body {
   font-size: 16px;
-  font-family: sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.55;
   color: #3d3d3d;
 }
@@ -38,12 +38,77 @@ h4,
 h5,
 h6 {
   margin: 30px 0 15px;
+  font-weight: 400;
+  color: inherit;
+}
+h1 {
+  font-size: 260%;
 }
 h2 {
+  font-size: 215%;
   border-bottom: 1px solid #666666;
+}
+h3 {
+  font-size: 170%;
+}
+h4 {
+  font-size: 125%;
+}
+h5 {
+  font-size: 100%;
+}
+h6 {
+  font-size: 85%;
 }
 p {
   margin: 15px 0;
+}
+table {
+  border-collapse: collapse;
+  border: 1px solid #666666;
+}
+thead th,
+thead td {
+  border-bottom: 1px solid #666666;
+  border-right: 1px solid #666666;
+}
+thead th:last-child,
+thead td:last-child {
+  border-right: none;
+}
+tbody th,
+tbody td {
+  border-right: 1px solid #666666;
+}
+tbody th:last-child,
+tbody td:last-child {
+  border-right: none;
+}
+th,
+td {
+  padding: 0.6em 1.2em;
+}
+input,
+textarea {
+  display: block;
+  margin: 3.75px 0 15px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: inherit;
+}
+input[type="radio"] {
+  display: inline;
+  margin: 0 0.2em;
+  width: auto;
+  vertical-align: middle;
+}
+input[type="radio"] + label {
+  vertical-align: middle;
+}
+fieldset {
+  margin: 0 0 15px;
+  padding: 0;
+  border: none;
 }
 ::selection {
   background-color: rgba(255, 169, 46, 0.4);
