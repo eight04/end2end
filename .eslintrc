@@ -1,0 +1,14 @@
+{
+	env: {
+		browser: true
+	},
+	rules: {
+		"no-trailing-spaces": 0,
+		"eqeqeq": 0,
+		"no-console": 1
+	},
+	globals: {
+		angular: false,
+		console: false
+	}
+}

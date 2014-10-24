@@ -1,0 +1,26 @@
+{
+  "name": "end2end",
+  "version": "0.1.0",
+  "homepage": "https://github.com/eight04/end2end",
+  "authors": [
+    "eight <eight04@gmail.com>"
+  ],
+  "description": "A CSS framework using inline-block.",
+  "main": [],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "css",
+    "responsive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {}
+}

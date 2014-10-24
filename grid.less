@@ -1,0 +1,208 @@
+// My extend apart from bootstrap
+
+// vars
+@gap: 15px;
+@grids: 5, 7, 12;
+
+@window-sm: 768px;
+@window-md: 1024px;
+@window-lg: 1440px;
+@window-xl: 1920px;
+
+// @container-sm: @window-sm - 20px;
+// @container-md: @window-md - 20px;
+// @container-lg: @window-lg - 20px;
+
+@color: lighten(black, 10%);
+@border: lighten(black, 40%);
+@primary: darken(#7DC94D, 7%);
+@highlight: #ffa92e;
+
+// normalize
+* {
+	&,
+	&:before,
+	&:after {
+		box-sizing: border-box;
+	}
+}
+
+html, body {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-size: 16px;
+	font-family: sans-serif;
+	line-height: 1.5;
+	color: @color;
+}
+
+a {
+	text-decoration: none;
+	border-bottom: 1px dashed;
+	
+	&,
+	&:link {
+		color: @primary;
+	}
+	&:visited {
+		color: darken(@primary, 10%);
+	}
+	&:hover {
+		color: lighten(@primary, 10%);
+	}
+	&:active {
+		color: darken(@primary, 10%);
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: @gap*2 0 @gap;	
+}
+
+h2 {
+	border-bottom: 1px solid @border;
+}
+
+p {
+	margin: @gap 0;
+}
+
+.highlight(){
+	background-color: fade(@highlight, 40%);
+}
+
+::selection {
+	.highlight();
+}
+
+::-moz-selection {
+	.highlight();
+}
+
+// Grid system
+// container
+.container-fluid, .container {
+	padding: 0 @gap;
+}
+
+.container:extend(.container-fluid) {
+	margin: 0 auto;
+	@media (min-width: @window-sm) {
+		max-width: @window-sm;
+	}
+	@media (min-width: @window-md) {
+		max-width: @window-md;
+	}
+	@media (min-width: @window-lg) {
+		max-width: @window-lg;
+	}
+}
+
+// row and columns
+[class|="row"] {
+	margin-left: -@gap;
+	margin-right: -@gap;
+	text-align: justify;
+}
+
+// set columns width
+.make-cols(@columns, @count) when (@count =< @columns) {
+	> .col-@{count} {
+		width: percentage(@count/@columns);
+	}
+	
+	.make-cols(@columns, @count + 1);
+}
+
+.make-cols-var(@columns, @size, @count) when (@count =< @columns) {
+	> .col-@{size}-@{count} {
+		width: percentage(@count/@columns);
+	}
+	
+	.make-cols-var(@columns, @size, @count + 1);
+}
+
+// set different row
+.make-grid(@grids, @count) when (@count =< length(@grids)) {
+	@grid: extract(@grids, @count);
+	
+	.row-@{grid} when (@count < length(@grids)){
+		
+		.make-cols-var(@grid, xs, 1);
+		
+		@media (min-width: @window-sm) {
+			.make-cols-var(@grid, sm, 1);
+		}
+		
+		@media (min-width: @window-md) {
+			.make-cols-var(@grid, md, 1);
+		}
+		
+		@media (min-width: @window-lg) {
+			.make-cols-var(@grid, lg, 1);
+		}
+	}
+	.row when (@count = length(@grids)) {
+		.make-cols-var(@grid, xs, 1);
+		
+		@media (min-width: @window-sm) {
+			.make-cols-var(@grid, sm, 1);
+		}
+		
+		@media (min-width: @window-md) {
+			.make-cols-var(@grid, md, 1);
+		}
+		
+		@media (min-width: @window-lg) {
+			.make-cols-var(@grid, lg, 1);
+		}
+
+	}
+	
+	.make-grid(@grids, @count + 1);
+}
+.make-grid(@grids, 1);
+
+// spec columns style
+[class*="col-"] {
+	padding-left: @gap;
+	padding-right: @gap;
+	vertical-align: top;
+	
+	.row-bottom > & {
+		vertical-align: bottom;
+	}
+	
+	.row-middle > & {
+		vertical-align: middle;
+	}
+}
+
+.col-grid() {
+	display: inline-block;
+}
+
+[class*="col-xs-"] {
+	.col-grid();
+}
+
+@media (min-width: @window-sm) {
+	[class*="col-sm-"] {
+		.col-grid();
+	}
+}
+
+@media (min-width: @window-md) {
+	[class*="col-md-"] {
+		.col-grid();
+	}
+}
+
+@media (min-width: @window-lg) {
+	[class*="col-lg-"] {
+		.col-grid();
+	}
+}

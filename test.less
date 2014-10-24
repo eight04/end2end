@@ -1,0 +1,15 @@
+.make-selector(@size) {
+	.make-selector(@size, @selector, @count) when (@count > 0) {
+		.make-selector(@size, ~".col-@{size}-@{count}, @{selector}", @count - 1);
+	}
+	.make-selector(@size, @selector, @count) when (@count = 0) {
+		@return: @selector;
+	}
+	.make-selector(@size, ~".col-sm-12", 11);
+	@{return} {
+		color: blue;
+	}
+}
+
+.make-selector(sm);
+.make-selector(md);
