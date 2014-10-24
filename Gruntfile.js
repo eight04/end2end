@@ -16,9 +16,9 @@ module.exports = function(grunt) {
 		}
     },
 	less: {
-		source: {
+		compile: {
 			files: {
-				"dist/dialog.css": "dialog.less"
+				"grid.css": "grid.less"
 			}
 		},
 		minified: {
@@ -58,6 +58,15 @@ module.exports = function(grunt) {
 				append: true
 			}
 		}
+	},
+	watch: {
+		grunt: {
+			files: "Gruntfile.js"
+		},
+		less: {
+			files: "*.less",
+			tasks: "less:compile"
+		}
 	}
   });
 
@@ -67,6 +76,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ["eslint", "copy", "less", "ngtemplates", 'uglify']);

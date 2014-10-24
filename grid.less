@@ -3,17 +3,14 @@
 // vars
 @gap: 15px;
 @grids: 5, 7, 12;
+@line-height: 1.55;
 
 @window-sm: 768px;
 @window-md: 1024px;
 @window-lg: 1440px;
 @window-xl: 1920px;
 
-// @container-sm: @window-sm - 20px;
-// @container-md: @window-md - 20px;
-// @container-lg: @window-lg - 20px;
-
-@color: lighten(black, 10%);
+@color: lighten(black, 20%);
 @border: lighten(black, 40%);
 @primary: darken(#7DC94D, 7%);
 @highlight: #ffa92e;
@@ -35,7 +32,7 @@ html, body {
 body {
 	font-size: 16px;
 	font-family: sans-serif;
-	line-height: 1.5;
+	line-height: @line-height;
 	color: @color;
 }
 
@@ -105,7 +102,22 @@ p {
 [class|="row"] {
 	margin-left: -@gap;
 	margin-right: -@gap;
-	text-align: justify;
+	background: red;
+	
+	> [class*="col-"] {
+		padding-left: @gap;
+		padding-right: @gap;
+		vertical-align: top;
+		background: orange;
+
+		.row-bottom > & {
+			vertical-align: bottom;
+		}
+
+		.row-middle > & {
+			vertical-align: middle;
+		}
+	}
 }
 
 // set columns width
@@ -129,7 +141,7 @@ p {
 .make-grid(@grids, @count) when (@count =< length(@grids)) {
 	@grid: extract(@grids, @count);
 	
-	.row-@{grid} when (@count < length(@grids)){
+	.row-@{grid} {
 		
 		.make-cols-var(@grid, xs, 1);
 		
@@ -144,43 +156,106 @@ p {
 		@media (min-width: @window-lg) {
 			.make-cols-var(@grid, lg, 1);
 		}
-	}
-	.row when (@count = length(@grids)) {
-		.make-cols-var(@grid, xs, 1);
-		
-		@media (min-width: @window-sm) {
-			.make-cols-var(@grid, sm, 1);
-		}
-		
-		@media (min-width: @window-md) {
-			.make-cols-var(@grid, md, 1);
-		}
-		
-		@media (min-width: @window-lg) {
-			.make-cols-var(@grid, lg, 1);
-		}
-
 	}
 	
 	.make-grid(@grids, @count + 1);
 }
 .make-grid(@grids, 1);
 
-// spec columns style
-[class*="col-"] {
-	padding-left: @gap;
-	padding-right: @gap;
-	vertical-align: top;
+// short hand for largest grid
+.row {
+	@grid: max(@grids);
 	
-	.row-bottom > & {
-		vertical-align: bottom;
+	.make-cols-var(@grid, xs, 1);
+	
+	@media (min-width: @window-sm) {
+		.make-cols-var(@grid, sm, 1);
 	}
 	
-	.row-middle > & {
-		vertical-align: middle;
+	@media (min-width: @window-md) {
+		.make-cols-var(@grid, md, 1);
+	}
+	
+	@media (min-width: @window-lg) {
+		.make-cols-var(@grid, lg, 1);
 	}
 }
 
+.stack {
+	@grid: max(@grids);
+	
+	.make-stack-col(@grid, xs, @window-sm, 1);
+	
+	@media (min-width: @window-sm) {
+		.make-stack-col(@grid, sm, @window-sm, 1);
+	}
+	
+	@media (min-width: @window-md) {
+		.make-stack-col(@grid, md, @window-md, 1);
+	}
+	
+	@media (min-width: @window-lg) {
+		.make-stack-col(@grid, lg, @window-lg, 1);
+	}
+}
+
+// Stack
+.make-stack(@grids, @count) when (@count =< length(@grids)){
+	@grid: extract(@grids, @count);
+	
+	.stack-@{grid} {
+		.make-stack-col(@grid, xs, @window-sm, 1);
+		
+		@media (min-width: @window-sm) {
+			.make-stack-col(@grid, sm, @window-md, 1);
+		}
+		
+		@media (min-width: @window-md) {
+			.make-stack-col(@grid, md, @window-lg, 1);
+		}
+		
+		@media (min-width: @window-lg) {
+			.make-stack-col(@grid, lg, @window-xl, 1);
+		}
+	}
+	
+	.make-stack(@grids, @count + 1);
+}
+.make-stack(@grids, 1);
+
+// Stack style
+[class|="stack"] {
+	text-align: justify;
+	line-height: 0;
+	background: silver;
+	
+	&:after {
+		content: ".";
+		display: inline-block;
+		width: 100%;
+		visibility: hidden;
+	}
+	
+	> [class*="col-"] {
+		line-height: @line-height;
+		vertical-align: top;
+		background: grey;
+	}
+}
+
+// make stack col
+.make-stack-col(@cols, @size, @width, @count) when (@count =< @cols) {
+	// @wsize: ~"window-@{size}";
+	
+	& > .col-@{size}-@{count} {
+		width: calc(~"(100% - ((@{cols} - 1) * @{gap} * 2)) * @{count} / @{cols} + (@{count} - 1) * @{gap} * 2");
+		// width: percentage(((@width - @cols * @gap * 2) * @count / @cols + @gap * 2 * (@count - 1)) / (@width - 2 * @gap));
+		// width: percentage(((@@wsize - (@cols - 1) * @gap * 2) * @count + @gap * 2 * (@count - 1)) / @@wsize);
+	}
+	.make-stack-col(@cols, @size, @width, @count + 1);
+}
+
+// spec columns style
 .col-grid() {
 	display: inline-block;
 }
