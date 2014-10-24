@@ -102,13 +102,13 @@ p {
 [class|="row"] {
 	margin-left: -@gap;
 	margin-right: -@gap;
-	background: red;
+	letter-spacing: -1em;
 	
 	> [class*="col-"] {
 		padding-left: @gap;
 		padding-right: @gap;
 		vertical-align: top;
-		background: orange;
+		letter-spacing: normal;
 
 		.row-bottom > & {
 			vertical-align: bottom;
@@ -245,12 +245,10 @@ p {
 
 // make stack col
 .make-stack-col(@cols, @size, @width, @count) when (@count =< @cols) {
-	// @wsize: ~"window-@{size}";
 	
 	& > .col-@{size}-@{count} {
-		width: calc(~"(100% - ((@{cols} - 1) * @{gap} * 2)) * @{count} / @{cols} + (@{count} - 1) * @{gap} * 2");
-		// width: percentage(((@width - (@cols - 1) * @gap * 2) * @count / @cols + @gap * 2 * (@count - 1)) / (@width - 2 * @gap));
-		// width: percentage(@count / @cols);
+		// width: calc(~"(100% - ((@{cols} - 1) * @{gap} * 2)) * @{count} / @{cols} + (@{count} - 1) * @{gap} * 2");
+		width: percentage(((@width - (@cols - 1) * @gap * 2) * @count / @cols + @gap * 2 * (@count - 1)) / (@width - 2 * @gap));
 	}
 	.make-stack-col(@cols, @size, @width, @count + 1);
 }

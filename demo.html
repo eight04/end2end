@@ -4,13 +4,15 @@
 	<meta charset="UTF-8">
 	<title>Demo</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="grid.js"></script>
 	<link rel="stylesheet" href="grid.css">
 	<!--[if lt ie 9]>
 	<script src="bower_components/respond/dest/respond.min.js"></script>
 	<![endif]-->
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
 				<h1>Title</h1>
@@ -22,53 +24,65 @@
 				</p>
 				<h2>Title 2</h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, fugit consectetur iusto quod culpa a nihil saepe labore ut distinctio sint ad dolorem odio hic quidem quaerat expedita similique corporis.</p>
-			</div><div class="col-md-4">
+			</div>
+			<div class="col-md-4">
 				<h1>Title 4</h1>
 				<p>
 					Lol!
 				</p>
 			</div>
 		</div>
-		<div class="row-5">
-			<div class="test col-xs-1">
+		<div class="row-5 vbottom">
+			<div class="col-xs-1">
 				1. XD
-			</div><div class="col-xs-1">
-				1.<br>2.
-			</div><div class="col-xs-1">
-				1.
-			</div><div class="col-xs-1">
-				1.<br>2.<br>3.
-			</div><div class="col-xs-1">
-				1.
 			</div>
-		</div>
-		<div class="row-5 row-bottom">
+			<div class="col-xs-1">
+				1.<br>2.
+			</div>
 			<div class="col-xs-1">
 				1.
-			</div><div class="col-xs-1">
-				1.<br>2.
-			</div><div class="col-xs-1">
-				1.
-			</div><div class="col-xs-1">
-				1.<br>2.<br>3.
-			</div><div class="col-xs-1">
-				1.
 			</div>
-		</div>
-		<div class="stack-5 row-middle">
+			<div class="col-xs-1">
+				1.<br>2.<br>3.
+			</div>
 			<div class="col-xs-1">
 				1.
-			</div> <div class="col-xs-1">
-				1.<br>2.
-			</div> <div class="col-xs-1">
+			</div>
+		</div>
+		<div class="row-5 vcenter">
+			<div class="col-xs-1">
 				1.
-			</div> <div class="col-xs-1">
+			</div>
+			<div class="col-xs-1">
+				1.<br>2.
+			</div>
+			<div class="col-xs-1">
+				1.
+			</div>
+			<div class="col-xs-1">
 				1.<br>2.<br>3.
-			</div> <div class="col-xs-1">
+			</div>
+			<div class="col-xs-1">
 				1.
 			</div>
 		</div>
-		test
+		<div class="row-5 vtop">
+			<div class="col-xs-1">
+				1.
+			</div> 
+			<div class="col-xs-1">
+				1.<br>2.
+			</div> 
+			<div class="col-xs-1">
+				1.
+			</div> 
+			<div class="col-xs-1">
+				1.<br>2.<br>3.
+			</div> 
+			<div class="col-xs-1">
+				1.
+			</div>
+		</div>
 	</div>
 </body>
 </html>
