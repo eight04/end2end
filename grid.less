@@ -11,13 +11,14 @@
 @window-xl: 1920px;
 
 @color: lighten(black, 24%);
-@border: lighten(black, 40%);
+@color-bg: darken(white, 7%);
+@border: lighten(@color, 40%);
 @primary: darken(#7DC94D, 7%);
 @highlight: #ffa92e;
 
-@font-family-sans:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-sans:  "Helvetica Neue", Helvetica, Arial, "微軟正黑體", sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, "新細明體", serif;
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
 @font-family-base:        @font-family-sans;
 
 @font-size: 16px;
@@ -97,6 +98,10 @@ p {
 	margin: @gap 0;
 }
 
+.td-padding () {
+	padding: 0.24em 1.04em;
+}
+
 table {
 	border-collapse: collapse;
 	border: 1px solid @border;
@@ -124,7 +129,11 @@ tbody {
 }
 
 th, td {
-	padding: 0.24em 1.2em;
+	.td-padding();
+}
+
+th {
+	background-color: @color-bg;
 }
 
 .table-responsive {
@@ -147,18 +156,33 @@ th, td {
 	}
 }
 
-input, textarea {
+form {
+	display: block;
+	margin: @gap 0;
+}
+
+input, textarea, select, button {
 	display: block;
 	margin: @gap/4 0 @gap;
 	width: 100%;
 	box-sizing: border-box;
 	font-size: inherit;
+	font-family: inherit;
+	border: 1px solid @border;
+	// Best for chinese
+	// padding: 0.32em 0.32em 0.15em;
+	// Best for english
+	padding: 0.32em 0.32em 0.26em;
 }
 
 fieldset {
 	margin: @gap 0;
 	padding: 0;
 	border: none;
+}
+
+legend {
+	padding: 0;
 }
 
 .radio, .checkbox {
@@ -172,13 +196,37 @@ fieldset {
 	input[type="checkbox"] {
 		display: block;
 		position: absolute;
+		border: none;
 		padding: 0;
 		width: auto;
 		top: 0;
 		bottom: 0;
-		left: 0.2em;
+		left: 0em;
 		margin: auto 0;
 	}
+}
+
+button {
+	background-color: @color-bg;
+	display: inline-block;
+	width: auto;
+	margin: 0 0.4*@gap 0 0;
+	padding: 0.24em 0.36em;
+	min-width: 4.56em;
+}
+
+.btn-block {
+	display: block;
+	margin: @gap 0;
+	
+	& + & {
+		margin-top: 0.4 * @gap;
+	}
+}
+
+img {
+	margin: 0.24 * @gap;
+	vertical-align: middle;
 }
 
 .highlight(){

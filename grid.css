@@ -10,7 +10,7 @@ body {
 }
 body {
   font-size: 16px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "微軟正黑體", sans-serif;
   line-height: 1.55;
   color: #3d3d3d;
 }
@@ -46,7 +46,7 @@ h1 {
 }
 h2 {
   font-size: 215%;
-  border-bottom: 1px solid #666666;
+  border-bottom: 1px solid #a3a3a3;
 }
 h3 {
   font-size: 170%;
@@ -65,12 +65,12 @@ p {
 }
 table {
   border-collapse: collapse;
-  border: 1px solid #666666;
+  border: 1px solid #a3a3a3;
 }
 thead th,
 thead td {
-  border-bottom: 1px solid #666666;
-  border-left: 1px solid #666666;
+  border-bottom: 1px solid #a3a3a3;
+  border-left: 1px solid #a3a3a3;
 }
 thead th:first-child,
 thead td:first-child {
@@ -78,7 +78,7 @@ thead td:first-child {
 }
 tbody th,
 tbody td {
-  border-left: 1px solid #666666;
+  border-left: 1px solid #a3a3a3;
 }
 tbody th:first-child,
 tbody td:first-child {
@@ -86,13 +86,16 @@ tbody td:first-child {
 }
 th,
 td {
-  padding: 0.24em 1.2em;
+  padding: 0.24em 1.04em;
+}
+th {
+  background-color: #ededed;
 }
 .table-responsive {
   display: inline-block;
   max-width: 100%;
   overflow: auto;
-  border: 1px solid #666666;
+  border: 1px solid #a3a3a3;
 }
 .table-responsive table {
   border: none;
@@ -104,18 +107,30 @@ td {
 .table-responsive td:last-child {
   border-right: none;
 }
+form {
+  display: block;
+  margin: 15px 0;
+}
 input,
-textarea {
+textarea,
+select,
+button {
   display: block;
   margin: 3.75px 0 15px;
   width: 100%;
   box-sizing: border-box;
   font-size: inherit;
+  font-family: inherit;
+  border: 1px solid #a3a3a3;
+  padding: 0.32em 0.32em 0.26em;
 }
 fieldset {
   margin: 15px 0;
   padding: 0;
   border: none;
+}
+legend {
+  padding: 0;
 }
 .radio label,
 .checkbox label {
@@ -129,12 +144,32 @@ fieldset {
 .checkbox input[type="checkbox"] {
   display: block;
   position: absolute;
+  border: none;
   padding: 0;
   width: auto;
   top: 0;
   bottom: 0;
-  left: 0.2em;
+  left: 0em;
   margin: auto 0;
+}
+button {
+  background-color: #ededed;
+  display: inline-block;
+  width: auto;
+  margin: 0 6px 0 0;
+  padding: 0.24em 0.36em;
+  min-width: 4.56em;
+}
+.btn-block {
+  display: block;
+  margin: 15px 0;
+}
+.btn-block + .btn-block {
+  margin-top: 6px;
+}
+img {
+  margin: 3.6px;
+  vertical-align: middle;
 }
 ::selection {
   background-color: rgba(255, 169, 46, 0.4);
