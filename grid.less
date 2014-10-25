@@ -161,7 +161,7 @@ form {
 	margin: @gap 0;
 }
 
-input, textarea, select, button {
+input, textarea, select {
 	display: block;
 	margin: @gap/4 0 @gap;
 	width: 100%;
@@ -169,10 +169,8 @@ input, textarea, select, button {
 	font-size: inherit;
 	font-family: inherit;
 	border: 1px solid @border;
-	// Best for chinese
-	// padding: 0.32em 0.32em 0.15em;
-	// Best for english
 	padding: 0.32em 0.32em 0.26em;
+	border-radius: 0.18em;
 }
 
 fieldset {
@@ -206,13 +204,39 @@ legend {
 	}
 }
 
-button {
+button,
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"] {
 	background-color: @color-bg;
 	display: inline-block;
 	width: auto;
 	margin: 0 0.4*@gap 0 0;
-	padding: 0.24em 0.36em;
+	padding: 0.24em 0.36em 0.12em;
 	min-width: 4.56em;
+	line-height: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	border: 1px solid @border;
+	border-radius: 0.18em;
+	text-align: center;
+	color: inherit;
+	vertical-align: middle;
+	
+	// Firefox button fix: http://davidwalsh.name/firefox-buttons
+	&::-moz-focus-inner {
+		border: 0;
+		padding: 0;
+	}
+}
+
+.btn:extend(button) {
+	&:link,
+	&:visited,
+	&:hover,
+	&:active {
+		color: inherit;
+	}
 }
 
 .btn-block {
