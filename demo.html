@@ -96,72 +96,94 @@
 			</div>
 		</div>
 		<h2>Table</h2>
-		<table>
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Title</th>
-					<th>Title</th>
-					<th>Title</th>
-					<th>Title</th>
-					<th>Title</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-				</tr>
-				<tr>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-				</tr>
-				<tr>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-				</tr>
-				<tr>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-					<td>Content</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="table-responsive">
+			<table>
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Title</th>
+						<th>Title</th>
+						<th>Title</th>
+						<th>Title</th>
+						<th>Title</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+						<td>Content</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
 		<h2>Form</h2>
 		<form action="">
-			<label for="">Name</label>
-			<input type="text">
+			<label for="name">Name</label>
+			<input type="text" id="name">
 			
-			<label for="">Email</label>
-			<input type="text">
+			<label for="email">Email</label>
+			<input type="text" id="email">
 			
-			<label for="">Leave a comment</label>
-			<textarea name="" id="" cols="30" rows="10"></textarea>
+			<label for="comment">Leave a comment</label>
+			<textarea id="comment" cols="30" rows="10"></textarea>
 			
 			<fieldset>
 				<legend>Select your gender</legend>
 				<div class="radio">
-					<input type="radio" name="gender">
-					<label>Male</label>
+					<input type="radio" name="gender" id="gender-male">
+					<label for="gender-male">Male</label>
 				</div>
 				<div class="radio">
+					<input type="radio" name="gender" id="gender-female">
+					<label for="gender-female">Female</label>
+				</div>
+			</fieldset>
+			
+			<fieldset class="radios">
+				<legend>Select your gender</legend>
+				<label>
 					<input type="radio" name="gender">
-					<label>Female</label>
+					Male
+				</label>
+				<label>
+					<input type="radio" name="gender">
+					Female
+				</label>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Options</legend>
+				<div class="checkbox">
+					
 				</div>
 			</fieldset>
 		</form>

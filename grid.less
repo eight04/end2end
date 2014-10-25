@@ -127,6 +127,21 @@ th, td {
 	padding: 0.24em 1.2em;
 }
 
+.table-responsive {
+	display: inline-block;
+	max-width: 100%;
+	overflow: auto;
+	border: 1px solid @border;
+	
+	table {
+		border: none;
+	}
+	
+	td {
+		white-space: pre-line;
+	}
+}
+
 input, textarea {
 	display: block;
 	margin: @gap/4 0 @gap;
@@ -150,6 +165,23 @@ fieldset {
 	margin: 0 0 @gap;
 	padding: 0;
 	border: none;
+}
+
+.radios {
+	label {
+		display: block;
+		position: relative;
+		padding-left: 1.5em;
+	}
+	
+	input[type="radio"] {
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0.2em;
+		margin: auto 0;
+	}
 }
 
 .highlight(){
