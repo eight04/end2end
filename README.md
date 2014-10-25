@@ -6,4 +6,4 @@ Goal
 ----
 * IE8 support.
 * Responsive layout.
-
+* Only use animation on modern nrowser. (CSS3)
