@@ -20,16 +20,16 @@ a {
 }
 a,
 a:link {
-  color: #6bba38;
+  color: #969696;
 }
 a:visited {
-  color: #54932d;
+  color: #7d7d7d;
 }
 a:hover {
-  color: #86cd59;
+  color: #b0b0b0;
 }
 a:active {
-  color: #54932d;
+  color: #7d7d7d;
 }
 h1,
 h2,
@@ -152,16 +152,16 @@ legend {
   left: 0em;
   margin: auto 0;
 }
+.btn,
 button,
 input[type="button"],
 input[type="submit"],
-input[type="reset"],
-.btn {
+input[type="reset"] {
   background-color: #ededed;
   display: inline-block;
   width: auto;
   margin: 0 6px 0 0;
-  padding: 0.24em 0.36em 0.12em;
+  padding: 0.24em 0.36em 0.18em;
   min-width: 4.56em;
   line-height: inherit;
   font-size: inherit;
@@ -171,7 +171,9 @@ input[type="reset"],
   text-align: center;
   color: inherit;
   vertical-align: middle;
+  cursor: pointer;
 }
+.btn::-moz-focus-inner,
 button::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner,
@@ -180,10 +182,54 @@ input[type="reset"]::-moz-focus-inner {
   padding: 0;
 }
 .btn:link,
+button:link,
+input[type="button"]:link,
+input[type="submit"]:link,
+input[type="reset"]:link,
 .btn:visited,
+button:visited,
+input[type="button"]:visited,
+input[type="submit"]:visited,
+input[type="reset"]:visited,
 .btn:hover,
-.btn:active {
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+.btn:active,
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
   color: inherit;
+}
+.btn:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+.btn:focus,
+button:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus {
+  background-color: #f5f5f5;
+}
+.btn:active,
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
+  background-color: #f5f5f5;
+  box-shadow: inset 0.12em 0.12em 1em #dbdbdb;
+}
+.btn:focus,
+button:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus {
+  outline: thin dotted;
+  outline-offset: -2px;
 }
 .btn-block {
   display: block;
@@ -1029,4 +1075,28 @@ img {
 }
 .table > [class|="row"] > [class|="col"] {
   display: table-cell;
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}
+img.right {
+  margin-right: 0;
+  margin-left: 15px;
+}
+img.left {
+  margin-left: 0;
+  margin-right: 15px;
+}
+article:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }
