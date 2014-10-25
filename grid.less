@@ -105,20 +105,20 @@ table {
 thead {
 	th, td {
 		border-bottom: 1px solid @border;
-		border-right: 1px solid @border;
+		border-left: 1px solid @border;
 		
-		&:last-child {
-			border-right: none;
+		&:first-child {
+			border-left: none;
 		}
 	}
 }
 
 tbody {
 	th, td {
-		border-right: 1px solid @border;
+		border-left: 1px solid @border;
 		
-		&:last-child {
-			border-right: none;
+		&:first-child {
+			border-left: none;
 		}
 	}
 }
@@ -140,6 +140,11 @@ th, td {
 	td {
 		white-space: pre-line;
 	}
+	
+	th:last-child,
+	td:last-child {
+		border-right: none;
+	}
 }
 
 input, textarea {
@@ -150,33 +155,25 @@ input, textarea {
 	font-size: inherit;
 }
 
-input[type="radio"] {
-	display: inline;
-	margin: 0 0.2em;
-	width: auto;
-	vertical-align: middle;
-	
-	+ label {
-		vertical-align: middle;
-	}
-}
-
 fieldset {
-	margin: 0 0 @gap;
+	margin: @gap 0;
 	padding: 0;
 	border: none;
 }
 
-.radios {
+.radio, .checkbox {
 	label {
-		display: block;
+		display: inline-block;
 		position: relative;
 		padding-left: 1.5em;
 	}
 	
-	input[type="radio"] {
+	input[type="radio"],
+	input[type="checkbox"] {
 		display: block;
 		position: absolute;
+		padding: 0;
+		width: auto;
 		top: 0;
 		bottom: 0;
 		left: 0.2em;
