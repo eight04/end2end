@@ -994,7 +994,8 @@ article:after {
   color: #d4d4d4;
 }
 .blackboard-side {
-  font-size: 80%;
+  font-size: 75%;
+  color: #d4d4d4;
 }
 @media (min-width: 768px) {
   .blackboard {
