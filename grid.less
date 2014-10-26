@@ -523,18 +523,21 @@ article {
 	}
 }
 
+@navbar-height: 2.75em;
+
 .navbar {
 	background-color: @color-bg;
 	border-bottom: 1px solid @border;
-	height: 2.75em;
+	height: @navbar-height;
 	z-index: 1000;
+	box-sizing: content-box;
 	
 	.clearfix();
 	
 	.container, .container-fluid {
 		padding: 0;
 		height: 100%;
-		text-align: right;
+		// text-align: right;
 		position: relative;
 	}
 }
@@ -572,10 +575,16 @@ article {
 	font-weight: 700;
 }
 
-.navbar-nav,
+.navbar-nav {
+	display: block;
+	float: left;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
 .navbar-nav li {
-	&:extend(.navbar-col);
-	
+	display: inline;
 	padding: 0;
 	margin: 0;
 }
@@ -620,6 +629,15 @@ article {
 }
 
 @media (max-width: @window-sm) {
+	.navbar{
+		height: auto;
+	}
+	
+	.navbar-header {
+		display: block;
+		height: @navbar-height;
+	}
+	
 	.navbar-toggle {
 		display: inline-block;
 	}
@@ -627,6 +645,11 @@ article {
 	.navbar-collapse {
 		display: none;
 		clear: both;
+		// border-bottom: 1px solid @border;
+		
+		&.show {
+			display: block;
+		}
 		
 		.navbar-nav,
 		.navbar-nav li,
@@ -640,9 +663,18 @@ article {
 		.navbar-form {
 			border-top: 1px solid @border;
 			background-color: @color-bg;
+			padding: 0.25em 0;
+			
+			&:before {
+				display: none;
+			}
+		}
+		
+		.navbar-nav li {
 		}
 
 		.navbar-nav a {
+			padding: 0.375em @gap;
 			&:hover {
 				background-color: lighten(@color-bg, 3%);
 			}
@@ -694,8 +726,4 @@ article {
 			float: left;
 		}
 	}
-}
-
-.show {
-	display: block;
 }
