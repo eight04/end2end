@@ -982,3 +982,50 @@ article:after {
     float: left;
   }
 }
+.blackboard {
+  background-color: #3d3d3d;
+  color: #f2f2f2;
+}
+.blackboard-head {
+  margin: 0;
+  line-height: 1;
+}
+.blackboard-body {
+  color: #d4d4d4;
+}
+.blackboard-side {
+  font-size: 80%;
+}
+@media (min-width: 768px) {
+  .blackboard {
+    margin: 0 0 1em;
+    padding: 4.5em 0 4em;
+  }
+  .blackboard .row {
+    align-items: center;
+  }
+  .blackboard .row > * {
+    vertical-align: middle;
+  }
+  .blackboard-head {
+    font-size: 360%;
+  }
+  .blackboard-body {
+    font-size: 150%;
+    color: #d4d4d4;
+    font-weight: lighter;
+  }
+  .blackboard-side {
+    padding: 1em;
+    font-size: 80%;
+  }
+}
+@media (max-width: 768px) {
+  .blackboard {
+    padding: 1.5em 0;
+  }
+  .blackboard-head {
+    font-size: 200%;
+    text-align: center;
+  }
+}
