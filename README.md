@@ -21,3 +21,4 @@ Todos
 * Angular support.
 * Add push/pull.
 * Add sidebar component.
+* Add link-pool component.
