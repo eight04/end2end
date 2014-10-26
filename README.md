@@ -19,3 +19,5 @@ Todos
 * Add common components.
 * Add fixed navbar.
 * Angular support.
+* Add push/pull.
+* Add sidebar component.
