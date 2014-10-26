@@ -335,6 +335,14 @@ img {
   letter-spacing: normal;
   width: 100%;
 }
+.row-nogap {
+  margin-left: 0;
+  margin-right: 0;
+}
+.row-nogap > [class|="col"] {
+  padding-left: 0;
+  padding-right: 0;
+}
 .row-top {
   align-items: flex-start;
 }

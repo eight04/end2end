@@ -364,6 +364,16 @@ img {
 	width: 100%;
 }
 
+.row-nogap {
+	margin-left: 0;
+	margin-right: 0;
+	
+	> [class|="col"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
 .row-top {
 	align-items: flex-start;
 	> * {
@@ -594,6 +604,7 @@ article {
 	
 	&.active a {
 		background-color: darken(@color-bg, 6%);
+		// background-color: lighten(@color-bg, 3%);
 		
 		&:hover {
 			// background-color: lighten(@color-bg, 2%);
