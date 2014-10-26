@@ -566,13 +566,17 @@ article {
 	padding: 0 @gap;
 	
 	&:hover {
-		background-color: lighten(@color-bg, 3%);
+		// background-color: lighten(@color-bg, 3%);
 		color: @color;
 	}
 }
 
 .navbar-brand:extend(.navbar-link all) {
 	font-weight: 700;
+	
+	&:hover {
+		background-color: transparent;
+	}
 }
 
 .navbar-nav {
@@ -587,10 +591,18 @@ article {
 	display: inline;
 	padding: 0;
 	margin: 0;
+	
+	&.active a {
+		background-color: darken(@color-bg, 6%);
+		
+		&:hover {
+			// background-color: lighten(@color-bg, 2%);
+		}
+	}
 }
 
 .navbar-nav a {
-	&:extend(.navbar-link all) ;
+	&:extend(.navbar-link all);
 }
 
 .navbar-toggle {
@@ -676,7 +688,7 @@ article {
 		.navbar-nav a {
 			padding: 0.375em @gap;
 			&:hover {
-				background-color: lighten(@color-bg, 3%);
+				// background-color: lighten(@color-bg, 1.5%);
 			}
 		}
 		

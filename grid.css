@@ -830,11 +830,13 @@ article:after {
 .navbar-link:hover,
 .navbar-brand:hover,
 .navbar-nav a:hover {
-  background-color: #fafafa;
   color: #3d3d3d;
 }
 .navbar-brand {
   font-weight: 700;
+}
+.navbar-brand:hover {
+  background-color: transparent;
 }
 .navbar-nav {
   display: block;
@@ -847,6 +849,9 @@ article:after {
   display: inline;
   padding: 0;
   margin: 0;
+}
+.navbar-nav li.active a {
+  background-color: #e3e3e3;
 }
 .navbar-toggle {
   display: none;
@@ -912,9 +917,6 @@ article:after {
   }
   .navbar-collapse .navbar-nav a {
     padding: 0.375em 15px;
-  }
-  .navbar-collapse .navbar-nav a:hover {
-    background-color: #fafafa;
   }
   .navbar-collapse .navbar-form {
     padding: 15px;
