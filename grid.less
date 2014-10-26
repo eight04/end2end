@@ -494,7 +494,7 @@ article {
 	padding: 0.56em @gap;
 }
 
-.navbar-static:extend(.vcenter all, .navbar-col) {
+.navbar-static:extend(.navbar-col) {
 	position: relative;
 	z-index: 1020;
 }
@@ -521,9 +521,18 @@ article {
 .navbar-nav a:extend(.navbar-btn all) {
 }
 
-.navbar-toggle:extend(.navbar-btn all) {
+.navbar-toggle {
 	float: right;
 	display: none;
+	margin: @gap/2 @gap;
+	padding: 1px 0.32em 0;
+	line-height: 1;
+	min-width: 0;
+	font-size: 160%;
+	
+	&:focus {
+		outline: none;
+	}
 }
 
 .navbar-collapse {
@@ -534,12 +543,14 @@ article {
 	font-size: 80%;
 	margin: @gap/2 0;
 	padding: 0 @gap;
-	
-	> * {
-		display: inline-block;
-		vertical-align: middle;
-		margin: 0;
-		width: auto;
+		
+	@media (min-width: @window-sm) {
+		button, input {
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0;
+			width: auto;
+		}
 	}
 }
 
@@ -550,36 +561,32 @@ article {
 	
 	.navbar-collapse {
 		display: none;
+		clear: both;
 		
-		&.show {
-			display: block;
-			border-top: 1px solid @border;
-			clear: both;
-			width: 100%;
-			height: 100%;
-			
-		}
-		
-		.navbar-layer,
 		.navbar-nav,
-		.navbar-nav li {
-			display: inline;
-			position: static;
-			float: none;
-		}
-		
-		.navbar-static,
+		.navbar-nav li,
 		.navbar-nav a,
 		.navbar-form {
-			float: none;
 			display: block;
-			position: static;
+			float: none;
+		}
+		
+		.navbar-nav,
+		.navbar-form {
+			border-top: 1px solid @border;
 			background-color: @color-bg;
-			border-bottom: 1px solid @border;
-			padding: 0 @gap;
+		}
+
+		.navbar-nav a {
 			&:hover {
 				background-color: lighten(@color-bg, 3%);
 			}
+		}
+		
+		.navbar-form {
+			padding: @gap;
+			margin: 0;
+			font-size: inherit;
 		}
 	}
 }

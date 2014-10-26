@@ -24,6 +24,7 @@
   ],
   "devDependencies": {},
   "dependencies": {
-    "respond": "~1.4.2"
+    "respond": "~1.4.2",
+    "font-awsome": "~4.2.0"
   }
 }
