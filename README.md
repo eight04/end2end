@@ -12,4 +12,10 @@ Goal
 
 Known Issue
 -----------
-* 輸入欄的中英混排問題
+* Input[type="text"] in IE8 (Wrong line height) and Chrome (Wrong caret position).
+
+Todos
+-----
+* Add common components.
+* Add fixed navbar.
+* Angular support.

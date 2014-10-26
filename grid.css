@@ -343,6 +343,14 @@ img {
   padding-left: 0;
   padding-right: 0;
 }
+.table-nogap {
+  margin-left: 0;
+  margin-right: 0;
+}
+.table-nogap > .row > [class|="col"] {
+  padding-left: 0;
+  padding-right: 0;
+}
 .row-top {
   align-items: flex-start;
 }
