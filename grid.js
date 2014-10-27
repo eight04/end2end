@@ -255,15 +255,13 @@ angular.module("bootstrap-port", ["ngAnimate"])
 			controller: function($element, $animate){
 				var controller = this;
 				
-				$element.on("click", function(e){
-					controller.toggle();
-				});
-				
 				controller.toggle = function(){
 					if (!$element.hasClass("expand")) {
 						$animate.addClass($element, "expand");
+						$element.on("click", controller.toggle);
 					} else {
 						$animate.removeClass($element, "expand");
+						$element.off("click", controller.toggle);
 					}
 				}
 			}

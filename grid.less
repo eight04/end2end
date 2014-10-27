@@ -787,6 +787,24 @@ article {
 	&.expand-remove {
 		transition: 0.4s all;
 	}
+	
+	&.expand-add {
+		transform: translateX(100%);
+		
+		&.expand-add-active {
+			transform: none;
+		}
+	}
+	
+	&.expand-remove {
+		right: 0;
+		left: auto;
+		transform: none;
+		
+		&.expand-remove-active {
+			transform: translateX(100%);
+		}
+	}
 }
 
 .sidebar-toggle {
@@ -877,23 +895,6 @@ article {
 		.sidebar-content {
 			background-color: white;
 			padding: 0 @gap;
-		}
-		&.expand-add {
-			transform: translateX(100%);
-			
-			&.expand-add-active {
-				transform: none;
-			}
-		}
-		
-		&.expand-remove {
-			right: 0;
-			left: auto;
-			transform: none;
-			
-			&.expand-remove-active {
-				transform: translateX(100%);
-			}
 		}
 	}
 }
