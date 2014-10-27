@@ -256,9 +256,7 @@ angular.module("bootstrap-port", ["ngAnimate"])
 				var controller = this;
 				
 				$element.on("click", function(e){
-					if (e.target.nodeName == "A") {
-						controller.toggle();
-					}
+					controller.toggle();
 				});
 				
 				controller.toggle = function(){
@@ -267,7 +265,7 @@ angular.module("bootstrap-port", ["ngAnimate"])
 					} else {
 						$animate.removeClass($element, "expand");
 					}
-				};
+				}
 			}
 		};
 	})
@@ -276,8 +274,9 @@ angular.module("bootstrap-port", ["ngAnimate"])
 			restrict: "C",
 			require: "^sidebar",
 			link: function(scope, element, attrs, controller){
-				element.on("click", function(){
+				element.on("click", function(e){
 					controller.toggle();
+					e.stopPropagation();
 				});
 			}
 		};
