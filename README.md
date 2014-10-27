@@ -21,5 +21,6 @@ Todos
 * <del>Add fixed navbar.</del> Done.
 * Angular support.
 * <del>Add push/pull.</del> Done.
-* Add sidebar component.
+* <del>Add sidebar component.</del> Done.
 * Add link-pool component.
+* Add affix component.
