@@ -184,6 +184,10 @@ input, select {
 	&:extend(.form-control all);
 }
 
+select {
+	cursor: pointer;
+}
+
 select[multiple] {
 	height: auto;
 }
@@ -316,6 +320,22 @@ img {
 	vertical-align: middle;
 }
 
+.paint-grid {
+	.row {
+		background-color: darken(@color-bg, 6%);
+	}
+	
+	[class|="col"] {
+		background-color: darken(@color-bg, 12%);
+		// border: 1px solid;
+	}
+	
+	.content {
+		background-color: darken(@color-bg, 18%);
+		// border: 1px solid;
+	}
+}
+
 .highlight(){
 	background-color: fade(@highlight, 40%);
 }
@@ -406,19 +426,6 @@ img {
 	}
 }
 
-// chrome hack
-// @media screen and (-webkit-min-device-pixel-ratio:0) {
-	// .row {
-		// letter-spacing: -0.3125em;
-		// font-family: Arial;
-	// }
-	
-	// [class|="col"] {
-		// letter-spacing: normal;
-		// font-family: @font-family-base;
-	// }
-// }
-
 .make-cols-var(@columns, @size, @count) when (@count =< @columns) {
 	.col-@{size}-@{count}-@{columns} {
 		width: percentage(@count/@columns);
@@ -494,13 +501,12 @@ img {
 
 .make-table-var(@size) {
 	.table-@{size} {
-		.row();
+		margin: 0 -@gap;
 		
-		> [class|="row"] {
+		> .row {
 			display: table;
 			margin: 0;
 			width: 100%;
-			border-collapse: collapse;
 			
 			> [class|="col"] {
 				display: table-cell;
@@ -648,8 +654,6 @@ article {
 .navbar-form {
 	&:extend(.navbar-col all);
 	
-	// font-size: 80%;
-	// margin: @gap/2 0;
 	padding: 0 @gap;
 	
 	@media (min-width: @window-sm) {
@@ -677,12 +681,13 @@ article {
 	}
 	
 	.navbar-collapse {
-		display: none;
+		display: block;
 		clear: both;
 		// border-bottom: 1px solid @border;
+		overflow: hidden;
 		
-		&.show {
-			display: block;
+		&.collapse {
+			display: none;
 		}
 		
 		.navbar-nav,
@@ -698,6 +703,7 @@ article {
 			border-top: 1px solid @border;
 			background-color: @color-bg;
 			padding: 0.25em 0;
+			height: auto;
 			
 			&:before {
 				display: none;
@@ -818,5 +824,40 @@ article {
 	.blackboard-head {
 		font-size: 200%;
 		text-align: center;
+	}
+}
+
+// Animate
+.collapsing {
+	transition: 0.4s all ease;
+}
+
+// Responsive utility
+.make-utility(xs);
+
+@media (min-width: @window-sm) {
+	.make-utility(sm);
+}
+
+@media (min-width: @window-md) {
+	.make-utility(md);
+}
+
+@media (min-width: @window-md) {
+	.make-utility(lg);
+}
+
+.make-utility(@size){
+	.block-@{size} {
+		display: block;
+	}
+	.inline-@{size} {
+		display: inline;
+	}
+	.inline-block-@{size} {
+		display: inline-block;
+	}
+	.none-@{size} {
+		display: none;
 	}
 }
