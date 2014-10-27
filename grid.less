@@ -777,35 +777,106 @@ article {
 	display: none;
 }
 
-@media (min-width: @window-md) {
-	.sidebar-md {
-		margin: 0;
-		padding: 0;
-		width: 100%;
+.sidebar {
+	top: 0;
+	left: 100%;
+	z-index: 1100;
+	padding: 0;
+	
+	&.expand-add {
+		transition: 0.4s all;
+		transform: translateX(100%);
+		
+		&.expand-add-active {
+			transform: none;
+		}
 	}
-	.sidebar-toggle {
-		display: none;
+	
+	&.expand-remove {
+		transition: 0.4s all;
+		right: 0;
+		left: auto;
+		
+		&.expand-remove-active {
+			transform: translateX(100%);
+		}
 	}
 }
 
+.sidebar-toggle {
+	// WOW I HAVE TO OVERIDE SO MANY DEFAULT STYLE?!
+	display: none;
+	position: absolute;
+	top: 17%;
+	right: 100%;
+	width: 1.7em;
+	height: 2em;
+	line-height: 2;
+	text-align: center;
+	background-color: @color;
+	color: @color-bg;
+	border-radius: 0.36em 0 0 0.36em;
+	border: 1px solid @border;
+	border-right: none;
+	box-sizing: content-box;
+	z-index: 1090;
+	opacity: 0.5;
+	cursor: pointer;
+	min-width: 0;
+	padding: 0;
+	margin: 0;
+	box-shadow: 0 0 1em black;
+	
+	&:before {
+		content: "«";
+	}
+	
+	&:active {
+		box-shadow: 0 0 1em black;
+	}
+	
+	&:focus {
+		background-color: @color;
+		color: @color-bg;
+		outline: none;
+	}
+	
+	&:hover {
+		background-color: @color;
+		color: @color-bg;
+		width: 2em;
+		opacity: 1;
+	}
+}
+
+.sidebar-content {
+	position: relative;
+	z-index: 1110;
+}
+
+@media (max-width: @window-sm) {
+	.make-sidebar(sm);
+}
+
 @media (max-width: @window-md) {
-	.sidebar-md {
-		display: block;
+	.make-sidebar(md);
+}
+
+@media (max-width: @window-lg) {
+	.make-sidebar(lg);
+}
+
+.make-sidebar(@size) {
+	.sidebar-@{size} {
 		position: fixed;
-		top: 0;
-		left: 100%;
 		height: 100%;		
-		z-index: 1100;
-		padding: 0;
 		width: 320px;
-		min-width: 320px;
 		background-color: white;
 		border-left: 1px solid @border;
 		
 		&.expand {
 			right: 0;
 			left: auto;
-			// opacity: 1;
 			box-shadow: 0 0 1em black;
 			
 			.sidebar-toggle:before {
@@ -813,75 +884,14 @@ article {
 			}
 		}
 		
-		&.expand-add {
-			transition: 0.4s all;
-			transform: translateX(100%);
-			
-			&.expand-add-active {
-				transform: none;
-			}
+		.sidebar-toggle {
+			display: block;
 		}
 		
-		&.expand-remove {
-			transition: 0.4s all;
-			right: 0;
-			left: auto;
-			
-			&.expand-remove-active {
-				transform: translateX(100%);
-			}
+		.sidebar-content {
+			background-color: white;
+			padding: 0 @gap;
 		}
-	}
-	
-	.sidebar-toggle {
-		display: block;
-		position: absolute;
-		top: 17%;
-		right: 100%;
-		width: 1.7em;
-		height: 2em;
-		line-height: 2;
-		text-align: center;
-		background-color: @color;
-		color: @color-bg;
-		border-radius: 0.36em 0 0 0.36em;
-		border: 1px solid @border;
-		border-right: none;
-		box-sizing: content-box;
-		z-index: 1090;
-		opacity: 0.5;
-		cursor: pointer;
-		min-width: 0;
-		padding: 0;
-		margin: 0;
-		box-shadow: 0 0 1em black;
-		
-		&:active {
-			box-shadow: 0 0 1em black;
-		}
-		
-		&:before {
-			content: "«";
-		}
-		
-		&:hover,
-		&:focus {
-			background-color: @color;
-			color: @color-bg;
-			outline: none;
-		}
-		
-		&:hover {
-			width: 2em;
-			opacity: 1;
-		}
-	}
-	
-	.sidebar-content {
-		position: relative;
-		z-index: 1110;
-		background-color: white;
-		padding: 0 @gap;
 	}
 }
 
