@@ -20,6 +20,6 @@ Todos
 * Add common components.
 * <del>Add fixed navbar.</del> Done.
 * Angular support.
-* Add push/pull.
+* <del>Add push/pull.</del> Done.
 * Add sidebar component.
 * Add link-pool component.

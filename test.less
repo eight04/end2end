@@ -1,15 +1,28 @@
-.make-selector(@size) {
-	.make-selector(@size, @selector, @count) when (@count > 0) {
-		.make-selector(@size, ~".col-@{size}-@{count}, @{selector}", @count - 1);
+.make-move-var(@size, @grids) {
+	.make-move-var(@i) when (@i =< length(@grids)) {
+		@columns: extract(@grids, @i);
+		
+		.make-move-inner(@j) when (@j =< @columns) {
+			.push-@{size}-@{j}-@{columns} {
+				position: relative;
+				left: percentage(@j/@columns);
+			}
+			
+			.pull-@{size}-@{j}-@{columns} {
+				position: relative;
+				right: percentage(@j/@columns);
+			}
+		
+			.make-move-inner(@j + 1);
+		}
+		.make-move-inner(1);
+		
+		.make-move-var(@i + 1);
 	}
-	.make-selector(@size, @selector, @count) when (@count = 0) {
-		@return: @selector;
-	}
-	.make-selector(@size, ~".col-sm-12", 11);
-	@{return} {
-		color: blue;
-	}
+	.make-move-var(1);
 }
+@l: 5,7,12;
 
-.make-selector(sm);
-.make-selector(md);
+output {
+	.make-move-var(sm, @l);
+}
