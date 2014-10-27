@@ -248,4 +248,37 @@ angular.module("bootstrap-port", ["ngAnimate"])
 				});
 			}
 		};
+	})
+	.directive("sidebar", function(){
+		return {
+			restrict: "C",
+			controller: function($element, $animate){
+				var controller = this;
+				
+				$element.on("click", function(e){
+					// if (e.target.) {
+						controller.toggle();
+					// }
+				});
+				
+				controller.toggle = function(){
+					if (!$element.hasClass("expand")) {
+						$animate.addClass($element, "expand");
+					} else {
+						$animate.removeClass($element, "expand");
+					}
+				};
+			}
+		};
 	});
+	// .directive("sidebarToggle", function(){
+		// return {
+			// restrict: "C",
+			// require: "^sidebar",
+			// link: function(scope, element, attrs, controller){
+				// element.on("click", function(){
+					// controller.toggle();
+				// });
+			// }
+		// };
+	// });

@@ -799,17 +799,36 @@ article {
 		padding: 0;
 		width: 320px;
 		min-width: 320px;
+		background-color: white;
+		border-left: 1px solid @border;
 		
 		&.expand {
 			right: 0;
 			left: auto;
-			opacity: 1;
-			background-color: white;
-			border-left: 1px solid @border;
+			// opacity: 1;
 			box-shadow: 0 0 1em black;
 			
 			.sidebar-toggle:before {
 				content: "»";
+			}
+		}
+		
+		&.expand-add {
+			transition: 0.4s all;
+			transform: translateX(100%);
+			
+			&.expand-add-active {
+				transform: none;
+			}
+		}
+		
+		&.expand-remove {
+			transition: 0.4s all;
+			right: 0;
+			left: auto;
+			
+			&.expand-remove-active {
+				transform: translateX(100%);
 			}
 		}
 	}
@@ -836,7 +855,10 @@ article {
 		padding: 0;
 		margin: 0;
 		box-shadow: 0 0 1em black;
-		// outline: none;
+		
+		&:active {
+			box-shadow: 0 0 1em black;
+		}
 		
 		&:before {
 			content: "«";
@@ -844,11 +866,14 @@ article {
 		
 		&:hover,
 		&:focus {
-			opacity: 1;
 			background-color: @color;
 			color: @color-bg;
-			width: 2em;
 			outline: none;
+		}
+		
+		&:hover {
+			width: 2em;
+			opacity: 1;
 		}
 	}
 	

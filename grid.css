@@ -1736,17 +1736,31 @@ article:after {
     padding: 0;
     width: 320px;
     min-width: 320px;
+    background-color: white;
+    border-left: 1px solid #a3a3a3;
   }
   .sidebar-md.expand {
     right: 0;
     left: auto;
-    opacity: 1;
-    background-color: white;
-    border-left: 1px solid #a3a3a3;
     box-shadow: 0 0 1em black;
   }
   .sidebar-md.expand .sidebar-toggle:before {
     content: "»";
+  }
+  .sidebar-md.expand-add {
+    transition: 0.4s all;
+    transform: translateX(100%);
+  }
+  .sidebar-md.expand-add.expand-add-active {
+    transform: none;
+  }
+  .sidebar-md.expand-remove {
+    transition: 0.4s all;
+    right: 0;
+    left: auto;
+  }
+  .sidebar-md.expand-remove.expand-remove-active {
+    transform: translateX(100%);
   }
   .sidebar-toggle {
     display: block;
@@ -1771,16 +1785,21 @@ article:after {
     margin: 0;
     box-shadow: 0 0 1em black;
   }
+  .sidebar-toggle:active {
+    box-shadow: 0 0 1em black;
+  }
   .sidebar-toggle:before {
     content: "«";
   }
   .sidebar-toggle:hover,
   .sidebar-toggle:focus {
-    opacity: 1;
     background-color: #3d3d3d;
     color: #f2f2f2;
-    width: 2em;
     outline: none;
+  }
+  .sidebar-toggle:hover {
+    width: 2em;
+    opacity: 1;
   }
   .sidebar-content {
     position: relative;
