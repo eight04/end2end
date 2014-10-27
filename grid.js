@@ -2,41 +2,20 @@
 "use strict";
 
 function getAniTimeout(element){
-	var time = window.getComputedStyle(element[0] || element).getPropertyValue("transition-duration");
-	var s = time.match(/^([\d.]+)s$/);
-	var ms = (s && s[1] * 1000) || time.match(/^(\d+)ms$/)[1] * 1;
+	var time, s, ms;
+	if (!window.getComputedStyle) {
+		return 0;
+	}
+	time = window.getComputedStyle(element[0] || element).getPropertyValue("transition-duration");
+	if (!time) {
+		return 0;
+	}
+	s = time.match(/^([\d.]+)s$/);
+	ms = (s && s[1] * 1000) || time.match(/^(\d+)ms$/)[1] * 1;
 	return ms;
 }
 
 angular.module("bootstrap-port", ["ngAnimate"])
-	.directive("navTabs", function(){
-		return {
-			restrict: "C",
-			link: function(scope, element, attrs){
-				var as = element[0].querySelectorAll("li a"), i,
-					url = location.href.split(/[?#]/)[0], dirty = false, u2,
-					select = null;
-				
-				for (i = 0; i < as.length; i++) {
-					u2 = as[i].href.split(/[?#]/)[0];
-					
-					if (as[i].parentNode.getAttribute("strict") !== null) {
-						if (url == u2) {
-							select = as[i];
-						}
-					} else if (url.indexOf(u2) > -1) {
-						select = as[i];
-					}
-				}
-				
-				if (select) {
-					select.parentNode.classList.add("active");
-				} else {
-					element.remove();
-				}
-			}
-		};
-	})
 	.directive("navbar", function(collapse){
 		return {
 			restrict: "C",
