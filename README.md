@@ -13,11 +13,12 @@ Goal
 Known Issue
 -----------
 * Input[type="text"] in IE8 (Wrong line height) and Chrome (Wrong caret position).
+* Fixed navbar overflow issue?
 
 Todos
 -----
 * Add common components.
-* Add fixed navbar.
+* <del>Add fixed navbar.</del> Done.
 * Angular support.
 * Add push/pull.
 * Add sidebar component.

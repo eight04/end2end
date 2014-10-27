@@ -810,6 +810,10 @@ article:after {
   height: 100%;
   position: relative;
 }
+.navbar-fixed {
+  position: fixed;
+  width: 100%;
+}
 .navbar-header {
   display: inline;
 }
