@@ -1,6 +1,6 @@
 end2end
 =======
-A css framework build with AngularJS.
+A front-end framework built with AngularJS.
 
 Demo page
 ---------
