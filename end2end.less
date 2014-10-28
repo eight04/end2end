@@ -420,13 +420,18 @@ article {
 	width: 100%;
 }
 
+[class*="push-"],
+[class*="pull-"] {
+	position: relative;
+}
+
 // Grid core
-@import "core/grid.css";
+@import (inline) "core/grid.css";
+
 
 /**
 	Other components
 */
-
 .clearfix {
 	&:after {
 		content: "";

@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 		},
 		main: {
 			files: "end2end.less",
-			task: "less:main"
+			tasks: "less:main"
 		}
 	}
   });
