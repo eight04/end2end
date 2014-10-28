@@ -175,6 +175,36 @@
 						</div>
 					</div>
 					
+					<h3>Align items separately</h3>
+					<div class="row">
+						<div class="col-xs-1-5 col-top">
+							<div class="content">
+								.col-xs-1-5
+							</div>
+						</div>
+						<div class="col-xs-1-5 col-middle">
+							<div class="content">
+								.col-xs-1-5<br>second-line
+							</div>
+						</div>
+						<div class="col-xs-1-5 col-bottom">
+							<div class="content">
+								.col-xs-1-5<br>second-line<br>third-line
+							</div>
+						</div>
+						<div class="col-xs-1-5 col-middle">
+							<div class="content">
+								.col-xs-1-5<br>second-line<br>third-line<br>4th-line
+							</div>
+						</div>
+						<div class="col-xs-1-5 col-middle">
+							<div class="content">
+								.col-xs-1-5<br>second-line<br>third-line<br>4th-line<br>5th-line
+							</div>
+						</div>
+					</div>
+					<p>Note: The "middleline" doesn't base on line-box's height. Make sure the highest item has .col-middle to get correct position.</p>
+					
 					<h3>No gap</h3>
 					<div class="row row-nogap">
 						<div class="col-xs-1-5">
@@ -350,22 +380,24 @@
 						<option value="">Option 5</option>
 					</select>
 					
-					<button>Submit</button>
-					<button type="reset">Reset</button>
+					<button class="btn-form">Submit</button>
+					<button class="btn-form" type="reset">Reset</button>
 				</form>
 				
-				<article>
+				<article class="clearfix">
 					<h2>Images</h2>
 					<p>
-						Hi, this is my picture: <img src="http://placehold.it/140x140" alt="">, Also check my Website! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, illum, sequi, earum tempora quas assumenda neque ut tenetur animi consectetur voluptatum fugiat iste sed at deleniti repudiandae labore? Alias, consequuntur.
+						Hi, this is my picture: <img src="http://placehold.it/24x24" alt="">, Also check my Website! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, illum, sequi, earum tempora quas assumenda neque ut tenetur animi consectetur voluptatum fugiat iste sed at deleniti repudiandae labore? Alias, consequuntur.
 					</p>
-					<img src="//placehold.it/140x140" alt="" class="right">
 					<p>
+						<img src="//placehold.it/140x140" alt="" class="right-sm">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, accusamus, dolores laboriosam neque deleniti non aspernatur impedit ex quaerat quasi inventore ipsa iusto voluptatum nihil similique esse soluta reprehenderit voluptas?
 					</p>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, nihil, voluptas, rerum consectetur veritatis adipisci ratione explicabo repellendus reprehenderit officia quo hic ad? Sint, quod eaque adipisci perspiciatis ipsum repellendus.</p>
-					<img src="//placehold.it/140x140" alt="" class="left">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, doloremque, ea eaque iste hic harum eius neque animi magnam quisquam omnis provident veniam molestias dolorem rerum minima nihil officia est.</p>
+					<p>
+						<img src="//placehold.it/140x140" alt="" class="left-sm">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, doloremque, ea eaque iste hic harum eius neque animi magnam quisquam omnis provident veniam molestias dolorem rerum minima nihil officia est.
+					</p>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, illo, iure animi soluta officiis nemo porro sed aut nihil quibusdam? Consequatur, commodi, harum assumenda eius incidunt minus numquam quasi voluptas.</p>
 				</article>
 				

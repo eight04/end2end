@@ -67,8 +67,10 @@ button {
 	}
 }
 
+.btn,
 button {
 	background-image: none;
+	background-color: @color-bg;
 	
 	&:focus {
 		background-color: lighten(@color-bg, 3%);
@@ -129,3 +131,16 @@ button {
 	background-color: fade(@highlight, 40%);
 }
 
+// Components style
+
+.navbar {
+	background-color: @color-bg;
+	border-bottom: 1px solid @border;
+	box-sizing: content-box;
+}
+
+.navbar-nav li.active a {
+	&:link {
+		background-color: darken(@color-bg, 6%);
+	}
+}
