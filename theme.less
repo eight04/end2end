@@ -56,8 +56,7 @@ thead {
 
 input,
 textarea,
-select,
-button {
+select {
 	border: 1px solid @border;
 	border-radius: 0.1875em;
 	padding: 0 0.5em;
@@ -71,6 +70,10 @@ button {
 
 .btn,
 button {
+	border: 1px solid @border;
+	border-radius: 0.1875em;
+	padding: 0 0.5em;
+	
 	background-image: none;
 	background-color: @color-bg;
 	margin-right: 0.25em;
@@ -135,16 +138,18 @@ button {
 }
 
 // Components style
+@navbar-color: lighten(@color, 12%);
 
 .navbar {
 	background-color: @color-bg;
 	border-bottom: 1px solid @border;
 	box-sizing: content-box;
+	color: @navbar-color;
 }
 
 .navbar-nav a {
 	&:hover {
-		color: darken(@color, 40%);
+		color: darken(@navbar-color, 40%);
 	}
 }
 
@@ -155,8 +160,6 @@ button {
 }
 
 .sidebar {
-	border-left: 1px solid @border;
-	
 	&.expand {
 		box-shadow: 0 0 1em black;
 	}

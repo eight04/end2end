@@ -168,7 +168,7 @@ img {
 img[class*="right-"],
 img[class*="left-"] {
   display: block;
-  margin: 0 auto;
+  margin: 0.5em auto;
 }
 /**
 	Grid system
@@ -2864,6 +2864,7 @@ img[class*="left-"] {
     position: fixed;
     width: 320px;
     height: 100%;
+    border-left: 1px solid #a3a3a3;
   }
   .sidebar-sm.expand {
     right: 0;
@@ -2887,6 +2888,7 @@ img[class*="left-"] {
     position: fixed;
     width: 320px;
     height: 100%;
+    border-left: 1px solid #a3a3a3;
   }
   .sidebar-md.expand {
     right: 0;
@@ -2910,6 +2912,7 @@ img[class*="left-"] {
     position: fixed;
     width: 320px;
     height: 100%;
+    border-left: 1px solid #a3a3a3;
   }
   .sidebar-lg.expand {
     right: 0;
@@ -3090,4 +3093,7 @@ img.right-xs {
   .none-lg {
     display: none;
   }
+}
+.clear {
+  clear: both;
 }

@@ -43,8 +43,7 @@ thead td {
 }
 input,
 textarea,
-select,
-button {
+select {
   border: 1px solid #a3a3a3;
   border-radius: 0.1875em;
   padding: 0 0.5em;
@@ -52,19 +51,19 @@ button {
 input:hover,
 textarea:hover,
 select:hover,
-button:hover,
 input:focus,
 textarea:focus,
 select:focus,
-button:focus,
 input:active,
 textarea:active,
-select:active,
-button:active {
+select:active {
   border-color: #cfcfcf;
 }
 .btn,
 button {
+  border: 1px solid #a3a3a3;
+  border-radius: 0.1875em;
+  padding: 0 0.5em;
   background-image: none;
   background-color: #f2f2f2;
   margin-right: 0.25em;
@@ -119,15 +118,13 @@ button:active {
   background-color: #f2f2f2;
   border-bottom: 1px solid #a3a3a3;
   box-sizing: content-box;
+  color: #5c5c5c;
 }
 .navbar-nav a:hover {
   color: #000000;
 }
 .navbar-nav li.active a:link {
   background-color: #e3e3e3;
-}
-.sidebar {
-  border-left: 1px solid #a3a3a3;
 }
 .sidebar.expand {
   box-shadow: 0 0 1em black;

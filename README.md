@@ -14,7 +14,7 @@ Known Issue
 -----------
 * Input[type="text"] in IE8 (Wrong line height) and Chrome (Wrong caret position).
 * Fixed navbar overflow issue?
-* Breaking point issue. (Some widget use min-width, some widget use max-width)
+* Breaking point issue. (Some widget use min-width, some widget use max-width). To avoid this, use `widow-size - 1px` on `max-width`
 
 Todos
 -----

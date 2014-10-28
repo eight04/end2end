@@ -203,7 +203,7 @@ img {
 	&[class*="right-"],
 	&[class*="left-"] {
 		display: block;
-		margin: 0 auto;
+		margin: 0.5em auto;
 	}
 }
 
@@ -548,6 +548,7 @@ img {
 		position: fixed;
 		width: 320px;
 		height: 100%;
+		border-left: 1px solid @border;
 		
 		&.expand {
 			right: 0;
@@ -696,4 +697,8 @@ img {
 	.none-@{size} {
 		display: none;
 	}
+}
+
+.clear {
+	clear: both;
 }
