@@ -258,15 +258,15 @@ angular.module("bootstrap-port", ["ngAnimate"])
 		
 		function moveSidebar(){
 			var i, sidebar, state;
-			
+			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 			// console.log(sidebarJar);
 			for(i = 0; i < sidebarJar.length; i++) {
 				sidebar = sidebarJar[i];
 				
-				if (sidebar.top >= w[0].scrollY) {
+				if (sidebar.top >= scrollY) {
 					// top
 					state = "sidebar-top";
-				} else if (w[0].scrollY + sidebar.height >= sidebar.rowBottom) {
+				} else if (scrollY + sidebar.height >= sidebar.rowBottom) {
 					// bottom
 					state = "sidebar-bottom";
 				} else {
@@ -300,17 +300,19 @@ angular.module("bootstrap-port", ["ngAnimate"])
 				row = row.parent();
 			}
 			var rowRect = row[0].getBoundingClientRect();
+			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 			
-			sidebar.top = rect.top + window.scrollY;
-			sidebar.width = rect.width;
-			sidebar.rowBottom = rowRect.bottom + window.scrollY;
+			sidebar.top = rect.top + scrollY;
+			sidebar.width = rect.right - rect.left;
+			sidebar.rowBottom = rowRect.bottom + scrollY;
 			sidebar.elementContent.css("width", sidebar.width + "px");
-			sidebar.height = sidebar.element[0].scrollHeight;
+			sidebar.height = sidebar.elementContent[0].scrollHeight;
+			console.log(sidebar);
 		}
 		
 		return {
 			restrict: "C",
-			controller: function($element, $animate){
+			controller: function($element, $animate, $timeout){
 				var controller = this;
 				
 				controller.toggle = function(){
@@ -328,7 +330,11 @@ angular.module("bootstrap-port", ["ngAnimate"])
 					element: $element,
 					elementContent: angular.element($element[0].querySelector(".sidebar-content"))
 				};
-				calc(sidebar);
+				
+				// IE8 issue with respond?
+				$timeout(function(){
+					calc(sidebar);
+				});
 				sidebarJar.push(sidebar);
 			}
 		};

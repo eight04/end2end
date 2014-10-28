@@ -566,6 +566,10 @@ img {
 			}
 		}
 		@media (min-width: @@wsize) {
+			&.sidebar-top .sidebar-content {
+				position: static;
+			}
+			
 			&.sidebar-fixed .sidebar-content{
 				position: fixed;
 				top: 0;
@@ -574,6 +578,9 @@ img {
 			&.sidebar-bottom .sidebar-content{
 				position: absolute;
 				bottom: 0;
+			}
+			.sidebar-content {
+				overflow: auto;
 			}
 		}
 	}	
