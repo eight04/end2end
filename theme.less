@@ -50,6 +50,8 @@ thead {
 	table {
 		border: none;
 	}
+	
+	border: 1px solid @border;
 }
 
 input,
@@ -71,6 +73,7 @@ button {
 button {
 	background-image: none;
 	background-color: @color-bg;
+	margin-right: 0.25em;
 	
 	&:focus {
 		background-color: lighten(@color-bg, 3%);
@@ -139,8 +142,72 @@ button {
 	box-sizing: content-box;
 }
 
+.navbar-nav a {
+	&:hover {
+		color: darken(@color, 40%);
+	}
+}
+
 .navbar-nav li.active a {
 	&:link {
 		background-color: darken(@color-bg, 6%);
+	}
+}
+
+.sidebar {
+	border-left: 1px solid @border;
+	
+	&.expand {
+		box-shadow: 0 0 1em black;
+	}
+	
+	&.expand-add,
+	&.expand-remove {
+		transition: 0.4s all;
+	}
+	
+	&.expand-add {
+		transform: translateX(100%);
+		
+		&.expand-add-active {
+			transform: none;
+		}
+	}
+	
+	&.expand-remove {
+		right: 0;
+		left: auto;
+		transform: none;
+		
+		&.expand-remove-active {
+			transform: translateX(100%);
+		}
+	}
+}
+
+.sidebar-toggle {
+	background-color: @color;
+	color: @color-bg;
+	border-radius: 0.36em 0 0 0.36em;
+	border: 1px solid @border;
+	border-right: none;
+	box-sizing: content-box;
+	opacity: 0.5;
+	box-shadow: 0 0 1em black;
+	
+	&:active {
+		box-shadow: 0 0 1em black;
+	}
+	&:focus {
+		background-color: @color;
+		color: @color-bg;
+		outline: none;
+	}
+	
+	&:hover {
+		background-color: @color;
+		color: @color-bg;
+		width: 2em;
+		opacity: 1;
 	}
 }

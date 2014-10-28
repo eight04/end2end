@@ -24,9 +24,9 @@ module.exports = function(grunt) {
 			ext: ".css"
 		},
 		main: {
-			files: {
-				"end2end.css": "end2end.less"
-			}
+			expand: true,
+			src: "*.less",
+			ext: ".css"
 		}
 	},
 	eslint: {
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 			tasks: "less:core"
 		},
 		main: {
-			files: "end2end.less",
+			files: "*.less",
 			tasks: "less:main"
 		}
 	}
