@@ -33,3 +33,10 @@ Naming convention
 * Extendable always suffixed with `-base`.
 * Use extend to style.
 * Use mixin to layout.
+
+Angular note
+------------
+If you want to manupolate DOM, write main function in directive controller, and port main functions to Service object.
+
+
+

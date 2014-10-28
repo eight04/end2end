@@ -249,10 +249,28 @@ angular.module("bootstrap-port", ["ngAnimate"])
 			}
 		};
 	})
-	.directive("sidebar", function(){
+	.directive("sidebar", function($window){
+		var sidebarJar = [];
+		
+		$window.on("scroll", moveSidebar);
+		$window.on("resize", calcSidebarWidth);
+		
+		function moveSidebar(){
+			var i, sidebar;
+			for(i = 0; i < sidebarJar[i]; i++) {
+				sidebar = sidebarJar[i];
+				
+				if (sidebar.originalTop <= $window[0].scrollTop) {
+					// static
+				} else if (sidebar.top) {
+					// static bottom
+				}
+			}
+		}
+		
 		return {
 			restrict: "C",
-			controller: function($element, $animate, $window){
+			controller: function($element, $animate){
 				var controller = this;
 				
 				controller.toggle = function(){
@@ -266,7 +284,7 @@ angular.module("bootstrap-port", ["ngAnimate"])
 				}
 				
 				// Affix
-				$element.top();
+				var top = $element[0].offsetTop;
 			}
 		};
 	})
