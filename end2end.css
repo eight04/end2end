@@ -17,6 +17,8 @@ body {
 body {
   font-size: 16px;
   line-height: 1.55;
+  overflow-x: hidden;
+  width: 100%;
 }
 h1,
 h2,
@@ -210,6 +212,7 @@ img[class*="left-"] {
   display: inline-block;
   vertical-align: top;
   width: 100%;
+  overflow: hidden;
 }
 [class*="push-"],
 [class*="pull-"] {
@@ -251,11 +254,30 @@ img[class*="left-"] {
 .row .col-bottom {
   vertical-align: bottom;
 }
+.table-row {
+  display: block;
+  margin: 0 -30px;
+  clip: rect(0 15px 0 15px);
+}
+.table-row > * {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-spacing: 30px 0;
+  table-layout: fixed;
+}
+.table-row > * > * {
+  display: table-cell;
+  padding: 0;
+}
+.clipper {
+  overflow: hidden;
+}
 .row-nogap {
   margin-left: 0;
   margin-right: 0;
 }
-.row-nogap > [class*="col-"] {
+.row-nogap > * {
   padding-left: 0;
   padding-right: 0;
 }
