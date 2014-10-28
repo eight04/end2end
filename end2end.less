@@ -241,6 +241,20 @@ img {
 	position: relative;
 }
 
+[class*="col-"] {
+	padding-left: @gap;
+	padding-right: @gap;
+	letter-spacing: normal;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+}
+
+[class*="push-"],
+[class*="pull-"] {
+	position: relative;
+}
+
 .row-top {
 	align-items: flex-start;
 	> * {
@@ -292,20 +306,6 @@ img {
 		padding-left: 0;
 		padding-right: 0;
 	}
-}
-
-[class*="col-"] {
-	padding-left: @gap;
-	padding-right: @gap;
-	letter-spacing: normal;
-	display: inline-block;
-	vertical-align: top;
-	width: 100%;
-}
-
-[class*="push-"],
-[class*="pull-"] {
-	position: relative;
 }
 
 // Grid core
