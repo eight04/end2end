@@ -249,23 +249,63 @@ angular.module("bootstrap-port", ["ngAnimate"])
 			}
 		};
 	})
-	.directive("sidebar", function($window){
+	.directive("sidebar", function(){
 		var sidebarJar = [];
 		
-		$window.on("scroll", moveSidebar);
-		$window.on("resize", calcSidebarWidth);
+		var w = angular.element(window);
+		w.on("scroll", moveSidebar);
+		w.on("resize", calcSidebar);
 		
 		function moveSidebar(){
-			var i, sidebar;
-			for(i = 0; i < sidebarJar[i]; i++) {
+			var i, sidebar, state;
+			
+			// console.log(sidebarJar);
+			for(i = 0; i < sidebarJar.length; i++) {
 				sidebar = sidebarJar[i];
 				
-				if (sidebar.top <= $window[0].scrollTop) {
-					// static
-				} else if ($window[0].scrollTop + sidebar.height >= sidebar.rowBottom) {
-					// static bottom
+				if (sidebar.top >= w[0].scrollY) {
+					// top
+					state = "sidebar-top";
+				} else if (w[0].scrollY + sidebar.height >= sidebar.rowBottom) {
+					// bottom
+					state = "sidebar-bottom";
+				} else {
+					// fixed
+					state = "sidebar-fixed";
 				}
+				
+				if (sidebar.state == state) {
+					return;
+				}
+				
+				sidebar.element.removeClass("sidebar-top sidebar-bottom sidebar-fixed");
+				sidebar.element.addClass(state);
+				sidebar.state = state;
 			}
+		}
+		
+		function calcSidebar(){
+			console.log("resize");
+			var i;
+			for (i = 0; i < sidebarJar.length; i++) {
+				calc(sidebarJar[i]);
+			}
+			moveSidebar();
+		}
+		
+		function calc(sidebar){
+			var rect = sidebar.element[0].getBoundingClientRect();
+			var row = sidebar.element;
+			while(!row.hasClass("row")) {
+				row = row.parent();
+			}
+			var rowRect = row[0].getBoundingClientRect();
+			
+			sidebar.top = rect.top + window.scrollY;
+			sidebar.width = rect.width;
+			sidebar.rowBottom = rowRect.bottom + window.scrollY;
+			sidebar.elementContent.css("width", sidebar.width + "px");
+			sidebar.height = sidebar.element[0].scrollHeight;
 		}
 		
 		return {
@@ -284,7 +324,12 @@ angular.module("bootstrap-port", ["ngAnimate"])
 				}
 				
 				// Affix
-				var top = $element[0].offsetTop;
+				var sidebar = {
+					element: $element,
+					elementContent: angular.element($element[0].querySelector(".sidebar-content"))
+				};
+				calc(sidebar);
+				sidebarJar.push(sidebar);
 			}
 		};
 	})

@@ -1,9 +1,18 @@
-.inter-base {
-	&:active {
-		color: red;
+.b {
+	a: "Original .b";
+	
+	&:hover {
+		a: "Pseudo in .b";
 	}
 }
 
-.link {
-	&:extend(.inter-base all);
+.test {
+	.b {
+		a: ".b wasn't espect to be used as extendable.";
+	}
+}
+
+.bad-thing {
+	&:extend(.b all);
+	a: "Wat a mess";
 }

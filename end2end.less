@@ -238,6 +238,7 @@ img {
 	display: flex;
 	flex-wrap: wrap;
 	letter-spacing: -9999px;
+	position: relative;
 }
 
 .row-top {
@@ -531,45 +532,51 @@ img {
 	z-index: 1110;
 }
 
-@media (max-width: @window-sm) {
-	.make-sidebar(sm);
-}
-
-@media (max-width: @window-md) {
-	.make-sidebar(md);
-}
-
-@media (max-width: @window-lg) {
-	.make-sidebar(lg);
-}
+.make-sidebar(sm);
+.make-sidebar(md);
+.make-sidebar(lg);
 
 .make-sidebar(@size) {
+	@wsize: ~"window-@{size}";
 	.sidebar-@{size} {
-		position: fixed;
-		width: 320px;
-		height: 100%;
-		border-left: 1px solid @border;
-		
-		&.expand {
-			right: 0;
-			left: auto;
+		@media (max-width: (@@wsize - 1)) {
+			position: fixed;
+			width: 320px;
+			height: 100%;
+			border-left: 1px solid @border;
 			
-			.sidebar-toggle:before {
-				content: "»";
+			&.expand {
+				right: 0;
+				left: auto;
+				
+				.sidebar-toggle:before {
+					content: "»";
+				}
+			}
+			
+			.sidebar-toggle {
+				display: block;
+			}
+			
+			.sidebar-content {
+				height: 100%;
+				background-color: white;
+				padding: 0 @gap;
+				overflow: auto;
 			}
 		}
-		
-		.sidebar-toggle {
-			display: block;
+		@media (min-width: @@wsize) {
+			&.sidebar-fixed .sidebar-content{
+				position: fixed;
+				top: 0;
+			}
+			
+			&.sidebar-bottom .sidebar-content{
+				position: absolute;
+				bottom: 0;
+			}
 		}
-		
-		.sidebar-content {
-			height: 100%;
-			background-color: white;
-			padding: 0 @gap;
-			overflow: auto;
-		}
-	}
+	}	
 }
 
 .text-left {

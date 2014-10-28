@@ -42,3 +42,17 @@ There is a width bug in bootstrap Affix, any idea use css to fix it without givi
 
 It's a mess if you use mixins and extend all together. They will generate bunch of selector every where.
 
+Before using extend(), think twice. If this class will be write more than one time, use mixin instead.
+
+Do not extend with...
+
+* Never extend a &lt;tag>, since you will write them everywhere.
+* Never extend a .component, since you will write them often to style them.
+* Never extend a .mixin().
+* Never extend a @media-base class. You want to write them in different condition.
+
+Do extend with...
+
++ Extend a normalizing-class, like margin: 0; padding: 0;.
++ Extend a base type. Eg, extend .animal to .animal-bear.
++ Extend a base-component,
