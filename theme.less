@@ -1,5 +1,8 @@
 @import "core/vars.less";
 
+@round-corner: 0.1875em;
+@btn-min: 3em;
+
 body {
 	font-family: @font-family-base;
 	color: @color;
@@ -52,13 +55,14 @@ thead {
 	}
 	
 	border: 1px solid @border;
+	border-radius: @round-corner;
 }
 
 input,
 textarea,
 select {
 	border: 1px solid @border;
-	border-radius: 0.1875em;
+	border-radius: @round-corner;
 	padding: 0 0.5em;
 	
 	&:hover,
@@ -71,12 +75,16 @@ select {
 .btn,
 button {
 	border: 1px solid @border;
-	border-radius: 0.1875em;
+	border-radius: @round-corner;
 	padding: 0 0.5em;
 	
 	background-image: none;
 	background-color: @color-bg;
-	margin-right: 0.25em;
+	margin-right: 0.5em;
+	
+	form & {
+		min-width: 4.25em;
+	}
 	
 	&:focus {
 		background-color: lighten(@color-bg, 3%);
@@ -102,7 +110,7 @@ button {
 
 .btn-group{
 	border: 1px solid @border;
-	border-radius: 0.1875em;
+	border-radius: @round-corner;
 	
 	> * {
 		border-width: 0 1px;

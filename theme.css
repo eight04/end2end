@@ -37,6 +37,7 @@ thead td {
 }
 .table-responsive {
   border: 1px solid #a3a3a3;
+  border-radius: 0.1875em;
 }
 .table-responsive table {
   border: none;
@@ -66,7 +67,11 @@ button {
   padding: 0 0.5em;
   background-image: none;
   background-color: #f2f2f2;
-  margin-right: 0.25em;
+  margin-right: 0.5em;
+}
+form .btn,
+form button {
+  min-width: 4.25em;
 }
 .btn:focus,
 button:focus {
