@@ -25,9 +25,11 @@ Todos
 * <del>Add sidebar component.</del> Done.
 * Add link-pool component.
 * Add affix component.
+* Split default style from tag selector.
 
 Naming convention
 -----------------
 * Reusable mixins always prefixed with `.make-`.
 * Extendable always suffixed with `-base`.
-* Use extend to reset default style.
+* Use extend to style.
+* Use mixin to layout.
