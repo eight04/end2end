@@ -163,6 +163,12 @@ legend {
 }
 img {
   vertical-align: text-bottom;
+  max-width: 100%;
+}
+img[class*="right-"],
+img[class*="left-"] {
+  display: block;
+  margin: 0 auto;
 }
 /**
 	Grid system
