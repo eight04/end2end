@@ -34,9 +34,11 @@ Naming convention
 * Use extend to style.
 * Use mixin to layout.
 
-Angular note
-------------
+Note
+----
 If you want to manupolate DOM, write main function in directive controller, and port main functions to Service object.
 
+There is a width bug in bootstrap Affix, any idea use css to fix it without giving sidebar a fix width?
 
+It's a mess if you use mixins and extend all together. They will generate bunch of selector every where.
 

@@ -260,9 +260,9 @@ angular.module("bootstrap-port", ["ngAnimate"])
 			for(i = 0; i < sidebarJar[i]; i++) {
 				sidebar = sidebarJar[i];
 				
-				if (sidebar.originalTop <= $window[0].scrollTop) {
+				if (sidebar.top <= $window[0].scrollTop) {
 					// static
-				} else if (sidebar.top) {
+				} else if ($window[0].scrollTop + sidebar.height >= sidebar.rowBottom) {
 					// static bottom
 				}
 			}
