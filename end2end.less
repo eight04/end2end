@@ -506,6 +506,28 @@ img {
 	left: 100%;
 	z-index: 1100;
 	padding: 0;
+	&.expand-add,
+	&.expand-remove {
+		transition: 0.4s all;
+	}
+	
+	&.expand-add {
+		transform: translateX(100%);
+		
+		&.expand-add-active {
+			transform: none;
+		}
+	}
+	
+	&.expand-remove {
+		right: 0;
+		left: auto;
+		transform: none;
+		
+		&.expand-remove-active {
+			transform: translateX(100%);
+		}
+	}
 }
 
 .sidebar-toggle {
@@ -582,8 +604,12 @@ img {
 			.sidebar-content {
 				overflow: auto;
 			}
+			&.expand-add,
+			&.expand-remove {
+				transition: none;
+			}
 		}
-	}	
+	}
 }
 
 .text-left {
