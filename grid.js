@@ -252,7 +252,7 @@ angular.module("bootstrap-port", ["ngAnimate"])
 	.directive("sidebar", function(){
 		return {
 			restrict: "C",
-			controller: function($element, $animate){
+			controller: function($element, $animate, $window){
 				var controller = this;
 				
 				controller.toggle = function(){
@@ -264,6 +264,9 @@ angular.module("bootstrap-port", ["ngAnimate"])
 						$element.off("click", controller.toggle);
 					}
 				}
+				
+				// Affix
+				$element.top();
 			}
 		};
 	})

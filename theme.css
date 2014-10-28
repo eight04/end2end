@@ -1,5 +1,5 @@
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, "�L�n������", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "微軟正黑體", sans-serif;
   color: #3d3d3d;
 }
 h2 {
@@ -112,6 +112,7 @@ button:active {
 }
 .paint-grid .content {
   background-color: #c4c4c4;
+  overflow: hidden;
 }
 ::selection {
   background-color: rgba(255, 169, 46, 0.4);
