@@ -1,0 +1,111 @@
+@import "vars.less";
+
+.gcd(@v1, @v2) {
+	.gcd(@v1, @v2) when (@v1 < @v2) {
+		.gcd(@v1, @v2 - @v1);
+	}
+	 
+	.gcd(@v1, @v2) when (@v1 > @v2) {
+		.gcd(@v1 - @v2, @v2);
+	}
+	 
+	.gcd(@v1, @v2) when (@v1 = @v2){
+		@gcd: @v1;
+	}
+	
+	.gcd(@v1, @v2);
+}
+
+.make-grid(xs, @grids);
+@media (min-width: @window-sm) {
+	.make-grid(sm, @grids);
+}
+@media (min-width: @window-md) {
+	.make-grid(md, @grids);
+}
+@media (min-width: @window-lg) {
+	.make-grid(lg, @grids);
+}
+
+.make-grid(@size, @grids){
+	.make-grid(@i) when (@i =< @grids) {
+		.make-col(@j) when (@j =< @i) {
+			.gcd(@i, @j);
+			
+			.col-@{size}-@{j}-@{i} when (@gcd = 1) {
+				width: percentage(@j/@i);
+			}
+			
+			.make-col(@j + 1);
+		}
+		.make-col(1);
+		
+		.make-grid(@i + 1);
+	}
+	.make-grid(1);
+}
+
+.make-table-var(xs);
+@media (min-width: @window-sm) {
+	.make-table-var(sm);
+}
+@media (min-width: @window-md) {
+	.make-table-var(md);
+}
+@media (min-width: @window-lg) {
+	.make-table-var(lg);
+}
+
+.make-table-var(@size) {
+	.table-@{size} {
+		margin: 0 -@gap;
+		
+		> .row {
+			display: table;
+			margin: 0;
+			width: 100%;
+			
+			> [class|="col"] {
+				display: table-cell;
+			}
+		}
+	}
+}
+
+.make-move-var(xs, @grids);
+
+@media (min-width: @window-sm) {
+	.make-move-var(sm, @grids);
+}
+
+@media (min-width: @window-md) {
+	.make-move-var(md, @grids);
+}
+
+@media (min-width: @window-lg) {
+	.make-move-var(lg, @grids);
+}
+
+.make-move-var(@size, @grids) {
+	.make-move-var(@i) when (@i =< length(@grids)) {
+		@columns: extract(@grids, @i);
+		
+		.make-move-inner(@j) when (@j =< @columns) {
+			.push-@{size}-@{j}-@{columns} {
+				position: relative;
+				left: percentage(@j/@columns);
+			}
+			
+			.pull-@{size}-@{j}-@{columns} {
+				position: relative;
+				right: percentage(@j/@columns);
+			}
+		
+			.make-move-inner(@j + 1);
+		}
+		.make-move-inner(1);
+		
+		.make-move-var(@i + 1);
+	}
+	.make-move-var(1);
+}

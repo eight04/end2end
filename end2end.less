@@ -1,26 +1,8 @@
-// My extend apart from bootstrap
+@import "core/vars.less";
 
-// vars
-@gap: 15px;
-@grids: 5, 7, 12;
-@line-height: 1.55;
-
-@window-sm: 768px;
-@window-md: 1024px;
-@window-lg: 1440px;
-@window-xl: 1920px;
-
-@color: lighten(black, 24%);
-@color-bg: darken(white, 5%);
-@border: lighten(@color, 40%);
-@highlight: #ffa92e;
-
-@font-family-sans:  "Helvetica Neue", Helvetica, Arial, "微軟正黑體", sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, "新細明體", serif;
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
-@font-family-base:        @font-family-sans;
-
-@font-size: 16px;
+.section-base {
+	margin: 1em 0;
+}
 
 // normalize
 * {
@@ -43,11 +25,9 @@ body {
 	color: @color;
 }
 
+@link-color: lighten(@color, 35%);
+
 a {
-	text-decoration: none;
-	border-bottom: 1px dashed;
-	@link-color: lighten(@color, 35%);
-	
 	&,
 	&:link {
 		color: @link-color;
@@ -95,11 +75,7 @@ h6 {
 }
 
 p {
-	margin: @gap 0;
-}
-
-.td-padding () {
-	padding: 0.24em 1.04em;
+	&:extend(.section-base);
 }
 
 table {
@@ -129,7 +105,7 @@ tbody {
 }
 
 th, td {
-	.td-padding();
+	padding: 0.24em 1.04em;
 }
 
 th {
@@ -156,22 +132,23 @@ th {
 	}
 }
 
-form {
-	display: block;
-	margin: @gap 0;
+.form-base {
+	font-size: inherit;
+	font-family: inherit;
+	line-height: inherit;
+	vertical-align: middle;
+	cursor: pointer;
+	height: 2em;
 }
 
 .form-control {
 	display: block;
-	height: 2em;
 	margin: 0.25em 0 1em;
 	width: 100%;
-	font-size: inherit;
-	font-family: inherit;
-	line-height: inherit;
+	padding: 0 0.5em;
+	
 	border: 1px solid @border;
 	border-radius: 0.1875em;
-	padding: 0 0.5em;
 	
 	&:hover,
 	&:focus,
@@ -180,39 +157,48 @@ form {
 	}
 }
 
-input, select {
-	&:extend(.form-control all);
+form {
+	&:extend(.section-base);
+}
+
+input {
+	&:extend(.form-base);
+	
+}
+
+textarea {
+	&:extend(.form-base);
+}
+
+button {
+	&:extend(.form-base);
+	
+	text-align: center;
+	background-image: none;
+	border: 1px solid @border;
+	border-radius: 0.1875em;
 }
 
 select {
-	cursor: pointer;
+	&:extend(.form-base);
+
+	&[multiple] {
+		height: auto;
+	}
 }
 
-select[multiple] {
-	height: auto;
-}
-
-textarea:extend(.form-control all) {
+textarea {
 	height: auto;
 	padding-top: 0.5em;
 }
 
-.btn,
-button,
-input[type="button"], 
-input[type="submit"], 
-input[type="reset"] {
-	&:extend(.form-control);
+.btn {
+	&:extend(.form-base);
 	
 	background-color: @color-bg;
-	display: inline-block;
-	width: auto;
 	margin: 0 0.5em 0 0;
 	min-width: 4.56em;
-	text-align: center;
 	color: inherit;
-	vertical-align: middle;
-	cursor: pointer;
 	
 	// Firefox button fix: http://davidwalsh.name/firefox-buttons
 	&::-moz-focus-inner {
@@ -220,7 +206,7 @@ input[type="reset"] {
 		padding: 0;
 	}
 	
-	// overwrite a's pseudo
+	// Overide <a> pseudo
 	&:link,
 	&:visited,
 	&:hover,
@@ -239,13 +225,14 @@ input[type="reset"] {
 	}	
 	
 	&:focus {
-		outline: thin dotted;
+		outline: 1px dotted;
 		outline-offset: -2px;
 	}
 }
 
 fieldset {
-	margin: @gap 0;
+	&:extend(.section-base);
+	
 	padding: 0;
 	border: none;
 }
@@ -280,25 +267,16 @@ legend {
 	}
 }
 
-
-
 .btn-block {
 	display: block;
-	margin: @gap 0;
-	
-	& + & {
-		margin-top: 0.4 * @gap;
-	}
+	margin: 0.4*@gap 0;
 }
 
 .btn-group {
 	display: inline-block;
-	// margin: 1em 0;
 	border: 1px solid @border;
 	border-radius: 0.1875em;
 	overflow: hidden;
-	
-	// .clearfix();
 	
 	> * {
 		display: block;
@@ -307,7 +285,6 @@ legend {
 		border-width: 0 1px;
 		border-radius: 0;
 		margin-right: -1px;
-		// border-bottom-left-radius: 0;
 		
 		&:first-child {
 			margin-left: -1px;
@@ -316,7 +293,7 @@ legend {
 }
 
 img {
-	margin: 0.24 * @gap;
+	margin: 0.25 * @gap;
 	vertical-align: middle;
 }
 
@@ -325,14 +302,12 @@ img {
 		background-color: darken(@color-bg, 6%);
 	}
 	
-	[class|="col"] {
+	[class*="col-"] {
 		background-color: darken(@color-bg, 12%);
-		// border: 1px solid;
 	}
 	
 	.content {
 		background-color: darken(@color-bg, 18%);
-		// border: 1px solid;
 	}
 }
 
@@ -348,14 +323,33 @@ img {
 	.highlight();
 }
 
-// Grid system
-// container
-.container-fluid, .container {
+img[class*="right-"] {
+	margin-right: 0;
+	margin-left: @gap;
+}
+
+img[class*="left-"] {
+	margin-left: 0;
+	margin-right: @gap;
+}
+
+article {
+	.clearfix();
+}
+
+/**
+	Grid system
+*/
+
+// Container
+.container-fluid {
 	padding: 0 @gap;
 }
 
-.container:extend(.container-fluid) {
+.container {
+	padding: 0 @gap;
 	margin: 0 auto;
+	
 	@media (min-width: @window-sm) {
 		max-width: @window-sm;
 	}
@@ -374,22 +368,13 @@ img {
 	display: flex;
 	flex-wrap: wrap;
 	letter-spacing: -9999px;
-	// align-items: 
-}
-
-[class|="col"] {
-	padding-left: @gap;
-	padding-right: @gap;
-	vertical-align: top;
-	letter-spacing: normal;
-	width: 100%;
 }
 
 .row-nogap {
 	margin-left: 0;
 	margin-right: 0;
 	
-	> [class|="col"] {
+	> [class*="col-"] {
 		padding-left: 0;
 		padding-right: 0;
 	}
@@ -399,7 +384,7 @@ img {
 	margin-left: 0;
 	margin-right: 0;
 	
-	> .row > [class|="col"] {
+	> .row > [class*="col-"] {
 		padding-left: 0;
 		padding-right: 0;
 	}
@@ -426,146 +411,21 @@ img {
 	}
 }
 
-.make-cols-var(@columns, @size, @count) when (@count =< @columns) {
-	.col-@{size}-@{count}-@{columns} {
-		width: percentage(@count/@columns);
-	}
-	
-	.make-cols-var(@columns, @size, @count + 1);
-}
-
-// set different row
-.make-grid(@grids, @count) when (@count =< length(@grids)) {
-	@grid: extract(@grids, @count);
-	
-	// .row-@{grid} {
-		
-	.make-cols-var(@grid, xs, 1);
-	
-	@media (min-width: @window-sm) {
-		.make-cols-var(@grid, sm, 1);
-	}
-	
-	@media (min-width: @window-md) {
-		.make-cols-var(@grid, md, 1);
-	}
-	
-	@media (min-width: @window-lg) {
-		.make-cols-var(@grid, lg, 1);
-	}
-	// }
-	
-	.make-grid(@grids, @count + 1);
-}
-.make-grid(@grids, 1);
-
-.col-grid() {
+[class*="col-"] {
+	padding-left: @gap;
+	padding-right: @gap;
+	vertical-align: top;
+	letter-spacing: normal;
 	display: inline-block;
+	width: 100%;
 }
 
-[class*="col-xs-"] {
-	.col-grid();
-}
+// Grid core
+@import "core/grid.css";
 
-@media (min-width: @window-sm) {
-	[class*="col-sm-"] {
-		.col-grid();
-	}
-}
-
-@media (min-width: @window-md) {
-	[class*="col-md-"] {
-		.col-grid();
-	}
-}
-
-@media (min-width: @window-lg) {
-	[class*="col-lg-"] {
-		.col-grid();
-	}
-}
-
-.make-table-var(xs);
-
-@media (min-width: @window-sm) {
-	.make-table-var(sm);
-}
-
-@media (min-width: @window-md) {
-	.make-table-var(md);
-}
-
-@media (min-width: @window-lg) {
-	.make-table-var(lg);
-}
-
-.make-table-var(@size) {
-	.table-@{size} {
-		margin: 0 -@gap;
-		
-		> .row {
-			display: table;
-			margin: 0;
-			width: 100%;
-			
-			> [class|="col"] {
-				display: table-cell;
-			}
-		}
-	}
-}
-
-.make-move-var(xs, @grids);
-
-@media (min-width: @window-sm) {
-	.make-move-var(sm, @grids);
-}
-
-@media (min-width: @window-md) {
-	.make-move-var(md, @grids);
-}
-
-@media (min-width: @window-lg) {
-	.make-move-var(lg, @grids);
-}
-
-.make-move-var(@size, @grids) {
-	.make-move-var(@i) when (@i =< length(@grids)) {
-		@columns: extract(@grids, @i);
-		
-		.make-move-inner(@j) when (@j =< @columns) {
-			.push-@{size}-@{j}-@{columns} {
-				position: relative;
-				left: percentage(@j/@columns);
-			}
-			
-			.pull-@{size}-@{j}-@{columns} {
-				position: relative;
-				right: percentage(@j/@columns);
-			}
-		
-			.make-move-inner(@j + 1);
-		}
-		.make-move-inner(1);
-		
-		.make-move-var(@i + 1);
-	}
-	.make-move-var(1);
-}
-
-img.right {
-	margin-right: 0;
-	margin-left: @gap;
-}
-
-img.left {
-	margin-left: 0;
-	margin-right: @gap;
-}
-
-article {
-	.clearfix();
-}
+/**
+	Other components
+*/
 
 .clearfix {
 	&:after {
@@ -602,7 +462,6 @@ article {
 	.container, .container-fluid {
 		padding: 0;
 		height: 100%;
-		// text-align: right;
 		position: relative;
 	}
 }
@@ -610,8 +469,6 @@ article {
 .navbar-fixed {
 	position: fixed;
 	width: 100%;
-	// max-height: 100%;
-	// overflow: auto;
 }
 
 .navbar-header {
@@ -773,9 +630,9 @@ article {
 	}
 }
 
-.dropdown {
-	display: none;
-}
+// .dropdown {
+	// display: none;
+// }
 
 .sidebar {
 	top: 0;
@@ -911,27 +768,23 @@ article {
 	text-align: center;
 }
 
-.right {
-	float: right;
+.make-float(xs);
+@media (min-width: @window-sm) {
+	.make-float(sm);
+}
+@media (min-width: @window-md) {
+	.make-float(md);
+}
+@media (min-width: @window-lg) {
+	.make-float(lg);
 }
 
-.left {
-	float: left;
-}
-
-.make-float-var(sm);
-.make-float-var(md);
-.make-float-var(lg);
-
-.make-float-var(@size) {
-	@wsize: ~"window-@{size}";
-	@media (min-width: @@wsize) {
-		.right-@{size} {
-			float: right;
-		}
-		.left-@{size} {
-			float: left;
-		}
+.make-float(@size) {
+	.right-@{size} {
+		float: right;
+	}
+	.left-@{size} {
+		float: left;
 	}
 }
 
@@ -941,11 +794,14 @@ article {
 .blackboard {
 	background-color: @blackboard-color-bg;
 	color: @blackboard-color;
+	padding: 1.5em 0;
 }
 
 .blackboard-head {
 	margin: 0;
 	line-height: 1;
+	font-size: 200%;
+	text-align: center;
 }
 
 .blackboard-body {
@@ -969,6 +825,7 @@ article {
 
 	.blackboard-head {
 		font-size: 360%;
+		text-align: left;
 	}
 
 	.blackboard-body {
@@ -980,17 +837,6 @@ article {
 	.blackboard-side {
 		padding: 1em;
 		font-size: 80%;
-	}
-}
-
-@media (max-width: @window-sm) {
-	.blackboard {
-		padding: 1.5em 0;
-	}
-	
-	.blackboard-head {
-		font-size: 200%;
-		text-align: center;
 	}
 }
 

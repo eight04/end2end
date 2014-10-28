@@ -16,20 +16,16 @@ module.exports = function(grunt) {
 		}
     },
 	less: {
-		compile: {
-			files: {
-				"grid.css": "grid.less"
-			}
+		core: {
+			expand: true,
+			cwd: "core/",
+			src: "*.less",
+			dest: "core/",
+			ext: ".css"
 		},
-		minified: {
+		main: {
 			files: {
-				"dist/dialog.min.css": "dialog.less"
-			},
-			options: {
-				compress: true,
-				sourceMap: true,
-				sourceMapFilename: "dist/dialog.min.css.map",
-				sourceMapURL: "dialog.min.css.map"
+				"end2end.css": "end2end.less"
 			}
 		}
 	},
@@ -63,9 +59,13 @@ module.exports = function(grunt) {
 		grunt: {
 			files: "Gruntfile.js"
 		},
-		less: {
-			files: "*.less",
-			tasks: "less:compile"
+		core: {
+			files: "core/*.less",
+			tasks: "less:core"
+		},
+		main: {
+			files: "end2end.less",
+			task: "less:main"
 		}
 	}
   });

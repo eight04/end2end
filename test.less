@@ -1,28 +1,9 @@
-.make-move-var(@size, @grids) {
-	.make-move-var(@i) when (@i =< length(@grids)) {
-		@columns: extract(@grids, @i);
-		
-		.make-move-inner(@j) when (@j =< @columns) {
-			.push-@{size}-@{j}-@{columns} {
-				position: relative;
-				left: percentage(@j/@columns);
-			}
-			
-			.pull-@{size}-@{j}-@{columns} {
-				position: relative;
-				right: percentage(@j/@columns);
-			}
-		
-			.make-move-inner(@j + 1);
-		}
-		.make-move-inner(1);
-		
-		.make-move-var(@i + 1);
+.inter-base {
+	&:active {
+		color: red;
 	}
-	.make-move-var(1);
 }
-@l: 5,7,12;
 
-output {
-	.make-move-var(sm, @l);
+.link {
+	&:extend(.inter-base all);
 }
