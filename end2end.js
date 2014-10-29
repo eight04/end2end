@@ -1,4 +1,6 @@
 
+(function(){
+
 "use strict";
 
 function getAniTimeout(element){
@@ -66,7 +68,7 @@ angular.module("end2end", ["ngAnimate"])
 			show: function(element){
 				$animate.removeClass(element, "collapse");
 			},
-			hide: function(element, callback){
+			hide: function(element){
 				$animate.addClass(element, "collapse");
 			}
 		};
@@ -223,8 +225,10 @@ angular.module("end2end", ["ngAnimate"])
 				var id = null;
 				
 				attrs.$observe("checkPass", function(value){
+					var i;
+					
 					if (passJar[id]){
-						for (var i = 0; i < passJar[id].length; i++) {
+						for (i = 0; i < passJar[id].length; i++) {
 							if (passJar[id][i] == ngModel) {
 								passJar[id].splice(i, 1);
 								break;
@@ -243,7 +247,7 @@ angular.module("end2end", ["ngAnimate"])
 				
 				scope.$watch(function(){
 					return ngModel.$modelValue;
-				}, function(value){
+				}, function(){
 					validate(id);
 				});
 			}
@@ -285,7 +289,7 @@ angular.module("end2end", ["ngAnimate"])
 		}
 		
 		function calcSidebar(){
-			console.log("resize");
+			// console.log("resize");
 			var i;
 			for (i = 0; i < sidebarJar.length; i++) {
 				calc(sidebarJar[i]);
@@ -323,7 +327,7 @@ angular.module("end2end", ["ngAnimate"])
 						$animate.removeClass($element, "expand");
 						$element.off("click", controller.toggle);
 					}
-				}
+				};
 				
 				// Affix
 				var sidebar = {
@@ -364,7 +368,47 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-	.directive("eznavTarget", function(eznav){
+	.directive("eznavTarget", function(eznav, $window){
+		
+		function inView(nav) {
+			var rect = nav.element[0].getBoundingClientRect();
+			if (rect.top >= 0 && rect.bottom <= $window.innerHeight) {
+				return true;
+			}
+			return false;
+		}
+		
+		angular.element($window).on("scroll", function(){
+			var i, node, clone, offset, current;
+			
+			for (i = eznav.navs.length - 1; i > 0 ; i--) {
+				offset = getOffset()
+				if (!inView(eznav.navs[i])) {
+					continue;
+				}
+				
+				clone = eznav.navs[i];
+				break;
+			}
+			
+			if (eznav.currentView) {
+				node = eznav.currentView;
+				while(node.parent) {
+					node.active = false;
+					node.leafElement.removeClass("active");
+					node = node.parent;
+				}
+				eznav.currentView = null;
+			}
+			
+			while (clone.parent) {
+				clone.active = true;
+				clone.leafElement.addClass("active");
+				clone = clone.parent;
+			}
+			eznav.currentView = eznav.navs[i];
+		});
+		
 		return {
 			restrict: "C",
 			link: function(scope, element){
@@ -373,20 +417,23 @@ angular.module("end2end", ["ngAnimate"])
 						prior: 0,
 						parent: null,
 						children: []
-					}, j, last = root;
+					}, last = root, navList = [], name, node;
 				
 				for (i = 0; i < navs.length; i++) {
-					var name = navs[i].textContent || navs[i].innerText;
+					name = navs[i].textContent || navs[i].innerText;
 					if (!navs[i].id) {
 						navs[i].id = name.replace(/\s+/g, "-");
 					}
-					var node = {
+					node = {
 						parent: null,
 						prior: navs[i].nodeName.substr(1) * 1,
 						name: name,
 						url: "#" + navs[i].id,
-						children: []
+						children: [],
+						element: angular.element(navs[i])
 					};
+					
+					navList.push(node);
 					
 					while (last.prior >= node.prior) {
 						last = last.parent;
@@ -397,6 +444,7 @@ angular.module("end2end", ["ngAnimate"])
 				}
 				
 				eznav.data = root.children;
+				eznav.navs = navList;
 			}
 		};
 	})
@@ -418,6 +466,7 @@ angular.module("end2end", ["ngAnimate"])
 				node: "=eznavLeaf"
 			},
 			link: function(scope, element){
+				scope.node.leafElement = element;
 				if (scope.node.children && scope.node.children.length) {
 					$compile(treeTemplate)(scope, function(cloned){
 						element.append(cloned);
@@ -426,4 +475,5 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	});
-	
+
+})();

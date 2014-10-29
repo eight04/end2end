@@ -835,20 +835,45 @@ ul {
 	}
 }
 
+.make-link-color(@color, @color-focus) {
+	&:link,
+	&:visited {
+		color: @color;
+	}
+	&:hover {
+		color: @color-focus;
+	}
+	&:active {
+		color: @color;
+	}
+}
+
 .nav-tree {
 	&:extend(.list-reset);
 	
-	> * > * {
+	> * > a {
 		margin: 0.25em 0;
+		.make-link-color(@color, lighten(@color, 40%));
 	}
 	
 	.nav-tree {
+		display: none;
 		margin: 0;
 		padding: 0 0 0 2em;
 		font-size: 90%;
 		
 		> * > * {
 			margin: 0;
+		}
+	}
+	
+	> .active {
+		> a {
+			color: lighten(@color, 40%);
+		}
+		
+		> .nav-tree {
+			display: block;
 		}
 	}
 }

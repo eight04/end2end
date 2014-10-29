@@ -3215,16 +3215,33 @@ img.right-xs {
 .nav-responsive > * {
   white-space: nowrap;
 }
-.nav-tree > * > * {
+.nav-tree > * > a {
   margin: 0.25em 0;
 }
+.nav-tree > * > a:link,
+.nav-tree > * > a:visited {
+  color: #3d3d3d;
+}
+.nav-tree > * > a:hover {
+  color: #a3a3a3;
+}
+.nav-tree > * > a:active {
+  color: #3d3d3d;
+}
 .nav-tree .nav-tree {
+  display: none;
   margin: 0;
   padding: 0 0 0 2em;
   font-size: 90%;
 }
 .nav-tree .nav-tree > * > * {
   margin: 0;
+}
+.nav-tree > .active > a {
+  color: #a3a3a3;
+}
+.nav-tree > .active > .nav-tree {
+  display: block;
 }
 .progress {
   border: 1px solid #a3a3a3;
