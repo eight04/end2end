@@ -263,10 +263,10 @@ angular.module("end2end", ["ngAnimate"])
 			for(i = 0; i < sidebarJar.length; i++) {
 				sidebar = sidebarJar[i];
 				
-				if (sidebar.top >= scrollY) {
+				if (sidebar.top >= scrollY - sidebar.elementContent[0].scrollTop) {
 					// top
 					state = "sidebar-top";
-				} else if (scrollY + sidebar.height >= sidebar.rowBottom) {
+				} else if (scrollY - sidebar.elementContent[0].scrollTop + sidebar.height >= sidebar.rowBottom) {
 					// bottom
 					state = "sidebar-bottom";
 				} else {
@@ -307,7 +307,7 @@ angular.module("end2end", ["ngAnimate"])
 			sidebar.rowBottom = rowRect.bottom + scrollY;
 			sidebar.elementContent.css("width", sidebar.width + "px");
 			sidebar.height = sidebar.elementContent[0].scrollHeight;
-			console.log(sidebar);
+			// console.log(sidebar);
 		}
 		
 		return {
@@ -358,7 +358,7 @@ angular.module("end2end", ["ngAnimate"])
 		return {
 			restrict: "C",
 			scope: {},
-			templateUrl: "template/eznav.html",
+			template: "<ul class='nav-tree' eznav-tree='eznav.data'></ul>",
 			link: function(scope){
 				scope.eznav = eznav;
 			}
@@ -368,12 +368,62 @@ angular.module("end2end", ["ngAnimate"])
 		return {
 			restrict: "C",
 			link: function(scope, element){
+				var navs = element[0].querySelectorAll("h1, h2, h3, h4, h5, h6"),
+					i, root = {
+						prior: 0,
+						parent: null,
+						children: []
+					}, j, last = root;
 				
+				for (i = 0; i < navs.length; i++) {
+					var name = navs[i].textContent || navs[i].innerText;
+					if (!navs[i].id) {
+						navs[i].id = name.replace(/\s+/g, "-");
+					}
+					var node = {
+						parent: null,
+						prior: navs[i].nodeName.substr(1) * 1,
+						name: name,
+						url: "#" + navs[i].id,
+						children: []
+					};
+					
+					while (last.prior >= node.prior) {
+						last = last.parent;
+					}
+					node.parent = last;
+					last.children.push(node);
+					last = node;
+				}
+				
+				eznav.data = root.children;
 			}
 		};
 	})
-	.directive("eznavTree", function(eznav){
+	.directive("eznavTree", function(){
 		return {
-			restrict: "C"
+			restrict: "A",
+			template: "<li ng-repeat='node in nodes' eznav-leaf='node'></li>",
+			scope: {
+				nodes: "=eznavTree"
+			}
+		};
+	})
+	.directive("eznavLeaf", function($compile){
+		var treeTemplate = angular.element("<ul class='nav-tree' eznav-tree='node.children'></ul>");
+		return {
+			restrict: "A",
+			template: "<a href='{{node.url}}'>{{node.name}}</a>",
+			scope: {
+				node: "=eznavLeaf"
+			},
+			link: function(scope, element){
+				if (scope.node.children && scope.node.children.length) {
+					$compile(treeTemplate)(scope, function(cloned){
+						element.append(cloned);
+					});
+				}
+			}
 		};
 	});
+	
