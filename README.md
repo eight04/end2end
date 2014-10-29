@@ -20,8 +20,5 @@ Todos
 
 Components
 ----------
-* Dialog.
-* Link pool.
-* List group.
-* Nav. (nav-pill, nav-list, nav-tab...)
+* Dialog?.
 * Scroll spy.

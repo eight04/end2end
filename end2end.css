@@ -2939,7 +2939,6 @@ ul {
   .sidebar-sm.sidebar-fixed .sidebar-content {
     position: fixed;
     top: 0;
-    max-height: 100%;
   }
   .sidebar-sm.sidebar-bottom .sidebar-content {
     position: absolute;
@@ -2984,7 +2983,6 @@ ul {
   .sidebar-md.sidebar-fixed .sidebar-content {
     position: fixed;
     top: 0;
-    max-height: 100%;
   }
   .sidebar-md.sidebar-bottom .sidebar-content {
     position: absolute;
@@ -3029,7 +3027,6 @@ ul {
   .sidebar-lg.sidebar-fixed .sidebar-content {
     position: fixed;
     top: 0;
-    max-height: 100%;
   }
   .sidebar-lg.sidebar-bottom .sidebar-content {
     position: absolute;
