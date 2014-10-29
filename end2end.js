@@ -15,7 +15,7 @@ function getAniTimeout(element){
 	return ms;
 }
 
-angular.module("bootstrap-port", ["ngAnimate"])
+angular.module("end2end", ["ngAnimate"])
 	.directive("navbar", function(collapse){
 		return {
 			restrict: "C",
@@ -349,5 +349,31 @@ angular.module("bootstrap-port", ["ngAnimate"])
 					e.stopPropagation();
 				});
 			}
+		};
+	})
+	.factory("eznav", function(){
+		return {};
+	})
+	.directive("eznav", function(eznav){
+		return {
+			restrict: "C",
+			scope: {},
+			templateUrl: "template/eznav.html",
+			link: function(scope){
+				scope.eznav = eznav;
+			}
+		};
+	})
+	.directive("eznavTarget", function(eznav){
+		return {
+			restrict: "C",
+			link: function(scope, element){
+				
+			}
+		};
+	})
+	.directive("eznavTree", function(eznav){
+		return {
+			restrict: "C"
 		};
 	});

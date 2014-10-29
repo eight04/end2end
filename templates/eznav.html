@@ -1,0 +1,6 @@
+<ul class="nav-tree">
+	<li ng-repeat="node in eznav.data">
+		<a href="{{node.url}}">{{node.name}}</a>
+		<ul eznav-tree="node.children"></ul>
+	</li>
+</ul>
