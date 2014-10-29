@@ -3149,7 +3149,8 @@ img.right-xs {
 .list-reset,
 .nav-list,
 .nav-pool,
-.nav-tab {
+.nav-tab,
+.nav-tree {
   padding: 0;
   list-style: none;
 }
@@ -3209,10 +3210,21 @@ img.right-xs {
   color: #3d3d3d;
 }
 .nav-responsive {
-  overflow: auto;
+  overflow-y: hidden;
 }
 .nav-responsive > * {
   white-space: nowrap;
+}
+.nav-tree > * > * {
+  margin: 0.25em 0;
+}
+.nav-tree .nav-tree {
+  margin: 0;
+  padding: 0 0 0 2em;
+  font-size: 90%;
+}
+.nav-tree .nav-tree > * > * {
+  margin: 0;
 }
 .progress {
   border: 1px solid #a3a3a3;

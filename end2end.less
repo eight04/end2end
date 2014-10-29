@@ -827,10 +827,28 @@ ul {
 }
 
 .nav-responsive {
-	overflow: auto;
+	overflow-y: hidden;
 	
 	> * {
 		white-space: nowrap;
+	}
+}
+
+.nav-tree {
+	&:extend(.list-reset);
+	
+	> * > * {
+		margin: 0.25em 0;
+	}
+	
+	.nav-tree {
+		margin: 0;
+		padding: 0 0 0 2em;
+		font-size: 90%;
+		
+		> * > * {
+			margin: 0;
+		}
 	}
 }
 
