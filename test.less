@@ -1,18 +1,8 @@
+@test: {
+	a: 10px;
+};
+
 .b {
-	a: "Original .b";
-	
-	&:hover {
-		a: "Pseudo in .b";
-	}
-}
-
-.test {
-	.b {
-		a: ".b wasn't espect to be used as extendable.";
-	}
-}
-
-.bad-thing {
-	&:extend(.b all);
-	a: "Wat a mess";
+	@test();
+	a: 20px;
 }

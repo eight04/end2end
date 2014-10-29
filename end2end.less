@@ -21,8 +21,6 @@ html, body {
 body {
 	font-size: @font-size;
 	line-height: @line-height;
-	overflow-x: hidden;
-	width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -209,6 +207,11 @@ img {
 	}
 }
 
+ul {
+	&:extend(.section-base);
+	padding: 0 0 0 2.5em;
+}
+
 /**
 	Grid system
 */
@@ -304,7 +307,6 @@ img {
 .table-row {
 	display: block;
 	margin: 0 -@gap*2;
-	clip: rect(0 @gap 0 @gap);
 	
 	> * {
 		display: table;
@@ -331,6 +333,13 @@ img {
 	> * {
 		padding-left: 0;
 		padding-right: 0;
+	}
+}
+
+.table-nogap {
+	margin: 0;
+	> * {
+		border-spacing: 0;
 	}
 }
 
@@ -730,6 +739,103 @@ img {
 		font-size: 80%;
 	}
 }
+
+// Nav
+.make-border() {
+	border: 1px solid @border;
+	border-radius: @round-corner;
+	overflow: hidden;
+}
+
+.list-reset {
+	padding: 0;
+	list-style: none;
+}
+
+.nav-list {
+	&:extend(.list-reset);
+	
+	.make-border();
+	
+	// Don't style on li to make animate easier
+	> * {
+		> * {
+			display: block;
+			padding: 0.5em 1em;
+			text-decoration: none;
+			
+			&:hover {
+				background-color: @color-bg;
+				color: @color;
+			}
+		}
+		
+		+ * {
+			border-top: 1px solid @border;
+		}
+	}
+}
+
+.nav-pool {
+	&:extend(.list-reset);
+	
+	> * {
+		display: inline-block;
+		margin: 0 0.5em 0 0;
+	}
+}
+
+.nav-tab {
+	&:extend(.list-reset);
+	
+	display: table;
+	margin: 0;
+	border-bottom: 1px solid @border;
+	width: 100%;
+	
+	> * {
+		display: inline-block;
+		background-color: white;
+		vertical-align: bottom;
+		margin: 0 1em -1px 0;
+		
+		.make-border();
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		
+		&.active {
+			border-bottom-color: white;
+		
+			&:hover {
+				background-color: white;
+			}
+		}
+		
+		&:hover {
+			background-color: @color-bg;
+		}
+		
+		> * {
+			display: block;
+			padding: 0.5em 1em;
+			text-decoration: none;
+			&:hover {
+				color: @color;
+			}
+		}
+	}
+}
+
+.nav-responsive {
+	overflow: auto;
+	
+	> * {
+		white-space: nowrap;
+	}
+}
+
+// Progress
+
 
 // Animate
 .collapsing {
