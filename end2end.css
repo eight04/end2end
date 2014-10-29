@@ -3214,6 +3214,21 @@ img.right-xs {
 .nav-responsive > * {
   white-space: nowrap;
 }
+.progress {
+  border: 1px solid #a3a3a3;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  cursor: default;
+  font-size: 80%;
+  margin: 0.25em 0;
+}
+.progress-bar {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+.progress-label {
+  padding: 0 0.5em;
+}
 .collapsing {
   transition: 0.4s all ease;
 }
