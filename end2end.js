@@ -386,16 +386,16 @@ angular.module("end2end", ["ngAnimate"])
 				}
 			};
 		
-		function inView(nav) {
-			var rect = nav.element[0].getBoundingClientRect();
-			if (trackScroll.direction >= 0 && rect.top >= $window.innerHeight / 2 && rect.bottom <= $window.innerHeight) {
-				return true;
-			}
-			if (trackScroll.direction < 0 && rect.top > 0 && rect.bottom <= $window.innerHeight / 2) {
-				return true;
-			}
-			return false;
-		}
+		// function inView(nav) {
+			// var rect = nav.element[0].getBoundingClientRect();
+			// if (trackScroll.direction >= 0 && rect.top >= $window.innerHeight / 2 && rect.bottom <= $window.innerHeight) {
+				// return true;
+			// }
+			// if (trackScroll.direction < 0 && rect.top > 0 && rect.bottom <= $window.innerHeight / 2) {
+				// return true;
+			// }
+			// return false;
+		// }
 		
 		angular.element($window).on("scroll", function(){
 			var i, node, clone;
@@ -403,12 +403,14 @@ angular.module("end2end", ["ngAnimate"])
 			trackScroll.track();
 			
 			for (i = 0; i < eznav.navs.length; i++) {
-				if (!inView(eznav.navs[i])) {
-					continue;
+				eznav.navs[i].rect = eznav.navs[i].element[0].getBoundingClientRect();
+			}
+			
+			for (i = 0; i < eznav.navs.length; i++) {
+				if (eznav.navs[i].rect.top <= $window.innerHeight / 2 && eznav.navs[i + 1].rect.top > $window.innerHeight / 2) {
+					clone = eznav.navs[i];
+					break;
 				}
-				
-				clone = eznav.navs[i];
-				break;
 			}
 			
 			if (!clone) {
