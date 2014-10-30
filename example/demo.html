@@ -9,12 +9,11 @@
 	<script src="https://code.angularjs.org/1.2.26/angular.js"></script>
 	<script src="https://code.angularjs.org/1.2.26/angular-animate.js"></script>
 	
-	<link rel="stylesheet" href="../end2end.css">
-	<link rel="stylesheet" href="../theme.css">
-	<script src="../grid.js"></script>
+	<link rel="stylesheet" href="../dist/end2end.css">
+	<script src="../end2end.js"></script>
 	
 	<script>
-		angular.module("App", ["bootstrap-port"]);
+		angular.module("App", ["end2end"]);
 	</script>
 	
 	<!--[if lte ie 8]>
@@ -74,16 +73,17 @@
 	</header>
 	<div class="container">
 		<div class="row row-top">
-			<div class="col-md-3-4">
+			<div class="col-md-3-4 eznav-target">
 				<h2>Title</h2>
 				<p>
 					Welcome to <a href="https://github.com/eight04/end2end">end2end</a> demo page!
 				</p>
 				<p>
-					Hi! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, ad inventore unde at voluptate. Molestias, dolor, illo, autem, suscipit quaerat distinctio eveniet perspiciatis explicabo nesciunt quam vitae et harum labore.
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, ad inventore unde at voluptate. Molestias, dolor, illo, autem, suscipit quaerat distinctio eveniet perspiciatis explicabo nesciunt quam vitae et harum labore.
 				</p>
 				
-				<h2>Title 2</h2>
+				<h2>Font size testing</h2>
+				<p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, fugit consectetur iusto quod culpa a nihil saepe labore ut distinctio sint ad dolorem odio hic quidem quaerat expedita similique corporis.</p>
 				
 				<h2>Grid system</h2>
@@ -262,7 +262,68 @@
 							</div>
 						</div>
 					</div>
-				
+					
+					<h3>Table-row</h3>
+					<div class="table-row">
+						<div class="row">
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line<br>third-line
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line<br>third-line<br>4th-line
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line<br>third-line<br>4th-line<br>5th-line
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<h3>Table-row, nogap</h3>
+					<div class="table-row table-nogap">
+						<div class="row">
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line<br>third-line
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line<br>third-line<br>4th-line
+								</div>
+							</div>
+							<div class="col-xs-1-5">
+								<div class="content">
+									.col-xs-1-5<br>second-line<br>third-line<br>4th-line<br>5th-line
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				<h2>Table</h2>
@@ -400,7 +461,7 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, illo, iure animi soluta officiis nemo porro sed aut nihil quibusdam? Consequatur, commodi, harum assumenda eius incidunt minus numquam quasi voluptas.</p>
 				<div class="clear"></div>
 				
-				<h2 class="clear">Button group</h2>
+				<h2>Button group</h2>
 				<form>
 					<div class="btn-group">
 						<button>Left</button>
@@ -408,19 +469,141 @@
 						<button>Right</button>
 					</div>
 				</form>
+				
+				<h2>List</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, tenetur, necessitatibus, provident, molestias voluptatibus quia aperiam aut cum suscipit consequatur nam enim minima reprehenderit molestiae voluptates dolorum doloribus maiores similique.</p>
+				<ul>
+					<li>Item 1</li>
+					<li>Item 2</li>
+					<li>Item 3</li>
+					<li>Item 4</li>
+					<li>Item 5</li>
+				</ul>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, numquam, aliquid, natus non quis earum obcaecati tenetur doloribus sequi dolorum ea tempore doloremque deleniti exercitationem maiores nulla nesciunt voluptatum beatae!</p>
+				<ol>
+					<li>Item 1</li>
+					<li>Item 2</li>
+					<li>Item 3</li>
+					<li>Item 4</li>
+					<li>Item 5</li>
+				</ol>
+				
+				<h2>Nav</h2>
+				<h3>Nav-list</h3>
+				<ul class="nav-list">
+					<li><a href="">Link 1</a></li>
+					<li><a href="">Link 2</a></li>
+					<li><a href="">Link 3</a></li>
+					<li><a href="">Link 4</a></li>
+					<li><a href="">Link 5</a></li>
+				</ul>
+				
+				<h3>Nav-pool</h3>
+				<ul class="nav-pool">
+					<li><a href="">Link 1</a></li>
+					<li><a href="">Link 2</a></li>
+					<li><a href="">Link 3</a></li>
+					<li><a href="">Link 4</a></li>
+					<li><a href="">Link 5</a></li>
+				</ul>
+				
+				<h3>Nav-tab</h3>
+				<div class="nav-responsive">
+					<ul class="nav-tab">
+						<li class="active"><a href="">Link 1</a></li>
+						<li><a href="">Link 2</a></li>
+						<li><a href="">Link 3</a></li>
+						<li><a href="">Link 4</a></li>
+						<li><a href="">Link 5</a></li>
+					</ul>
+				</div>
+				
+				<h3>Nav Tree</h3>
+				<ul class="nav-tree">
+					<li>
+						<a href="">Link 1</a>
+						<ul class="nav-tree">
+							<li><a href="">Sub 1</a></li>
+							<li><a href="">Sub 2</a></li>
+							<li><a href="">Sub 3</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="">Link 2</a>
+						<ul class="nav-tree">
+							<li><a href="">Sub 1</a></li>
+							<li><a href="">Sub 2</a></li>
+							<li><a href="">Sub 3</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="">Link 3</a>
+						<ul class="nav-tree">
+							<li><a href="">Sub 1</a></li>
+							<li><a href="">Sub 2</a></li>
+							<li><a href="">Sub 3</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="">Link 4</a>
+						<ul class="nav-tree">
+							<li><a href="">Sub 1</a></li>
+							<li><a href="">Sub 2</a></li>
+							<li><a href="">Sub 3</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="">Link 5</a>
+						<ul class="nav-tree">
+							<li><a href="">Sub 1</a></li>
+							<li><a href="">Sub 2</a></li>
+							<li><a href="">Sub 3</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<h2>Progress</h2>
+				<p>
+					&lt;progress> is lack of support.
+				</p>
+				<div class="progress">
+					<div class="progress-bar" style="width: 100%;">
+						<div class="progress-label">
+							100%
+						</div>
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar" style="width: 80%;">
+						<div class="progress-label">
+							80%
+						</div>
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar" style="width: 1%;">
+						<div class="progress-label">
+							1%
+						</div>
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar" style="width: 0%;">
+						<div class="progress-label">
+							0%
+						</div>
+					</div>
+				</div>
+				
 			</div>
 			<div class="col-md-1-4">
 				<div class="sidebar sidebar-md">
 					<button class="sidebar-toggle"></button>
 					<div class="sidebar-content">
-						<h2>Side</h2>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, vitae, quam modi ullam ea quisquam dolorem eum quasi illum doloribus praesentium magnam tenetur alias tempore atque sit nesciunt blanditiis id.
-						</p>
-						<p>
+						<h2>Sidebar</h2>
 							<a href="#">#Go to top</a>
-						</p>
-					</div>
+							<div class="eznav"></div>
+					</div>					
 				</div>
 			</div>
 		</div>
