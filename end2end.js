@@ -256,10 +256,6 @@ angular.module("end2end", ["ngAnimate"])
 	.directive("sidebar", function(){
 		var sidebarJar = [];
 		
-		var w = angular.element(window);
-		w.on("scroll", moveSidebar);
-		w.on("resize", calcSidebar);
-		
 		function moveSidebar(){
 			var i, sidebar, state;
 			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
@@ -288,15 +284,6 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		}
 		
-		function calcSidebar(){
-			// console.log("resize");
-			var i;
-			for (i = 0; i < sidebarJar.length; i++) {
-				calc(sidebarJar[i]);
-			}
-			moveSidebar();
-		}
-		
 		function calc(sidebar){
 			var rect = sidebar.element[0].getBoundingClientRect();
 			var row = sidebar.element;
@@ -313,6 +300,18 @@ angular.module("end2end", ["ngAnimate"])
 			sidebar.height = sidebar.elementContent[0].scrollHeight;
 			// console.log(sidebar);
 		}
+		
+		function calcSidebar(){
+			var i;
+			for (i = 0; i < sidebarJar.length; i++) {
+				calc(sidebarJar[i]);
+			}
+			moveSidebar();
+		}
+		
+		var w = angular.element(window);
+		w.on("scroll", moveSidebar);
+		w.on("resize", calcSidebar);
 		
 		return {
 			restrict: "C",
@@ -369,26 +368,51 @@ angular.module("end2end", ["ngAnimate"])
 		};
 	})
 	.directive("eznavTarget", function(eznav, $window){
+		var doc = $window.document,
+			trackScroll = {
+				direction: 0,
+				lastScrollTop: 0,
+				currentScrollTop: 0,
+				track: function(){
+					this.lastScrollTop = this.currentScrollTop;
+					this.currentScrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
+					if (this.currentScrollTop > this.lastScrollTop) {
+						this.direction = 1;
+					} else if (this.currentScrollTop < this.lastScrollTop) {
+						this.direction = -1;
+					} else {
+						this.direction = 0;
+					}
+				}
+			};
 		
 		function inView(nav) {
 			var rect = nav.element[0].getBoundingClientRect();
-			if (rect.top >= 0 && rect.bottom <= $window.innerHeight) {
+			if (trackScroll.direction >= 0 && rect.top >= $window.innerHeight / 2 && rect.bottom <= $window.innerHeight) {
+				return true;
+			}
+			if (trackScroll.direction < 0 && rect.top > 0 && rect.bottom <= $window.innerHeight / 2) {
 				return true;
 			}
 			return false;
 		}
 		
 		angular.element($window).on("scroll", function(){
-			var i, node, clone, offset, current;
+			var i, node, clone;
 			
-			for (i = eznav.navs.length - 1; i > 0 ; i--) {
-				offset = getOffset()
+			trackScroll.track();
+			
+			for (i = 0; i < eznav.navs.length; i++) {
 				if (!inView(eznav.navs[i])) {
 					continue;
 				}
 				
 				clone = eznav.navs[i];
 				break;
+			}
+			
+			if (!clone) {
+				return;
 			}
 			
 			if (eznav.currentView) {

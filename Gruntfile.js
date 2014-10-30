@@ -20,19 +20,20 @@ module.exports = function(grunt) {
 			expand: true,
 			cwd: "src/core/",
 			src: "*.less",
-			dest: "src/core/",
+			// dest: "src/core/",
 			ext: ".css"
 		},
 		main: {
 			expand: true,
-			src: "src/end2end.less",
+			cwd: "src/",
+			src: "end2end.less",
 			dest: "dist/",
 			ext: ".css"
 		}
 	},
 	eslint: {
-		source: {
-			src: "dialog.js"
+		end2end: {
+			src: ["*.js", "!Gruntfile.js"]
 		}
 	},
 	copy: {
@@ -67,6 +68,10 @@ module.exports = function(grunt) {
 		main: {
 			files: "src/*.less",
 			tasks: "less:main"
+		},
+		js: {
+			files: "*.js",
+			tasks: "eslint"
 		}
 	}
   });
@@ -80,6 +85,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ["eslint", "copy", "less", "ngtemplates", 'uglify']);
+  grunt.registerTask('default', ["eslint", "less"]);
 
 };
