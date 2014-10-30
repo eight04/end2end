@@ -185,6 +185,14 @@ button {
 		width: 2em;
 		opacity: 1;
 	}
+	
+	&:before {
+		content: "«";
+		
+		.sidebar.expand & {
+			content: "»";
+		}
+	}
 }
 
 // Animate
