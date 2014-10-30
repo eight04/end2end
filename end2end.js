@@ -278,6 +278,12 @@ angular.module("end2end", ["ngAnimate"])
 					return;
 				}
 				
+				if (state == "sidebar-bottom") {
+					sidebar.elementContent.css("top", sidebar.rowBottom - sidebar.top - sidebar.height + "px");
+				} else {
+					sidebar.elementContent.css("top", "");
+				}
+				
 				sidebar.element.removeClass("sidebar-top sidebar-bottom sidebar-fixed");
 				sidebar.element.addClass(state);
 				sidebar.state = state;
@@ -286,11 +292,7 @@ angular.module("end2end", ["ngAnimate"])
 		
 		function calc(sidebar){
 			var rect = sidebar.element[0].getBoundingClientRect();
-			var row = sidebar.element;
-			while(!row.hasClass("row")) {
-				row = row.parent();
-			}
-			var rowRect = row[0].getBoundingClientRect();
+			var rowRect = sidebar.elementRow[0].getBoundingClientRect();
 			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 			
 			sidebar.top = rect.top + scrollY;
@@ -328,16 +330,23 @@ angular.module("end2end", ["ngAnimate"])
 					}
 				};
 				
+				var row = $element;
+				while(!row.hasClass("row")) {
+					row = row.parent();
+				}
+				
 				// Affix
 				var sidebar = {
 					element: $element,
-					elementContent: angular.element($element[0].querySelector(".sidebar-content"))
+					elementContent: angular.element($element[0].querySelector(".sidebar-content")),
+					elementRow: row
 				};
 				
 				// IE8 issue with respond?
 				$timeout(function(){
 					calc(sidebar);
 				});
+				
 				sidebarJar.push(sidebar);
 			}
 		};
@@ -368,10 +377,10 @@ angular.module("end2end", ["ngAnimate"])
 		};
 	})
 	.directive("eznavTarget", function(eznav, $window){
-		var doc = $window.document;
+		// var doc = $window.document;
 		
 		angular.element($window).on("scroll", function(){
-			var i, node, clone, innerHeight = doc.documentElement.clientHeight;
+			var i, node, clone;
 			
 			// trackScroll.track();
 			
@@ -380,7 +389,7 @@ angular.module("end2end", ["ngAnimate"])
 			}
 			
 			for (i = 0; i < eznav.navs.length; i++) {
-				if (eznav.navs[i].rect.top <= innerHeight / 2 && eznav.navs[i + 1].rect.top > innerHeight / 2) {
+				if (eznav.navs[i].rect.top <= 32 && eznav.navs[i + 1].rect.top > 32) {
 					clone = eznav.navs[i];
 					break;
 				}
@@ -474,5 +483,31 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	});
+	// .directive("fillHeight", function($window){
+		// return {
+			// restrict: "C",
+			// link: function(scope, element){
+				// function calc() {
+					// var nodes = element.children(), i, row = [];
+					// for (i = 0; i < nodes.length; i++) {
+						// if (!row.length) {
+							// row.push(nodes[i]);
+							// continue;
+						// }
+						// if (row[row.length - 1].getBoundingClientRect().top == nodes[i].getBoundingClientRect().top) {
+							// row.push(nodes[i]);
+							// continue;
+						// }
+						// calcRow(row);
+						// row = [nodes[i]];
+					// }
+					// element.css("height", "auto");
+					// element.css("height", element.parent()[0].scrollHeight + "px");
+				// }
+				// angular.element($window).on("resize", calc);
+				// calc();
+			// }
+		// };
+	// });
 
 })();

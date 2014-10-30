@@ -244,6 +244,9 @@
 			}
 		}
 		@media (min-width: @@wsize) {
+			// position: relative;
+			left: 0;
+			
 			&.sidebar-top .sidebar-content {
 				position: static;
 			}
@@ -256,11 +259,11 @@
 			
 			&.sidebar-bottom .sidebar-content{
 				position: absolute;
-				bottom: 0;
+				// bottom: 0;
 			}
-			.sidebar-content {
-				overflow: auto;
-			}
+			// .sidebar-content {
+				// overflow: auto;
+			// }
 			&.expand-add,
 			&.expand-remove {
 				transition: none;

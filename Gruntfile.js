@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 			expand: true,
 			cwd: "src/core/",
 			src: "*.less",
-			// dest: "src/core/",
+			dest: "src/core/",
 			ext: ".css"
 		},
 		main: {
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 		},
 		core: {
 			files: "src/core/*.less",
-			tasks: "less:core"
+			tasks: "less"
 		},
 		main: {
 			files: "src/*.less",
