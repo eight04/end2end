@@ -7,20 +7,9 @@ h2 {
 	border-bottom: 1px solid @border;
 }
 
-// a {
-	// &:link {
-		// color: @link-color;
-	// }
-	// &:visited {
-		// color: darken(@link-color, 10%);
-	// }
-	// &:hover {
-		// color: lighten(@link-color, 10%);
-	// }
-	// &:active {
-		// color: darken(@link-color, 10%);
-	// }
-// }
+a {
+	.make-link-color(@link-color, lighten(@link-color, 10%));
+}
 
 table {
 	border: 1px solid @border;
@@ -196,4 +185,9 @@ button {
 		width: 2em;
 		opacity: 1;
 	}
+}
+
+// Animate
+.collapsing {
+	transition: 0.4s all ease;
 }

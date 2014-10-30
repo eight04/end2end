@@ -1,74 +1,6 @@
 @import "vars.less";
 @import "reset.less"
 
-// Table addition
-.table-responsive {
-	display: inline-block;
-	max-width: 100%;
-	overflow: auto;
-	
-	th, td {
-		white-space: nowrap;
-	}
-}
-
-// Form addition
-.radio, .checkbox {
-	label {
-		display: inline-block;
-		position: relative;
-		padding-left: 1.5em;
-		cursor: pointer;
-	}
-	
-	input[type="radio"],
-	input[type="checkbox"] {
-		color: inherit;
-		position: absolute;
-		border: none;
-		padding: 0;
-		width: auto;
-		height: auto;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto 0;
-	}
-}
-
-.btn-block {
-	display: block;
-	margin: 0.25em 0;
-}
-
-.btn-group {
-	display: inline-block;
-	overflow: hidden;
-	
-	> * {
-		display: block;
-		float: left;
-		margin: 0;
-	}
-}
-
-.form-inline {
-	input, select, .radio, .checkbox, fieldset {
-		display: inline-block;
-		width: auto;
-		margin: 0;
-	}
-}
-
-// Image addition
-img {
-	&[class*="right-"],
-	&[class*="left-"] {
-		display: block;
-		margin: 0.5em auto;
-	}
-}
-
 /**
 	Grid system
 */
@@ -207,6 +139,153 @@ img {
 /**
 	Other components
 */
+
+// Responsive Table
+.table-responsive {
+	display: inline-block;
+	max-width: 100%;
+	overflow: auto;
+	
+	th, td {
+		white-space: nowrap;
+	}
+}
+
+// Form addition
+.radio, .checkbox {
+	label {
+		display: inline-block;
+		position: relative;
+		padding-left: 1.5em;
+		cursor: pointer;
+	}
+	
+	input[type="radio"],
+	input[type="checkbox"] {
+		color: inherit;
+		position: absolute;
+		border: none;
+		padding: 0;
+		width: auto;
+		height: auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto 0;
+	}
+}
+
+// Inline form
+.form-inline {
+	input, select, .radio, .checkbox, fieldset {
+		display: inline-block;
+		width: auto;
+		margin: 0;
+	}
+}
+
+// Button addition
+.btn-block {
+	display: block;
+	margin: 0.25em 0;
+}
+
+.btn-group {
+	display: inline-block;
+	overflow: hidden;
+	
+	> * {
+		display: block;
+		float: left;
+		margin: 0;
+	}
+}
+
+// Image addition
+img {
+	&[class*="right-"],
+	&[class*="left-"] {
+		display: block;
+		margin: 0.5em auto;
+	}
+}
+
+// Text align
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+// Display utility
+.make-utility(xs);
+
+@media (min-width: @window-sm) {
+	.make-utility(sm);
+}
+
+@media (min-width: @window-md) {
+	.make-utility(md);
+}
+
+@media (min-width: @window-md) {
+	.make-utility(lg);
+}
+
+.make-utility(@size){
+	.block-@{size} {
+		display: block;
+	}
+	.inline-@{size} {
+		display: inline;
+	}
+	.inline-block-@{size} {
+		display: inline-block;
+	}
+	.none-@{size} {
+		display: none;
+	}
+}
+
+// Float utility
+.make-float(xs);
+@media (min-width: @window-sm) {
+	.make-float(sm);
+}
+@media (min-width: @window-md) {
+	.make-float(md);
+}
+@media (min-width: @window-lg) {
+	.make-float(lg);
+}
+
+.make-float(@size) {
+	.right-@{size} {
+		float: right;
+	}
+	.left-@{size} {
+		float: left;
+	}
+	
+	// Add additional margin to float image
+	img.left-@{size} {
+		margin: 0.25em 1em 0.25em 0;
+	}
+	img.right-@{size} {
+		margin: 0.25em 0 0.25em 1em;
+	}
+}
+
+.clear {
+	clear: both;
+}
+
 .clearfix {
 	&:after {
 		content: "";
@@ -215,6 +294,7 @@ img {
 	}
 }
 
+// Inline-block vertical-center
 .vcenter {
 	&:before {
 		content: "";
@@ -228,6 +308,7 @@ img {
 	}
 }
 
+// Navbar
 @navbar-height: 2.75em;
 
 .navbar{
@@ -506,46 +587,7 @@ img {
 	}
 }
 
-.text-left {
-	text-align: left;
-}
-
-.text-right {
-	text-align: right;
-}
-
-.text-center {
-	text-align: center;
-}
-
-.make-float(xs);
-@media (min-width: @window-sm) {
-	.make-float(sm);
-}
-@media (min-width: @window-md) {
-	.make-float(md);
-}
-@media (min-width: @window-lg) {
-	.make-float(lg);
-}
-
-.make-float(@size) {
-	.right-@{size} {
-		float: right;
-	}
-	.left-@{size} {
-		float: left;
-	}
-	
-	// Add additional margin to float image
-	img.left-@{size} {
-		margin: 0.25em 1em 0.25em 0;
-	}
-	img.right-@{size} {
-		margin: 0.25em 0 0.25em 1em;
-	}
-}
-
+// Blackboard
 @blackboard-color-bg: @color;
 @blackboard-color: @color-bg;
 
@@ -750,45 +792,6 @@ img {
 
 .progress-label {
 	padding: 0 0.5em;
-}
-
-// Animate
-.collapsing {
-	transition: 0.4s all ease;
-}
-
-// Responsive utility
-.make-utility(xs);
-
-@media (min-width: @window-sm) {
-	.make-utility(sm);
-}
-
-@media (min-width: @window-md) {
-	.make-utility(md);
-}
-
-@media (min-width: @window-md) {
-	.make-utility(lg);
-}
-
-.make-utility(@size){
-	.block-@{size} {
-		display: block;
-	}
-	.inline-@{size} {
-		display: inline;
-	}
-	.inline-block-@{size} {
-		display: inline-block;
-	}
-	.none-@{size} {
-		display: none;
-	}
-}
-
-.clear {
-	clear: both;
 }
 
 @import "theme.less";
