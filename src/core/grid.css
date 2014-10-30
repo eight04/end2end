@@ -2323,6 +2323,12 @@
   display: table-cell;
   padding: 0;
 }
+.table-xs-nogap {
+  margin: 0;
+}
+.table-xs-nogap > * {
+  border-spacing: 0;
+}
 @media (min-width: 768px) {
   .table-sm {
     display: block;
@@ -2338,6 +2344,12 @@
   .table-sm > * > * {
     display: table-cell;
     padding: 0;
+  }
+  .table-sm-nogap {
+    margin: 0;
+  }
+  .table-sm-nogap > * {
+    border-spacing: 0;
   }
 }
 @media (min-width: 1024px) {
@@ -2356,6 +2368,12 @@
     display: table-cell;
     padding: 0;
   }
+  .table-md-nogap {
+    margin: 0;
+  }
+  .table-md-nogap > * {
+    border-spacing: 0;
+  }
 }
 @media (min-width: 1440px) {
   .table-lg {
@@ -2372,5 +2390,11 @@
   .table-lg > * > * {
     display: table-cell;
     padding: 0;
+  }
+  .table-lg-nogap {
+    margin: 0;
+  }
+  .table-lg-nogap > * {
+    border-spacing: 0;
   }
 }
