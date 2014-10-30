@@ -1,6 +1,7 @@
 @import "vars.less";
 @import "reset.less"
 
+// Table addition
 .table-responsive {
 	display: inline-block;
 	max-width: 100%;
@@ -11,80 +12,7 @@
 	}
 }
 
-.form-base {
-	font-size: inherit;
-	font-family: inherit;
-	line-height: inherit;
-	color: inherit;
-	vertical-align: middle;
-	height: 2em;
-	border: none;
-}
-
-.make-control() {
-	display: block;
-	margin: 0.25em 0 1em;
-	width: 100%;
-}
-
-form {
-	&:extend(.section-base);	
-}
-
-input {
-	&:extend(.form-base all);
-	.make-control();
-}
-
-textarea {
-	&:extend(.form-base all);
-	
-	.make-control();
-	height: auto;
-}
-
-button, .btn {
-	&:extend(.form-base all);
-	
-	cursor: pointer;
-	text-align: center;
-	
-	// Firefox button fix: http://davidwalsh.name/firefox-buttons
-	&::-moz-focus-inner {
-		border: 0;
-		padding: 0;
-	}
-}
-
-select {
-	&:extend(.form-base all);
-	.make-control();
-
-	cursor: pointer;
-	&[multiple] {
-		height: auto;
-	}
-}
-
-.btn {
-	// Overide <a> pseudo
-	&:link,
-	&:visited {
-		color: inherit;
-	}
-}
-
-fieldset {
-	&:extend(.section-base);
-	
-	padding: 0;
-	border: none;
-}
-
-legend {
-	padding: 0;
-}
-
+// Form addition
 .radio, .checkbox {
 	label {
 		display: inline-block;
@@ -132,20 +60,13 @@ legend {
 	}
 }
 
+// Image addition
 img {
-	vertical-align: text-bottom;
-	max-width: 100%;
-	
 	&[class*="right-"],
 	&[class*="left-"] {
 		display: block;
 		margin: 0.5em auto;
 	}
-}
-
-ul {
-	&:extend(.section-base);
-	padding: 0 0 0 2.5em;
 }
 
 /**
