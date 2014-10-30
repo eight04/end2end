@@ -263,10 +263,10 @@ angular.module("end2end", ["ngAnimate"])
 			for(i = 0; i < sidebarJar.length; i++) {
 				sidebar = sidebarJar[i];
 				
-				if (sidebar.top >= scrollY - sidebar.elementContent[0].scrollTop) {
+				if (sidebar.top >= scrollY) {
 					// top
 					state = "sidebar-top";
-				} else if (scrollY - sidebar.elementContent[0].scrollTop + sidebar.height >= sidebar.rowBottom) {
+				} else if (scrollY + sidebar.height >= sidebar.rowBottom) {
 					// bottom
 					state = "sidebar-bottom";
 				} else {
@@ -388,15 +388,17 @@ angular.module("end2end", ["ngAnimate"])
 				eznav.navs[i].rect = eznav.navs[i].element[0].getBoundingClientRect();
 			}
 			
-			for (i = 0; i < eznav.navs.length; i++) {
+			for (i = 0; i < eznav.navs.length - 1; i++) {
 				if (eznav.navs[i].rect.top <= 32 && eznav.navs[i + 1].rect.top > 32) {
 					clone = eznav.navs[i];
 					break;
 				}
 			}
 			
-			if (!clone) {
-				return;
+			// console.log(eznav);
+			
+			if (!clone && eznav.navs[i].rect.top <= 32 && eznav.element[0].getBoundingClientRect().bottom > 32) {
+				clone = eznav.navs[i];
 			}
 			
 			if (eznav.currentView) {
@@ -409,12 +411,14 @@ angular.module("end2end", ["ngAnimate"])
 				eznav.currentView = null;
 			}
 			
-			while (clone.parent) {
-				clone.active = true;
-				clone.leafElement.addClass("active");
-				clone = clone.parent;
+			if (clone) {
+				while (clone.parent) {
+					clone.active = true;
+					clone.leafElement.addClass("active");
+					clone = clone.parent;
+				}
+				eznav.currentView = eznav.navs[i];
 			}
-			eznav.currentView = eznav.navs[i];
 		});
 		
 		return {
@@ -453,6 +457,7 @@ angular.module("end2end", ["ngAnimate"])
 				
 				eznav.data = root.children;
 				eznav.navs = navList;
+				eznav.element = element;
 			}
 		};
 	})
