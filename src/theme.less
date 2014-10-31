@@ -64,6 +64,10 @@ select {
 	}
 }
 
+textarea {
+	padding: 0.5em;
+}
+
 .btn,
 button {
 	border: 1px solid @border;
@@ -72,10 +76,10 @@ button {
 	
 	background-image: none;
 	background-color: @color-bg;
-	margin-right: 0.5em;
+	min-width: 4.25em;
 	
-	form & {
-		min-width: 4.25em;
+	& + & {
+		margin-left: 0.5em;
 	}
 	
 	&:focus {

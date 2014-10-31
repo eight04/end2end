@@ -487,6 +487,24 @@ angular.module("end2end", ["ngAnimate"])
 				}
 			}
 		};
+	})
+	.directive("tabGroup", function(){
+		return {
+			restrict: "C",
+			template: "templates/tabGroup.html",
+			controller: function($scope) {
+				// this.
+			}
+		};
+	})
+	.directive("tab", function(){
+		return {
+			restrict: "C",
+			require: "^tabGroup"
+			link: function(scope, element, attrs, controller){
+				
+			}
+		};
 	});
 	// .directive("fillHeight", function($window){
 		// return {

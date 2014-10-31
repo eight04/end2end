@@ -113,6 +113,7 @@ button {
 button::-moz-focus-inner {
   border: 0;
   padding: 0;
+  margin-top: 3px;
 }
 fieldset {
   margin: 0;
@@ -3248,6 +3249,28 @@ pre {
 .progress-label {
   padding: 0 0.5em;
 }
+.dialog {
+  border: 1px solid #a3a3a3;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  margin: 1em 0;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dialog-header {
+  background-color: #f2f2f2;
+  padding: 0.5em 1em;
+  font-weight: 700;
+  border-bottom: 1px solid #a3a3a3;
+}
+.dialog-body {
+  padding: 0 1em;
+}
+.page-footer {
+  padding: 2em 0;
+  text-align: center;
+}
 .table-responsive {
   display: inline-block;
   max-width: 100%;
@@ -3314,6 +3337,21 @@ img[class*="left-"] {
 }
 .text-center {
   text-align: center;
+}
+.text-top {
+  vertical-align: top;
+}
+.text-middle {
+  vertical-align: middle;
+}
+.text-bottom {
+  vertical-align: bottom;
+}
+.text-danger {
+  color: #c53535;
+}
+.text-success {
+  color: #3583c5;
 }
 .block-xs {
   display: block;
@@ -3503,6 +3541,9 @@ textarea:active,
 select:active {
   border-color: #cfcfcf;
 }
+textarea {
+  padding: 0.5em;
+}
 .btn,
 button {
   border: 1px solid #a3a3a3;
@@ -3510,11 +3551,13 @@ button {
   padding: 0 0.5em;
   background-image: none;
   background-color: #f2f2f2;
-  margin-right: 0.5em;
-}
-form .btn,
-form button {
   min-width: 4.25em;
+}
+.btn + .btn,
+.btn + button,
+button + .btn,
+button + button {
+  margin-left: 0.5em;
 }
 .btn:focus,
 button:focus {
