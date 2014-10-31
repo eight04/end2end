@@ -3108,6 +3108,12 @@ pre {
 .nav-tab > *.active:hover {
   background-color: white;
 }
+.nav-tab > *.active > *:link,
+.nav-tab > *.active > *:visited,
+.nav-tab > *.active > *:hover,
+.nav-tab > *.active > *:active {
+  color: #3d3d3d;
+}
 .nav-tab > *:hover {
   background-color: #f2f2f2;
 }
