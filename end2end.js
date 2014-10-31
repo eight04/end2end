@@ -491,18 +491,45 @@ angular.module("end2end", ["ngAnimate"])
 	.directive("tabGroup", function(){
 		return {
 			restrict: "C",
-			template: "templates/tabGroup.html",
-			controller: function($scope) {
-				// this.
+			templateUrl: "templates/tabGroup.html",
+			transclude: true,
+			scope: {},
+			controller: function($scope, $animate) {
+				$scope.current = null;
+				$scope.tabs = [];
+				$scope.addTab = this.addTab = function(tab) {
+					$scope.tabs.push(tab);
+					if (!$scope.current) {
+						$scope.active(tab);
+					}
+				};
+				$scope.active = this.active = function(tab) {
+					if ($scope.current) {
+						$animate.removeClass($scope.current.element, "active", function(){
+							$animate.addClass(tab.element, "active");
+						});
+						$scope.current.active = false;
+					} else {
+						$animate.addClass(tab.element, "active");
+					}
+					tab.active = true;
+					$scope.current = tab;
+				};
 			}
 		};
 	})
 	.directive("tab", function(){
 		return {
 			restrict: "C",
-			require: "^tabGroup"
+			// transclude: true,
+			// template: "<div class='tab-pane' ng-class='{active: active}' ng-transclude></div>",
+			require: "^tabGroup",
+			scope: {
+				title: "@tabHeading"
+			},
 			link: function(scope, element, attrs, controller){
-				
+				scope.element = element;
+				controller.addTab(scope);
 			}
 		};
 	});

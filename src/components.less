@@ -575,4 +575,28 @@
 	text-align: center;
 }
 
-// Fix
+// Tabs
+.tab {
+	display: none;
+	
+	&.active {
+		display: block;		
+	}
+	
+	&.active-remove {
+		transition: 0.4s all linear;
+		&.active-remove-active {
+			display: block;
+			opacity: 0;
+		}
+	}
+	
+	&.active-add {
+		transition: 0.4s all linear;
+		display: block;
+		opacity: 0;
+		&.active-add-active {
+			opacity: 1;
+		}
+	}	
+}

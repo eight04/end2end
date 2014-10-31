@@ -3271,6 +3271,27 @@ pre {
   padding: 2em 0;
   text-align: center;
 }
+.tab {
+  display: none;
+}
+.tab.active {
+  display: block;
+}
+.tab.active-remove {
+  transition: 0.4s all linear;
+}
+.tab.active-remove.active-remove-active {
+  display: block;
+  opacity: 0;
+}
+.tab.active-add {
+  transition: 0.4s all linear;
+  display: block;
+  opacity: 0;
+}
+.tab.active-add.active-add-active {
+  opacity: 1;
+}
 .table-responsive {
   display: inline-block;
   max-width: 100%;
