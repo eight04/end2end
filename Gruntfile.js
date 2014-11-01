@@ -39,14 +39,14 @@ module.exports = function(grunt) {
 	copy: {
 		dist: {
 			files: {
-				"dist/dialog.js": "dialog.js"
+				"dist/end2end.js": "end2end.js"
 			}
 		}
 	},
 	ngtemplates: {
 		template: {
 			src: "templates/**.html",
-			dest: "dist/dialog.js",
+			dest: "dist/end2end.js",
 			options: {
 				htmlmin: {
 					collapseWhitespace: true,
@@ -85,6 +85,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ["eslint", "less"]);
+  grunt.registerTask('dist', ["eslint", "less", "copy", "ngtemplates"]);
 
 };
