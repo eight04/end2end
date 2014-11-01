@@ -10,8 +10,8 @@ Features
 --------
 * IE8 support.
 * Responsive layout.
-* Angular animation on modern browser.
-* Bootstrap components rewrote with Angular.
+* Angular animation on modern browser (IE10+).
+* Bootstrap components rewrote in Angular.
 
 Todos
 -----
