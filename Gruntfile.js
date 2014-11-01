@@ -44,7 +44,7 @@ module.exports = function(grunt) {
 		}
 	},
 	ngtemplates: {
-		template: {
+		end2end: {
 			src: "templates/**.html",
 			dest: "dist/end2end.js",
 			options: {
@@ -52,7 +52,6 @@ module.exports = function(grunt) {
 					collapseWhitespace: true,
 					removeComments: true
 				},
-				module: "ezdialog",
 				append: true
 			}
 		}
@@ -86,5 +85,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('dist', ["eslint", "less", "copy", "ngtemplates"]);
+  grunt.registerTask('dist-js', ["eslint", "copy", "ngtemplates"]);
 
 };

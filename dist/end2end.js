@@ -557,7 +557,7 @@ angular.module("end2end", ["ngAnimate"])
 	// });
 
 })();
-angular.module('ezdialog').run(['$templateCache', function($templateCache) {
+angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/eznavLeaf.html',
