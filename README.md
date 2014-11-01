@@ -1,6 +1,6 @@
 end2end
 =======
-A front-end framework built with AngularJS.
+This project were inspired by Bootstrap, a css framework containing grid system, bunch of components and more. So I try to make my own css framework with AngularJS.
 
 Demo page
 ---------
