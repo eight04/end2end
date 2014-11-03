@@ -41,6 +41,29 @@
 	}
 }
 
+.row-justify {
+	.make-flex();
+	
+	justify-content:  space-between;
+	align-items: baseline;
+	text-align: justify;
+	flex-wrap: wrap;
+	line-height: 0;
+	
+	&:after {
+		content: "x";
+		display: inline-block;
+		width: 100%;
+		visibility: hidden;
+	}
+	
+	> * {
+		display: inline-block;
+		text-align: left;
+		line-height: @line-height;
+	}
+}
+
 [class*="push-"],
 [class*="pull-"] {
 	position: relative;

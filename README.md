@@ -21,5 +21,5 @@ Todos
 
 Components
 ----------
-* Dialog?.
+* Add dialog service.
 * Scroll spy.
