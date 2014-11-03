@@ -31,18 +31,14 @@
 	margin-right: -@gap;
 	display: flex;
 	flex-wrap: wrap;
-	letter-spacing: -9999px;
-	position: relative;
-}
-
-[class*="col-"] {
-	padding-left: @gap;
-	padding-right: @gap;
-	letter-spacing: normal;
-	display: inline-block;
-	vertical-align: top;
-	width: 100%;
-	// overflow: hidden;
+	
+	.make-flex();
+	
+	> * {
+		padding-left: @gap;
+		padding-right: @gap;
+		width: 100%;
+	}
 }
 
 [class*="push-"],

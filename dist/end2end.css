@@ -168,17 +168,18 @@ pre {
 .row {
   margin-left: -15px;
   margin-right: -15px;
-  display: flex;
   flex-wrap: wrap;
+  display: flex;
   letter-spacing: -9999px;
-  position: relative;
 }
-[class*="col-"] {
+.row > * {
+  display: inline-block;
+  letter-spacing: normal;
+  margin: 0;
+}
+.row > * {
   padding-left: 15px;
   padding-right: 15px;
-  letter-spacing: normal;
-  display: inline-block;
-  vertical-align: top;
   width: 100%;
 }
 [class*="push-"],
@@ -3297,36 +3298,44 @@ pre {
 }
 .input-group > * {
   display: table-cell;
-  padding: 0 0.5em;
-  border: 1px solid #a3a3a3;
-  border-radius: 0.1875em;
-  overflow: hidden;
-  vertical-align: middle;
-  border-radius: 0;
-  border-left-width: 0;
 }
-.input-group > *:first-child {
+.input-group-input {
+  border-width: 0;
+  padding: 0;
+}
+.input-group-input > * {
+  border-left-width: 0;
+  border-radius: 0;
+}
+.input-group-input:first-child > * {
+  border-left-width: 1px;
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
-  border-left-width: 1px;
 }
-.input-group > *:last-child {
+.input-group-input:last-child > * {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
 }
 .input-group-addon {
+  border: 1px solid #a3a3a3;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  vertical-align: middle;
   background-color: #f2f2f2;
   white-space: nowrap;
   width: 1%;
+  padding: 0 0.5em;
+  border-left-width: 0;
+  border-radius: 0;
 }
 .input-group-addon:first-child {
-  border-right-width: 0;
-}
-.input-group-addon + * {
   border-left-width: 1px;
+  border-top-left-radius: 0.1875em;
+  border-bottom-left-radius: 0.1875em;
 }
-* + .input-group-addon {
-  border-left-width: 0;
+.input-group-addon:last-child {
+  border-top-right-radius: 0.1875em;
+  border-bottom-right-radius: 0.1875em;
 }
 .modal {
   display: flex;
