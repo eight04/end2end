@@ -3371,6 +3371,32 @@ pre {
 .modal > * {
   background-color: white;
 }
+.modal.ng-hide-add {
+  display: flex!important;
+  transition: 0.2s all;
+}
+.modal.ng-hide-add > * {
+  transition: 0.2s all;
+  opacity: 1;
+  transform: none;
+}
+.modal.ng-hide-add.ng-hide-add-active > * {
+  opacity: 0;
+  transform: translateY(-25%);
+}
+.modal.ng-hide-remove {
+  display: flex!important;
+  transition: 0.2s all;
+}
+.modal.ng-hide-remove > * {
+  transition: 0.4s all;
+  transform: translateY(-25%);
+  opacity: 0;
+}
+.modal.ng-hide-remove.ng-hide-remove-active > * {
+  transform: none;
+  opacity: 1;
+}
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -3381,6 +3407,20 @@ pre {
   opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   z-index: 1200;
+}
+.modal-backdrop.ng-hide-add {
+  transition: 0.2s all linear;
+  opacity: 0.5;
+}
+.modal-backdrop.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.modal-backdrop.ng-hide-remove {
+  transition: 0.2s all linear;
+  opacity: 0;
+}
+.modal-backdrop.ng-hide-remove.ng-hide-remove-active {
+  opacity: 0.5;
 }
 .table-responsive {
   display: inline-block;

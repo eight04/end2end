@@ -730,6 +730,38 @@
 	> * {
 		background-color: white;
 	}
+	
+	&.ng-hide-add {
+		display: flex!important;
+		transition: 0.2s all;
+		
+		> * {
+			transition: 0.2s all;
+			opacity: 1;
+			transform: none;
+		}
+		
+		&.ng-hide-add-active > * {
+			opacity: 0;
+			transform: translateY(-25%);
+		}
+	}
+	
+	&.ng-hide-remove {
+		display: flex!important;
+		transition: 0.2s all;
+		
+		> * {
+			transition: 0.4s all;
+			transform: translateY(-25%);
+			opacity: 0;
+		}
+
+		&.ng-hide-remove-active > * {
+			transform: none;
+			opacity: 1;
+		}
+	}
 }
 
 .modal-backdrop {
@@ -742,4 +774,22 @@
 	opacity: 0.5;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	z-index: 1200;
+	
+	&.ng-hide-add {
+		transition: 0.2s all linear;
+		opacity: 0.5;
+		
+		&.ng-hide-add-active {
+			opacity: 0;
+		}
+	}
+	
+	&.ng-hide-remove {
+		transition: 0.2s all linear;
+		opacity: 0;
+		
+		&.ng-hide-remove-active {
+			opacity: 0.5;
+		}
+	}
 }
