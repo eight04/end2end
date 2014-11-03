@@ -182,17 +182,8 @@ pre {
   width: 100%;
 }
 .row-justify {
-  display: flex;
-  letter-spacing: -9999px;
-  justify-content: space-between;
-  align-items: baseline;
   text-align: justify;
-  flex-wrap: wrap;
   line-height: 0;
-}
-.row-justify > * {
-  display: inline-block;
-  letter-spacing: normal;
 }
 .row-justify:after {
   content: "x";
@@ -204,6 +195,7 @@ pre {
   display: inline-block;
   text-align: left;
   line-height: 1.55;
+  vertical-align: baseline;
 }
 [class*="push-"],
 [class*="pull-"] {
@@ -3302,14 +3294,14 @@ pre {
   display: inline-block;
 }
 .pane.active-remove {
-  transition: 0.4s all linear;
+  transition: 0.2s all linear;
   display: block;
 }
 .pane.active-remove.active-remove-active {
   opacity: 0;
 }
 .pane.active-add {
-  transition: 0.4s all linear;
+  transition: 0.2s all linear;
   display: block;
   opacity: 0;
 }
@@ -3855,4 +3847,8 @@ small {
 }
 .collapsing {
   transition: 0.4s all ease;
+}
+.addword {
+  display: inline-block;
+  padding-left: 3em;
 }
