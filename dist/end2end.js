@@ -516,18 +516,19 @@ angular.module("end2end", ["ngAnimate"])
 	.directive("tab", function(){
 		return {
 			restrict: "C",
-			transclude: true,
-			template: "<div class='pane' ng-class='{active: active}' ng-transclude></div>",
+			// template: "<div class='pane' ng-class='{active: active}' ng-transclude></div>",
+			template: "<div class='pane' ng-class='{active: active}'></div>",
 			require: "^tabGroup",
-			// replace: true,
+			transclude: true,
+			replace: true,
 			scope: {
 				title: "@tabHeading"
 			},
-			link: function(scope, element, attrs, controller){
-				// element.replaceWith(element.contents());
-				element.parent().append(element.contents());
-				element.remove();
-				// scope.element = element;
+			link: function(scope, element, attrs, controller, transclude){
+				transclude(scope.$parent, function(clone){
+					element.append(clone);
+				});
+				scope.element = element;
 				controller.addTab(scope);
 			}
 		};

@@ -556,7 +556,9 @@
 .dialog {
 	.make-border();
 	.make-margin();
+	// width: 100%;
 	max-width: 480px;
+	// width: 480px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -625,6 +627,7 @@
 // Input group
 .input-group {
 	display: table;
+	// border-collapse: collapse;
 	
 	> * {
 		display: table-cell;
@@ -663,4 +666,71 @@
 	* + & {
 		border-left-width: 0;
 	}
+}
+
+.make-flex-middle(){
+	align-items: center;
+	
+	&:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+	
+	> * {
+		vertical-align: middle;
+	}
+}
+
+.make-flex-center(){
+	justify-content: center;
+	// justify-content: space-between;
+	text-align: center;
+	
+	> * {
+		text-align: left;
+	}
+}
+
+.make-flex(){
+	display: flex;
+	letter-spacing: -9999px;
+	
+	> * {
+		display: inline-block;
+		letter-spacing: normal;
+		margin: 0;
+	}
+}
+
+// Modal
+.modal {
+	.make-flex();
+	.make-flex-center();
+	.make-flex-middle();
+	
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0 @gap;
+	z-index: 1210;
+	
+	> * {
+		background-color: white;
+	}
+}
+
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	z-index: 1200;
 }
