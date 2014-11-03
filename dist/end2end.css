@@ -197,6 +197,22 @@ pre {
   line-height: 1.55;
   vertical-align: baseline;
 }
+.row-inline {
+  margin: 0 -15px;
+}
+.row-inline > * {
+  display: inline-block;
+  margin: 0;
+  padding: 0 15px;
+}
+@media (max-width: 767px) {
+  .row-inline {
+    text-align: center;
+  }
+  .row-inline > * {
+    margin: 7.5px 15px;
+  }
+}
 [class*="push-"],
 [class*="pull-"] {
   position: relative;
@@ -3269,6 +3285,10 @@ pre {
 .dialog-body {
   padding: 0 1em;
 }
+.page-header {
+  padding: 2.5em 0;
+  line-height: 1;
+}
 .page-footer {
   padding: 2em 0;
   text-align: center;
@@ -3850,5 +3870,5 @@ small {
 }
 .addword {
   display: inline-block;
-  padding-left: 3em;
+  padding-left: 15px;
 }

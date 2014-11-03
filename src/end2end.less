@@ -42,12 +42,7 @@
 }
 
 .row-justify {
-	// .make-flex();
-	
-	// justify-content:  space-between;
-	// align-items: baseline;
 	text-align: justify;
-	// flex-wrap: wrap;
 	line-height: 0;
 	
 	&:after {
@@ -62,6 +57,23 @@
 		text-align: left;
 		line-height: @line-height;
 		vertical-align: baseline;
+	}
+}
+
+.row-inline {
+	margin: 0 -@gap;
+	> * {
+		display: inline-block;
+		margin: 0;
+		padding: 0 @gap;
+	}
+	
+	@media (max-width: (@window-sm - 1)) {
+		text-align: center;
+		
+		> * {
+			margin: @gap/2 @gap;
+		}
 	}
 }
 
