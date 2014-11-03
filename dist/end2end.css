@@ -3316,6 +3316,7 @@ pre {
 }
 .input-group-addon {
   background-color: #f2f2f2;
+  white-space: nowrap;
   width: 1%;
 }
 .input-group-addon:first-child {

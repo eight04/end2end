@@ -17,6 +17,11 @@
 	
 	<script>
 		angular.module("App", ["end2end"]);
+		
+		function test($scope) {
+			$scope.angular = "NOT ANGULAR";
+			console.log("controller", $scope);
+		}
 	</script>
 	
 	<!--[if lte ie 8]>
@@ -634,20 +639,25 @@
 				
 				<h2>Tab group</h2>
 				<p>This component is built with <code>nav-tab</code> and <code>panes</code></p>
-				<div class="tab-group">
-					<div class="tab" tab-heading="Tab 1">
+				<div class="tab-group" ng-class="$id">
+					<div class="tab" tab-heading="Tab 1" ng-controller="test">
+						<p>Why {{angular}} doesn't work in tabs? {{$id}}</p>
 						<p>Content 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea unde cupiditate soluta quibusdam similique. Iste cum ullam magni dolores quidem quae harum laborum voluptate est odit. Quibusdam id natus alias.</p>
 					</div>
 					<div class="tab" tab-heading="Tab 2">
+						<p>Why {{angular}} doesn't work in tabs? {{$id}}</p>
 						<p>Content 2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, ipsam, asperiores ab quo ex nostrum omnis magnam corporis deserunt reiciendis temporibus officiis architecto expedita sit dolor recusandae saepe sint velit!</p>
 					</div>
 					<div class="tab" tab-heading="Tab 3">
+						<p>Why {{angular}} doesn't work in tabs? {{$id}}</p>
 						<p>Content 3. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, explicabo provident quasi placeat alias quod impedit tempore quos id odit quas sed. Vero, cum atque ex ipsum corporis voluptates sit.</p>
 					</div>
 					<div class="tab" tab-heading="Tab 4">
+						<p>Why {{angular}} doesn't work in tabs? {{$id}}</p>
 						<p>Content 4. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, dolores rerum impedit voluptatum quos dolor in inventore fugiat natus omnis voluptas aspernatur expedita accusantium adipisci nobis nulla quia saepe assumenda?</p>
 					</div>
 					<div class="tab" tab-heading="Tab 5">
+						<p>Why {{angular}} doesn't work in tabs? {{$id}}</p>
 						<p>Content 5. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, quibusdam, blanditiis deserunt ea recusandae asperiores deleniti maxime ullam minus tenetur necessitatibus explicabo optio reiciendis libero mollitia cum quas. Omnis, nihil.</p>
 					</div>
 				</div>

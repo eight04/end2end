@@ -519,12 +519,15 @@ angular.module("end2end", ["ngAnimate"])
 			transclude: true,
 			template: "<div class='pane' ng-class='{active: active}' ng-transclude></div>",
 			require: "^tabGroup",
+			// replace: true,
 			scope: {
 				title: "@tabHeading"
 			},
 			link: function(scope, element, attrs, controller){
-				element.replaceWith(element.contents());
-				scope.element = element;
+				// element.replaceWith(element.contents());
+				element.parent().append(element.contents());
+				element.remove();
+				// scope.element = element;
 				controller.addTab(scope);
 			}
 		};
