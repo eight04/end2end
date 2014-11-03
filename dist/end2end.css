@@ -3303,6 +3303,7 @@ pre {
   overflow: hidden;
   vertical-align: middle;
   border-radius: 0;
+  border-left-width: 0;
 }
 .input-group > *:first-child {
   border-top-left-radius: 0.1875em;
@@ -3319,6 +3320,12 @@ pre {
 }
 .input-group-addon:first-child {
   border-right-width: 0;
+}
+.input-group-addon + * {
+  border-left-width: 1px;
+}
+* + .input-group-addon {
+  border-left-width: 0;
 }
 .table-responsive {
   display: inline-block;
