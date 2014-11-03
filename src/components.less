@@ -622,3 +622,36 @@
 	}
 }
 
+// Input group
+.input-group {
+	display: table;
+	
+	> * {
+		display: table-cell;
+		padding: 0 0.5em;
+		.make-border();
+		vertical-align: middle;
+		border-radius: 0;
+		// border-left-width: 0;
+		
+		&:first-child {
+			border-top-left-radius: @round-corner;
+			border-bottom-left-radius: @round-corner;
+			border-left-width: 1px;
+		}
+		
+		&:last-child {
+			border-top-right-radius: @round-corner;
+			border-bottom-right-radius: @round-corner;
+		}
+	}
+}
+
+.input-group-addon {
+	background-color: @color-bg;
+	width: 1%;
+	
+	&:first-child {
+		border-right-width: 0;
+	}
+}
