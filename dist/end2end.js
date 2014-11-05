@@ -637,7 +637,7 @@ angular.module("end2end", ["ngAnimate"])
                 modal.registBackdrop(scope);
             }
         };
-    })
+    })/*
 	.factory("toggles", function($animate){
 		var togglesJar = {};
 		
@@ -669,6 +669,7 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
+/*
 	.directive("panes", function(toggles){
 		return {
 			restrict: "C",
@@ -711,13 +712,45 @@ angular.module("end2end", ["ngAnimate"])
 				});
 			}
 		};
-	})
-	.directive("toggler", function(toggler){
+	}) */
+    .factory("togglerHelper", function(){
+        return {
+            getStatus: function(element) {
+                var status = [], i, child = element.children();
+                for (i = 0; i < child.length; i++) {
+                    if (child[i].className.match(/\bactive\b/)) {
+                        status.push(true);
+                    } else {
+                        status.push(false);
+                    }
+                }
+                return status;
+            }
+        };
+    })
+    .directive("toggled", function(toggler, togglerHelper) {
+        return {
+            restrict: "A",
+            scope: {
+                id: "@toggled"
+            },
+            link: function(scope, element){
+                scope.element = element;
+                var tg = toggler.get(scope.id);
+                if (!tg) {
+                    tg = toggler.create(scope.id);
+                    tg.set(togglerHelper.getStatus(element));
+                }
+                tg.add(scope);
+            }
+        };
+    })
+	.directive("toggler", function(toggler, togglerHelper){
 	
 		function getChildIndex(element, child) {
 			var cs = element.children(), i;
 			for (i = 0; i < cs.length; i++) {
-				if (cs[i] == child[0]) {
+				if (cs[i] == child) {
 					return i;
 				}
 			}
@@ -733,16 +766,8 @@ angular.module("end2end", ["ngAnimate"])
 				scope.element = element;
 				var tg = toggler.get(scope.id);
 				if (!tg) {
-					var status = [], i, child = element.children();
-					for (i = 0; i < child.length; i++) {
-						if (child[i].className.match(/\bactive\b/)) {
-							status.push(true);
-						} else {
-							status.push(false);
-						}
-					}
 					tg = toggler.create(scope.id);
-					tg.set(status);
+					tg.set(togglerHelper.getStatus(element));
 				}
 				tg.add(scope);
 				
@@ -751,8 +776,8 @@ angular.module("end2end", ["ngAnimate"])
 						return;
 					}
 					var ele = e.target;
-					while (ele[0].parentNode != element[0]) {
-						ele = ele.parent();
+					while (ele.parentNode != element[0]) {
+						ele = ele.parentNode;
 					}
 					tg.active(getChildIndex(element, ele));
 				});
@@ -767,7 +792,7 @@ angular.module("end2end", ["ngAnimate"])
 			var toggleJar = [];
 			
 			function updateToggle(toggle){
-				var i, child = toggle.children();
+				var i, child = toggle.element.children();
 				
 				for (i = 0; i < child.length; i++) {
 					if (status[i] && !/\bactive\b/.test(child[i].className)) {

@@ -670,15 +670,23 @@
 					<div class="pane active">Pane 5</div>
 				</div>
 				
-				<h2>Combine nav toggle and panes</h2>
-				<ul class="nav-pill" nav-toggle="toggle1">
+				<h2>Toggler</h2>
+                <p>Use toggler to link navs and panes.</p>
+                <ul class="nav-tab" toggler="myToggle">
+                    <li class="active"><a href="">Link 1</a></li>
+                    <li><a href="">Link 2</a></li>
+                    <li><a href="">Link 3</a></li>
+                    <li><a href="">Link 4</a></li>
+                    <li><a href="">Link 5</a></li>
+                </ul>
+				<ul class="nav-pill" toggler="myToggle">
 					<li><a href="">Nav 1</a></li>
 					<li><a href="">Nav 2</a></li>
 					<li><a href="">Nav 3</a></li>
 					<li><a href="">Nav 4</a></li>
 					<li><a href="">Nav 5</a></li>
 				</ul>
-				<div id="toggle1" class="panes">
+				<div class="panes" toggled="myToggle">
 					<div class="pane">Content 1</div>
 					<div class="pane">Content 2</div>
 					<div class="pane">Content 3</div>
