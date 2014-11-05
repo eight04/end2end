@@ -532,7 +532,78 @@ angular.module("end2end", ["ngAnimate"])
 				controller.addTab(scope);
 			}
 		};
-	});
+	})
+    .factory("modal", function($animate){
+        var scope = {
+            modalJar: {},
+            modalStack: [],
+            backdrop: null,
+            init: function(modal){
+                modal.open = function() {
+                    $animate.removeClass(modal.element, "ng-hide");
+//                    modal.addClass();
+                };
+                modal.close = function(value) {
+                    
+                }
+            }
+        };
+//        var modalJar = {};
+//        var modalStack = [];
+//        var backdrop = null;
+    
+        return {
+            get: function(id){
+                return scope.modalJar[id];
+            },
+            
+            registBackdrop: function(backdrop){
+                if (scope.backdrop) {
+                    return;
+                }
+                
+                scope.backdrop = backdrop;
+            },
+            
+            registModal: function(modal){
+                if (scope.modalJar[modal.id]) {
+                    throw "Duplicate modal ID";
+                }
+                scope.init(modal);
+                scope.modalJar[modal.id] = modal;    
+            }
+        };
+    })
+    .directive("modal", function(modal){
+        return {
+            restrict: "C",
+//            transclude: "true",
+            scope: {
+                id: "@"
+            },
+            link: function(scope, element, attrs, controller, linker){
+//                linker(scope.$parent, function(child){
+//                    element.append(child);
+//                });
+                
+                if (!scope.id) {
+                    return;
+                }
+                
+                scope.element = element;
+                modal.registModal(scope);
+            }
+        };
+    })
+    .directive("modalBackdrop", function(modal){
+        return {
+            restrict: "C",
+            link: function(scope, element) {
+                scope.element = element;
+                modal.registBackdrop(scope);
+            }
+        };
+    });
 	// .directive("fillHeight", function($window){
 		// return {
 			// restrict: "C",
