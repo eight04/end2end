@@ -6,31 +6,34 @@
 	<title>Test Page</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-	<!--
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	-->
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 
 	<link rel="stylesheet" href="dist/end2end.css">
-	<script src="end2end.js"></script>
 
 	<script>
 		angular.module("App", ["end2end"]);
 
 		function test($scope) {
 			$scope.angular = "NOT ANGULAR";
-			console.log("controller", $scope);
+		}
+		
+		function main($scope, modal) {
+			$scope.toggleModal = function(id){
+				modal.get(id).toggle();
+			};
 		}
 	</script>
-
+	
 	<!--[if lte ie 8]>
 	<script src="bower_components/respond/dest/respond.min.js"></script>
+	<script src="bower_components/html5shiv/dist/html5shiv.js"></script>
 	<![endif]-->
 
+	<script src="dist/end2end.js"></script>
 </head>
 
-<body>
+<body ng-controller="main">
 
 	<nav>
 		<div class="navbar">
@@ -630,9 +633,9 @@
 				</div>
 
 				<h2>Modal dialog</h2>
-				<button class="btn-default" ng-click="modalShow = !modalShow">Toggle</button>
-				<div class="modal-backdrop" ng-show="modalShow"></div>
-				<div class="modal" ng-show="modalShow">
+				<button class="btn-default" ng-click="toggleModal('testModal')">Toggle</button>
+				<div class="modal-backdrop"></div>
+				<div class="modal" id="testModal">
 					<div class="dialog">
 						<div class="dialog-header">
 							This is a dialog!
@@ -640,7 +643,7 @@
 						<div class="dialog-body">
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, esse, magnam, libero est labore vel architecto officia unde quam modi voluptatibus odit enim veritatis nam quaerat deserunt quos cum repellendus.</p>
 							<p>
-								<button class="btn-default" ng-click="modalShow = !modalShow">Toggle</button>
+								<button class="btn-default" ng-click="toggleModal('testModal')">Toggle</button>
 							</p>
 						</div>
 					</div>

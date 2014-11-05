@@ -69,8 +69,8 @@ module.exports = function(grunt) {
 			tasks: "less:main"
 		},
 		js: {
-			files: "*.js",
-			tasks: "eslint"
+			files: ["*.js", "templates/*"],
+			tasks: "dist-js"
 		}
 	}
   });

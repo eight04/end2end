@@ -533,7 +533,7 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-    .factory("modal", function($animate){
+    .factory("modal", function($animate, $q){
         var scope = {
             modalJar: {},
             modalStack: [],
@@ -541,16 +541,55 @@ angular.module("end2end", ["ngAnimate"])
             init: function(modal){
                 modal.open = function() {
                     $animate.removeClass(modal.element, "ng-hide");
-//                    modal.addClass();
+					modal.deffered = $q.defer();
+					scope.add(modal);
                 };
+				modal.toggle = function() {
+					if (modal.element.hasClass("ng-hide")) {
+						modal.open();
+					} else {
+						modal.close();
+					}
+				};
                 modal.close = function(value) {
-                    
-                }
-            }
+					$animate.addClass(modal.element, "ng-hide");
+					modal.deffered.resolve(value);
+					scope.remove(modal);
+                };
+				modal.dismiss = function(value) {
+					$animate.addClass(modal.element, "ng-hide");
+					modal.deffered.reject(value);
+				};
+            },
+			add: function(modal) {
+				scope.modalStack.push(modal);
+				scope.updateZ();
+			},
+			remove: function(modal) {
+				var i;
+				for (i = 0; i < scope.modalStack.length; i++) {
+					if (scope.modalStack[i] == modal) {
+						scope.modalStack.splice(i, 1);
+						break;
+					}
+				}
+				scope.updateZ();
+			},
+			updateZ: function() {
+				var i;
+				for (i = 0; i < scope.modalStack.length; i++) {
+					scope.modalStack[i].element.css("z-index", 1400 + i * 10);
+				}
+				if (i) {
+					scope.backdrop.element.css("z-index", 1400 + (i - 1) * 10 - 1);
+					if (scope.backdrop.element.hasClass("ng-hide")) {
+						$animate.removeClass(scope.backdrop.element, "ng-hide");
+					}
+				} else {
+					$animate.addClass(scope.backdrop.element, "ng-hide");
+				}
+			}
         };
-//        var modalJar = {};
-//        var modalStack = [];
-//        var backdrop = null;
     
         return {
             get: function(id){
@@ -561,7 +600,7 @@ angular.module("end2end", ["ngAnimate"])
                 if (scope.backdrop) {
                     return;
                 }
-                
+				backdrop.element.addClass("ng-hide");
                 scope.backdrop = backdrop;
             },
             
@@ -569,27 +608,22 @@ angular.module("end2end", ["ngAnimate"])
                 if (scope.modalJar[modal.id]) {
                     throw "Duplicate modal ID";
                 }
+				modal.element.addClass("ng-hide");
                 scope.init(modal);
-                scope.modalJar[modal.id] = modal;    
+                scope.modalJar[modal.id] = modal;
             }
         };
     })
     .directive("modal", function(modal){
         return {
             restrict: "C",
-//            transclude: "true",
             scope: {
                 id: "@"
             },
-            link: function(scope, element, attrs, controller, linker){
-//                linker(scope.$parent, function(child){
-//                    element.append(child);
-//                });
-                
+            link: function(scope, element){
                 if (!scope.id) {
                     return;
                 }
-                
                 scope.element = element;
                 modal.registModal(scope);
             }

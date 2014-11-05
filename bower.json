@@ -28,6 +28,7 @@
     "font-awsome": "~4.2.0",
     "jquery": "1.x",
     "angular": "1.2.x",
-    "angular-animate": "1.2.x"
+    "angular-animate": "1.2.x",
+    "html5shiv": "~3.7.2"
   }
 }
