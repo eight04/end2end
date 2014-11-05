@@ -637,32 +637,79 @@ angular.module("end2end", ["ngAnimate"])
                 modal.registBackdrop(scope);
             }
         };
-    });
-	// .directive("fillHeight", function($window){
-		// return {
-			// restrict: "C",
-			// link: function(scope, element){
-				// function calc() {
-					// var nodes = element.children(), i, row = [];
-					// for (i = 0; i < nodes.length; i++) {
-						// if (!row.length) {
-							// row.push(nodes[i]);
-							// continue;
-						// }
-						// if (row[row.length - 1].getBoundingClientRect().top == nodes[i].getBoundingClientRect().top) {
-							// row.push(nodes[i]);
-							// continue;
-						// }
-						// calcRow(row);
-						// row = [nodes[i]];
-					// }
-					// element.css("height", "auto");
-					// element.css("height", element.parent()[0].scrollHeight + "px");
-				// }
-				// angular.element($window).on("resize", calc);
-				// calc();
-			// }
-		// };
-	// });
-
+    })
+	.factory("toggles", function($animate){
+		var togglesJar = {};
+		
+		function init(toggler) {
+			toggler.active = function(index){
+				var child = toggler.element.children(), i, ele;
+				for (i = 0; i < child.length; i++) {
+					ele = angular.element(child[i]);
+					if (i != index) {
+						if (ele.hasClass("active")) {
+							$animate.removeClass(ele, "active");
+						}
+					} else {
+						if (!ele.hasClass("active")) {
+							$animate.addClass(ele, "active");
+						}
+					}
+				}
+			};
+		}
+	
+		return {
+			regist: function(toggler){
+				init(toggler);
+				togglesJar[toggler.id] = toggler;
+			},
+			get: function(id){
+				return togglesJar[id];
+			}
+		};
+	})
+	.directive("panes", function(toggles){
+		return {
+			restrict: "C",
+			scope: {
+				id: "@"
+			},
+			link: function(scope, element){
+				scope.element = element;
+				toggles.regist(scope);
+			}
+		};
+	})
+	.directive("navToggle", function(toggles){
+		return {
+			restrict: "A",
+			scope: {
+				id: "@navToggle"
+			},
+			link: function(scope, element){
+				element.on("click", function(e){
+					var child = element.children(),
+						li = angular.element(e.target),
+						i;
+					
+					while (li[0].nodeName != "LI" && li[0] != element[0]) {
+						li = li.parent();
+					}
+					
+					if (element[0] != li[0]) {
+						child.removeClass("active");
+						li.addClass("active");
+						
+						for (i = 0; i < child.length; i++) {
+							if (li[0] == child[i]) {
+								toggles.get(scope.id).active(i);
+								break;
+							}
+						}
+					}
+				});
+			}
+		};
+	});
 })();
