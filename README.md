@@ -19,6 +19,7 @@ Todos
 * Refactor those messy less.
 * Use margin-top only?
 * Justify grid?
+* Change how navs work. Use toggler instead.
 
 Components
 ----------

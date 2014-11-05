@@ -711,5 +711,115 @@ angular.module("end2end", ["ngAnimate"])
 				});
 			}
 		};
+	})
+	.directive("toggler", function(toggler){
+	
+		function getChildIndex(element, child) {
+			var cs = element.children(), i;
+			for (i = 0; i < cs.length; i++) {
+				if (cs[i] == child[0]) {
+					return i;
+				}
+			}
+			throw "Not children";
+		}
+	
+		return {
+			restrict: "A",
+			scope: {
+				id: "@toggler"
+			},
+			link: function(scope, element){
+				scope.element = element;
+				var tg = toggler.get(scope.id);
+				if (!tg) {
+					var status = [], i, child = element.children();
+					for (i = 0; i < child.length; i++) {
+						if (child[i].className.match(/\bactive\b/)) {
+							status.push(true);
+						} else {
+							status.push(false);
+						}
+					}
+					tg = toggler.create(scope.id);
+					tg.set(status);
+				}
+				tg.add(scope);
+				
+				element.on("click", function(e){
+					if (e.target == element[0]) {
+						return;
+					}
+					var ele = e.target;
+					while (ele[0].parentNode != element[0]) {
+						ele = ele.parent();
+					}
+					tg.active(getChildIndex(element, ele));
+				});
+			}
+		};
+	})
+	.factory("toggler", function($animate){
+		var togglerJar = {};
+	
+		function createToggler(id){
+			var status = [];
+			var toggleJar = [];
+			
+			function updateToggle(toggle){
+				var i, child = toggle.children();
+				
+				for (i = 0; i < child.length; i++) {
+					if (status[i] && !/\bactive\b/.test(child[i].className)) {
+						$animate.addClass(child[i], "active");
+					} else if (!status[i] && /\bactive\b/.test(child[i].className)) {
+						$animate.removeClass(child[i], "active");
+					}
+				}
+			}
+			
+			function updateToggles(){
+				var i;
+				for (i = 0; i < toggleJar.length; i++) {
+					updateToggle(toggleJar[i]);
+				}
+			}
+			
+			return {
+				id: id,
+				set: function(sts){
+					var i;
+					for (i = 0; i < sts.length; i++) {
+						status[i] = sts[i];
+					}
+					updateToggles();
+				},
+				active: function(index){
+					var i;
+					for (i = 0; i < status.length; i++) {
+						status[i] = index == i;
+					}
+					updateToggles();
+				},
+				add: function(toggle){
+					toggleJar.push(toggle);
+					updateToggle(toggle);
+				}
+			};
+		}
+	
+		return {
+			get: function(id){
+				return togglerJar[id];
+			},
+			create: function(id){
+				if (togglerJar[id]) {
+					throw "Duplicate toggler id!";
+				}
+				var toggler = createToggler(id);
+				togglerJar[id] = toggler;
+				return toggler;
+			}
+		};
 	});
 })();
