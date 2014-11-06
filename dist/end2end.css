@@ -3384,32 +3384,12 @@ pre {
   border-bottom-right-radius: 0.1875em;
 }
 .modal {
-  display: flex;
-  letter-spacing: -9999px;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
-.modal > * {
-  display: inline-block;
-  letter-spacing: normal;
-}
-.modal > * {
-  text-align: left;
-}
-.modal:before {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-.modal > * {
-  vertical-align: middle;
+  overflow: auto;
 }
 .modal.ng-hide-add {
   display: flex!important;
@@ -3437,12 +3417,16 @@ pre {
   transform: none;
   opacity: 1;
 }
+.modal-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
 .modal-content {
+  display: table-cell;
   padding: 0 15px;
   z-index: 1210;
-  overflow: auto;
-  max-height: 100%;
-  width: 100%;
+  vertical-align: middle;
 }
 .modal-backdrop {
   position: fixed;
