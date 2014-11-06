@@ -3275,9 +3275,16 @@ pre {
   border-radius: 0.1875em;
   overflow: hidden;
   margin: 1em 0;
+  width: 100%;
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
+}
+.dialog-md {
+  max-width: 960px;
+}
+.dialog-lg {
+  max-width: 1200px;
 }
 .dialog-header {
   background-color: #f2f2f2;
