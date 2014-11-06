@@ -645,6 +645,7 @@
 	
 	> * {
 		display: table-cell;
+		vertical-align: middle;
 	}
 }
 
@@ -823,10 +824,39 @@
     margin: 1em 0;
 }
 
+.btn-sm {
+	width: 2em;
+	height: 2em;
+}
+
+.btn-close {
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	border-width: 0;
+	background: transparent;
+	vertical-align: baseline;
+	color: lighten(@color, 40%);
+	
+	&:hover {
+		color: inherit;
+	}
+}
+
 // Layout
 .marger {
     margin-top: 1em;
     margin-bottom: 1em;
+}
+
+.marger-sm {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.marger-xs {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
 }
 
 .padder {

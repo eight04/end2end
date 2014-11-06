@@ -1,0 +1,18 @@
+<div class="modal-backdrop"></div>
+
+<div class="modal" ng-repeat="dialog in dialogs" id="dialog-{{dialog.id}}">
+	<div class="modal-wrapper">
+		<div class="modal-content">
+			<div class="dialog">
+				<div class="dialog-header">{{dialog.title || dialog.type}}</div>
+				<div class="dialog-body">
+					<div class="marger">{{dialog.msg}}</div>
+					<div class="marger">
+						<button class="btn-default" ng-click="ok(dialog)">確認</button>
+						<button class="btn-default" ng-if="dialog.type == 'confirm'" ng-click="cancel(dialog)">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

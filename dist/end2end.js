@@ -551,14 +551,15 @@ angular.module("end2end", ["ngAnimate"])
 						modal.close();
 					}
 				};
-                modal.close = function(value) {
-					$animate.addClass(modal.element, "ng-hide");
+                modal.close = function(value, aniCallback) {
+					$animate.addClass(modal.element, "ng-hide", aniCallback);
 					modal.deffered.resolve(value);
 					scope.remove(modal);
                 };
-				modal.dismiss = function(value) {
-					$animate.addClass(modal.element, "ng-hide");
+				modal.dismiss = function(value, aniCallback) {
+					$animate.addClass(modal.element, "ng-hide", aniCallback);
 					modal.deffered.reject(value);
+					scope.remove(modal);
 				};
             },
 			add: function(modal) {
@@ -598,6 +599,7 @@ angular.module("end2end", ["ngAnimate"])
             
             registBackdrop: function(backdrop){
                 if (scope.backdrop) {
+					backdrop.element.remove();
                     return;
                 }
 				backdrop.element.addClass("ng-hide");
@@ -611,7 +613,11 @@ angular.module("end2end", ["ngAnimate"])
 				modal.element.addClass("ng-hide");
                 scope.init(modal);
                 scope.modalJar[modal.id] = modal;
-            }
+            },
+			
+			unregistModal: function(modal){
+				scope.modalJar[modal.id] = null;
+			}
         };
     })
     .directive("modal", function(modal){
@@ -621,9 +627,14 @@ angular.module("end2end", ["ngAnimate"])
                 id: "@"
             },
             link: function(scope, element){
+//				console.log(scope.id);
                 if (!scope.id) {
                     return;
                 }
+				element.on("$destroy", function(){
+					modal.unregistModal(scope);
+					scope.$destroy();
+				});
                 scope.element = element;
                 modal.registModal(scope);
             }
@@ -637,82 +648,7 @@ angular.module("end2end", ["ngAnimate"])
                 modal.registBackdrop(scope);
             }
         };
-    })/*
-	.factory("toggles", function($animate){
-		var togglesJar = {};
-		
-		function init(toggler) {
-			toggler.active = function(index){
-				var child = toggler.element.children(), i, ele;
-				for (i = 0; i < child.length; i++) {
-					ele = angular.element(child[i]);
-					if (i != index) {
-						if (ele.hasClass("active")) {
-							$animate.removeClass(ele, "active");
-						}
-					} else {
-						if (!ele.hasClass("active")) {
-							$animate.addClass(ele, "active");
-						}
-					}
-				}
-			};
-		}
-	
-		return {
-			regist: function(toggler){
-				init(toggler);
-				togglesJar[toggler.id] = toggler;
-			},
-			get: function(id){
-				return togglesJar[id];
-			}
-		};
-	})
-/*
-	.directive("panes", function(toggles){
-		return {
-			restrict: "C",
-			scope: {
-				id: "@"
-			},
-			link: function(scope, element){
-				scope.element = element;
-				toggles.regist(scope);
-			}
-		};
-	})
-	.directive("navToggle", function(toggles){
-		return {
-			restrict: "A",
-			scope: {
-				id: "@navToggle"
-			},
-			link: function(scope, element){
-				element.on("click", function(e){
-					var child = element.children(),
-						li = angular.element(e.target),
-						i;
-					
-					while (li[0].nodeName != "LI" && li[0] != element[0]) {
-						li = li.parent();
-					}
-					
-					if (element[0] != li[0]) {
-						child.removeClass("active");
-						li.addClass("active");
-						
-						for (i = 0; i < child.length; i++) {
-							if (li[0] == child[i]) {
-								toggles.get(scope.id).active(i);
-								break;
-							}
-						}
-					}
-				});
-			}
-		};
-	}) */
+    })
     .factory("togglerHelper", function(){
         return {
             getStatus: function(element) {
@@ -850,13 +786,110 @@ angular.module("end2end", ["ngAnimate"])
 				return toggler;
 			}
 		};
+	})
+	.directive("dialogStack", function(dialogStack, modal){
+		return {
+			restrict: "C",
+			templateUrl: "templates/dialogStack.html",
+			scope: {},
+			link: function(scope, element) {
+				scope.dialogs = dialogStack.dialogs;
+				
+				scope.ok = function(dialog){
+					var m = modal.get("dialog-" + dialog.id);
+					m.close(true, function(){
+						scope.$apply(function(){
+							dialogStack.remove(dialog);
+						});
+					});
+				};
+				
+				scope.cancel = function (dialog) {
+					var m = modal.get("dialog-" + dialog.id);
+					m.dismiss(false, function(){
+						scope.$apply(function(){
+							dialogStack.remove(dialog);
+						});
+					});
+				};
+			}
+		};
+	})
+	.factory("dialogStack", function(modal, $timeout){
+		return {
+			dialogs: [],
+			add: function(dialog){
+				this.dialogs.push(dialog);
+//				modal.get("dialog-" + dialog.id).toggle();
+				$timeout(function(){
+					modal.get("dialog-" + dialog.id).toggle();
+				});
+			},
+			remove: function(dialog){
+				var i;
+				for (i = 0; i < this.dialogs.length; i++) {
+					if (dialog == this.dialogs[i]) {
+						break;
+					}
+				}
+				this.dialogs.splice(i, 1);
+			}
+		};
+	})
+	.factory("dialog", function(modal, $compile, $rootScope, $document, dialogStack){
+		var ele = $compile("<div class='dialog-stack'></div>")($rootScope);
+		$document[0].body.appendChild(ele[0]);
+		var id = 1;
+		
+		function create(msg, title, type){
+			var dialog = dialogStack.add({
+				title: title,
+				msg: msg,
+				type: type,
+				id: id
+			});
+			id++;
+			return dialog;
+		}
+		
+		return {
+			show: function(msg, title){
+				return create(msg, title, "show");
+			},
+			error: function(msg, title){
+				return create(msg, title, "error");
+			},
+			confirm: function(msg, title){
+				return create(msg, title, "confirm");
+			}
+		};
+	})
+	.factory("zner", function(){
+		var zs = [1500];
+	
+		return {
+			add: function(){
+				var z = zs[zs.length - 1] + 10;
+				zs.push(z);
+				return z;
+			},
+			remove: function(z){
+				var i;
+				for (i = 1; i < zs.length; i++) {
+					if (z == zs[i]) {
+						break;
+					}
+				}
+				zs.splice(i, 1);
+			}
+		};
 	});
 })();
 angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('templates/eznavLeaf.html',
-    "<a href=\"{{node.url}}\">{{node.name}}</a>"
+  $templateCache.put('templates/dialogStack.html',
+    "<div class=\"modal-backdrop\"></div><div class=\"modal\" ng-repeat=\"dialog in dialogs\" id=\"dialog-{{dialog.id}}\"><div class=\"modal-wrapper\"><div class=\"modal-content\"><div class=\"dialog\"><div class=\"dialog-header\">{{dialog.title || dialog.type}}</div><div class=\"dialog-body\"><div class=\"marger\">{{dialog.msg}}</div><div class=\"marger\"><button class=\"btn-default\" ng-click=\"ok(dialog)\">確認</button> <button class=\"btn-default\" ng-if=\"dialog.type == 'confirm'\" ng-click=\"cancel(dialog)\">取消</button></div></div></div></div></div></div>"
   );
 
 

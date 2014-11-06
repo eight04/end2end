@@ -281,6 +281,12 @@ pre {
   padding-left: 0;
   padding-right: 0;
 }
+.col-xs-0 {
+  width: 1%;
+}
+.col-xs-1 {
+  width: 100%;
+}
 .col-xs-1-1 {
   width: 100%;
 }
@@ -3344,6 +3350,7 @@ pre {
 }
 .input-group > * {
   display: table-cell;
+  vertical-align: middle;
 }
 .input-group-input {
   border-width: 0;
@@ -3456,9 +3463,33 @@ pre {
 .form-group {
   margin: 1em 0;
 }
+.btn-sm {
+  width: 2em;
+  height: 2em;
+}
+.btn-close {
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  border-width: 0;
+  background: transparent;
+  vertical-align: baseline;
+  color: #a3a3a3;
+}
+.btn-close:hover {
+  color: inherit;
+}
 .marger {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+.marger-sm {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.marger-xs {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 .padder {
   padding-top: 1em;
