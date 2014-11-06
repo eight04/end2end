@@ -561,6 +561,7 @@
 	max-width: 480px;
 	margin-left: auto;
 	margin-right: auto;
+	background-color: #fff;
 }
 
 .dialog-md {
@@ -738,24 +739,18 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	padding: 0 @gap;
-	z-index: 1210;
-	
-	> * {
-		background-color: white;
-	}
 	
 	&.ng-hide-add {
 		display: flex!important;
 		transition: 0.2s all;
 		
-		> * {
+		.modal-content > * {
 			transition: 0.2s all;
 			opacity: 1;
 			transform: none;
 		}
 		
-		&.ng-hide-add-active > * {
+		&.ng-hide-add-active .modal-content > * {
 			opacity: 0;
 			transform: translateY(-25%);
 		}
@@ -765,17 +760,25 @@
 		display: flex!important;
 		transition: 0.2s all;
 		
-		> * {
+		.modal-content > * {
 			transition: 0.4s all;
 			transform: translateY(-25%);
 			opacity: 0;
 		}
 
-		&.ng-hide-remove-active > * {
+		&.ng-hide-remove-active .modal-content > * {
 			transform: none;
 			opacity: 1;
 		}
 	}
+}
+
+.modal-content {
+	padding: 0 @gap;
+	z-index: 1210;
+	overflow: auto;
+	max-height: 100%;
+	width: 100%;
 }
 
 .modal-backdrop {

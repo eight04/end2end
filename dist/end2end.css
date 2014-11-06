@@ -3279,6 +3279,7 @@ pre {
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
+  background-color: #fff;
 }
 .dialog-md {
   max-width: 960px;
@@ -3393,8 +3394,6 @@ pre {
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 0 15px;
-  z-index: 1210;
 }
 .modal > * {
   display: inline-block;
@@ -3412,19 +3411,16 @@ pre {
 .modal > * {
   vertical-align: middle;
 }
-.modal > * {
-  background-color: white;
-}
 .modal.ng-hide-add {
   display: flex!important;
   transition: 0.2s all;
 }
-.modal.ng-hide-add > * {
+.modal.ng-hide-add .modal-content > * {
   transition: 0.2s all;
   opacity: 1;
   transform: none;
 }
-.modal.ng-hide-add.ng-hide-add-active > * {
+.modal.ng-hide-add.ng-hide-add-active .modal-content > * {
   opacity: 0;
   transform: translateY(-25%);
 }
@@ -3432,14 +3428,21 @@ pre {
   display: flex!important;
   transition: 0.2s all;
 }
-.modal.ng-hide-remove > * {
+.modal.ng-hide-remove .modal-content > * {
   transition: 0.4s all;
   transform: translateY(-25%);
   opacity: 0;
 }
-.modal.ng-hide-remove.ng-hide-remove-active > * {
+.modal.ng-hide-remove.ng-hide-remove-active .modal-content > * {
   transform: none;
   opacity: 1;
+}
+.modal-content {
+  padding: 0 15px;
+  z-index: 1210;
+  overflow: auto;
+  max-height: 100%;
+  width: 100%;
 }
 .modal-backdrop {
   position: fixed;
