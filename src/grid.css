@@ -55,53 +55,33 @@
   vertical-align: top\9;
 }
 .row-inline {
-  margin-top: -15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  min-height: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  letter-spacing: -9999px\9;
-}
-.row-inline > * {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 15px;
-}
-.row-inline > * {
-  display: inline-block\9;
-  width: 100%;
-  letter-spacing: normal\9;
-  vertical-align: top\9;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
 }
 .row-inline > * {
   width: auto;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 7.5px;
+  margin-right: 7.5px;
 }
 .row-justify {
-  margin-top: -15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  min-height: 15px;
-  text-align: justify;
-  margin-bottom: -1em;
+  justify-content: space-between;
+  text-align: justify\9;
+  margin-bottom: -1em\9;
 }
 .row-justify > * {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 15px;
-}
-.row-justify > * {
-  display: inline-block;
-  vertical-align: top;
-  text-align: center;
-  text-align: left;
+  display: inline-block\9;
+  vertical-align: top\9;
+  text-align: left\9;
 }
 .row-justify:after {
   content: "x";
-  display: inline-block;
-  width: 100%;
-  visibility: hidden;
-  vertical-align: top;
+  display: none;
+  display: inline-block\9;
+  width: 100%\9;
+  visibility: hidden\9;
+  vertical-align: top\9;
 }
 .row-nogap {
   margin-top: 0;

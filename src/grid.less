@@ -55,33 +55,60 @@
 }
 	
 .row-inline {
-	.row();
+	margin-left: -@gap/2;
+	margin-right: -@gap/2;
 	
 	> * {
 		width: auto;
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: @gap/2;
+		margin-right: @gap/2;
 	}
 }
 	
 
 .row-justify {
-	._row();
-	
-	text-align: justify;
-	margin-bottom: -1em;
+	justify-content: space-between;
+	text-align: ~"justify\9";
+	margin-bottom: ~"-1em\9";
 
 	> * {
-		display: inline-block;
-		vertical-align: top;
-		text-align: center;
-		text-align: left;
+		display: ~"inline-block\9";
+		vertical-align: ~"top\9";
+		text-align: ~"left\9";
 	}
 
 	&:after {
 		content: "x";
-		display: inline-block;
-		width: 100%;
-		visibility: hidden;
-		vertical-align: top;
+		display: none;
+		display: ~"inline-block\9";
+		width: ~"100%\9";
+		visibility: ~"hidden\9";
+		vertical-align: ~"top\9";
+	}
+}
+
+.row-left {
+	justify-content: flex-start;
+	text-align: ~"left\9";
+}
+
+.row-center {
+	justify-content: center;
+	text-align: ~"center\9";
+	
+	> * {
+		text-align: ~"left\9";
+	}
+}
+
+.row-right {
+	justify-content: flex-end;
+	text-align: ~"right\9";
+	
+	> * {
+		text-align: ~"left\9";
 	}
 }
 	
