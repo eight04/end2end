@@ -883,5 +883,5 @@ angular.module("end2end", ["ngAnimate"])
 				zs.splice(i, 1);
 			}
 		};
-	});
+	}).directive("modalStack", function(){});
 })();
