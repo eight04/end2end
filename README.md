@@ -20,6 +20,7 @@ Todos
 * Use margin-top only?
 * Justify grid?
 * Change how navs work. Use toggler instead.
+* Deprecate modal directive
 
 Components
 ----------
