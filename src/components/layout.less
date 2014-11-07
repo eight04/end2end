@@ -1,0 +1,140 @@
+// Layout things.
+
+@import "../vars.less";
+@import "../mixins.less";
+
+// Margins
+.marger-xl {
+	.make-margin(@gap*4);
+}
+.marger-lg {
+	.make-margin(@gap*2);
+}
+.marger {
+	.make-margin(@gap);
+}
+.marger-sm {
+	.make-margin(@gap/2);
+}
+.marger-xs {
+	.make-margin(@gap/4);
+}
+
+// Paddings
+.padder-xl {
+	.make-padding(@gap*4);
+}
+.padder-lg {
+	.make-padding(@gap*2);
+}
+.padder {
+	.make-padding(@gap);
+}
+.padder-sm {
+	.make-padding(@gap/2);
+}
+.padder-xs {
+	.make-padding(@gap/4);
+}
+
+// Text aligns
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align: center;
+}
+
+.text-top {
+	vertical-align: top;
+}
+.text-middle {
+	vertical-align: middle;
+}
+.text-bottom {
+	vertical-align: bottom;
+}
+
+// Text color
+.text-primary {
+	color: @brand-primary
+}
+.text-danger {
+	color: @brand-danger;
+}
+.text-success {
+	color: @brand-success;
+}
+.text-warning {
+	color: @brand-warning;
+}
+.text-info {
+	color: @brand-info;
+}
+
+// Display utility
+.make-utility(xs);
+@media (min-width: @window-sm) {
+	.make-utility(sm);
+}
+@media (min-width: @window-md) {
+	.make-utility(md);
+}
+@media (min-width: @window-md) {
+	.make-utility(lg);
+}
+
+.make-utility(@size){
+	.block-@{size} {
+		display: block;
+	}
+	.inline-@{size} {
+		display: inline;
+	}
+	.inline-block-@{size} {
+		display: inline-block;
+	}
+	.none-@{size} {
+		display: none;
+	}
+}
+
+// Float utility
+.make-float(xs);
+@media (min-width: @window-sm) {
+	.make-float(sm);
+}
+@media (min-width: @window-md) {
+	.make-float(md);
+}
+@media (min-width: @window-lg) {
+	.make-float(lg);
+}
+
+.make-float(@size) {
+	.right-@{size} {
+		float: right;
+	}
+	.left-@{size} {
+		float: left;
+	}
+	
+	// Add additional margin to float image
+	img.left-@{size} {
+		margin: 0.25em 1em 0.25em 0;
+	}
+	img.right-@{size} {
+		margin: 0.25em 0 0.25em 1em;
+	}
+}
+
+.clear {
+	clear: both;
+}
+
+.clipper {
+	overflow: hidden;
+}

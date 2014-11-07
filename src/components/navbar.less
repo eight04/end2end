@@ -1,0 +1,56 @@
+// Navbar component
+@import "../vars.less";
+@import "table.less";
+
+.navbar {
+	> * {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.make-navbar(xs);
+.make-navbar(sm);
+.make-navbar(md);
+.make-navbar(lg);
+
+.make-navbar(@size){
+	@wsize: ~"window-@{size}";
+	
+	@media (min-width: @@wsize) {
+		.navbar-@{size} {
+			.table();
+			
+			&:before {
+				content: "";
+				display: table-cell;
+				height: 3em;
+			}
+		}
+	}
+	@media (max-width: (@@wsize - 1)) {
+		.navbar-@{size} {
+			display: none;
+			
+			&.active {
+				display: block;
+				
+				> * {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+.navbar-brand {
+	padding: 0 @gap;
+}
+
+.navbar-link {
+	padding: 0 @gap;
+}
+
+.navbar-col {
+	padding: 0 @gap;
+}
