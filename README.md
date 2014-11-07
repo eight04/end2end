@@ -10,6 +10,7 @@ Features
 --------
 * IE8 support.
 * Responsive layout.
+* Richer layout with flex and inline-block.
 * Angular animation on modern browser (IE10+).
 * Bootstrap components rewrote in Angular.
 
@@ -26,3 +27,15 @@ Components
 ----------
 * Add dialog service.
 * Scroll spy.
+
+Refactor guide
+--------------
+* CSS
+	* Use tag selector only in `reset.css`.
+	* Use class selector to create controls.
+	* Use universe selector to prevent over-specifying.
+	* Do not use extend.
+* JS
+	* Do not use class directive.
+	* Every directive should prefix with `e2e`.
+	* Every service should prefix with `e2e`.

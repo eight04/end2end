@@ -1,0 +1,207 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body {
+  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, "微軟正黑體", sans-serif;
+  color: #3d3d3d;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+h1 {
+  font-size: 260%;
+}
+h2 {
+  font-size: 215%;
+}
+h3 {
+  font-size: 170%;
+}
+h4 {
+  font-size: 125%;
+}
+h5 {
+  font-size: 100%;
+}
+h6 {
+  font-size: 85%;
+}
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 1.55;
+}
+input {
+  height: 2em;
+}
+textarea {
+  height: auto;
+}
+select {
+  cursor: pointer;
+  height: 2em;
+}
+select[multiple] {
+  height: auto;
+}
+button {
+  cursor: pointer;
+  text-align: center;
+  line-height: 2em;
+  height: 2em;
+}
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+img {
+  vertical-align: text-bottom;
+  max-width: 100%;
+  min-height: 100%;
+}
+code {
+  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+}
+pre {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+}

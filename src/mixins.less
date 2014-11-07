@@ -1,0 +1,53 @@
+.make-margin() {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.reset-form () {
+	font-size: inherit;
+	font-family: inherit;
+	line-height: inherit;
+	color: inherit;
+	vertical-align: middle;
+	height: 2em;
+	border: 1px solid;
+}
+
+.make-input () {
+	display: block;
+	// margin: 0.25em 0 1em;
+	margin: 0;
+	width: 100%;
+}
+
+.make-flex(){
+
+}
+
+.make-flex-top(){
+	
+}
+
+.make-flex-middle(){
+	align-items: center;
+	
+	&:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+	
+	> * {
+		vertical-align: middle;
+	}
+}
+
+.make-flex-center(){
+	justify-content: space-between;
+	text-align: center;
+	
+	> * {
+		text-align: left;
+	}
+}

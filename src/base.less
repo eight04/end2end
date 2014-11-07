@@ -1,0 +1,100 @@
+@import "vars.less";
+@import "mixins.less";
+@import "reset.less";
+
+// Box sizing
+* {
+	&,
+	&:before,
+	&:after {
+		box-sizing: border-box;
+	}
+}
+
+body {
+	font-size: @font-size-base;
+	font-family: @font-family-base;
+	color: @font-color-base;
+}
+
+// Headers
+h1, h2, h3, h4, h5, h6 {
+	margin-top: @gap*2;
+	margin-bottom: @gap;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 260%;
+}
+
+h2 {
+	font-size: 215%;
+}
+
+h3 {
+	font-size: 170%;
+}
+
+h4 {
+	font-size: 125%;
+}
+
+h5 {
+	font-size: 100%;
+}
+
+h6 {
+	font-size: 85%;
+}
+
+p {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	line-height: @line-height-base;
+}
+
+input {
+	height: 2em;
+}
+
+textarea {
+	height: auto;
+}
+
+select {
+	cursor: pointer;
+	height: 2em;
+	
+	&[multiple] {
+		height: auto;
+	}
+}
+
+button {
+	cursor: pointer;
+	text-align: center;
+	line-height: 2;
+	height: 2em;
+	
+	// Firefox button fix: http://davidwalsh.name/firefox-buttons
+	&::-moz-focus-inner {
+		border: 0;
+		padding: 0;
+	}
+}
+
+img {
+	vertical-align: text-bottom;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+code {
+	font-family: @font-family-monospace;
+}
+
+pre {
+	.make-margin();
+	font-family: @font-family-monospace;
+}

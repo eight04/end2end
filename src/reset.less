@@ -1,159 +1,48 @@
-.reset-box() {
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
 	margin: 0;
+	padding: 0;
 	border: 0;
-	padding: 0;
-}
-
-.make-margin() {
-	margin: 1em 0;
-}
-
-.reset-form () {
-	font-size: inherit;
-	font-family: inherit;
-	line-height: inherit;
-	color: inherit;
-	vertical-align: middle;
-	height: 2em;
-	border: 1px solid;
-}
-
-.make-input () {
-	display: block;
-	// margin: 0.25em 0 1em;
-	margin: 0;
-	width: 100%;
-}
-
-// Default layout
-* {
-	&,
-	&:before,
-	&:after {
-		box-sizing: border-box;
-	}
-}
-
-html, body {
-	padding: 0;
-	margin: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	margin: @gap*2 0 @gap;
-	font-weight: 400;
-	color: inherit;
-}
-
-h1 {
-	font-size: 260%;
-}
-
-h2 {
-	font-size: 215%;
-}
-
-h3 {
-	font-size: 170%;
-}
-
-h4 {
-	font-size: 125%;
-}
-
-h5 {
 	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
-
-h6 {
-	font-size: 85%;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
 }
-
-p {
-	.make-margin();
+body {
+	line-height: 1;
 }
-
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
 table {
 	border-collapse: collapse;
-}
-
-th, td {
-	padding: 0;
-}
-
-a {
-	&:link {
-		color: inherit;
-	}
-	&:visited {
-		color: inherit;
-	}
-	&:active {
-		color: inherit;
-	}
-}
-
-form {
-	.make-margin();
-}
-
-input {
-	.reset-form();
-	.make-input();
-}
-
-textarea {
-	.reset-form();
-	.make-input();
-	height: auto;
-}
-
-select {
-	.reset-form();
-	.make-input();
-	cursor: pointer;
-	&[multiple] {
-		height: auto;
-	}
-}
-
-button {
-	.reset-form();
-	cursor: pointer;
-	text-align: center;
-	
-	// Firefox button fix: http://davidwalsh.name/firefox-buttons
-	&::-moz-focus-inner {
-		border: 0;
-		padding: 0;
-		// margin-top: 3px;
-	}
-}
-
-fieldset {
-	.reset-box();
-	.make-margin();
-}
-
-legend {
-	.reset-box();
-}
-
-img {
-	vertical-align: text-bottom;
-	max-width: 100%;
-}
-
-ul {
-	.make-margin();
-	padding: 0 0 0 2.5em;
-}
-
-code {
-	font-family: monospace;
-}
-
-pre {
-	.make-margin();
-	font-family: monospace;
+	border-spacing: 0;
 }

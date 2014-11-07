@@ -1,4 +1,4 @@
-@import "../vars.less";
+@import "vars.less";
 
 .gcd(@v1, @v2) {
 	.gcd(@v1, @v2) when (@v1 = 0) {
@@ -32,6 +32,14 @@
 }
 
 .make-grid(@size, @grids){
+	.col-@{size}-0 {
+		width: 1%;
+	}
+	
+	.col-@{size}-1 {
+		width: 100%;
+	}
+	
 	.make-grid(@i) when (@i =< @grids) {
 		.make-col(@j) when (@j =< @i) {
 			.gcd(@i, @j);
@@ -51,45 +59,8 @@
 			.make-col(@j + 1);
 		}
 		.make-col(1);
-		
+
 		.make-grid(@i + 1);
 	}
 	.make-grid(1);
-}
-
-.make-table-var(xs);
-@media (min-width: @window-sm) {
-	.make-table-var(sm);
-}
-@media (min-width: @window-md) {
-	.make-table-var(md);
-}
-@media (min-width: @window-lg) {
-	.make-table-var(lg);
-}
-
-.make-table-var(@size) {
-	.table-@{size} {
-		display: block;
-		margin: 0 -@gap*2;
-		
-		> * {
-			display: table;
-			width: 100%;
-			margin: 0;
-			border-spacing: @gap*2 0;
-			table-layout: fixed;
-			
-			> * {
-				display: table-cell;
-				padding: 0;
-			}
-		}
-	}
-	.table-@{size}-nogap {
-		margin: 0;
-		> * {
-			border-spacing: 0;
-		}
-	}
 }
