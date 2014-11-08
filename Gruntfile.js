@@ -34,6 +34,11 @@ module.exports = function(grunt) {
 			src: ["*.less", "!gridCore.less", "!vars.less", "!mixins.less"],
 			dest: "build/",
 			ext: ".css"
+		},
+		dist: {
+			files: {
+				"dist/end2end.css": "end2end.less"
+			}
 		}
 	},
 	eslint: {
