@@ -185,8 +185,12 @@ select[multiple] {
 button {
   cursor: pointer;
   text-align: center;
-  line-height: 2em;
+  line-height: 2;
   height: 2em;
+  font-size: inherit;
+  font-family: inherit;
+  background-image: none;
+  padding: 0;
 }
 button::-moz-focus-inner {
   border: 0;
@@ -195,7 +199,7 @@ button::-moz-focus-inner {
 img {
   vertical-align: text-bottom;
   max-width: 100%;
-  min-height: 100%;
+  max-height: 100%;
 }
 code {
   font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;

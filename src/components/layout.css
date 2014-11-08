@@ -83,6 +83,9 @@
 .none-xs {
   display: none;
 }
+.cell-xs {
+  display: table-cell;
+}
 @media (min-width: 768px) {
   .block-sm {
     display: block;
@@ -95,6 +98,9 @@
   }
   .none-sm {
     display: none;
+  }
+  .cell-sm {
+    display: table-cell;
   }
 }
 @media (min-width: 1024px) {
@@ -110,6 +116,9 @@
   .none-md {
     display: none;
   }
+  .cell-md {
+    display: table-cell;
+  }
 }
 @media (min-width: 1024px) {
   .block-lg {
@@ -123,6 +132,9 @@
   }
   .none-lg {
     display: none;
+  }
+  .cell-lg {
+    display: table-cell;
   }
 }
 .right-xs {
