@@ -1,0 +1,14 @@
+.progress {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  cursor: default;
+  font-size: 80%;
+  margin: 0.25em 0;
+}
+.progress-bar {
+  background-color: #f0f0f0;
+  text-align: center;
+}
+.progress-label {
+  padding: 0 0.5em;
+}

@@ -1,0 +1,20 @@
+.dialog {
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dialog-sm {
+  max-width: 480px;
+}
+.dialog-md {
+  max-width: 960px;
+}
+.dialog-lg {
+  max-width: 1200px;
+}
+.dialog-header {
+  padding: 0.5em 1em;
+}
+.dialog-body {
+  padding: 0 1em;
+}

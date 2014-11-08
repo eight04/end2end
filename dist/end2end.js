@@ -45,8 +45,11 @@ angular.module("end2end", ["ngAnimate"])
 	.directive("navbarToggle", function(){
 		return {
 			restrict: "C",
-			require: "^navbar",
+			require: "?^navbar",
 			link: function(scope, element, attrs, nbCtrl) {
+				if (!nbCtrl) {
+					return;
+				}
 				element.on("click", function(){
 					nbCtrl.toggle();
 				});
@@ -56,7 +59,7 @@ angular.module("end2end", ["ngAnimate"])
 	.directive("navbarCollapse", function(){
 		return {
 			restrict: "C",
-			require: "^navbar",
+			require: "?^navbar",
 			scope: {},
 			link: function(scope, element, attrs, nbCtrl) {
 				nbCtrl.addCollapse(element);
@@ -533,7 +536,90 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-    .factory("modal", function($animate, $q){
+	.factory("modalStack", function(){
+		return {
+			modals: [],
+			element: null,
+			add: function(modal){
+				this.modals.push(modal);
+			},
+			remove: function(modal){
+				var i;
+				for (i = 0; i < this.modals.length; i++) {
+					if (this.modals[i] == modal) {
+						break;
+					}
+				}
+				if (i < this.modals.length) {
+					this.modals.splice(i, 1);
+				}
+			}
+		};
+	})
+	.directive("modalStack", function(modalStack){
+		return {
+			restrict: "C",
+			templateUrl: "templates/modalStack.html",
+			scope: {},
+			link: function(scope){
+				scope.modalStack = modalStack;
+			}
+		};
+	})
+	.directive("e2eModal", function($compile){
+		return {
+			restrict: "A",
+			scope: true,
+			link: function(scope, element) {
+				var ele, key, modal = scope.modal;
+				
+				if (modal.templateUrl) {
+					ele = $compile("<div ng-include='modal.templateUrl'></div>")(scope);
+				} else {
+					ele = $compile(modal.template)(scope);
+				}
+				element.append(ele);
+	
+				if (modal.scope) {
+					for (key in modal.scope) {
+						scope[key] = modal.scope[key];
+					}
+				}
+			}
+		};
+	})
+    .factory("modal", function($animate, $q, $compile, $rootScope, $window, modalStack){
+		var modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
+		$window.document.body.appendChild(modalStackElement[0]);
+	
+		return {
+			open: function(modal){
+				if (!modal.template && !modal.templateUrl) {
+					throw "template and templateUrl are undefined.";
+				}
+				
+				var deferred = $q.defer();
+				
+				modal.then = function(success, fail, notify){
+					return deferred.then(success, fail, notify);
+				};
+				
+				modal.close = function(value){
+					modalStack.remove(modal);
+					deferred.resolve(value);
+				};
+				
+				modal.dismiss = function(value){
+					modalStack.remove(modal);
+					deferred.reject(value);
+				};
+				
+				modalStack.add(modal);
+				
+				return modal;
+			}
+		};
+	/*
         var scope = {
             modalJar: {},
             modalStack: [],
@@ -618,9 +704,135 @@ angular.module("end2end", ["ngAnimate"])
 			unregistModal: function(modal){
 				scope.modalJar[modal.id] = null;
 			}
-        };
+        };*/
     })
-    .directive("modal", function(modal){
+	.factory("dialog", function(modal){
+		var types = {
+			create: {
+				title: "Dialog",
+				btns: [
+					{
+						label: "OK",
+						value: true
+					},
+					{
+						label: "Cancel",
+						value: false
+					}
+				],
+				brand: "primary"
+			},
+			show: {
+				title: "Message",
+				btns: [
+					{
+						label: "OK",
+						value: true
+					}
+				],
+				brand: "info"
+			},
+			error: {
+				title: "Error",
+				btns: [
+					{
+						label: "OK",
+						value: true
+					}
+				],
+				brand: "danger"
+			},
+			confirm: {
+				title: "Confirm",
+				btns: [
+					{
+						label: "OK",
+						value: true
+					},
+					{
+						label: "Cancel",
+						value: false
+					}
+				],
+				brand: "warning"
+			},
+			yesno: {
+				title: "Question",
+				btns: [
+					{
+						label: "Yes",
+						value: true
+					},
+					{
+						label: "No",
+						value: false
+					}
+				],
+				brand: "warning"
+			}
+		};
+	
+		function createDialog(msg, title, type){
+			var dialog = angular.copy(types[type]);
+			
+			if (typeof msg == "object") {
+				angular.extend(dialog, msg);
+			} else {
+				dialog.msg = msg;
+				dialog.title = title || dialog.title;
+			}
+
+			var md = modal.open({
+				templateUrl: "templates/dialog.html",
+				scope: {
+					dialog: dialog
+				}
+			});
+			
+			dialog.close = function(value){
+				var evt, ret;
+				
+				if (dialog.onclose) {
+					evt = {
+						dialog: dialog,
+						value: value
+					};
+
+					ret = dialog.onclose(evt);
+				}
+				
+				if (ret !== false) {
+					if (value) {
+						md.close(value);
+					} else {
+						md.dismiss(value);
+					}
+				}
+			};
+			
+			dialog.then = function(success, fail, notify){
+				return md.then(success, fail, notify);
+			};
+			
+			return dialog;
+		}
+	
+		return {
+			show: function(msg, title){
+				return createDialog(msg, title, "show");
+			},
+			error: function(msg, title){
+				return createDialog(msg, title, "error");
+			},
+			confirm: function(msg, title){
+				return createDialog(msg, title, "confirm");
+			},
+			yesno: function(msg, title){
+				return createDialog(msg, title, "yesno");
+			}
+		};
+	})
+    /*.directive("modal", function(modal){
         return {
             restrict: "C",
             scope: {
@@ -648,7 +860,7 @@ angular.module("end2end", ["ngAnimate"])
                 modal.registBackdrop(scope);
             }
         };
-    })
+    })*/
     .factory("togglerHelper", function(){
         return {
             getStatus: function(element) {
@@ -786,13 +998,13 @@ angular.module("end2end", ["ngAnimate"])
 				return toggler;
 			}
 		};
-	})
-	.directive("dialogStack", function(dialogStack, modal){
+	});
+	/*.directive("dialogStack", function(dialogStack, modal){
 		return {
 			restrict: "C",
 			templateUrl: "templates/dialogStack.html",
 			scope: {},
-			link: function(scope, element) {
+			link: function(scope) {
 				scope.dialogs = dialogStack.dialogs;
 				
 				scope.ok = function(dialog){
@@ -820,7 +1032,7 @@ angular.module("end2end", ["ngAnimate"])
 			dialogs: [],
 			add: function(dialog){
 				this.dialogs.push(dialog);
-//				modal.get("dialog-" + dialog.id).toggle();
+				modal.get("dialog-" + dialog.id).toggle();
 				$timeout(function(){
 					modal.get("dialog-" + dialog.id).toggle();
 				});
@@ -883,10 +1095,15 @@ angular.module("end2end", ["ngAnimate"])
 				zs.splice(i, 1);
 			}
 		};
-	});
+	});*/
 })();
 angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
+
+  $templateCache.put('templates/dialog.html',
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\"><p ng-if=\"!dialog.templateLoaded\">{{dialog.msg}}</p><div ng-include=\"dialog.templateUrl\" ng-if=\"dialog.templateUrl\"></div><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button class=\"btn btn-default\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></form></div>"
+  );
+
 
   $templateCache.put('templates/dialogStack.html',
     "<div class=\"modal-backdrop\"></div><div class=\"modal\" ng-repeat=\"dialog in dialogs\" id=\"dialog-{{dialog.id}}\"><div class=\"modal-wrapper\"><div class=\"modal-content\"><div class=\"dialog\"><div class=\"dialog-header\">{{dialog.title || dialog.type}}</div><div class=\"dialog-body\"><div class=\"marger\">{{dialog.msg}}</div><div class=\"marger\"><button class=\"btn-default\" ng-click=\"ok(dialog)\">確認</button> <button class=\"btn-default\" ng-if=\"dialog.type == 'confirm'\" ng-click=\"cancel(dialog)\">取消</button></div></div></div></div></div></div>"
@@ -895,6 +1112,11 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('templates/eznavTree.html',
     "<ul class=\"nav-tree\" eznav-tree=\"nodes\"><li ng-repeat=\"node in nodes\" eznav-leaf=\"node\"></li></ul>"
+  );
+
+
+  $templateCache.put('templates/modalStack.html',
+    "<div class=\"modal-backdrop\" ng-show=\"modalStack.modals.length\"></div><div class=\"modal\" ng-repeat=\"modal in modalStack.modals\"><div class=\"modal-wrapper\"><div class=\"modal-content\" e2e-modal=\"modal\"></div></div></div>"
   );
 
 

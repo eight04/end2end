@@ -1,0 +1,109 @@
+.list-reset,
+.nav-list,
+.nav-pool,
+.nav-tab,
+.nav-tree,
+.nav-pill {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.nav-list {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+}
+.nav-list > * > * {
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+.nav-list > * > *:hover {
+  background-color: #f0f0f0;
+}
+.nav-list > * + * {
+  border-top: 1px solid #808080;
+}
+.nav-pool > * {
+  display: inline-block;
+  margin: 0 0.5em 0 0;
+}
+.nav-tab {
+  display: table;
+  margin: 0;
+  border-bottom: 1px solid #808080;
+  width: 100%;
+}
+.nav-tab > * {
+  display: inline-block;
+  background-color: white;
+  vertical-align: bottom;
+  margin: 0 1em -1px 0;
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.nav-tab > *.active {
+  border-bottom-color: white;
+}
+.nav-tab > *.active:hover {
+  background-color: white;
+}
+.nav-tab > *:hover {
+  background-color: #f0f0f0;
+}
+.nav-tab > * > * {
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+.nav-responsive {
+  overflow-y: hidden;
+}
+.nav-responsive > * {
+  white-space: nowrap;
+}
+.nav-tree > * > a {
+  margin: 0.25em 0;
+}
+.nav-tree .nav-tree {
+  display: none;
+  margin: 0;
+  padding: 0 0 0 2em;
+  font-size: 90%;
+}
+.nav-tree .nav-tree > * > * {
+  margin: 0;
+}
+.nav-tree > .active > .nav-tree {
+  display: block;
+}
+.nav-pill {
+  display: table;
+}
+.nav-pill > * {
+  display: table-cell;
+  width: 1%;
+  border-radius: 0.1875em;
+  overflow: hidden;
+}
+.nav-pill > * > * {
+  display: block;
+  padding: 0.5em 1em;
+  text-align: center;
+  text-decoration: none;
+}
+.nav-pill > *:hover,
+.nav-pill > *.active {
+  background-color: #f0f0f0;
+}
+@media (max-width: 767px) {
+  .nav-pill {
+    display: block;
+  }
+  .nav-pill > * {
+    margin: 0;
+    width: auto;
+    display: block;
+  }
+}

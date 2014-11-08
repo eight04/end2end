@@ -38,19 +38,13 @@
         margin-top: @gap;
 	}
 }
-	
+
 .row {
 	._row();
+	.make-flex();
 	
-	display: flex;
-	flex-wrap: wrap;
-	letter-spacing: ~"-9999px\9";
-
 	> * {
-		display: ~"inline-block\9";
 		width: 100%;
-		letter-spacing: ~"normal\9";
-		vertical-align: ~"top\9";
 	}
 }
 	
@@ -170,4 +164,4 @@
 }
 
 // Grid core
-@import (inline) "gridCore.css";
+@import (inline) "../build/gridCore.css";

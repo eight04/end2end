@@ -1,0 +1,215 @@
+h2 {
+  border-bottom: 1px solid #808080;
+}
+code {
+  background-color: #f0f0f0;
+  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-size: 90%;
+  padding: 0.25em;
+}
+pre {
+  background-color: #f0f0f0;
+  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  padding: 0.25em;
+  font-size: 90%;
+}
+pre code {
+  padding: 0;
+  font-size: 100%;
+}
+small {
+  font-size: 70%;
+}
+.radio label:hover,
+.checkbox label:hover {
+  color: #696969;
+}
+.btn {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  padding: 0 0.5em;
+  background-color: #f0f0f0;
+}
+.btn:focus,
+.btn:hover {
+  background-color: #f7f7f7;
+}
+.btn:active {
+  box-shadow: inset 0.12em 0.12em 1em #dedede;
+}
+.btn-default {
+  min-width: 4.25em;
+}
+.btn-close {
+  width: 1em;
+  height: 1em;
+  vertical-align: baseline;
+  color: #636363;
+}
+.btn-close:hover {
+  color: inherit;
+}
+.btn-group {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+}
+.btn-group > * {
+  border-width: 0 1px;
+  border-radius: 0;
+  margin-right: -1px;
+}
+.btn-group > *:first-child {
+  margin-left: -1px;
+}
+.input-group > * > * {
+  border-left-width: 0;
+  border-radius: 0;
+}
+.input-group > *:first-child > * {
+  border-left-width: 1px;
+  border-top-left-radius: 0.1875em;
+  border-bottom-left-radius: 0.1875em;
+}
+.input-group > *:last-child > * {
+  border-top-right-radius: 0.1875em;
+  border-bottom-right-radius: 0.1875em;
+}
+.input-group-addon {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  vertical-align: middle;
+  background-color: #f2f2f2;
+  white-space: nowrap;
+  width: 1%;
+  padding: 0 0.5em;
+  border-left-width: 0;
+  border-radius: 0;
+}
+.input-group-addon:first-child {
+  border-left-width: 1px;
+  border-top-left-radius: 0.1875em;
+  border-bottom-left-radius: 0.1875em;
+}
+.input-group-addon:last-child {
+  border-top-right-radius: 0.1875em;
+  border-bottom-right-radius: 0.1875em;
+}
+.paint-grid .row {
+  background-color: #e3e3e3;
+}
+.paint-grid [class*="col-"] {
+  background-color: #d4d4d4;
+}
+.paint-grid .content {
+  background-color: #c4c4c4;
+  overflow: hidden;
+}
+::selection {
+  background-color: rgba(255, 169, 46, 0.4);
+}
+::-moz-selection {
+  background-color: rgba(255, 169, 46, 0.4);
+}
+.navbar {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #a3a3a3;
+  box-sizing: content-box;
+  color: #5c5c5c;
+}
+.navbar-nav a:hover {
+  color: #000000;
+}
+.navbar-nav li.active a:link {
+  background-color: #e3e3e3;
+}
+.sidebar {
+  border-left: 1px solid #a3a3a3;
+  z-index: 1100;
+}
+.sidebar.active-add {
+  transition: 0.4s all;
+  transform: translateX(100%);
+}
+.sidebar.active-add-active {
+  transform: none;
+}
+.sidebar.active-remove {
+  transition: 0.4s all;
+  right: 0;
+  left: auto;
+  transform: none;
+}
+.sidebar.active-remove-active {
+  transform: translateX(100%);
+}
+.sidebar.active {
+  box-shadow: 0 0 1em black;
+}
+.sidebar-toggle {
+  background-color: #3d3d3d;
+  color: #f2f2f2;
+  border-radius: 0.36em 0 0 0.36em;
+  border: 1px solid #a3a3a3;
+  border-right: none;
+  box-sizing: content-box;
+  opacity: 0.5;
+  box-shadow: 0 0 1em black;
+}
+.sidebar-toggle:active {
+  box-shadow: 0 0 1em black;
+}
+.sidebar-toggle:focus {
+  background-color: #3d3d3d;
+  color: #f2f2f2;
+  outline: none;
+}
+.sidebar-toggle:hover {
+  background-color: #3d3d3d;
+  color: #f2f2f2;
+  width: 2em;
+  opacity: 1;
+}
+.sidebar-toggle:before {
+  content: "«";
+}
+.sidebar.expand .sidebar-toggle:before {
+  content: "»";
+}
+.collapsing {
+  transition: 0.4s all ease;
+}
+.addword {
+  display: inline-block;
+  padding-left: 15px;
+}
+.dialog {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: #fff;
+}
+.dialog-header {
+  background-color: #f0f0f0;
+  font-weight: 700;
+  border-bottom: 1px solid #808080;
+}
+.modal-backdrop {
+  background-color: black;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+.modal-backdrop.ng-hide-add {
+  transition: 0.2s all linear;
+  opacity: 0.5;
+}
+.modal-backdrop.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.modal-backdrop.ng-hide-remove {
+  transition: 0.2s all linear;
+  opacity: 0;
+}
+.modal-backdrop.ng-hide-remove.ng-hide-remove-active {
+  opacity: 0.5;
+}

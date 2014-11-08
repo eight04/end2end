@@ -1,0 +1,67 @@
+.form-group {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.form-control {
+  display: block;
+  width: 100%;
+}
+.radio > *,
+.checkbox > * {
+  display: inline-block;
+  position: relative;
+  padding-left: 1.5em;
+  cursor: pointer;
+}
+.radio > * input[type="radio"],
+.checkbox > * input[type="radio"],
+.radio > * input[type="checkbox"],
+.checkbox > * input[type="checkbox"] {
+  color: inherit;
+  position: absolute;
+  width: auto;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto 0;
+}
+.form-inline input,
+.form-inline select,
+.form-inline .radio,
+.form-inline .checkbox,
+.form-inline fieldset {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+}
+.input-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.btn-block {
+  display: block;
+}
+.btn-group {
+  display: inline-block;
+}
+.btn-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+::-webkit-input-placeholder {
+  color: #636363;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #636363;
+}
+:-ms-input-placeholder {
+  color: #636363;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #636363;
+}

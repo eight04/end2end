@@ -1,0 +1,35 @@
+.panes {
+  display: flex;
+  white-space: nowrap;
+  letter-spacing: -1em;
+}
+.panes:before {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+.pane {
+  display: none;
+  width: 100%;
+  margin-left: -100%;
+  white-space: normal;
+  letter-spacing: normal;
+}
+.pane.active {
+  display: inline-block;
+}
+.pane.active-remove {
+  transition: 0.2s all linear;
+  display: block;
+}
+.pane.active-remove.active-remove-active {
+  opacity: 0;
+}
+.pane.active-add {
+  transition: 0.2s all linear;
+  display: block;
+  opacity: 0;
+}
+.pane.active-add.active-add-active {
+  opacity: 1;
+}

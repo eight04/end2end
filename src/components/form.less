@@ -8,28 +8,31 @@
 	.make-margin();
 }
 
-// Form addition
+.form-control {
+	display: block;
+	width: 100%;
+}
+
+// Radio and checkbox
 .radio, .checkbox {
-	label {
+	> * {
 		display: inline-block;
 		position: relative;
 		padding-left: 1.5em;
 		cursor: pointer;
-	}
-	
-	input[type="radio"],
-	input[type="checkbox"] {
-		color: inherit;
-		position: absolute;
-		border: none;
-		padding: 0;
-		width: auto;
-		height: auto;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto 0;
-	}
+		
+		input[type="radio"],
+		input[type="checkbox"] {
+			color: inherit;
+			position: absolute;
+			width: auto;
+			height: auto;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			margin: auto 0;
+		}
+	}	
 }
 
 // Inline form
@@ -41,80 +44,20 @@
 	}
 }
 
-// Button addition
-.btn-block {
-	display: block;
-	margin: 0.25em 0;
-}
-
-.btn-group {
-	display: inline-block;
-	overflow: hidden;
-	
-	> * {
-		display: block;
-		float: left;
-		margin: 0;
-	}
-}
-
 // Input group
 .input-group {
 	.table();
 }
 
-
-// Form
-.form-control {
-	border: 1px solid @border-color-base;
-	border-radius: @radius-base;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-	
-	&:hover {
-		border-color: @border-color-light;
-	}
-	
-	&:focus {
-		border-color: @border-color-active;
-	}
+// Buttons
+.btn-block {
+	display: block;
 }
 
-textarea {
-	padding: 0.5em;
-}
-
-.btn,
-button {
-	border: 1px solid @border-color-base;
-	border-radius: @radius-base;
-	padding: 0 0.5em;
+.btn-group {
+	.table();
 	
-	background-image: none;
-	background-color: @bg-color-base;
-	
-	& + & {
-		margin-left: 0.5em;
-	}
-	
-	&:focus {
-		background-color: @bg-color-active;
-		outline: 1px dotted;
-		outline-offset: -2px;
-	}
-	
-	&:hover {
-		background-color: @bg-color-active;	
-	}
-	
-	&:active {
-		background-color: @bg-color-active;
-		box-shadow: inset 0.12em 0.12em 1em darken(@bg-color-base, 7%); 
-	}	
-}
-
-.btn-default {
-	min-width: 4.25em;
+	display: inline-block;
 }
 
 ::-webkit-input-placeholder {
@@ -129,28 +72,3 @@ button {
 :-moz-placeholder { /* Firefox 18- */
   color: @font-color-light;
 }
-
-
-.form-group {
-    margin: 1em 0;
-}
-
-.btn-sm {
-	width: 2em;
-	height: 2em;
-}
-
-.btn-close {
-	width: 1em;
-	height: 1em;
-	line-height: 1;
-	border-width: 0;
-	background: transparent;
-	vertical-align: baseline;
-	color: @font-color-light;
-	
-	&:hover {
-		color: inherit;
-	}
-}
-

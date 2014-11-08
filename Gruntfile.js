@@ -17,36 +17,22 @@ module.exports = function(grunt) {
     },
 	less: {
 		gridCore: {
-			expand: true,
-			cwd: "src/",
-			src: "gridCore.less",
-			dest: "src/",
-			ext: ".css"
-		},
-		grid: {
-			expand: true,
-			cwd: "src",
-			src: "grid.less",
-			dest: "src",
-			ext: ".css"
-		},
-		base: {
 			files: {
-				"src/base.css": "src/base.less"
+				"build/gridCore.css": "src/gridCore.less"
 			}
 		},
 		components: {
 			expand: true,
 			cwd: "src/components",
 			src: "*.less",
-			dest: "src/components",
+			dest: "build/components",
 			ext: ".css"
 		},
 		main: {
 			expand: true,
 			cwd: "src/",
-			src: "end2end.less",
-			dest: "dist/",
+			src: ["*.less", "!gridCore.less", "!vars.less", "!mixins.less"],
+			dest: "build/",
 			ext: ".css"
 		}
 	},
@@ -79,13 +65,17 @@ module.exports = function(grunt) {
 		grunt: {
 			files: "Gruntfile.js"
 		},
-		grid: {
-			files: "src/core/*.less",
-			tasks: "less"
+		gridCore: {
+			files: "src/gridCore.less",
+			tasks: "less:gridCore"
 		},
 		main: {
 			files: "src/*.less",
 			tasks: "less:main"
+		},
+		components: {
+			files: "src/components/*.less",
+			tasks: "less:components"
 		},
 		js: {
 			files: ["*.js", "templates/*"],

@@ -75,6 +75,20 @@
 	color: @brand-info;
 }
 
+
+// Page
+.page-header {
+	padding: 2.5em 0;
+	line-height: 1;
+	// font-size: 260%;
+}
+
+.page-footer {
+	padding: 2em 0;
+	text-align: center;
+}
+
+
 // Display utility
 .make-utility(xs);
 @media (min-width: @window-sm) {
@@ -141,3 +155,96 @@
 .clipper {
 	overflow: hidden;
 }
+
+// Table
+.table {
+	border: 1px solid @border;
+	border-radius: @radius-base;
+	
+	thead {
+		background-color: @bg-color-base;
+	}
+	
+	th, td {
+		padding: 0.24em 1.04em;
+		border-left: 1px solid @border-color-base;
+		vertical-align: middle;
+		text-align: center;
+
+		&:first-child {
+			border-left: none;
+		}
+	}
+	
+	thead tr {
+		border-bottom: 1px solid @border-color-base;
+	}
+}
+
+.table-responsive {
+	> * {
+		border-width: 0;
+	}
+	
+	border: 1px solid @border-color-base;
+	border-radius: @radius-base;
+}
+
+.make-table-var(xs);
+@media (min-width: @window-sm) {
+	.make-table-var(sm);
+}
+@media (min-width: @window-md) {
+	.make-table-var(md);
+}
+@media (min-width: @window-lg) {
+	.make-table-var(lg);
+}
+
+.make-table-var(@size) {
+	.table-@{size} {
+		display: block;
+		margin: 0 -@gap*2;
+		
+		> * {
+			display: table;
+			width: 100%;
+			margin: 0;
+			border-spacing: @gap*2 0;
+			table-layout: fixed;
+			
+			> * {
+				display: table-cell;
+				padding: 0;
+			}
+		}
+	}
+	
+	.table-@{size}-nogap {
+		margin: 0;
+		> * {
+			border-spacing: 0;
+		}
+	}
+}
+
+// Responsive Table
+.table-responsive {
+	display: inline-block;
+	max-width: 100%;
+	overflow: auto;
+	
+	th, td {
+		white-space: nowrap;
+	}
+}
+
+// Image addition
+img {
+	&[class*="right-"],
+	&[class*="left-"] {
+		display: block;
+		margin: 0.5em auto;
+	}
+}
+

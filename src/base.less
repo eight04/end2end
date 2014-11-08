@@ -1,6 +1,6 @@
 @import "vars.less";
 @import "mixins.less";
-@import "reset.less";
+@import (inline) "reset.css";
 
 // Box sizing
 * {
@@ -54,17 +54,27 @@ p {
 	line-height: @line-height-base;
 }
 
-input {
+input,
+textarea,
+select,
+button {
+	font-size: inherit;
+	font-family: inherit;
+	line-height: inherit;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
 	height: 2em;
 }
 
 textarea {
 	height: auto;
+	line-height: @line-height-base;
 }
 
 select {
 	cursor: pointer;
-	height: 2em;
+	line-height: @line-height-base;
 	
 	&[multiple] {
 		height: auto;
@@ -74,18 +84,22 @@ select {
 button {
 	cursor: pointer;
 	text-align: center;
-	line-height: 2;
-	height: 2em;
-	font-size: inherit;
-	font-family: inherit;
 	background-image: none;
-	padding: 0;
 	
 	// Firefox button fix: http://davidwalsh.name/firefox-buttons
 	&::-moz-focus-inner {
 		border: 0;
 		padding: 0;
 	}
+}
+
+label {
+	vertical-align: middle;
+	line-height: @line-height-base;
+}
+
+legend {
+	line-height: @line-height-base;
 }
 
 img {

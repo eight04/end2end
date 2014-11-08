@@ -1,36 +1,41 @@
-.make-margin(@gap: 1em) {
+.make-margin(@gap: 1em){
 	margin-top: @gap;
 	margin-bottom: @gap;
 }
 
-.make-padding(@gap: 1em) {
+.make-padding(@gap: 1em){
 	padding-top: @gap;
 	padding-bottom: @gap;
 }
 
-.reset-form () {
-	font-size: inherit;
-	font-family: inherit;
-	line-height: inherit;
-	color: inherit;
-	vertical-align: middle;
-	height: 2em;
-	border: 1px solid;
+.make-border(){
+	border: 1px solid @border-color-base;
+	border-radius: @radius-base;
 }
 
-.make-input () {
-	display: block;
-	// margin: 0.25em 0 1em;
-	margin: 0;
-	width: 100%;
+.make-link-color(@color, @color-focus) {
+	&:link,
+	&:visited {
+		color: @color;
+	}
+	&:hover {
+		color: @color-focus;
+	}
+	&:active {
+		color: @color-focus;
+	}
 }
 
 .make-flex(){
+	display: flex;
+	flex-wrap: wrap;
+	letter-spacing: ~"-9999px\9";
 
-}
-
-.make-flex-top(){
-	
+	> * {
+		display: ~"inline-block\9";
+		letter-spacing: ~"normal\9";
+		vertical-align: ~"top\9";
+	}
 }
 
 .make-flex-middle(){
@@ -38,21 +43,21 @@
 	
 	&:before {
 		content: "";
-		display: inline-block;
-		height: 100%;
-		vertical-align: middle;
+		display: ~"inline-block\9";
+		height: ~"100%\9";
+		vertical-align: ~"middle\9";
 	}
 	
 	> * {
-		vertical-align: middle;
+		vertical-align: ~"middle\9";
 	}
 }
 
 .make-flex-center(){
 	justify-content: space-between;
-	text-align: center;
+	text-align: ~"center\9";
 	
 	> * {
-		text-align: left;
+		text-align: ~"left\9";
 	}
 }
