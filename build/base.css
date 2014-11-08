@@ -102,6 +102,35 @@ button {
   vertical-align: middle;
   height: 2em;
 }
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+@media \0screen {
+	input {
+		padding-top: 0.4375em;
+	}
+	
+	input[type="radio"],
+	input[type="checkbox"] {
+		padding-top: 0;
+	}
+	
+	select {
+		padding-bottom: 0.25em;
+	}
+	
+	select[multiple] {
+		padding-bottom: 0;
+	}
+}
+
+::-moz-placeholder,
+:-moz-placeholder {
+  opacity: 1;
+}
 textarea {
   height: auto;
   line-height: 1.55;
@@ -121,6 +150,11 @@ button {
 button::-moz-focus-inner {
   border: 0;
   padding: 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  button {
+    padding-top: 2px;
+  }
 }
 label {
   vertical-align: middle;

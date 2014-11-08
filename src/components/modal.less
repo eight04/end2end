@@ -7,6 +7,7 @@
 	.make-flex-middle();
 	.make-flex-center();
 	
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -14,6 +15,11 @@
 	height: 100%;
 	overflow: auto;
 	z-index: 1210;
+	
+	&.active {
+		display: flex;
+		display: ~"block\9";
+	}
 	
 	&.ng-hide-add,
 	&.ng-hide-remove,
@@ -36,10 +42,15 @@
 }
 
 .modal-backdrop {
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 1200;
+	
+	&.active {
+		display: block;
+	}
 }

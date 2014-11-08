@@ -9,6 +9,15 @@
 .stretch {
   width: 100%;
 }
+.table-responsive {
+  display: inline-block;
+  max-width: 100%;
+  overflow: auto;
+}
+.table-responsive th,
+.table-responsive td {
+  white-space: nowrap;
+}
 .navbar > * {
   padding-left: 0;
   padding-right: 0;

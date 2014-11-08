@@ -1,6 +1,7 @@
 .progress {
   border: 1px solid #808080;
   border-radius: 0.1875em;
+  overflow: hidden;
   cursor: default;
   font-size: 80%;
   margin: 0.25em 0;

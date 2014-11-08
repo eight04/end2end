@@ -15,23 +15,25 @@
 
 // Radio and checkbox
 .radio, .checkbox {
-	> * {
+	position: relative;
+	
+	input[type="radio"],
+	input[type="checkbox"] {
+		color: inherit;
+		position: absolute;
+		width: auto;
+		height: auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto 0;
+//		display: none;
+	}
+	
+	label {
 		display: inline-block;
-		position: relative;
 		padding-left: 1.5em;
 		cursor: pointer;
-		
-		input[type="radio"],
-		input[type="checkbox"] {
-			color: inherit;
-			position: absolute;
-			width: auto;
-			height: auto;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			margin: auto 0;
-		}
 	}	
 }
 
@@ -58,17 +60,4 @@
 	.table();
 	
 	display: inline-block;
-}
-
-::-webkit-input-placeholder {
-  color: @font-color-light;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: @font-color-light;
-}
-:-ms-input-placeholder {
-  color: @font-color-light;
-}
-:-moz-placeholder { /* Firefox 18- */
-  color: @font-color-light;
 }

@@ -20,31 +20,58 @@ pre code {
 small {
   font-size: 70%;
 }
+.radio label,
+.checkbox label {
+  transition: 0.2s all linear;
+}
 .radio label:hover,
 .checkbox label:hover {
-  color: #696969;
+  color: #707070;
 }
 .btn {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  padding: 0 0.5em;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   background-color: #f0f0f0;
 }
-.btn:focus,
+.btn:focus {
+  background-color: #fafafa;
+  outline: gray dotted 1px;
+  outline-offset: -2px;
+}
 .btn:hover {
-  background-color: #f7f7f7;
+  background-color: #fafafa;
 }
 .btn:active {
   box-shadow: inset 0.12em 0.12em 1em #dedede;
 }
 .btn-default {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background-color: #f0f0f0;
   min-width: 4.25em;
+}
+.btn-default:focus {
+  background-color: #fafafa;
+  outline: gray dotted 1px;
+  outline-offset: -2px;
+}
+.btn-default:hover {
+  background-color: #fafafa;
+}
+.btn-default:active {
+  box-shadow: inset 0.12em 0.12em 1em #dedede;
 }
 .btn-close {
   width: 1em;
   height: 1em;
   vertical-align: baseline;
-  color: #636363;
+  color: #707070;
 }
 .btn-close:hover {
   color: inherit;
@@ -60,6 +87,22 @@ small {
 }
 .btn-group > *:first-child {
   margin-left: -1px;
+}
+.form-control {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  color: #707070;
+  transition: 0.2s all linear;
+}
+.form-control:hover {
+  border-color: #cccccc;
+}
+.form-control:focus {
+  border-color: #0a53f8;
+  color: #242424;
 }
 .input-group > * > * {
   border-left-width: 0;
@@ -77,6 +120,7 @@ small {
 .input-group-addon {
   border: 1px solid #808080;
   border-radius: 0.1875em;
+  overflow: hidden;
   vertical-align: middle;
   background-color: #f2f2f2;
   white-space: nowrap;
@@ -93,6 +137,20 @@ small {
 .input-group-addon:last-child {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
+}
+::-webkit-input-placeholder {
+  color: #c9c9c9;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #c9c9c9;
+}
+:-ms-input-placeholder {
+  color: #c9c9c9;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #c9c9c9;
 }
 .paint-grid .row {
   background-color: #e3e3e3;
@@ -185,6 +243,7 @@ small {
 .dialog {
   border: 1px solid #808080;
   border-radius: 0.1875em;
+  overflow: hidden;
   margin-top: 1em;
   margin-bottom: 1em;
   background-color: #fff;
@@ -212,4 +271,32 @@ small {
 }
 .modal-backdrop.ng-hide-remove.ng-hide-remove-active {
   opacity: 0.5;
+}
+.table-default {
+  border: 1px solid #a3a3a3;
+  border-radius: 0.1875em;
+}
+.table-default thead {
+  background-color: #f0f0f0;
+}
+.table-default th,
+.table-default td {
+  padding: 0.24em 1.04em;
+  border-left: 1px solid #808080;
+  vertical-align: middle;
+  text-align: center;
+}
+.table-default th:first-child,
+.table-default td:first-child {
+  border-left: none;
+}
+.table-default thead tr {
+  border-bottom: 1px solid #808080;
+}
+.table-responsive {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+}
+.table-responsive > * {
+  border-width: 0;
 }

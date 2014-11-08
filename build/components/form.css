@@ -6,17 +6,14 @@
   display: block;
   width: 100%;
 }
-.radio > *,
-.checkbox > * {
-  display: inline-block;
+.radio,
+.checkbox {
   position: relative;
-  padding-left: 1.5em;
-  cursor: pointer;
 }
-.radio > * input[type="radio"],
-.checkbox > * input[type="radio"],
-.radio > * input[type="checkbox"],
-.checkbox > * input[type="checkbox"] {
+.radio input[type="radio"],
+.checkbox input[type="radio"],
+.radio input[type="checkbox"],
+.checkbox input[type="checkbox"] {
   color: inherit;
   position: absolute;
   width: auto;
@@ -25,6 +22,12 @@
   bottom: 0;
   left: 0;
   margin: auto 0;
+}
+.radio label,
+.checkbox label {
+  display: inline-block;
+  padding-left: 1.5em;
+  cursor: pointer;
 }
 .form-inline input,
 .form-inline select,
@@ -50,18 +53,4 @@
   display: table-cell;
   vertical-align: middle;
   white-space: nowrap;
-}
-::-webkit-input-placeholder {
-  color: #636363;
-}
-::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #636363;
-}
-:-ms-input-placeholder {
-  color: #636363;
-}
-:-moz-placeholder {
-  /* Firefox 18- */
-  color: #636363;
 }

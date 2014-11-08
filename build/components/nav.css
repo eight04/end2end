@@ -11,6 +11,7 @@
 .nav-list {
   border: 1px solid #808080;
   border-radius: 0.1875em;
+  overflow: hidden;
 }
 .nav-list > * > * {
   display: block;
@@ -40,6 +41,7 @@
   margin: 0 1em -1px 0;
   border: 1px solid #808080;
   border-radius: 0.1875em;
+  overflow: hidden;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
