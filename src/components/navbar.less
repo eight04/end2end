@@ -18,6 +18,10 @@
 @media (min-width: @window-sm) {
 	.navbar-collapse {
 		width: 100%;
+		
+		&.collapse {
+			display: table-cell;
+		}
 	}
 	.navbar-menu {
 		.table();
@@ -27,12 +31,8 @@
 }
 @media (max-width: (@window-sm - 1)) {
 	.navbar-collapse {
-		display: none;
-
-		&.active {
-			display: block;
-
-		}
+		display: block;
+		overflow: hidden;		
 	}
 	.navbar-menu {
 		> * {
