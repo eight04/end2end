@@ -368,3 +368,19 @@ a {
     border-bottom: 1px solid #808080;
   }
 }
+@media (min-width: 768px) {
+  .blackboard {
+    background-color: #f0f0f0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .blackboard-head {
+    font-size: 320%;
+  }
+  .blackboard-body {
+    font-size: 140%;
+  }
+  .blackboard-side {
+    font-size: 80%;
+  }
+}

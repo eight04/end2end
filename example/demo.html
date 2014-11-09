@@ -13,36 +13,46 @@
 	<script src="../dist/end2end.js"></script>
 	
 	<script>
-		angular.module("App", ["end2end"]);
+		app = angular.module("App", ["end2end"]);
+		app.controller("main", function(){
+			
+		});
 	</script>
 	
 	<!--[if lte ie 8]>
 	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
 	<![endif]-->
 	
 </head>
 
-<body ng-controller="main">
-
+<body>
 	<nav class="navbar">
 		<div class="container">
 			<a href="" class="navbar-brand">end2end</a>
 			<div class="stretch none-sm"></div>
-			<div class="navbar-col">
+			<div class="navbar-col none-sm">
 				<button class="btn navbar-toggle">
 					&equiv;
 				</button>
 			</div>
-			<div class="navbar-collapse">
+			<div class="navbar-collapse collapse">
 				<div class="navbar-menu">
-					<a href="" class="navbar-link">link 1</a>
+					<a href="" class="navbar-link active">link 1</a>
 					<a href="" class="navbar-link">link 2</a>
 					<form class="navbar-form">
 						<div class="form-group">
-							<input type="text" />
-							<button>Search</button>
+							<div class="input-group">
+								<div>
+									<input type="text" class="form-control">
+								</div>
+								<div class="shrink">
+									<button class="btn-default">Search</button>
+								</div>
+							</div>
 						</div>
 					</form>
+					<div class="stretch"></div>
 					<a href="" class="navbar-link">link 3</a>
 					<a href="" class="navbar-link">link 4</a>
 				</div>
@@ -52,7 +62,7 @@
 	<header>
 		<div class="blackboard">
 			<div class="container">
-				<div class="row">
+				<div class="row row-middle">
 					<div class="col-md-2-3">
 						<h1 class="blackboard-head">End2end</h1>
 						<p class="blackboard-body">
@@ -60,9 +70,9 @@
 						</p>
 					</div>
 					<div class="col-md-1-3">
-						<div class="blackboard-side">
+						<p class="blackboard-side">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, assumenda, officia, dolor at aliquam numquam facere culpa autem ducimus optio distinctio aut illum totam vero veniam voluptate accusamus dignissimos. Ducimus.
-						</div>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -687,7 +697,7 @@
 				<h2>Tab group</h2>
 				<p>This component is built with <code>nav-tab</code> and <code>panes</code></p>
 				<div class="tab-group" ng-class="$id">
-					<div class="tab" tab-heading="Tab 1" ng-controller="test">
+					<div class="tab" tab-heading="Tab 1">
 						<p>Why {{angular}} doesn't work in tabs? {{$id}}</p>
 						<p>Content 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea unde cupiditate soluta quibusdam similique. Iste cum ullam magni dolores quidem quae harum laborum voluptate est odit. Quibusdam id natus alias.</p>
 					</div>

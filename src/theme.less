@@ -403,3 +403,25 @@ a {
 		border-bottom: 1px solid @border-color-base;
 	}
 }
+
+// Blackboard
+@media (min-width: @window-sm) {
+	.blackboard {
+		background-color: @bg-color-base;
+		padding-top: @gap*2;
+		padding-bottom: @gap*2;
+	}
+	.blackboard-head {
+		font-size: 320%;
+	}
+	.blackboard-body {
+		font-size: 140%;
+	}
+	.blackboard-side {
+		font-size: 80%;
+	}
+}
+@media (max-width: (@window-sm - 1)) {
+	
+}
+
