@@ -913,7 +913,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/modalStack.html',
-    "<div class=\"modal-backdrop active\" ng-if=\"modals.length\"></div><div class=\"modal active\" ng-repeat=\"modal in modals\"><div class=\"modal-content\" e2e-modal=\"modal\"></div></div>"
+    "<div class=\"modal-backdrop active\" ng-if=\"modals.length\"></div><div class=\"modal active\" ng-repeat=\"modal in modals\" e2e-modal=\"modal\"></div>"
   );
 
 

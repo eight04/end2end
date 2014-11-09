@@ -284,7 +284,7 @@ a {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	
 	&.ng-enter {
-		transition: 0.2s all linear;
+		transition: 0.4s all linear;
 		opacity: 0;
 		
 		&-active {
@@ -293,7 +293,7 @@ a {
 	}
 	
 	&.ng-leave {
-		transition: 0.2s all linear;
+		transition: 0.4s all linear;
 		opacity: 0.5;
 		
 		&-active {
@@ -303,8 +303,33 @@ a {
 }
 
 .modal {
-	&.ng-enter .modal-content {
+	&.ng-enter {
+		transition: all 0.4s;
 		
+		> * {
+			transition: all 0.4s;
+			opacity: 0;
+			transform: translateY(-100%);
+		}
+		
+		&-active > * {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	&.ng-leave {
+		transition: all 0.4s;
+		
+		> * {
+			transition: all 0.4s;
+			opacity: 1;
+			transform: none;
+		}
+		
+		&-active > * {
+			opacity: 0;
+			transform: translateY(-25%);
+		}
 	}
 }
 

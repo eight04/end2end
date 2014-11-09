@@ -23,6 +23,7 @@ Todos
 * Change how navs work. Use toggler instead.
 * Deprecate modal directive
 * Create ie polyfill or keep using css hack?
+* Fix modal animate bug.
 
 Components
 ----------
