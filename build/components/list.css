@@ -10,3 +10,12 @@
 .list-circle {
   list-style-type: circle;
 }
+.list-decimal {
+  list-style-type: decimal;
+}
+.list-lower-roman {
+  list-style-type: lower-roman;
+}
+.list-upper-roman {
+  list-style-type: upper-roman;
+}
