@@ -101,6 +101,7 @@ button {
   padding: 0;
   vertical-align: middle;
   height: 2em;
+  color: inherit;
 }
 input:focus,
 textarea:focus,
@@ -146,15 +147,11 @@ button {
   cursor: pointer;
   text-align: center;
   background-image: none;
+  background-color: transparent;
 }
 button::-moz-focus-inner {
   border: 0;
   padding: 0;
-}
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  button {
-    padding-top: 2px;
-  }
 }
 label {
   vertical-align: middle;

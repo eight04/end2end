@@ -28,6 +28,10 @@ small {
 	font-size: 70%;
 }
 
+a {
+	transition: all 0.2s linear;
+}
+
 // Forms
 .radio, .checkbox {
 	label {
@@ -41,26 +45,28 @@ small {
 
 .btn {
 	.make-border();
-	padding-left: 0.5em;
-	padding-right: 0.5em;	
-	background-color: @bg-color-base;
-//	transition: 0.2s all linear;
+	transition-property: border-color, box-shadow;
+	transition-duration: 0.2s;
+	transition-timing-function: linear;
 		
-	&:focus {
-		background-color: @bg-color-active;
-		outline: gray dotted 1px;
-		outline-offset: -2px;
-	}
 	&:hover {
-		background-color: @bg-color-active;
+		border-color: @border-color-light;
 	}
-	
+	&:focus {
+//		outline: gray dotted 1px;
+//		outline-offset: -2px;
+		color: @font-color-base;
+		border-color: @brand-primary;
+	}
 	&:active {
-		box-shadow: inset 0.12em 0.12em 1em darken(@bg-color-base, 7%); 
+		border-color: @brand-primary;
+		box-shadow: inset 0.12em 0.12em 0.5em darken(@bg-color-base, 7%); 
 	}
 }
 .btn-default {
 	.btn();
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 	min-width: 4.25em;
 }
 .btn-close {
@@ -181,28 +187,6 @@ small {
 }
 ::-moz-selection {
 	background-color: fade(@highlight, 40%);
-}
-
-// Components style
-@navbar-color: lighten(@color, 12%);
-
-.navbar {
-	background-color: @color-bg;
-	border-bottom: 1px solid @border;
-	box-sizing: content-box;
-	color: @navbar-color;
-}
-
-.navbar-nav a {
-	&:hover {
-		color: darken(@navbar-color, 40%);
-	}
-}
-
-.navbar-nav li.active a {
-	&:link {
-		background-color: darken(@color-bg, 6%);
-	}
 }
 
 // Sidebar
@@ -347,4 +331,37 @@ small {
 	
 	border: 1px solid @border-color-base;
 	border-radius: @radius-base;
+}
+
+// Navbar
+.navbar {
+	color: @font-color-light;
+	border-bottom: 1px solid @border;
+}
+
+.navbar-brand {
+	.make-link-color(inherit, @font-color-base);
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.navbar-link {
+	.make-link-color(inherit, @font-color-base);
+	text-decoration: none;
+	&:hover {
+		background-color: @bg-color-base;
+	}
+	&.active {
+		background-color: @bg-color-base;
+	}
+}
+
+@media (max-width: (@window-sm - 1)) {
+	.navbar-menu {
+		border-top: 1px solid @border-color-base;
+	}
+	.navbar-form {
+		border-top: 1px solid @border-color-base;
+		border-bottom: 1px solid @border-color-base;
+	}
 }

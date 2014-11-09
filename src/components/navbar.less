@@ -1,5 +1,6 @@
 // Navbar component
 @import "../vars.less";
+@import "form.less";
 @import "table.less";
 
 .navbar {
@@ -16,6 +17,9 @@
 
 @media (min-width: @window-sm) {
 	.navbar-collapse {
+		width: 100%;
+	}
+	.navbar-menu {
 		.table();
 		display: table;
 		width: 100%;
@@ -28,11 +32,12 @@
 		&.active {
 			display: block;
 
-			> * {
-				display: block;
-			}
 		}
-
+	}
+	.navbar-menu {
+		> * {
+			display: block;
+		}
 	}
 }
 
@@ -45,7 +50,17 @@
 }
 
 .navbar-col {
-	padding: 1em @gap;
+	padding: 0 @gap;
+}
+
+.navbar-form {
+	padding: 0 @gap;
+}
+
+@media (min-width: @window-sm) {
+	.navbar-form {
+		.form-inline();
+	}
 }
 
 .navbar-toggle {

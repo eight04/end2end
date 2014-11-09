@@ -22,6 +22,7 @@ Todos
 * Justify grid?
 * Change how navs work. Use toggler instead.
 * Deprecate modal directive
+* Create ie polyfill or keep using css hack?
 
 Components
 ----------
@@ -30,12 +31,7 @@ Components
 
 Refactor guide
 --------------
-* CSS
-	* Use tag selector only in `reset.css`.
-	* Use class selector to create controls.
-	* Use universe selector to prevent over-specifying.
-	* Do not use extend.
-* JS
-	* Do not use class directive.
-	* Every directive should prefix with `e2e`.
-	* Every service should prefix with `e2e`.
+* Use tag selector only in `reset.css`.
+* Use class selector to create controls.
+* Use universe selector to prevent over-specifying.
+* Do not use extend.

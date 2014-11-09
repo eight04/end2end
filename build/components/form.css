@@ -33,8 +33,10 @@
 .form-inline select,
 .form-inline .radio,
 .form-inline .checkbox,
-.form-inline fieldset {
+.form-inline fieldset,
+.form-inline .form-group {
   display: inline-block;
+  vertical-align: middle;
   width: auto;
   margin: 0;
 }
