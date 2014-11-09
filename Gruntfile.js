@@ -99,6 +99,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('dist', ["eslint", "less", "copy", "ngtemplates"]);
-  grunt.registerTask('dist-js', ["eslint", "copy", "ngtemplates"]);
+  grunt.registerTask('dist-js', ["copy", "ngtemplates"]);
 
 };
