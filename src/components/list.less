@@ -1,0 +1,19 @@
+// Navbar component
+@import "../vars.less";
+@import "../mixins.less";
+//@import "form.less";
+//@import "table.less";
+
+.list {
+	.make-margin(1em);
+	list-style: disc outside none;
+	
+	> * {
+		margin-left: 3em;
+		line-height: @line-height-base;
+	}
+}
+
+.list-circle {
+	list-style-type: circle;
+}

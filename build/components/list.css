@@ -1,0 +1,12 @@
+.list {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  list-style: disc outside none;
+}
+.list > * {
+  margin-left: 3em;
+  line-height: 1.55;
+}
+.list-circle {
+  list-style-type: circle;
+}

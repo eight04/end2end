@@ -226,13 +226,11 @@ a {
 .sidebar.expand .sidebar-toggle:before {
   content: "»";
 }
-@media (max-width: 767px) {
-  .collapse {
-    display: none;
-  }
-  .collapsing {
-    transition: 0.4s all;
-  }
+.collapse {
+  display: none;
+}
+.collapsing {
+  transition: 0.4s all;
 }
 .addword {
   display: inline-block;
