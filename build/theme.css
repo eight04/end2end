@@ -275,7 +275,7 @@ a {
   opacity: 0;
   transform: translateY(-100%);
 }
-.modal.ng-enter-active > * {
+.modal.ng-enter.ng-enter-active > * {
   opacity: 1;
   transform: translateY(0);
 }
@@ -287,7 +287,7 @@ a {
   opacity: 1;
   transform: none;
 }
-.modal.ng-leave-active > * {
+.modal.ng-leave.ng-leave-active > * {
   opacity: 0;
   transform: translateY(-25%);
 }
