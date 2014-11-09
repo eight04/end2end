@@ -368,6 +368,9 @@ a {
     border-bottom: 1px solid #808080;
   }
 }
+.blackboard-side {
+  font-size: 80%;
+}
 @media (min-width: 768px) {
   .blackboard {
     background-color: #f0f0f0;
@@ -379,8 +382,5 @@ a {
   }
   .blackboard-body {
     font-size: 140%;
-  }
-  .blackboard-side {
-    font-size: 80%;
   }
 }

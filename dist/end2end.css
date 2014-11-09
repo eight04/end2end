@@ -200,7 +200,6 @@ pre {
   }
 }
 ._row {
-  margin-top: -15px;
   margin-left: -15px;
   margin-right: -15px;
   min-height: 15px;
@@ -208,10 +207,8 @@ pre {
 ._row > * {
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: 15px;
 }
 .row {
-  margin-top: -15px;
   margin-left: -15px;
   margin-right: -15px;
   min-height: 15px;
@@ -222,7 +219,6 @@ pre {
 .row > * {
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: 15px;
 }
 .row > * {
   display: inline-block\9;
@@ -233,6 +229,7 @@ pre {
   width: 100%;
 }
 .row-inline {
+  margin-top: -15px;
   margin-left: -7.5px;
   margin-right: -7.5px;
 }
@@ -240,6 +237,7 @@ pre {
   width: auto;
   padding-left: 0;
   padding-right: 0;
+  margin-top: 15px;
   margin-left: 7.5px;
   margin-right: 7.5px;
 }
@@ -2810,6 +2808,10 @@ img[class*="left-"] {
 .pre-wrap {
   white-space: pre-wrap;
 }
+.compact {
+  margin: 0;
+  padding: 0;
+}
 
 h2 {
   border-bottom: 1px solid #808080;
@@ -3181,6 +3183,9 @@ a {
     border-bottom: 1px solid #808080;
   }
 }
+.blackboard-side {
+  font-size: 80%;
+}
 @media (min-width: 768px) {
   .blackboard {
     background-color: #f0f0f0;
@@ -3192,9 +3197,6 @@ a {
   }
   .blackboard-body {
     font-size: 140%;
-  }
-  .blackboard-side {
-    font-size: 80%;
   }
 }
 
