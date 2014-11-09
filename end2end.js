@@ -536,33 +536,29 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-	.factory("modalStack", function(){
-		return {
-			modals: [],
-			element: null,
-			add: function(modal){
-				this.modals.push(modal);
-			},
-			remove: function(modal){
-				var i;
-				for (i = 0; i < this.modals.length; i++) {
-					if (this.modals[i] == modal) {
-						break;
-					}
-				}
-				if (i < this.modals.length) {
-					this.modals.splice(i, 1);
-				}
-			}
-		};
-	})
-	.directive("modalStack", function(modalStack){
+	.directive("modalStack", function(){
 		return {
 			restrict: "C",
 			templateUrl: "templates/modalStack.html",
 			scope: {},
-			link: function(scope){
-				scope.modalStack = modalStack;
+			controller: function($scope){
+				this.modals = $scope.modals = [];
+				
+				this.add = function(modal){
+					$scope.modals.push(modal);
+				};
+				
+				this.remove = function(modal){
+					var i;
+					for (i = 0; i < $scope.modals.length; i++) {
+						if ($scope.modals[i] == modal) {
+							break;
+						}
+					}
+					if (i < $scope.modals.length) {
+						$scope.modals.splice(i, 1);
+					}
+				};
 			}
 		};
 	})
@@ -585,20 +581,25 @@ angular.module("end2end", ["ngAnimate"])
 						url: modal.templateUrl,
 						cache: $templateCache
 					}).success(function(result){
-//						ele = $compile(result)(scope);
-						console.log(ele);
-//						element.append(ele);
+						ele = $compile(result)(scope);
+						element.append(ele);
 					});
 				} else {
-//					ele = $compile(modal.template)(scope);
-//					element.append(ele);
+					ele = $compile(modal.template)(scope);
+					element.append(ele);
 				}
 			}
 		};
 	})
-    .factory("modal", function($animate, $q, $compile, $rootScope, $window, modalStack){
-		var modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
+    .factory("modal", function($animate, $q, $compile, $rootScope, $window, $timeout){
+		var modalStack, modalStackElement;
+	
+		modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
 		angular.element($window.document.body).append(modalStackElement);
+	
+		$timeout(function(){
+			modalStack = modalStackElement.controller("modalStack");
+		});
 	
 		return {
 			open: function(modal){

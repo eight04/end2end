@@ -13,8 +13,10 @@
   max-width: 1200px;
 }
 .dialog-header {
-  padding: 0.5em 1em;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .dialog-body {
-  padding: 0 1em;
+  padding-left: 15px;
+  padding-right: 15px;
 }

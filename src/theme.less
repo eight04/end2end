@@ -269,9 +269,12 @@ a {
 	background-color: #fff;
 }
 .dialog-header {
-	background-color: @bg-color-base;
+//	background-color: @bg-color-base;
 	font-weight: 700;
+	font-size: 140%;
 	border-bottom: 1px solid @border-color-base;
+	padding-top: @gap;
+	padding-bottom: @gap;
 }
 
 // Modal 
@@ -280,22 +283,28 @@ a {
 	opacity: 0.5;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	
-	&.ng-hide-add {
-		transition: 0.2s all linear;
-		opacity: 0.5;
-		
-		&.ng-hide-add-active {
-			opacity: 0;
-		}
-	}
-	
-	&.ng-hide-remove {
+	&.ng-enter {
 		transition: 0.2s all linear;
 		opacity: 0;
 		
-		&.ng-hide-remove-active {
+		&-active {
 			opacity: 0.5;
 		}
+	}
+	
+	&.ng-leave {
+		transition: 0.2s all linear;
+		opacity: 0.5;
+		
+		&-active {
+			opacity: 0;
+		}
+	}
+}
+
+.modal {
+	&.ng-enter .modal-content {
+		
 	}
 }
 
