@@ -1,110 +1,74 @@
-.list-reset,
-.nav-list,
-.nav-pool,
-.nav-tab,
-.nav-tree,
-.nav-pill {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+.table > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
 }
-.nav-list {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
+.shrink {
+  width: 1%;
 }
-.nav-list > * > * {
-  display: block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-}
-.nav-list > * > *:hover {
-  background-color: #f0f0f0;
-}
-.nav-list > * + * {
-  border-top: 1px solid #808080;
-}
-.nav-pool > * {
-  display: inline-block;
-  margin: 0 0.5em 0 0;
-}
-.nav-tab {
-  display: table;
-  margin: 0;
-  border-bottom: 1px solid #808080;
+.stretch {
   width: 100%;
 }
-.nav-tab > * {
+.table-responsive {
   display: inline-block;
-  background-color: white;
-  vertical-align: bottom;
-  margin: 0 1em -1px 0;
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  max-width: 100%;
+  overflow-x: auto;
 }
-.nav-tab > *.active {
-  border-bottom-color: white;
+.table-responsive th,
+.table-responsive td {
+  white-space: nowrap;
 }
-.nav-tab > *.active:hover {
-  background-color: white;
-}
-.nav-tab > *:hover {
-  background-color: #f0f0f0;
-}
-.nav-tab > * > * {
+.nav a {
   display: block;
-  padding: 0.5em 1em;
   text-decoration: none;
 }
-.nav-responsive {
-  overflow-y: hidden;
+.nav-list a {
+  display: block;
+  text-decoration: none;
 }
-.nav-responsive > * {
+.nav-tab a {
+  display: block;
+  text-decoration: none;
+}
+.nav-tab > * {
+  display: table-cell;
+  vertical-align: middle;
   white-space: nowrap;
+}
+.nav-tab > * {
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+.nav-responsive {
+  overflow-x: auto;
+}
+.nav-tree a {
+  display: block;
+  text-decoration: none;
 }
 .nav-tree > * > a {
   margin: 0.25em 0;
 }
 .nav-tree .nav-tree {
   display: none;
-  margin: 0;
-  padding: 0 0 0 2em;
-  font-size: 90%;
-}
-.nav-tree .nav-tree > * > * {
-  margin: 0;
 }
 .nav-tree > .active > .nav-tree {
   display: block;
 }
-.nav-pill {
-  display: table;
+.nav-pill a {
+  display: block;
+  text-decoration: none;
 }
 .nav-pill > * {
   display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.nav-pill > * {
   width: 1%;
-  border-radius: 0.1875em;
-  overflow: hidden;
-}
-.nav-pill > * > * {
-  display: block;
-  padding: 0.5em 1em;
-  text-align: center;
-  text-decoration: none;
-}
-.nav-pill > *:hover,
-.nav-pill > *.active {
-  background-color: #f0f0f0;
 }
 @media (max-width: 767px) {
-  .nav-pill {
-    display: block;
-  }
   .nav-pill > * {
-    margin: 0;
     width: auto;
     display: block;
   }

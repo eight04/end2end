@@ -1,160 +1,61 @@
 @import "../vars.less";
 @import "../mixins.less";
+@import "table.less";
 
 // Nav
-.list-reset {
-	padding: 0;
-    margin: 0;
-	list-style: none;
+.nav {
+	a {
+		display: block;
+		text-decoration: none;
+	}
 }
 
 .nav-list {
-	&:extend(.list-reset);
-	
-	.make-border();
-	
-	// Don't style on li to make animate easier
-	> * {
-		> * {
-			display: block;
-			padding: 0.5em 1em;
-			text-decoration: none;
-			
-			&:hover {
-				background-color: @bg-color-base;
-			}
-		}
-		
-		+ * {
-			border-top: 1px solid @border-color-base;
-		}
-	}	
-}
-
-.nav-pool {
-	&:extend(.list-reset);
-	
-	> * {
-		display: inline-block;
-		margin: 0 0.5em 0 0;
-	}
+	.nav();
 }
 
 .nav-tab {
-	&:extend(.list-reset);
-	
-	display: table;
-	margin: 0;
-	border-bottom: 1px solid @border-color-base;
-	width: 100%;
+	.nav();
+	.table();
 	
 	> * {
-		display: inline-block;
-		background-color: white;
 		vertical-align: bottom;
-		margin: 0 1em -1px 0;
-		
-		.make-border();
-		border-bottom-left-radius: 0;
-		border-bottom-right-radius: 0;
-		
-		&.active {
-			border-bottom-color: white;
-			&:hover {
-				background-color: white;
-			}
-			
-			> * {
-//				.make-link-color(@color);
-			}
-		}
-		
-		&:hover {
-			background-color: @bg-color-base;
-		}
-		
-		> * {
-			display: block;
-			padding: 0.5em 1em;
-			text-decoration: none;
-			&:hover {
-//				color: @color;
-			}
-		}
-	}
-}
-
-.nav-responsive {
-	overflow-y: hidden;
-	
-	> * {
 		white-space: nowrap;
 	}
 }
 
+.nav-responsive {
+	overflow-x: auto;
+}
+
 .nav-tree {
-	&:extend(.list-reset);
+	.nav();
 	
 	> * > a {
 		margin: 0.25em 0;
-//		.make-link-color(@color, lighten(@color, 40%));
 	}
 	
 	.nav-tree {
 		display: none;
-		margin: 0;
-		padding: 0 0 0 2em;
-		font-size: 90%;
-		
-		> * > * {
-			margin: 0;
-		}
 	}
 	
-	> .active {
-		> a {
-//			color: lighten(@color, 40%);
-		}
-		
-		> .nav-tree {
-			display: block;
-		}
+	> .active > .nav-tree {
+		display: block;
 	}
 }
 
 .nav-pill {
-	&:extend(.list-reset);
-	display: table;
+	.nav();
+	.table();
 
 	> * {
-		display: table-cell;
 		width: 1%;
-		border-radius: @radius-base;
-		overflow: hidden;
-		> * {
-			display: block;
-			padding: 0.5em 1em;
-			text-align: center;
-//			.make-link-color(lighten(@color, 20%), @color);
-			text-decoration: none;
-		}
-		
-		&:hover,
-		&.active {
-			background-color: @bg-color-base;
-			> * {
-//				.make-link-color(@color);
-			}
-		}
 	}
 }
 
 @media (max-width: (@window-sm - 1)) {
 	.nav-pill {
-		display: block;
-		
 		> * {
-			margin: 0;
 			width: auto;
 			display: block;
 		}

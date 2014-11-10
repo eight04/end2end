@@ -398,3 +398,100 @@ a:active {
     font-size: 140%;
   }
 }
+.nav-list {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+}
+.nav-list > * > * {
+  padding: 0.5em 1em;
+}
+.nav-list > * > *:link,
+.nav-list > * > *:visited {
+  color: #707070;
+}
+.nav-list > * > *:hover {
+  color: #3d3d3d;
+}
+.nav-list > * > *:active {
+  color: #3d3d3d;
+}
+.nav-list > * > *:hover {
+  background-color: #f0f0f0;
+}
+.nav-list > * + * {
+  border-top: 1px solid #808080;
+}
+.nav-list > *.active > * {
+  background-color: #f0f0f0;
+}
+.nav-tab {
+  border-bottom: 1px solid #808080;
+}
+.nav-tab > * {
+  padding-right: 1em;
+}
+.nav-tab > * > * {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  padding: 0.5em 1em;
+}
+.nav-tab > * > *:link,
+.nav-tab > * > *:visited {
+  color: #707070;
+}
+.nav-tab > * > *:hover {
+  color: #3d3d3d;
+}
+.nav-tab > * > *:active {
+  color: #3d3d3d;
+}
+.nav-tab > * > *:hover,
+.nav-tab > * > *:focus {
+  background-color: #f0f0f0;
+}
+.nav-tab > *.active > * {
+  border-bottom-color: white;
+}
+.nav-tab > *.active > *:hover,
+.nav-tab > *.active > *:focus {
+  background-color: transparent;
+}
+.nav-tree > * > a {
+  padding: 0.25em 0.5em;
+}
+.nav-tree > *.active > a {
+  border-left: 0.25em solid #0a53f8;
+}
+.nav-tree .nav-tree {
+  margin-left: 2em;
+  font-size: 90%;
+}
+.nav-pill > * > * {
+  border-radius: 0.1875em;
+  overflow: hidden;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+}
+.nav-pill > * > *:link,
+.nav-pill > * > *:visited {
+  color: #707070;
+}
+.nav-pill > * > *:hover {
+  color: #3d3d3d;
+}
+.nav-pill > * > *:active {
+  color: #3d3d3d;
+}
+.nav-pill > * > *:hover {
+  background-color: #f0f0f0;
+}
+.nav-pill > *.active > * {
+  background-color: #f0f0f0;
+}
