@@ -30,6 +30,7 @@ small {
 
 a {
 	transition: all 0.2s linear;
+	.make-link-color(@font-color-light, @brand-primary);
 }
 
 // Forms
@@ -339,11 +340,15 @@ a {
 
 // Table
 .table-default {
-	border: 1px solid @border;
-	border-radius: @radius-base;
+	.make-border();
+	border-collapse: separate;
 	
 	thead {
 		background-color: @bg-color-base;
+	}
+	
+	tbody tr:first-child td {
+		border-top: 1px solid @border-color-base;
 	}
 	
 	th, td {
@@ -355,10 +360,6 @@ a {
 		&:first-child {
 			border-left: none;
 		}
-	}
-	
-	thead tr {
-		border-bottom: 1px solid @border-color-base;
 	}
 }
 

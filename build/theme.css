@@ -23,6 +23,16 @@ small {
 a {
   transition: all 0.2s linear;
 }
+a:link,
+a:visited {
+  color: #707070;
+}
+a:hover {
+  color: #0a53f8;
+}
+a:active {
+  color: #0a53f8;
+}
 .radio label,
 .checkbox label {
   transition: 0.2s all linear;
@@ -295,11 +305,16 @@ a {
   transform: translateY(-25%);
 }
 .table-default {
-  border: 1px solid #a3a3a3;
+  border: 1px solid #808080;
   border-radius: 0.1875em;
+  overflow: hidden;
+  border-collapse: separate;
 }
 .table-default thead {
   background-color: #f0f0f0;
+}
+.table-default tbody tr:first-child td {
+  border-top: 1px solid #808080;
 }
 .table-default th,
 .table-default td {
@@ -311,9 +326,6 @@ a {
 .table-default th:first-child,
 .table-default td:first-child {
   border-left: none;
-}
-.table-default thead tr {
-  border-bottom: 1px solid #808080;
 }
 .table-responsive {
   border: 1px solid #808080;
