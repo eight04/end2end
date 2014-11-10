@@ -120,11 +120,13 @@ a:active {
   color: #242424;
 }
 .input-group > * > * {
-  border-left-width: 0;
   border-radius: 0;
 }
+.input-group > * + * > * {
+  border-left-color: transparent;
+  margin-left: -1px;
+}
 .input-group > *:first-child > * {
-  border-left-width: 1px;
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
 }
