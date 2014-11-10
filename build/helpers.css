@@ -145,6 +145,11 @@
     display: table-cell;
   }
 }
+img[class*="right-"],
+img[class*="left-"] {
+  display: block;
+  margin: 0.5em auto;
+}
 .right-xs {
   float: right;
 }
@@ -204,11 +209,6 @@ img.right-xs {
 }
 .clipper {
   overflow: hidden;
-}
-img[class*="right-"],
-img[class*="left-"] {
-  display: block;
-  margin: 0.5em auto;
 }
 .nowrap {
   white-space: nowrap;

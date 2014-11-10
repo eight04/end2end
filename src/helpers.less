@@ -113,6 +113,15 @@
 	}
 }
 
+// Image addition
+img {
+	&[class*="right-"],
+	&[class*="left-"] {
+		display: block;
+		margin: 0.5em auto;
+	}
+}
+
 // Float utility
 .make-float(xs);
 @media (min-width: @window-sm) {
@@ -149,15 +158,6 @@
 // Clipper
 .clipper {
 	overflow: hidden;
-}
-
-// Image addition
-img {
-	&[class*="right-"],
-	&[class*="left-"] {
-		display: block;
-		margin: 0.5em auto;
-	}
 }
 
 // Whitespace
