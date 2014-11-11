@@ -334,7 +334,7 @@ a:active {
   border-right: 1px solid #808080;
   border-left-width: 0;
 }
-.table-default .table-cell-scroll {
+.table-default .table-cell-fixed + * {
   border-left-width: 0;
 }
 .table-responsive {

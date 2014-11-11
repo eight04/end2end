@@ -26,5 +26,12 @@
   position: relative;
 }
 .table-cell-fixed {
+  vertical-align: middle;
   position: absolute;
+}
+.table-cell-fixed:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }

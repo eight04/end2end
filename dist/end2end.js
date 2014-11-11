@@ -955,7 +955,7 @@ angular.module("end2end", ["ngAnimate"])
 
 					if (!element[0].offsetHeight) {
 						rendering = true;
-						$timeout(calcContainer, 1000);
+						$timeout(calcContainer, 300);
 						return;
 					}
 

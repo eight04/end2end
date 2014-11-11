@@ -17,6 +17,21 @@
 	<script>
 		app = angular.module("app", ["end2end"]);
 	</script>
+	<style>
+		.box {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			position: absolute;
+			left: 0;
+		}
+		.box:before {
+/*			content: "";*/
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -51,6 +66,9 @@
 		<div class="marger">
 			<input type="text" class="form-control" ng-model="input">
 			<input type="checkbox" ng-model="show">
+		</div>
+		<div class="box vcenter">
+			test
 		</div>
 	</div>
 </body>

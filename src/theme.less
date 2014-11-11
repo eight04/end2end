@@ -372,12 +372,11 @@ a {
 	.table-cell-fixed {
 		border-right: 1px solid @border-color-base;
 		border-left-width: 0;
-	}
 
-	.table-cell-scroll {
-		border-left-width: 0;
+		+ * {
+			border-left-width: 0;
+		}
 	}
-
 }
 
 .table-responsive {
