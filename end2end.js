@@ -559,10 +559,14 @@ angular.module("end2end", ["ngAnimate"])
 						$scope.modals.splice(i, 1);
 					}
 				};
+
+				this.top = function(){
+					return this.modals.length > 0 && this.modals[this.modals.length - 1] || null;
+				};
 			}
 		};
 	})
-	.directive("e2eModal", function($compile, $http, $templateCache){
+	.directive("e2eModal", function($compile, $http, $templateCache, $timeout){
 		return {
 			restrict: "A",
 			scope: true,
@@ -588,17 +592,59 @@ angular.module("end2end", ["ngAnimate"])
 					ele = $compile(modal.template)(scope);
 					element.append(ele);
 				}
+
+				modal.element = element;
+				modal.focusElement = document.activeElement;
+
+				$timeout(function(){
+					var input = element[0].querySelector("[autofocus]");
+					(input || element[0]).focus();
+				});
 			}
 		};
 	})
-    .factory("modal", function($animate, $q, $compile, $rootScope, $window, $timeout){
+    .factory("modal", function($animate, $q, $compile, $rootScope, $timeout, $document){
 		var modalStack, modalStackElement;
 
 		modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
-		angular.element($window.document.body).append(modalStackElement);
+		$document.find("body").append(modalStackElement);
 
 		$timeout(function(){
 			modalStack = modalStackElement.controller("modalStack");
+		});
+
+		$document.on("keydown", function(e){
+			var modal, inputs, dirty, next, i;
+			if (!modalStack || !(modal = modalStack.top()) || e.ctrlKey || e.altKey) {
+				return;
+			}
+
+			if (e.keyCode == 27 && !e.shiftKey) {
+				$rootScope.$apply(function(){
+					modal.dismiss();
+				});
+				e.preventDefault();
+			}
+
+			if (e.keyCode == 9) {
+				inputs = modal.element[0].querySelectorAll("input, select, button, textarea, a, [tabindex]");
+				for (i = 0; i < inputs.length; i++) {
+					if (inputs[i] == document.activeElement) {
+						if (!e.shiftKey) {
+							next = (i + 1) % inputs.length;
+						} else {
+							next = (i - 1 + inputs.length) % inputs.length;
+						}
+						inputs[next].focus();
+						dirty = true;
+						break;
+					}
+				}
+				if (!dirty && inputs.length) {
+					inputs[0].focus();
+				}
+				e.preventDefault();
+			}
 		});
 
 		return {
