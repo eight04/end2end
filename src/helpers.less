@@ -140,7 +140,7 @@ img {
 	.left-@{size} {
 		float: left;
 	}
-	
+
 	// Add additional margin to float image
 	img.left-@{size} {
 		margin: 0.25em 1em 0.25em 0;
@@ -176,4 +176,14 @@ img {
 .compact {
 	margin: 0;
 	padding: 0;
+}
+
+.vcenter {
+	vertical-align: middle;
+	&:before {
+		content: "";
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
 }

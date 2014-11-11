@@ -223,3 +223,12 @@ img.right-xs {
   margin: 0;
   padding: 0;
 }
+.vcenter {
+  vertical-align: middle;
+}
+.vcenter:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}

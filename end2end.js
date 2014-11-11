@@ -893,7 +893,7 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-	.directive("tableFixed", function(){
+	.directive("tableFixed", function($timeout){
 		return {
 			restrict: "C",
 			scope: {
@@ -903,13 +903,13 @@ angular.module("end2end", ["ngAnimate"])
 				if (!attrs.fixedLeft) {
 					return;
 				}
-				var rows = attrs.fixedLeft * 1;
+				var rows = attrs.fixedLeft * 1, rendering = false;
 
-				scope.$watch("tableModel", function(){
+				function calc(){
 					var trs, j;
 					var i, rect, widths = [], widthSum = 0, td, tds, height;
 					tds = element[0].querySelectorAll(".table-cell-fixed");
-//					console.log(tds);
+
 					if (tds) {
 						for (i = 0; i < tds.length; i++) {
 							td = angular.element(tds[i]);
@@ -937,7 +937,8 @@ angular.module("end2end", ["ngAnimate"])
 						for (i = 0; i < rows && i < trs[j].children.length; i++) {
 							td = angular.element(trs[j].children[i]);
 							td.css("width", widths[i].width + "px");
-							td.css("height", height);
+							td.css("height", height + "px");
+//							console.log(height);
 							td.css("left", widths[i].offset + "px");
 							td.addClass("table-cell-fixed");
 						}
@@ -947,6 +948,26 @@ angular.module("end2end", ["ngAnimate"])
 					}
 
 					element.css("padding-left", widthSum + "px");
+				}
+
+				function calcContainer (){
+//					console.log(element[0].offsetHeight);
+
+					if (!element[0].offsetHeight) {
+						rendering = true;
+						$timeout(calcContainer, 1000);
+						return;
+					}
+
+					rendering = false;
+//					console.log("render");
+					calc();
+				}
+
+				scope.$watch("tableModel", function(){
+					if (!rendering) {
+						calcContainer();
+					}
 				});
 			}
 		};

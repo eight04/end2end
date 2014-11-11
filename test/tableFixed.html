@@ -21,7 +21,7 @@
 <body>
 	<div class="container">
 		<div class="marger">
-			<div class="table-fixed" fixed-left="2" table-model="input">
+			<div class="table-fixed" fixed-left="2" table-model="input" ng-show="show">
 				<div class="table-responsive">
 					<table class="table-default">
 						<thead>
@@ -50,6 +50,7 @@
 		</div>
 		<div class="marger">
 			<input type="text" class="form-control" ng-model="input">
+			<input type="checkbox" ng-model="show">
 		</div>
 	</div>
 </body>
