@@ -46,10 +46,13 @@
   white-space: nowrap;
 }
 .input-group-addon {
-  vertical-align: middle;
   height: 2em;
 }
-.input-group-addon:before {
+.input-group-addon > * {
+  vertical-align: middle;
+  height: 100%;
+}
+.input-group-addon > *:before {
   content: "";
   display: inline-block;
   height: 100%;
