@@ -904,7 +904,7 @@ angular.module("end2end", ["ngAnimate"])
 				var trs = element.find("tr"), j;
 				var i, rect, widths = [], widthSum = 0, td;
 
-				for (i = 0; i < trs[0].children.length; i++) {
+				for (i = 0; i < rows; i++) {
 					td = trs[0].children[i];
 					rect = td.getBoundingClientRect();
 					widths.push({
@@ -920,6 +920,9 @@ angular.module("end2end", ["ngAnimate"])
 						td.css("width", widths[i].width + "px");
 						td.css("left", widths[i].offset + "px");
 						td.addClass("table-cell-fixed");
+					}
+					if (trs[j].children[i]) {
+						angular.element(trs[j].children[i]).addClass("table-cell-scroll");
 					}
 				}
 

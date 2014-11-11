@@ -13,10 +13,20 @@
   display: inline-block;
   max-width: 100%;
   overflow-x: auto;
+  vertical-align: top;
 }
 .table-responsive th,
 .table-responsive td {
   white-space: nowrap;
+}
+.table-fixed {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+}
+.table-cell-fixed {
+  position: absolute;
 }
 .nav a {
   display: block;

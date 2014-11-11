@@ -312,7 +312,8 @@ a:active {
   overflow: hidden;
   border-collapse: separate;
 }
-.table-default thead {
+.table-default thead th,
+.table-default thead td {
   background-color: #f0f0f0;
 }
 .table-default tbody tr:first-child td {
@@ -320,7 +321,7 @@ a:active {
 }
 .table-default th,
 .table-default td {
-  padding: 0.24em 1.04em;
+  padding: 0.5em 1.04em;
   border-left: 1px solid #808080;
   vertical-align: middle;
   text-align: center;
@@ -329,12 +330,29 @@ a:active {
 .table-default td:first-child {
   border-left: none;
 }
+.table-default .table-cell-fixed {
+  border-right: 1px solid #808080;
+  border-left-width: 0;
+}
+.table-default .table-cell-scroll {
+  border-left-width: 0;
+}
 .table-responsive {
   border: 1px solid #808080;
   border-radius: 0.1875em;
 }
 .table-responsive > * {
   border-width: 0;
+  border-radius: 0;
+}
+.table-fixed {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+}
+.table-fixed > * {
+  border-width: 0;
+  border-radius: 0;
 }
 .navbar {
   color: #707070;

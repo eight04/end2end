@@ -3079,7 +3079,7 @@ a:active {
 }
 .table-default th,
 .table-default td {
-  padding: 0.24em 1.04em;
+  padding: 0.5em 1.04em;
   border-left: 1px solid #808080;
   vertical-align: middle;
   text-align: center;

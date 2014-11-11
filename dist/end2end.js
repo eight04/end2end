@@ -23,14 +23,14 @@ angular.module("end2end", ["ngAnimate"])
 			restrict: "C",
 			controller: function() {
 				var menus = [];
-				
+
 				this.addCollapse = function(ele){
 					menus.push(ele);
 				};
-				
+
 				this.toggle = function(){
 					var i;
-					
+
 					for (i = 0; i < menus.length; i++) {
 						if (menus[i].hasClass("collapse")) {
 							collapse.show(menus[i]);
@@ -104,7 +104,7 @@ angular.module("end2end", ["ngAnimate"])
 				void(element[0].offsetHeight);
 				// Why I have to trigger reflow manually? I thought angular will
 				// wait 10ms before addClass().
-				
+
 				element.css("height", "0");
 				var promise = $timeout(function(){
 					element.css("display", "");
@@ -113,7 +113,7 @@ angular.module("end2end", ["ngAnimate"])
 					element.removeClass("collapsing");
 					done();
 				}, getAniTimeout(element));
-				
+
 				return function(canceled){
 					if (canceled) {
 						$timeout.cancel(promise);
@@ -139,7 +139,7 @@ angular.module("end2end", ["ngAnimate"])
 					element.removeClass("collapsing");
 					done();
 				}, getAniTimeout(element));
-				
+
 				return function(canceled){
 					if (canceled) {
 						$timeout.cancel(promise);
@@ -167,7 +167,7 @@ angular.module("end2end", ["ngAnimate"])
 					element.removeClass("collapsing");
 					done();
 				}, getAniTimeout(element));
-				
+
 				return function(canceled){
 					if (canceled) {
 						$timeout.cancel(promise);
@@ -190,7 +190,7 @@ angular.module("end2end", ["ngAnimate"])
 					element.removeClass("collapsing");
 					done();
 				}, getAniTimeout(element));
-				
+
 				return function(canceled){
 					if (canceled) {
 						$timeout.cancel(promise);
@@ -202,12 +202,12 @@ angular.module("end2end", ["ngAnimate"])
 	})
 	.directive("checkPass", function(){
 		var passJar = {};
-		
+
 		function validate(id){
 			if (!passJar[id]) {
 				return;
 			}
-			
+
 			var i, key = passJar[id][0].$modelValue, eq = true;
 			for (i = 1; i < passJar[id].length; i++) {
 				if (passJar[id][i].$modelValue != key) {
@@ -215,21 +215,21 @@ angular.module("end2end", ["ngAnimate"])
 					break;
 				}
 			}
-			
+
 			for (i = 0; i < passJar[id].length; i++) {
 				passJar[id][i].$setValidity("checkPass", eq);
 			}
 		}
-		
+
 		return {
 			restrict: "A",
 			require: "ngModel",
 			link: function(scope, element, attrs, ngModel){
 				var id = null;
-				
+
 				attrs.$observe("checkPass", function(value){
 					var i;
-					
+
 					if (passJar[id]){
 						for (i = 0; i < passJar[id].length; i++) {
 							if (passJar[id][i] == ngModel) {
@@ -239,7 +239,7 @@ angular.module("end2end", ["ngAnimate"])
 						}
 					}
 					validate(id);
-					
+
 					id = value;
 					if (!passJar[id]) {
 						passJar[id] = [];
@@ -247,7 +247,7 @@ angular.module("end2end", ["ngAnimate"])
 					passJar[id].push(ngModel);
 					validate(id);
 				});
-				
+
 				scope.$watch(function(){
 					return ngModel.$modelValue;
 				}, function(){
@@ -258,14 +258,14 @@ angular.module("end2end", ["ngAnimate"])
 	})
 	.directive("sidebar", function(){
 		var sidebarJar = [];
-		
+
 		function moveSidebar(){
 			var i, sidebar, state;
 			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
 			// console.log(sidebarJar);
 			for(i = 0; i < sidebarJar.length; i++) {
 				sidebar = sidebarJar[i];
-				
+
 				if (sidebar.top >= scrollY) {
 					// top
 					state = "sidebar-top";
@@ -276,28 +276,28 @@ angular.module("end2end", ["ngAnimate"])
 					// fixed
 					state = "sidebar-fixed";
 				}
-				
+
 				if (sidebar.state == state) {
 					return;
 				}
-				
+
 				if (state == "sidebar-bottom") {
 					sidebar.elementContent.css("top", sidebar.rowBottom - sidebar.top - sidebar.height + "px");
 				} else {
 					sidebar.elementContent.css("top", "");
 				}
-				
+
 				sidebar.element.removeClass("sidebar-top sidebar-bottom sidebar-fixed");
 				sidebar.element.addClass(state);
 				sidebar.state = state;
 			}
 		}
-		
+
 		function calc(sidebar){
 			var rect = sidebar.element[0].getBoundingClientRect();
 			var rowRect = sidebar.elementRow[0].getBoundingClientRect();
 			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-			
+
 			sidebar.top = rect.top + scrollY;
 			sidebar.width = rect.right - rect.left;
 			sidebar.rowBottom = rowRect.bottom + scrollY;
@@ -305,7 +305,7 @@ angular.module("end2end", ["ngAnimate"])
 			sidebar.height = sidebar.elementContent[0].scrollHeight;
 			// console.log(sidebar);
 		}
-		
+
 		function calcSidebar(){
 			var i;
 			for (i = 0; i < sidebarJar.length; i++) {
@@ -313,16 +313,16 @@ angular.module("end2end", ["ngAnimate"])
 			}
 			moveSidebar();
 		}
-		
+
 		var w = angular.element(window);
 		w.on("scroll", moveSidebar);
 		w.on("resize", calcSidebar);
-		
+
 		return {
 			restrict: "C",
 			controller: function($element, $animate, $timeout){
 				var controller = this;
-				
+
 				controller.toggle = function(){
 					if (!$element.hasClass("expand")) {
 						$animate.addClass($element, "expand");
@@ -332,24 +332,24 @@ angular.module("end2end", ["ngAnimate"])
 						$element.off("click", controller.toggle);
 					}
 				};
-				
+
 				var row = $element;
 				while(!row.hasClass("row")) {
 					row = row.parent();
 				}
-				
+
 				// Affix
 				var sidebar = {
 					element: $element,
 					elementContent: angular.element($element[0].querySelector(".sidebar-content")),
 					elementRow: row
 				};
-				
+
 				// IE8 issue with respond?
 				$timeout(function(){
 					calc(sidebar);
 				});
-				
+
 				sidebarJar.push(sidebar);
 			}
 		};
@@ -381,29 +381,29 @@ angular.module("end2end", ["ngAnimate"])
 	})
 	.directive("eznavTarget", function(eznav, $window){
 		// var doc = $window.document;
-		
+
 		angular.element($window).on("scroll", function(){
 			var i, node, clone;
-			
+
 			// trackScroll.track();
-			
+
 			for (i = 0; i < eznav.navs.length; i++) {
 				eznav.navs[i].rect = eznav.navs[i].element[0].getBoundingClientRect();
 			}
-			
+
 			for (i = 0; i < eznav.navs.length - 1; i++) {
 				if (eznav.navs[i].rect.top <= 32 && eznav.navs[i + 1].rect.top > 32) {
 					clone = eznav.navs[i];
 					break;
 				}
 			}
-			
+
 			// console.log(eznav);
-			
+
 			if (!clone && eznav.navs[i].rect.top <= 32 && eznav.element[0].getBoundingClientRect().bottom > 32) {
 				clone = eznav.navs[i];
 			}
-			
+
 			if (eznav.currentView) {
 				node = eznav.currentView;
 				while(node.parent) {
@@ -413,7 +413,7 @@ angular.module("end2end", ["ngAnimate"])
 				}
 				eznav.currentView = null;
 			}
-			
+
 			if (clone) {
 				while (clone.parent) {
 					clone.active = true;
@@ -423,7 +423,7 @@ angular.module("end2end", ["ngAnimate"])
 				eznav.currentView = eznav.navs[i];
 			}
 		});
-		
+
 		return {
 			restrict: "C",
 			link: function(scope, element){
@@ -433,7 +433,7 @@ angular.module("end2end", ["ngAnimate"])
 						parent: null,
 						children: []
 					}, last = root, navList = [], name, node;
-				
+
 				for (i = 0; i < navs.length; i++) {
 					name = navs[i].textContent || navs[i].innerText;
 					if (!navs[i].id) {
@@ -447,9 +447,9 @@ angular.module("end2end", ["ngAnimate"])
 						children: [],
 						element: angular.element(navs[i])
 					};
-					
+
 					navList.push(node);
-					
+
 					while (last.prior >= node.prior) {
 						last = last.parent;
 					}
@@ -457,7 +457,7 @@ angular.module("end2end", ["ngAnimate"])
 					last.children.push(node);
 					last = node;
 				}
-				
+
 				eznav.data = root.children;
 				eznav.navs = navList;
 				eznav.element = element;
@@ -543,11 +543,11 @@ angular.module("end2end", ["ngAnimate"])
 			scope: {},
 			controller: function($scope){
 				this.modals = $scope.modals = [];
-				
+
 				this.add = function(modal){
 					$scope.modals.push(modal);
 				};
-				
+
 				this.remove = function(modal){
 					var i;
 					for (i = 0; i < $scope.modals.length; i++) {
@@ -568,13 +568,13 @@ angular.module("end2end", ["ngAnimate"])
 			scope: true,
 			link: function(scope, element) {
 				var ele, key, modal = scope.modal;
-				
+
 				if (modal.scope) {
 					for (key in modal.scope) {
 						scope[key] = modal.scope[key];
 					}
 				}
-				
+
 				if (modal.templateUrl) {
 					$http({
 						method: "GET",
@@ -593,38 +593,38 @@ angular.module("end2end", ["ngAnimate"])
 	})
     .factory("modal", function($animate, $q, $compile, $rootScope, $window, $timeout){
 		var modalStack, modalStackElement;
-	
+
 		modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
 		angular.element($window.document.body).append(modalStackElement);
-	
+
 		$timeout(function(){
 			modalStack = modalStackElement.controller("modalStack");
 		});
-	
+
 		return {
 			open: function(modal){
 				if (!modal.template && !modal.templateUrl) {
 					throw "template and templateUrl are undefined.";
 				}
-				
+
 				var deferred = $q.defer();
-				
+
 				modal.then = function(success, fail, notify){
 					return deferred.then(success, fail, notify);
 				};
-				
+
 				modal.close = function(value){
 					modalStack.remove(modal);
 					deferred.resolve(value);
 				};
-				
+
 				modal.dismiss = function(value){
 					modalStack.remove(modal);
 					deferred.reject(value);
 				};
-				
+
 				modalStack.add(modal);
-				
+
 				return modal;
 			}
 		};
@@ -694,10 +694,10 @@ angular.module("end2end", ["ngAnimate"])
 				brand: "warning"
 			}
 		};
-	
+
 		function createDialog(msg, title, type){
 			var dialog = angular.copy(types[type]);
-			
+
 			if (typeof msg == "object") {
 				angular.extend(dialog, msg);
 			} else {
@@ -711,10 +711,10 @@ angular.module("end2end", ["ngAnimate"])
 					dialog: dialog
 				}
 			});
-			
+
 			dialog.close = function(value){
 				var evt, ret;
-				
+
 				if (dialog.onclose) {
 					evt = {
 						dialog: dialog,
@@ -723,7 +723,7 @@ angular.module("end2end", ["ngAnimate"])
 
 					ret = dialog.onclose(evt);
 				}
-				
+
 				if (ret !== false) {
 					if (value) {
 						md.close(value);
@@ -732,14 +732,14 @@ angular.module("end2end", ["ngAnimate"])
 					}
 				}
 			};
-			
+
 			dialog.then = function(success, fail, notify){
 				return md.then(success, fail, notify);
 			};
-			
+
 			return dialog;
 		}
-	
+
 		return {
 			show: function(msg, title){
 				return createDialog(msg, title, "show");
@@ -788,7 +788,7 @@ angular.module("end2end", ["ngAnimate"])
         };
     })
 	.directive("toggler", function(toggler, togglerHelper){
-	
+
 		function getChildIndex(element, child) {
 			var cs = element.children(), i;
 			for (i = 0; i < cs.length; i++) {
@@ -798,7 +798,7 @@ angular.module("end2end", ["ngAnimate"])
 			}
 			throw "Not children";
 		}
-	
+
 		return {
 			restrict: "A",
 			scope: {
@@ -812,7 +812,7 @@ angular.module("end2end", ["ngAnimate"])
 					tg.set(togglerHelper.getStatus(element));
 				}
 				tg.add(scope);
-				
+
 				element.on("click", function(e){
 					if (e.target == element[0]) {
 						return;
@@ -828,14 +828,14 @@ angular.module("end2end", ["ngAnimate"])
 	})
 	.factory("toggler", function($animate){
 		var togglerJar = {};
-	
+
 		function createToggler(id){
 			var status = [];
 			var toggleJar = [];
-			
+
 			function updateToggle(toggle){
 				var i, child = toggle.element.children();
-				
+
 				for (i = 0; i < child.length; i++) {
 //					if (status[i] && !/\bactive\b/.test(child[i].className)) {
 					if (status[i]) {
@@ -848,14 +848,14 @@ angular.module("end2end", ["ngAnimate"])
 					}
 				}
 			}
-			
+
 			function updateToggles(){
 				var i;
 				for (i = 0; i < toggleJar.length; i++) {
 					updateToggle(toggleJar[i]);
 				}
 			}
-			
+
 			return {
 				id: id,
 				set: function(sts){
@@ -878,7 +878,7 @@ angular.module("end2end", ["ngAnimate"])
 				}
 			};
 		}
-	
+
 		return {
 			get: function(id){
 				return togglerJar[id];
@@ -890,6 +890,43 @@ angular.module("end2end", ["ngAnimate"])
 				var toggler = createToggler(id);
 				togglerJar[id] = toggler;
 				return toggler;
+			}
+		};
+	})
+	.directive("tableFixed", function(){
+		return {
+			restrict: "C",
+			link: function(scope, element, attrs) {
+				if (!attrs.fixedLeft) {
+					return;
+				}
+				var rows = attrs.fixedLeft * 1;
+				var trs = element.find("tr"), j;
+				var i, rect, widths = [], widthSum = 0, td;
+
+				for (i = 0; i < rows; i++) {
+					td = trs[0].children[i];
+					rect = td.getBoundingClientRect();
+					widths.push({
+						offset: widthSum,
+						width: rect.right - rect.left
+					});
+					widthSum += rect.right - rect.left;
+				}
+
+				for (j = 0; j < trs.length; j++) {
+					for (i = 0; i < rows && i < trs[j].children.length; i++) {
+						td = angular.element(trs[j].children[i]);
+						td.css("width", widths[i].width + "px");
+						td.css("left", widths[i].offset + "px");
+						td.addClass("table-cell-fixed");
+					}
+					if (trs[j].children[i]) {
+						angular.element(trs[j].children[i]).addClass("table-cell-scroll");
+					}
+				}
+
+				element.css("padding-left", widthSum + "px");
 			}
 		};
 	});

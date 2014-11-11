@@ -349,7 +349,9 @@ a {
 	border-collapse: separate;
 
 	thead {
-		background-color: @bg-color-base;
+		th, td {
+			background-color: @bg-color-base;
+		}
 	}
 
 	tbody tr:first-child td {
@@ -366,15 +368,34 @@ a {
 			border-left: none;
 		}
 	}
+
+	.table-cell-fixed {
+		border-right: 1px solid @border-color-base;
+		border-left-width: 0;
+	}
+
+	.table-cell-scroll {
+		border-left-width: 0;
+	}
+
 }
 
 .table-responsive {
 	> * {
 		border-width: 0;
+		border-radius: 0;
 	}
 
 	border: 1px solid @border-color-base;
 	border-radius: @radius-base;
+}
+
+.table-fixed {
+	.make-border();
+	> * {
+		border-width: 0;
+		border-radius: 0;
+	}
 }
 
 // Navbar
