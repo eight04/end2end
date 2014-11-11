@@ -610,7 +610,7 @@ angular.module("end2end", ["ngAnimate"])
 				var deferred = $q.defer();
 
 				modal.then = function(success, fail, notify){
-					return deferred.then(success, fail, notify);
+					return deferred.promise.then(success, fail, notify);
 				};
 
 				modal.close = function(value){

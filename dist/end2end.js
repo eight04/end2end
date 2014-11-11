@@ -610,7 +610,7 @@ angular.module("end2end", ["ngAnimate"])
 				var deferred = $q.defer();
 
 				modal.then = function(success, fail, notify){
-					return deferred.then(success, fail, notify);
+					return deferred.promise.then(success, fail, notify);
 				};
 
 				modal.close = function(value){
@@ -980,7 +980,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/dialog.html',
-    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\"><div class=\"marger pre-wrap\" ng-if=\"!dialog.templateLoaded\">{{dialog.msg}}</div><div ng-include=\"dialog.templateUrl\" ng-if=\"dialog.templateUrl\"></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button class=\"btn btn-default\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\"><div class=\"marger pre-wrap\" ng-if=\"!dialog.templateLoaded || !dialog.msg\">{{dialog.msg}}</div><div ng-include=\"dialog.templateUrl\" ng-if=\"!!dialog.templateUrl\"></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button class=\"btn btn-default\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 

@@ -3,10 +3,10 @@
 		{{dialog.title}}
 	</div>
 	<form class="dialog-body">
-		<div class="marger pre-wrap" ng-if="!dialog.templateLoaded">
+		<div class="marger pre-wrap" ng-if="!dialog.templateLoaded || !dialog.msg">
 			{{dialog.msg}}
 		</div>
-		<div ng-include="dialog.templateUrl" ng-if="dialog.templateUrl"></div>
+		<div ng-include="dialog.templateUrl" ng-if="!!dialog.templateUrl"></div>
 		<div class="marger">
 			<div class="row row-inline row-center">
 				<div class="col" ng-repeat="btn in dialog.btns">
