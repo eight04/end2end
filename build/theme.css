@@ -438,7 +438,7 @@ a:active {
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border-bottom-color: transparent;
+  border-bottom-color: #808080;
   padding: 0.5em 1em;
 }
 .nav-tab > * > *:link,
