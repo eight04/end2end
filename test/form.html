@@ -15,8 +15,19 @@
 /*			color: red9;*/
 		}
 
-		select {
-/*			padding-bottom: 0.25em;*/
+		.c {
+			background-color: green;
+		}
+		.w {
+			margin: -10px;
+		}
+		.b {
+			display: table;
+			border: 10px solid orange;
+/*			background-color: yellow;*/
+			border-left-color: transparent;
+			background-clip: padding-box;
+			overflow: hidden;
 		}
 	</style>
 </head>
@@ -128,6 +139,12 @@
 				</div>
 			</div>
 		</form>
+
+		<div class="c">
+			<div class="w">
+				<div class="b">Test</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

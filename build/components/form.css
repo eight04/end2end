@@ -45,6 +45,9 @@
   vertical-align: middle;
   white-space: nowrap;
 }
+.input-group > * > * > * {
+  display: block;
+}
 .input-group-addon {
   height: 2em;
 }
