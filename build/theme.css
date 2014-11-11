@@ -127,34 +127,34 @@ a:active {
   border-color: #0a53f8;
   color: #242424;
 }
-.input-group > * > * {
-  border-radius: 0;
-}
-.input-group > * + * > * {
-  border-left-color: transparent;
-  margin-left: -1px;
-}
-.input-group > *:first-child > * {
-  border-top-left-radius: 0.1875em;
-  border-bottom-left-radius: 0.1875em;
-}
-.input-group > *:last-child > * {
-  border-top-right-radius: 0.1875em;
-  border-bottom-right-radius: 0.1875em;
-}
 .input-group-addon {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
   background-color: #f2f2f2;
   padding: 0 0.5em;
+}
+.input-group > * {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+.input-group > * + * {
+  border-left-width: 0;
+}
+.input-group > * + * > * > * {
+  border-left-color: transparent;
+}
+.input-group > * > * {
+  margin: 0 -1px;
+}
+.input-group > * > * > * {
   border-radius: 0;
 }
-.input-group-addon:first-child {
+.input-group > *:first-child > * > * {
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
 }
-.input-group-addon:last-child {
+.input-group > *:last-child > * > * {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
 }

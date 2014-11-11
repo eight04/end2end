@@ -2,6 +2,7 @@
 
 @import "../vars.less";
 @import "../mixins.less";
+@import (reference) "../helpers.less";
 @import (reference) "table.less";
 
 .form-group {
@@ -52,9 +53,10 @@
 	.table();
 }
 
-//.input-group-addon {
-//	width: 1%;
-//}
+.input-group-addon {
+	.vcenter();
+	height: 2em;
+}
 
 // Buttons
 .btn-block {
