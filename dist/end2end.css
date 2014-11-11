@@ -2171,7 +2171,14 @@ pre {
   position: relative;
 }
 .table-cell-fixed {
+  vertical-align: middle;
   position: absolute;
+}
+.table-cell-fixed:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 .nav a {
   display: block;
@@ -2548,7 +2555,14 @@ pre {
   position: relative;
 }
 .table-cell-fixed {
+  vertical-align: middle;
   position: absolute;
+}
+.table-cell-fixed:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 
 .marger-xl {
@@ -2775,6 +2789,15 @@ img.right-xs {
 .compact {
   margin: 0;
   padding: 0;
+}
+.vcenter {
+  vertical-align: middle;
+}
+.vcenter:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 
 h2 {
@@ -3113,7 +3136,7 @@ a:active {
   border-right: 1px solid #808080;
   border-left-width: 0;
 }
-.table-default .table-cell-scroll {
+.table-default .table-cell-fixed + * {
   border-left-width: 0;
 }
 .table-responsive {
