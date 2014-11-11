@@ -13,7 +13,7 @@
 .container {
 	padding: 0 @gap;
 	margin: 0 auto;
-	
+
 	@media (min-width: @window-sm) {
 		max-width: @window-sm;
 	}
@@ -31,7 +31,7 @@
 	margin-left: -@gap;
 	margin-right: -@gap;
 	min-height: @gap;
-	
+
 	> * {
 		padding-left: @gap;
 		padding-right: @gap;
@@ -42,21 +42,22 @@
 .row {
 	._row();
 	.make-flex();
-	
+
 	> * {
 		width: 100%;
-		
+
 		> :first-child {
 //			margin-top: 0;
 		}
 	}
 }
-	
+
 .row-inline {
 	margin-top: -@gap;
 	margin-left: -@gap/2;
 	margin-right: -@gap/2;
-	
+	align-items: baseline;
+
 	> * {
 		width: auto;
 		padding-left: 0;
@@ -64,9 +65,10 @@
 		margin-top: @gap;
 		margin-left: @gap/2;
 		margin-right: @gap/2;
+		vertical-align: baseline;
 	}
 }
-	
+
 
 .row-justify {
 	justify-content: space-between;
@@ -97,7 +99,7 @@
 .row-center {
 	justify-content: center;
 	text-align: ~"center\9";
-	
+
 	> * {
 		text-align: ~"left\9";
 	}
@@ -106,12 +108,12 @@
 .row-right {
 	justify-content: flex-end;
 	text-align: ~"right\9";
-	
+
 	> * {
 		text-align: ~"left\9";
 	}
 }
-	
+
 .row-nogap {
 	margin-top: 0;
 	margin-left: 0;
@@ -132,7 +134,7 @@
 		vertical-align: ~"top\9";
 	}
 }
-	
+
 .row-middle {
 	align-items: center;
 
@@ -153,17 +155,17 @@
 	align-self: flex-start;
 	vertical-align: top;
 }
-	
+
 .col-middle {
 	align-self: center;
 	vertical-align: middle;
 }
-	
+
 .col-bottom {
 	align-self: flex-end;
 	vertical-align: bottom;
 }
-	
+
 [class*="push-"],
 [class*="pull-"] {
 	position: relative;

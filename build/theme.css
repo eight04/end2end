@@ -17,8 +17,16 @@ pre code {
   padding: 0;
   font-size: 100%;
 }
-small {
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
   font-size: 70%;
+}
+small {
+  font-size: 90%;
 }
 a {
   transition: all 0.2s linear;
@@ -138,16 +146,11 @@ a:active {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
-  vertical-align: middle;
   background-color: #f2f2f2;
-  white-space: nowrap;
-  width: 1%;
   padding: 0 0.5em;
-  border-left-width: 0;
   border-radius: 0;
 }
 .input-group-addon:first-child {
-  border-left-width: 1px;
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
 }

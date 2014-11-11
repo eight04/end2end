@@ -102,6 +102,7 @@ button {
   vertical-align: middle;
   height: 2em;
   color: inherit;
+  background-color: transparent;
 }
 input:focus,
 textarea:focus,
@@ -147,7 +148,6 @@ button {
   cursor: pointer;
   text-align: center;
   background-image: none;
-  background-color: transparent;
 }
 button::-moz-focus-inner {
   border: 0;

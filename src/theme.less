@@ -24,8 +24,14 @@ pre {
 	}
 }
 
+h1, h2, h3, h4, h5, h6 {
+	small {
+		font-size: 70%;
+	}
+}
+
 small {
-	font-size: 70%;
+	font-size: 90%;
 }
 
 a {
@@ -113,9 +119,13 @@ a {
 }
 
 .input-group {
+	> * {
+//		border: 1px solid transparent;
+	}
+
 	> * > * {
-//		border-left-color: transparent;
 		border-radius: 0;
+//		margin: -1px;
 	}
 
 	> * + * > * {
@@ -124,7 +134,6 @@ a {
 	}
 
 	> *:first-child > * {
-//		border-left-width: 1px;
 		border-top-left-radius: @radius-base;
 		border-bottom-left-radius: @radius-base;
 	}
@@ -137,21 +146,13 @@ a {
 
 .input-group-addon {
 	.make-border();
-
-	vertical-align: middle;
 	background-color: @color-bg;
-	white-space: nowrap;
-	width: 1%;
 	padding: 0 0.5em;
-	border-left-width: 0;
 	border-radius: 0;
-
 	&:first-child {
-		border-left-width: 1px;
 		border-top-left-radius: @radius-base;
 		border-bottom-left-radius: @radius-base;
 	}
-
 	&:last-child {
 		border-top-right-radius: @radius-base;
 		border-bottom-right-radius: @radius-base;
