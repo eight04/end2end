@@ -14,8 +14,9 @@
 
 	<script>
 		app = angular.module("App", ["end2end"]);
-		app.controller("main", function(){
-
+		app.run(function($rootScope, dialog, modal){
+			$rootScope.dialog = dialog;
+			$rootScope.modal = modal;
 		});
 	</script>
 
@@ -758,7 +759,7 @@
 
 				<h2>List</h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, tenetur, necessitatibus, provident, molestias voluptatibus quia aperiam aut cum suscipit consequatur nam enim minima reprehenderit molestiae voluptates dolorum doloribus maiores similique.</p>
-				<ul>
+				<ul class="list">
 					<li>Item 1</li>
 					<li>Item 2</li>
 					<li>Item 3</li>
@@ -766,7 +767,7 @@
 					<li>Item 5</li>
 				</ul>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, numquam, aliquid, natus non quis earum obcaecati tenetur doloribus sequi dolorum ea tempore doloremque deleniti exercitationem maiores nulla nesciunt voluptatum beatae!</p>
-				<ol>
+				<ol class="list list-decimal">
 					<li>Item 1</li>
 					<li>Item 2</li>
 					<li>Item 3</li>
@@ -784,29 +785,9 @@
 					<li><a href="">Link 5</a></li>
 				</ul>
 
-				<h3>Nav pool</h3>
-				<ul class="nav-pool">
-					<li><a href="">Link 1</a></li>
-					<li><a href="">Link 2</a></li>
-					<li><a href="">Link 3</a></li>
-					<li><a href="">Link 4</a></li>
-					<li><a href="">Link 5</a></li>
-				</ul>
-
 				<h3>Nav tab</h3>
 				<div class="nav-responsive">
 					<ul class="nav-tab">
-						<li class="active"><a href="">Link 1</a></li>
-						<li><a href="">Link 2</a></li>
-						<li><a href="">Link 3</a></li>
-						<li><a href="">Link 4</a></li>
-						<li><a href="">Link 5</a></li>
-					</ul>
-				</div>
-
-				<h3>Nav Toggle</h3>
-				<div class="nav-responsive">
-					<ul class="nav-tab" nav-toggle>
 						<li class="active"><a href="">Link 1</a></li>
 						<li><a href="">Link 2</a></li>
 						<li><a href="">Link 3</a></li>
@@ -826,7 +807,7 @@
 
 				<h3>Nav tree</h3>
 				<ul class="nav-tree">
-					<li>
+					<li class="active">
 						<a href="">Link 1</a>
 						<ul class="nav-tree">
 							<li><a href="">Sub 1</a></li>
@@ -911,25 +892,16 @@
 					</div>
 				</div>
 
-				<h2>Modal dialog</h2>
-				<button class="btn-default" ng-click="toggleModal('testModal')">Toggle</button>
-				<div class="modal-backdrop"></div>
-				<div class="modal" id="testModal">
-					<div class="modal-wrapper">
-						<div class="modal-content">
-							<div class="dialog">
-								<div class="dialog-header">
-									This is a dialog!
-								</div>
-								<div class="dialog-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, esse, magnam, libero est labore vel architecto officia unde quam modi voluptatibus odit enim veritatis nam quaerat deserunt quos cum repellendus.</p>
-									<p>
-										<button class="btn-default" ng-click="toggleModal('testModal')">Toggle</button>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+				<h2>Modal service</h2>
+				<button class="btn-default" ng-click="modal.open({templateUrl:'modal-example'})">Open</button>
+				<script type="text/ng-template" id="model-example">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia minus cupiditate, eligendi, nobis sint eos ut aperiam sit minima veniam id! Animi maiores, cumque dolores odio, culpa facere ea fuga.</p>
+				</script>
+
+				<h2>Dialog service</h2>
+				<p>Original ezdialog. Based on modal service.</p>
+				<div class="marger">
+					<button class="btn-default" ng-click="dialog.show('Hi there!')">Open</button>
 				</div>
 
 				<h2>Panes</h2>
@@ -944,26 +916,32 @@
 
 				<h2>Toggler</h2>
                 <p>Use toggler and toggled to link navs and panes.</p>
-                <ul class="nav-tab" toggler="myToggle">
-                    <li class="active"><a href="">Link 1</a></li>
-                    <li><a href="">Link 2</a></li>
-                    <li><a href="">Link 3</a></li>
-                    <li><a href="">Link 4</a></li>
-                    <li><a href="">Link 5</a></li>
-                </ul>
-				<ul class="nav-pill" toggler="myToggle">
-					<li><a href="">Nav 1</a></li>
-					<li><a href="">Nav 2</a></li>
-					<li><a href="">Nav 3</a></li>
-					<li><a href="">Nav 4</a></li>
-					<li><a href="">Nav 5</a></li>
-				</ul>
-				<div class="panes" toggled="myToggle">
-					<div class="pane">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ea nobis tempore quibusdam quos voluptatem consequuntur, reprehenderit animi illum id! Minus repellat cumque fugit esse adipisci, non nulla, vel vitae!</div>
-					<div class="pane">Et esse rem ipsa sint quia, molestias sed minus neque fugiat voluptate distinctio in voluptatum alias fuga consectetur ut illo dolorum ipsum. Esse nulla eligendi iste fuga earum. Quas, soluta!</div>
-					<div class="pane">Voluptatem nemo vero, nostrum. Dolores maiores voluptate inventore numquam, laboriosam, cum voluptatibus, laborum consequatur autem illo quas porro. Nostrum eum, a veniam reprehenderit architecto voluptatibus rerum ad illum commodi veritatis.</div>
-					<div class="pane">Quia incidunt velit, accusantium provident error, fugit quaerat aperiam corporis sequi et qui animi voluptates alias, exercitationem quo veniam repellat quas. Deleniti nulla, optio vero perferendis consequatur minus sapiente! Eos.</div>
-					<div class="pane">Temporibus totam, hic facere beatae veniam ea aperiam laudantium fugit odit unde repudiandae, laborum perferendis nisi deserunt molestiae, omnis impedit ipsa inventore accusamus at aliquam sint magni voluptatum. Quos, provident!</div>
+                <div class="marger">
+                	<ul class="nav-tab" toggler="myToggle">
+                	    <li class="active"><a href="">Link 1</a></li>
+                	    <li><a href="">Link 2</a></li>
+                	    <li><a href="">Link 3</a></li>
+                	    <li><a href="">Link 4</a></li>
+                	    <li><a href="">Link 5</a></li>
+                	</ul>
+                </div>
+				<div class="marger">
+					<ul class="nav-pill" toggler="myToggle">
+						<li><a href="">Nav 1</a></li>
+						<li><a href="">Nav 2</a></li>
+						<li><a href="">Nav 3</a></li>
+						<li><a href="">Nav 4</a></li>
+						<li><a href="">Nav 5</a></li>
+					</ul>
+				</div>
+				<div class="marger">
+					<div class="panes" toggled="myToggle">
+						<div class="pane">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ea nobis tempore quibusdam quos voluptatem consequuntur, reprehenderit animi illum id! Minus repellat cumque fugit esse adipisci, non nulla, vel vitae!</div>
+						<div class="pane">Et esse rem ipsa sint quia, molestias sed minus neque fugiat voluptate distinctio in voluptatum alias fuga consectetur ut illo dolorum ipsum. Esse nulla eligendi iste fuga earum. Quas, soluta!</div>
+						<div class="pane">Voluptatem nemo vero, nostrum. Dolores maiores voluptate inventore numquam, laboriosam, cum voluptatibus, laborum consequatur autem illo quas porro. Nostrum eum, a veniam reprehenderit architecto voluptatibus rerum ad illum commodi veritatis.</div>
+						<div class="pane">Quia incidunt velit, accusantium provident error, fugit quaerat aperiam corporis sequi et qui animi voluptates alias, exercitationem quo veniam repellat quas. Deleniti nulla, optio vero perferendis consequatur minus sapiente! Eos.</div>
+						<div class="pane">Temporibus totam, hic facere beatae veniam ea aperiam laudantium fugit odit unde repudiandae, laborum perferendis nisi deserunt molestiae, omnis impedit ipsa inventore accusamus at aliquam sint magni voluptatum. Quos, provident!</div>
+					</div>
 				</div>
 
 				<h2>Tab group</h2>
@@ -991,48 +969,7 @@
 					</div>
 				</div>
 
-				<h2>Input group</h2>
-				<div class="input-group">
-					<div class="input-group-addon">
-						Search
-					</div>
-					<div class="input-group-input">
-						<input type="text"/>
-					</div>
-				</div>
-				<div class="input-group">
-					<div class="input-group-input">
-						<input type="text"/>
-					</div>
-					<div class="input-group-addon">
-						Search
-					</div>
-				</div>
-				<div class="input-group">
-					<div class="input-group-input col-xs-1-2">
-						<input type="text"/>
-					</div>
-					<div class="input-group-input col-xs-1-2">
-						<input type="text"/>
-					</div>
-					<div class="input-group-addon">
-						Search
-					</div>
-				</div>
-				<div class="input-group">
-					<div class="input-group-addon">
-						Search
-					</div>
-					<div class="input-group-input col-xs-1-2">
-						<input type="text"/>
-					</div>
-					<div class="input-group-input col-xs-1-2">
-						<input type="text"/>
-					</div>
-				</div>
 
-				<h2>Dialog service</h2>
-				<button class="btn-default" ng-click="dialog.show('Hi')">Open</button>
 
 			</div>
 			<div class="col-md-1-4 pull-md-3-4">

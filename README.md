@@ -23,6 +23,7 @@ Todos
 * Add disabled form control.
 * Handle disabled control in modal dialog.
 * Scroll spy.
+* Button overlay on inputs?!
 
 Refactor guide
 --------------

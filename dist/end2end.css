@@ -2109,6 +2109,28 @@ pre {
   white-space: nowrap;
 }
 
+.list {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  list-style: disc outside none;
+}
+.list > * {
+  margin-left: 3em;
+  line-height: 1.55;
+}
+.list-circle {
+  list-style-type: circle;
+}
+.list-decimal {
+  list-style-type: decimal;
+}
+.list-lower-roman {
+  list-style-type: lower-roman;
+}
+.list-upper-roman {
+  list-style-type: upper-roman;
+}
+
 .modal {
   display: none;
   position: fixed;
