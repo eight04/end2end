@@ -682,7 +682,8 @@ angular.module("end2end", ["ngAnimate"])
 				btns: [
 					{
 						label: "OK",
-						value: true
+						value: true,
+						submit: true
 					},
 					{
 						label: "Cancel",
@@ -696,7 +697,8 @@ angular.module("end2end", ["ngAnimate"])
 				btns: [
 					{
 						label: "OK",
-						value: true
+						value: true,
+						submit: true
 					}
 				],
 				brand: "info"
@@ -716,7 +718,8 @@ angular.module("end2end", ["ngAnimate"])
 				btns: [
 					{
 						label: "OK",
-						value: true
+						value: true,
+						submit: true
 					},
 					{
 						label: "Cancel",
@@ -730,7 +733,8 @@ angular.module("end2end", ["ngAnimate"])
 				btns: [
 					{
 						label: "Yes",
-						value: true
+						value: true,
+						submit: true
 					},
 					{
 						label: "No",

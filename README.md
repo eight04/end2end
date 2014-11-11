@@ -24,6 +24,8 @@ Todos
 * Deprecate modal directive
 * Create ie polyfill or keep using css hack?
 * Fix modal animate bug.
+* Add disabled form control.
+* Handle disabled control in modal dialog.
 
 Components
 ----------
