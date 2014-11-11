@@ -752,6 +752,9 @@ angular.module("end2end", ["ngAnimate"])
 			},
 			yesno: function(msg, title){
 				return createDialog(msg, title, "yesno");
+			},
+			create: function(msg, title){
+				return createDialog(msg, title, "create");
 			}
 		};
 	})

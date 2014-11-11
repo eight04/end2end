@@ -102,6 +102,7 @@ button {
   vertical-align: middle;
   height: 2em;
   color: inherit;
+  background-color: transparent;
 }
 input:focus,
 textarea:focus,
@@ -147,7 +148,6 @@ button {
   cursor: pointer;
   text-align: center;
   background-image: none;
-  background-color: transparent;
 }
 button::-moz-focus-inner {
   border: 0;
@@ -2083,6 +2083,19 @@ pre {
   vertical-align: middle;
   white-space: nowrap;
 }
+.input-group-addon {
+  height: 2em;
+}
+.input-group-addon > * {
+  vertical-align: middle;
+  height: 100%;
+}
+.input-group-addon > *:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 .btn-block {
   display: block;
 }
@@ -2285,6 +2298,19 @@ pre {
   vertical-align: middle;
   white-space: nowrap;
 }
+.input-group-addon {
+  height: 2em;
+}
+.input-group-addon > * {
+  vertical-align: middle;
+  height: 100%;
+}
+.input-group-addon > *:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 .btn-block {
   display: block;
 }
@@ -2295,6 +2321,43 @@ pre {
   display: table-cell;
   vertical-align: middle;
   white-space: nowrap;
+}
+.table > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.shrink {
+  width: 1%;
+}
+.stretch {
+  width: 100%;
+}
+.table-responsive {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  vertical-align: top;
+}
+.table-responsive th,
+.table-responsive td {
+  white-space: nowrap;
+}
+.table-fixed {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+}
+.table-cell-fixed {
+  vertical-align: middle;
+  position: absolute;
+}
+.table-cell-fixed:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 .navbar {
   position: relative;
@@ -2931,37 +2994,37 @@ a:active {
   border-color: #0a53f8;
   color: #242424;
 }
-.input-group > * {
-  border: 1px solid transparent;
-}
-.input-group > * > * {
-  border-radius: 0;
-  margin: -1px;
-}
-.input-group > * + * > * {
-  border-left-color: transparent;
-}
-.input-group > *:first-child > * {
-  border-top-left-radius: 0.1875em;
-  border-bottom-left-radius: 0.1875em;
-}
-.input-group > *:last-child > * {
-  border-top-right-radius: 0.1875em;
-  border-bottom-right-radius: 0.1875em;
-}
 .input-group-addon {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
-  background-color: #f2f2f2;
-  padding: 0 0.5em;
-  border-radius: 0;
 }
-.input-group-addon:first-child {
+.input-group-addon > * {
+  padding: 0 0.5em;
+  background-color: #f2f2f2;
+}
+.input-group > * {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+.input-group > * + * {
+  border-left-width: 0;
+}
+.input-group > * + * > * > * {
+  border-left-color: transparent;
+}
+.input-group > * > * {
+  margin: 0 -1px;
+}
+.input-group > * > * > * {
+  border-radius: 0;
+  background-clip: padding-box;
+}
+.input-group > *:first-child > * > * {
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
 }
-.input-group-addon:last-child {
+.input-group > *:last-child > * > * {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
 }
