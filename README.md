@@ -19,17 +19,9 @@ Todos
 * Add more components.
 * Refactor those messy less.
 * Use margin-top only?
-* Justify grid?
-* Change how navs work. Use toggler instead.
-* Deprecate modal directive
 * Create ie polyfill or keep using css hack?
-* Fix modal animate bug.
 * Add disabled form control.
 * Handle disabled control in modal dialog.
-
-Components
-----------
-* Add dialog service.
 * Scroll spy.
 
 Refactor guide
