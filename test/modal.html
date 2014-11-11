@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Modal</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/modal.css">
+	<link rel="stylesheet" href="../build/components/dialog.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<!--[if lte ie 8]>
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<![endif]-->
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<style>
+		body {
+			padding-bottom: 2em;
+		}
+		.box {
+			background-color: red;
+			width: 200px;
+			height: 600px;
+		}
+	</style>
+	<script>
+		app = angular.module("app", ["ngAnimate", "end2end"]);
+		app.run(function($rootScope, dialog){
+//			$rootScope.dialog = dialog;
+			$rootScope.open = function(){
+				dialog.confirm("終於？");
+			};
+		});
+	</script>
+	<script type="text/ng-template" id="test">
+		<div class="box">
+			Test
+		</div>
+	</script>
+</head>
+<body>
+	<div class="container">
+		<h2>Modal</h2>
+		<button class="btn-default" ng-click="show=!show">Open</button>
+		<button class="btn-default" ng-click="open()">Open2</button>
+		<div class="modal-backdrop" ng-class="{active:show}"></div>
+		<div class="modal" ng-class="{active:show}">
+			<div class="box">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam delectus illum nulla totam est. Recusandae necessitatibus voluptatum, ab similique veritatis, molestiae rerum quo et, omnis repellendus minus explicabo natus vitae.
+				</p>
+				<button class="btn-default" ng-click="show=!show">Close</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

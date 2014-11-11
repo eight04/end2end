@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Grid System</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/navbar.css">
+	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/table.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<style>
+		body {
+			padding-bottom: 2em;
+		}
+/*
+		
+		.navbar {
+			background-color: red;
+		}
+		
+		.navbar-col {
+			background-color: orange;
+		}
+		
+		.navbar-brand {
+			background-color: yellow;
+		}
+		
+		.navbar-link {
+			background-color: green;
+		}
+*/
+	</style>
+	<script>
+		app = angular.module("app", ["end2end"]);
+	</script>
+</head>
+<body>
+	<div class="navbar">
+		<div class="container">
+			<a href="" class="navbar-brand">end2end</a>
+			<div class="stretch none-sm"></div>
+			<div class="navbar-col none-sm">
+				<button class="btn navbar-toggle">
+					&equiv;
+				</button>
+			</div>
+			<div class="navbar-collapse collapse">
+				<div class="navbar-menu">
+					<a href="" class="navbar-link active">Link 1</a>
+					<a href="" class="navbar-link">Link 2</a>
+					<form class="navbar-form">
+						<div class="form-group">
+							<div class="input-group">
+								<div>
+									<input type="text" class="form-control">
+								</div>
+								<div class="shrink">
+									<button class="btn-default">Search</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="stretch"></div>
+					<a href="" class="navbar-link">Link 3</a>
+					<a href="" class="navbar-link">Link 4</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

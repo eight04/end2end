@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Layout things</title>
+	<link rel="stylesheet" href="../src/base.css">
+	<link rel="stylesheet" href="../src/grid.css">
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<style>
+		body {
+			padding-bottom: 2em;
+		}
+		
+		.box {
+			display: table-cell;
+			vertical-align: middle;
+			background-color: red;
+			padding: 0 15px;
+			white-space: nowrap;
+		}
+		
+		.box:first-child {
+			height: 36px;
+		}
+		
+		.table {
+			background-color: #ff9d00;
+			margin: 0 -15px;
+		}
+		
+		.stretch {
+			width: 100%;
+		}
+		
+/*
+		.table:before {
+			content: "x";
+			display: table-cell;
+			vertical-align: middle;
+			font-family: "Courier New";
+			width: 1%;
+		}
+*/
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="table">
+			<div class="box">
+				Link 1
+			</div>
+			<div class="box">
+				Link 2
+			</div>
+			<div class="box">
+				Link 3
+			</div>
+			<div class="box stretch"></div>
+			<div class="box">Link 1+3</div>
+			<div class="box">Link 2+3</div>
+			<div class="box">Link 3+3</div>
+		</div>
+	</div>
+</body>
+</html>
