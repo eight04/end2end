@@ -2098,6 +2098,7 @@ pre {
 }
 .btn-block {
   display: block;
+  width: 100%;
 }
 .btn-group {
   display: inline-block;
@@ -2313,6 +2314,7 @@ pre {
 }
 .btn-block {
   display: block;
+  width: 100%;
 }
 .btn-group {
   display: inline-block;
@@ -2321,43 +2323,6 @@ pre {
   display: table-cell;
   vertical-align: middle;
   white-space: nowrap;
-}
-.table > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-.shrink {
-  width: 1%;
-}
-.stretch {
-  width: 100%;
-}
-.table-responsive {
-  display: inline-block;
-  max-width: 100%;
-  overflow-x: auto;
-  vertical-align: top;
-}
-.table-responsive th,
-.table-responsive td {
-  white-space: nowrap;
-}
-.table-fixed {
-  display: inline-block;
-  max-width: 100%;
-  overflow-x: auto;
-  position: relative;
-}
-.table-cell-fixed {
-  vertical-align: middle;
-  position: absolute;
-}
-.table-cell-fixed:before {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
 }
 .navbar {
   position: relative;

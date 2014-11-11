@@ -2,28 +2,28 @@
 <html lang="en" ng-app="App">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" >  
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" >
 	<title>Test Page</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<script src="https://code.angularjs.org/1.2.26/angular.js"></script>
 	<script src="https://code.angularjs.org/1.2.26/angular-animate.js"></script>
-	
+
 	<link rel="stylesheet" href="../dist/end2end.css">
 	<script src="../dist/end2end.js"></script>
-	
+
 	<script>
 		app = angular.module("App", ["end2end"]);
 		app.controller("main", function(){
-			
+
 		});
 	</script>
-	
+
 	<!--[if lte ie 8]>
 	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
 	<![endif]-->
-	
+
 </head>
 
 <body>
@@ -44,10 +44,14 @@
 						<div class="form-group">
 							<div class="input-group">
 								<div>
-									<input type="text" class="form-control">
+									<div>
+										<input type="text" class="form-control">
+									</div>
 								</div>
 								<div class="shrink">
-									<button class="btn-default">Search</button>
+									<div>
+										<button class="btn-default">Search</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -92,8 +96,6 @@
 				<h2>Font size</h2>
 				<p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, fugit consectetur iusto quod culpa a nihil saepe labore ut distinctio sint ad dolorem odio hic quidem quaerat expedita similique corporis.</p>
-
-				<h2>Super long title Lorem</h2>
 
 				<h2>Grid system</h2>
 				<div class="paint-grid">
@@ -272,6 +274,95 @@
 						</div>
 					</div>
 
+					<h3>Row justify</h3>
+					<div class="row row-justify">
+						<div class="col-xs-1-5">
+							<div class="content">
+								.col-xs-1-5
+							</div>
+						</div>
+						<div class="col-xs-1-5">
+							<div class="content">
+								.col-xs-1-5<br/>second-line
+							</div>
+						</div>
+						<div class="col-xs-1-5">
+							<div class="content">
+								.col-xs-1-5<br/>second-line<br/>third-line
+							</div>
+						</div>
+						<div class="col-xs-1-5">
+							<div class="content">
+								.col-xs-1-5<br/>second-line<br/>third-line<br/>4th-line
+							</div>
+						</div>
+					</div>
+
+					<h3>Row inline</h3>
+					<div class="row row-inline">
+						<div>
+							<div class="content">Lorem ipsum dolor.</div>
+						</div>
+						<div>
+							<div class="content">Aspernatur, ipsa, harum.</div>
+						</div>
+						<div>
+							<div class="content">Laboriosam, aspernatur, dignissimos.</div>
+						</div>
+						<div>
+							<div class="content">Animi, unde, ab.</div>
+						</div>
+						<div>
+							<div class="content">Blanditiis, laboriosam, voluptatibus!</div>
+						</div>
+						<div>
+							<div class="content">Nulla nam, porro!</div>
+						</div>
+						<div>
+							<div class="content">Quaerat, optio, dicta.</div>
+						</div>
+						<div>
+							<div class="content">Deleniti officiis, autem?</div>
+						</div>
+						<div>
+							<div class="content">Tenetur sequi, eaque.</div>
+						</div>
+						<div>
+							<div class="content">Voluptas, ex cumque?</div>
+						</div>
+						<div>
+							<div class="content">Aliquam, odit, blanditiis.</div>
+						</div>
+						<div>
+							<div class="content">Quas, laudantium corrupti.</div>
+						</div>
+						<div>
+							<div class="content">Necessitatibus, veritatis harum.</div>
+						</div>
+						<div>
+							<div class="content">Corporis, sunt aspernatur!</div>
+						</div>
+						<div>
+							<div class="content">Ipsum, voluptatum eos.</div>
+						</div>
+						<div>
+							<div class="content">Commodi natus, odit!</div>
+						</div>
+						<div>
+							<div class="content">Error repellat, quidem.</div>
+						</div>
+						<div>
+							<div class="content">Est, error, itaque.</div>
+						</div>
+						<div>
+							<div class="content">Laudantium, recusandae, unde?</div>
+						</div>
+						<div>
+							<div class="content">Delectus, distinctio, laudantium.</div>
+						</div>
+					</div>
+
+					<!--
 					<h3>Display table</h3>
 					<p>
 						Wrap table in <code>.clipper</code> so it won't overflow on small screen.
@@ -338,70 +429,179 @@
 							</div>
 						</div>
 					</div>
+					-->
 				</div>
 
 				<h2>Table</h2>
+
+				<h3>Simple table</h3>
+				<table class="table-default">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Title</th>
+							<th>Title</th>
+							<th>Title</th>
+							<th>Title</th>
+							<th>Title</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+						</tr>
+						<tr>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+						</tr>
+						<tr>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+						</tr>
+						<tr>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+							<td>Content</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3>Table responsive</h3>
 				<div class="table-responsive">
-					<table>
+					<table class="table-default">
 						<thead>
 							<tr>
-								<th>Title</th>
-								<th>Title</th>
-								<th>Title</th>
-								<th>Title</th>
-								<th>Title</th>
-								<th>Title</th>
+								<th>Title 1</th>
+								<th>Title 2</th>
+								<th>Title 3</th>
+								<th>Title 4</th>
+								<th>Title 5</th>
+								<th>Title 6</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
 							</tr>
 							<tr>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+								<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
 							</tr>
 							<tr>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+								<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
 							</tr>
 							<tr>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
-								<td>Content</td>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+								<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
+				<h3>Fixed column</h3>
+				<div class="table-fixed" fixed-left="2">
+					<div class="table-responsive">
+						<table class="table-default">
+							<thead>
+								<tr>
+									<th>Title 1</th>
+									<th>Title 2</th>
+									<th>Title 3</th>
+									<th>Title 4</th>
+									<th>Title 5</th>
+									<th>Title 6</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
+								</tr>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
+								</tr>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
+								</tr>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
 				<h2>Form</h2>
 				<form>
-					<label for="name">Name</label>
-					<input type="text" id="name" value="The quick brown fox jumps over the lazy dog" />
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input class="form-control" type="text" id="name" value="The quick brown fox jumps over the lazy dog" />
+					</div>
 
-					<label for="email">Email</label>
-					<input type="text" id="email" value="床前明月光 疑是地上霜" />
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input class="form-control" type="text" id="email" value="床前明月光 疑是地上霜" />
+					</div>
 
-					<label for="comment">Leave a comment</label>
-					<textarea id="comment" placeholder="Type something. This is a placeholder."></textarea>
+					<div class="form-group">
+						<label for="comment">Leave a comment</label>
+						<textarea class="form-control" id="comment" placeholder="Type something. This is a placeholder."></textarea>
+					</div>
 
-					<fieldset>
+					<fieldset class="form-group">
 						<legend>Select your gender</legend>
 						<div class="radio">
 							<label>
@@ -417,7 +617,7 @@
 						</div>
 					</fieldset>
 
-					<fieldset>
+					<fieldset class="form-group">
 						<legend>Options</legend>
 						<div class="checkbox">
 							<label>
@@ -439,24 +639,30 @@
 						</div>
 					</fieldset>
 
-					<select name="" id="">
-						<option value="">Option 1</option>
-						<option value="">Option 2</option>
-						<option value="">Option 3</option>
-						<option value="">Option 4</option>
-						<option value="">Option 5</option>
-					</select>
+					<div class="form-group">
+						<select class="form-control" name="" id="">
+							<option value="">Option 1</option>
+							<option value="">Option 2</option>
+							<option value="">Option 3</option>
+							<option value="">Option 4</option>
+							<option value="">Option 5</option>
+						</select>
+					</div>
 
-					<select name="" id="" multiple>
-						<option value="">Option 1</option>
-						<option value="">Option 2</option>
-						<option value="">Option 3</option>
-						<option value="">Option 4</option>
-						<option value="">Option 5</option>
-					</select>
+					<div class="form-group">
+						<select class="form-control" name="" id="" multiple>
+							<option value="">Option 1</option>
+							<option value="">Option 2</option>
+							<option value="">Option 3</option>
+							<option value="">Option 4</option>
+							<option value="">Option 5</option>
+						</select>
+					</div>
 
-					<button class="btn-form">Submit</button>
-					<button class="btn-form" type="reset">Reset</button>
+					<div class="form-group">
+						<button class="btn-default">Submit</button>
+						<button class="btn-default" type="reset">Reset</button>
+					</div>
 				</form>
 
 				<h2>Images</h2>
@@ -475,14 +681,80 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, illo, iure animi soluta officiis nemo porro sed aut nihil quibusdam? Consequatur, commodi, harum assumenda eius incidunt minus numquam quasi voluptas.</p>
 				<div class="clear"></div>
 
-				<h2>Button group</h2>
-				<form>
-					<div class="btn-group">
-						<button>Left</button>
-						<button>Middle</button>
-						<button>Right</button>
+				<h2>Input group</h2>
+				<p>To support IE8, input group's markup become EXTREME COMPLEX. I'll try outline approach later.</p>
+				<div class="form-group">
+					<div class="input-group">
+						<div>
+							<div><button class="btn-default">Left</button></div>
+						</div>
+						<div>
+							<div><button class="btn-default">Middle</button></div>
+						</div>
+						<div>
+							<div><button class="btn-default">Right</button></div>
+						</div>
 					</div>
-				</form>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="shrink">
+							<div><button class="btn-default btn-block">Left</button></div>
+						</div>
+						<div class="shrink">
+							<div><button class="btn-default btn-block">Middle</button></div>
+						</div>
+						<div class="shrink">
+							<div><button class="btn-default btn-block">Right</button></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div>
+							<div><input type="text" class="form-control"></div>
+						</div>
+						<div>
+							<div><input type="text" class="form-control"></div>
+						</div>
+						<div class="shrink">
+							<div><button class="btn-default">Search</button></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="shrink">
+							<div><button class="btn-default">Search</button></div>
+						</div>
+						<div>
+							<div><input type="text" class="form-control"></div>
+						</div>
+						<div>
+							<div><input type="text" class="form-control"></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="shrink">
+							<div><button class="btn-default">Search</button></div>
+						</div>
+						<div>
+							<div><input type="text" class="form-control"></div>
+						</div>
+						<div>
+							<div><input type="text" class="form-control"></div>
+						</div>
+						<div class="shrink">
+							<div>
+								<div class="input-group-addon">
+									<div>Some text</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<h2>List</h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, tenetur, necessitatibus, provident, molestias voluptatibus quia aperiam aut cum suscipit consequatur nam enim minima reprehenderit molestiae voluptates dolorum doloribus maiores similique.</p>
@@ -669,7 +941,7 @@
 					<div class="pane active">Pane 4</div>
 					<div class="pane active">Pane 5</div>
 				</div>
-				
+
 				<h2>Toggler</h2>
                 <p>Use toggler and toggled to link navs and panes.</p>
                 <ul class="nav-tab" toggler="myToggle">
@@ -758,7 +1030,7 @@
 						<input type="text"/>
 					</div>
 				</div>
-				
+
 				<h2>Dialog service</h2>
 				<button class="btn-default" ng-click="dialog.show('Hi')">Open</button>
 

@@ -60,6 +60,7 @@
 }
 .btn-block {
   display: block;
+  width: 100%;
 }
 .btn-group {
   display: inline-block;
