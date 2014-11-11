@@ -21,7 +21,7 @@
 <body>
 	<div class="container">
 		<div class="marger">
-			<div class="table-fixed" fixed-left="2">
+			<div class="table-fixed" fixed-left="2" table-model="input">
 				<div class="table-responsive">
 					<table class="table-default">
 						<thead>
@@ -36,7 +36,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Content 1</td>
+								<td>{{input}}</td>
 								<td>Content 2</td>
 								<td>Content 3</td>
 								<td>Content 4</td>
@@ -47,6 +47,9 @@
 					</table>
 				</div>
 			</div>
+		</div>
+		<div class="marger">
+			<input type="text" class="form-control" ng-model="input">
 		</div>
 	</div>
 </body>

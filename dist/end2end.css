@@ -2158,10 +2158,20 @@ pre {
   display: inline-block;
   max-width: 100%;
   overflow-x: auto;
+  vertical-align: top;
 }
 .table-responsive th,
 .table-responsive td {
   white-space: nowrap;
+}
+.table-fixed {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+}
+.table-cell-fixed {
+  position: absolute;
 }
 .nav a {
   display: block;
@@ -2525,10 +2535,20 @@ pre {
   display: inline-block;
   max-width: 100%;
   overflow-x: auto;
+  vertical-align: top;
 }
 .table-responsive th,
 .table-responsive td {
   white-space: nowrap;
+}
+.table-fixed {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+}
+.table-cell-fixed {
+  position: absolute;
 }
 
 .marger-xl {
@@ -3071,7 +3091,8 @@ a:active {
   overflow: hidden;
   border-collapse: separate;
 }
-.table-default thead {
+.table-default thead th,
+.table-default thead td {
   background-color: #f0f0f0;
 }
 .table-default tbody tr:first-child td {
@@ -3088,12 +3109,29 @@ a:active {
 .table-default td:first-child {
   border-left: none;
 }
+.table-default .table-cell-fixed {
+  border-right: 1px solid #808080;
+  border-left-width: 0;
+}
+.table-default .table-cell-scroll {
+  border-left-width: 0;
+}
 .table-responsive {
   border: 1px solid #808080;
   border-radius: 0.1875em;
 }
 .table-responsive > * {
   border-width: 0;
+  border-radius: 0;
+}
+.table-fixed {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+}
+.table-fixed > * {
+  border-width: 0;
+  border-radius: 0;
 }
 .navbar {
   color: #707070;

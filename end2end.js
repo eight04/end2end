@@ -896,37 +896,58 @@ angular.module("end2end", ["ngAnimate"])
 	.directive("tableFixed", function(){
 		return {
 			restrict: "C",
+			scope: {
+				tableModel: "="
+			},
 			link: function(scope, element, attrs) {
 				if (!attrs.fixedLeft) {
 					return;
 				}
 				var rows = attrs.fixedLeft * 1;
-				var trs = element.find("tr"), j;
-				var i, rect, widths = [], widthSum = 0, td;
 
-				for (i = 0; i < rows; i++) {
-					td = trs[0].children[i];
-					rect = td.getBoundingClientRect();
-					widths.push({
-						offset: widthSum,
-						width: rect.right - rect.left
-					});
-					widthSum += rect.right - rect.left;
-				}
-
-				for (j = 0; j < trs.length; j++) {
-					for (i = 0; i < rows && i < trs[j].children.length; i++) {
-						td = angular.element(trs[j].children[i]);
-						td.css("width", widths[i].width + "px");
-						td.css("left", widths[i].offset + "px");
-						td.addClass("table-cell-fixed");
+				scope.$watch("tableModel", function(){
+					var trs, j;
+					var i, rect, widths = [], widthSum = 0, td, tds, height;
+					tds = element[0].querySelectorAll(".table-cell-fixed");
+//					console.log(tds);
+					if (tds) {
+						for (i = 0; i < tds.length; i++) {
+							td = angular.element(tds[i]);
+							td.css("width", "");
+							td.css("height", "");
+							td.removeClass("table-cell-fixed");
+						}
 					}
-					if (trs[j].children[i]) {
-						angular.element(trs[j].children[i]).addClass("table-cell-scroll");
-					}
-				}
 
-				element.css("padding-left", widthSum + "px");
+					trs = element.find("tr");
+					for (i = 0; i < rows; i++) {
+						td = trs[0].children[i];
+						rect = td.getBoundingClientRect();
+						widths.push({
+							offset: widthSum,
+							width: rect.right - rect.left
+						});
+						widthSum += rect.right - rect.left;
+					}
+
+					for (j = 0; j < trs.length; j++) {
+						rect = trs[j].children[0].getBoundingClientRect();
+						height = rect.bottom - rect.top;
+
+						for (i = 0; i < rows && i < trs[j].children.length; i++) {
+							td = angular.element(trs[j].children[i]);
+							td.css("width", widths[i].width + "px");
+							td.css("height", height);
+							td.css("left", widths[i].offset + "px");
+							td.addClass("table-cell-fixed");
+						}
+						if (trs[j].children[i]) {
+							angular.element(trs[j].children[i]).addClass("table-cell-scroll");
+						}
+					}
+
+					element.css("padding-left", widthSum + "px");
+				});
 			}
 		};
 	});
