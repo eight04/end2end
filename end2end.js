@@ -835,8 +835,9 @@ angular.module("end2end", ["ngAnimate"])
 					url: dialog.templateUrl,
 					cache: $templateCache
 				}).success(function(result){
-					var ele = $compile(result)(scope);
+					var ele = angular.element(result);
 					element.append(ele);
+					$compile(ele)(scope);
 				});
 			}
 		};
