@@ -17,7 +17,7 @@ function getAniTimeout(element){
 	return ms;
 }
 
-angular.module("end2end", ["ngAnimate"])
+angular.module("end2end", [])
 	.directive("navbar", function(collapse){
 		return {
 			restrict: "C",

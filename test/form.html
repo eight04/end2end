@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Form</title>
 	<link rel="stylesheet" href="../build/base.css">
 	<link rel="stylesheet" href="../build/grid.css">
 	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/modal.css">
+	<link rel="stylesheet" href="../build/components/dialog.css">
 	<link rel="stylesheet" href="../build/theme.css">
 	<link rel="stylesheet" href="../build/helpers.css">
 	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<script>
+		angular.module("app", ["end2end"]).run(function($rootScope, dialog){
+			$rootScope.dialog = dialog;
+		});
+	</script>
 	<style>
 		body {
 			padding-bottom: 2em;
@@ -109,7 +118,7 @@
 				</select>
 			</div>
 
-			<button class="btn-default">Submit</button>
+			<button class="btn-default" ng-click="dialog.show('Submit')">Submit</button>
 			<button class="btn-default" type="reset">Reset</button>
 			<button class="btn-default">確定</button>
 			<button class="btn-default">取消</button>
