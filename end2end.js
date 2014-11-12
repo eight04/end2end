@@ -765,6 +765,10 @@ angular.module("end2end", ["ngAnimate"])
 			dialog.close = function(value){
 				var evt, ret;
 
+				if (dialog.fakeBinding) {
+					dialog.fakeBinding();
+				}
+
 				if (dialog.onclose) {
 					evt = {
 						dialog: dialog,
@@ -808,11 +812,34 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-	.controller("e2eDialog", function($scope){
-		var dialog = $scope.dialog, key;
-		for (key in dialog.scope) {
-			$scope[key] = dialog.scope[key];
-		}
+	.directive("e2eDialog", function($templateCache, $http, $compile){
+		return {
+			restrict: "A",
+			scope: true,
+			link: function(scope, element){
+				var dialog = scope.dialog, key;
+
+				for (key in dialog.scope) {
+					scope[key] = dialog.scope[key];
+				}
+
+				dialog.fakeBinding = function(){
+					var key;
+					for (key in dialog.scope) {
+						dialog.scope[key] = scope[key];
+					}
+				};
+
+				$http({
+					method: "GET",
+					url: dialog.templateUrl,
+					cache: $templateCache
+				}).success(function(result){
+					var ele = $compile(result)(scope);
+					element.append(ele);
+				});
+			}
+		};
 	})
     .factory("togglerHelper", function(){
         return {

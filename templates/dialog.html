@@ -6,7 +6,7 @@
 		<div class="marger pre-wrap" ng-if="!!dialog.msg && !dialog.templateLoaded">
 			{{dialog.msg}}
 		</div>
-		<div ng-include="dialog.templateUrl" ng-if="!!dialog.templateUrl" onload="dialog.templateLoaded = true" ng-controller="e2eDialog"></div>
+		<div ng-if="!!dialog.templateUrl" e2e-dialog></div>
 		<div class="marger">
 			<div class="row row-inline row-center">
 				<div class="col" ng-repeat="btn in dialog.btns">

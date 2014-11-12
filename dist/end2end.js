@@ -765,6 +765,10 @@ angular.module("end2end", ["ngAnimate"])
 			dialog.close = function(value){
 				var evt, ret;
 
+				if (dialog.fakeBinding) {
+					dialog.fakeBinding();
+				}
+
 				if (dialog.onclose) {
 					evt = {
 						dialog: dialog,
@@ -808,11 +812,34 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
-	.controller("e2eDialog", function($scope){
-		var dialog = $scope.dialog, key;
-		for (key in dialog.scope) {
-			$scope[key] = dialog.scope[key];
-		}
+	.directive("e2eDialog", function($templateCache, $http, $compile){
+		return {
+			restrict: "A",
+			scope: true,
+			link: function(scope, element){
+				var dialog = scope.dialog, key;
+
+				for (key in dialog.scope) {
+					scope[key] = dialog.scope[key];
+				}
+
+				dialog.fakeBinding = function(){
+					var key;
+					for (key in dialog.scope) {
+						dialog.scope[key] = scope[key];
+					}
+				};
+
+				$http({
+					method: "GET",
+					url: dialog.templateUrl,
+					cache: $templateCache
+				}).success(function(result){
+					var ele = $compile(result)(scope);
+					element.append(ele);
+				});
+			}
+		};
 	})
     .factory("togglerHelper", function(){
         return {
@@ -1064,7 +1091,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/dialog.html',
-    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-include=\"dialog.templateUrl\" ng-if=\"!!dialog.templateUrl\" onload=\"dialog.templateLoaded = true\" ng-controller=\"e2eDialog\"></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 

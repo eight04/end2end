@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../build/grid.css">
 	<link rel="stylesheet" href="../build/components/modal.css">
 	<link rel="stylesheet" href="../build/components/dialog.css">
+	<link rel="stylesheet" href="../build/components/form.css">
 	<link rel="stylesheet" href="../build/helpers.css">
 	<link rel="stylesheet" href="../build/theme.css">
 	<!--[if lte ie 8]>
@@ -27,33 +28,40 @@
 	</style>
 	<script>
 		app = angular.module("app", ["ngAnimate", "end2end"]);
-		app.run(function($rootScope, dialog){
-//			$rootScope.dialog = dialog;
-			$rootScope.open = function(){
-				dialog.confirm("終於？");
+		app.run(function($rootScope, dialog, modal){
+			$rootScope.modal = modal;
+			$rootScope.dialog = dialog;
+			$rootScope.biDirectionTest = function(){
+				var scope = {
+					number: 999
+				};
+				dialog.create({
+					templateUrl: "bi-test",
+					scope: scope
+				}).then(function(){
+					dialog.show(scope.number);
+				});
 			};
 		});
-	</script>
-	<script type="text/ng-template" id="test">
-		<div class="box">
-			Test
-		</div>
 	</script>
 </head>
 <body>
 	<div class="container">
 		<h2>Modal</h2>
-		<button class="btn-default" ng-click="show=!show">Open</button>
-		<button class="btn-default" ng-click="open()">Open2</button>
-		<div class="modal-backdrop" ng-class="{active:show}"></div>
-		<div class="modal" ng-class="{active:show}">
-			<div class="box">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam delectus illum nulla totam est. Recusandae necessitatibus voluptatum, ab similique veritatis, molestiae rerum quo et, omnis repellendus minus explicabo natus vitae.
-				</p>
-				<button class="btn-default" ng-click="show=!show">Close</button>
+		<button class="btn-default" ng-click="modal.open({templateUrl:'modal'})">Modal service</button>
+		<button class="btn-default" ng-click="dialog.show('Hi there!')">Dialog service</button>
+		<button class="btn-default" ng-click="biDirectionTest()">Fake bi-directional binding</button>
+		<script type="text/ng-template" id="modal">
+			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
+		</script>
+		<script type="text/ng-template" id="bi-test">
+			<div class="marger">
+				<pre><code>{{number}}</code></pre>
 			</div>
-		</div>
+			<div class="form-group">
+				<input type="text" class="form-control" ng-model="number">
+			</div>
+		</script>
 	</div>
 </body>
 </html>
