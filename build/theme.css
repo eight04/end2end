@@ -90,6 +90,27 @@ a:active {
   border-color: #0a53f8;
   box-shadow: inset 0.12em 0.12em 0.5em #dedede;
 }
+.btn-sm {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  width: 2em;
+  line-height: 0.8;
+}
+.btn-sm:hover {
+  border-color: #cccccc;
+}
+.btn-sm:focus {
+  color: #3d3d3d;
+  border-color: #0a53f8;
+}
+.btn-sm:active {
+  border-color: #0a53f8;
+  box-shadow: inset 0.12em 0.12em 0.5em #dedede;
+}
 .btn-close {
   width: 1em;
   height: 1em;

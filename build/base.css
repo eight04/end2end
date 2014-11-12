@@ -103,6 +103,7 @@ button {
   height: 2em;
   color: inherit;
   background-color: transparent;
+  border: none;
 }
 input:focus,
 textarea:focus,

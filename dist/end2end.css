@@ -103,6 +103,7 @@ button {
   height: 2em;
   color: inherit;
   background-color: transparent;
+  border: none;
 }
 input:focus,
 textarea:focus,
@@ -2352,6 +2353,43 @@ pre {
   vertical-align: middle;
   white-space: nowrap;
 }
+.table > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.shrink {
+  width: 1%;
+}
+.stretch {
+  width: 100%;
+}
+.table-responsive {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  vertical-align: top;
+}
+.table-responsive th,
+.table-responsive td {
+  white-space: nowrap;
+}
+.table-fixed {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+}
+.table-cell-fixed {
+  vertical-align: middle;
+  position: absolute;
+}
+.table-cell-fixed:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
 .navbar {
   position: relative;
   z-index: 1000;
@@ -2947,6 +2985,27 @@ a:active {
   border-color: #0a53f8;
 }
 .btn-default:active {
+  border-color: #0a53f8;
+  box-shadow: inset 0.12em 0.12em 0.5em #dedede;
+}
+.btn-sm {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  width: 2em;
+  line-height: 0.8;
+}
+.btn-sm:hover {
+  border-color: #cccccc;
+}
+.btn-sm:focus {
+  color: #3d3d3d;
+  border-color: #0a53f8;
+}
+.btn-sm:active {
   border-color: #0a53f8;
   box-shadow: inset 0.12em 0.12em 0.5em #dedede;
 }
