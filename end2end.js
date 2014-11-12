@@ -598,7 +598,12 @@ angular.module("end2end", ["ngAnimate"])
 
 				$timeout(function(){
 					var input = element[0].querySelector("[autofocus]");
-					(input || element[0]).focus();
+					if (input) {
+						input.focus();
+					}
+					if (document.activeElement == modal.focusElement) {
+						element[0].focus();
+					}
 				});
 			}
 		};
@@ -614,7 +619,7 @@ angular.module("end2end", ["ngAnimate"])
 		});
 
 		$document.on("keydown", function(e){
-			var modal, inputs, dirty, next, i;
+			var modal, inputs, dirty, next, i, t;
 			if (!modalStack || !(modal = modalStack.top()) || e.ctrlKey || e.altKey) {
 				return;
 			}
@@ -628,6 +633,13 @@ angular.module("end2end", ["ngAnimate"])
 
 			if (e.keyCode == 9) {
 				inputs = modal.element[0].querySelectorAll("input, select, button, textarea, a, [tabindex]");
+				t = [];
+				for (i = 0; i < inputs.length; i++) {
+					if (!inputs[i].disabled) {
+						t.push(inputs[i]);
+					}
+				}
+				inputs = t;
 				for (i = 0; i < inputs.length; i++) {
 					if (inputs[i] == document.activeElement) {
 						if (!e.shiftKey) {
@@ -662,11 +674,13 @@ angular.module("end2end", ["ngAnimate"])
 				modal.close = function(value){
 					modalStack.remove(modal);
 					deferred.resolve(value);
+					modal.focusElement.focus();
 				};
 
 				modal.dismiss = function(value){
 					modalStack.remove(modal);
 					deferred.reject(value);
+					modal.focusElement.focus();
 				};
 
 				modalStack.add(modal);
