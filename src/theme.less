@@ -60,8 +60,6 @@ a {
 		border-color: @border-color-light;
 	}
 	&:focus {
-//		outline: gray dotted 1px;
-//		outline-offset: -2px;
 		color: @font-color-base;
 		border-color: @brand-primary;
 	}
@@ -69,12 +67,26 @@ a {
 		border-color: @brand-primary;
 		box-shadow: inset 0.12em 0.12em 0.5em darken(@bg-color-base, 7%);
 	}
+	&[disabled] {
+		background-color: @bg-color-base;
+		border-color: @border-color-light;
+		cursor: not-allowed;
+		&:hover,
+		&:active {
+			border-color: @border-color-light;
+		}
+	}
 }
 .btn-default {
 	.btn();
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 	min-width: 4.25em;
+}
+.btn-sm {
+	.btn();
+	width: 2em;
+	line-height: 0.8;
 }
 .btn-close {
 	width: 1em;
@@ -114,7 +126,15 @@ a {
 	&:focus {
 		border-color: @border-color-active;
 		color: @font-color-active;
-//		.make-shadow(@border-color-active);
+	}
+	&[disabled] {
+		background-color: @bg-color-base;
+		border-color: @border-color-light;
+		cursor: not-allowed;
+		&:hover,
+		&:active {
+			border-color: @border-color-light;
+		}
 	}
 }
 
@@ -154,6 +174,16 @@ a {
 	}
 }
 
+// Angular form state
+input,
+textarea,
+select {
+	&.ng-invalid {
+		&, &:hover, &:focus {
+			border-color: @brand-danger;
+		}
+	}
+}
 
 // Placeholder
 ::-webkit-input-placeholder {
@@ -348,6 +378,7 @@ a {
 	thead {
 		th, td {
 			background-color: @bg-color-base;
+			text-align: center;
 		}
 	}
 
@@ -359,20 +390,23 @@ a {
 		padding: 0.5em 1.04em;
 		border-left: 1px solid @border-color-base;
 		vertical-align: middle;
-		text-align: center;
 
 		&:first-child {
 			border-left: none;
 		}
 	}
 
-	.table-cell-fixed {
+	.table-fixed-left {
 		border-right: 1px solid @border-color-base;
 		border-left-width: 0;
 
 		+ * {
 			border-left-width: 0;
 		}
+	}
+
+	.table-fixed-right {
+//		border-left: 1px solid @border-color-base;
 	}
 }
 

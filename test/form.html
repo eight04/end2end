@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Form</title>
 	<link rel="stylesheet" href="../build/base.css">
 	<link rel="stylesheet" href="../build/grid.css">
 	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/modal.css">
+	<link rel="stylesheet" href="../build/components/dialog.css">
 	<link rel="stylesheet" href="../build/theme.css">
 	<link rel="stylesheet" href="../build/helpers.css">
 	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<script>
+		angular.module("app", ["end2end"]).run(function($rootScope, dialog){
+			$rootScope.dialog = dialog;
+		});
+	</script>
 	<style>
 		body {
 			padding-bottom: 2em;
@@ -50,7 +59,7 @@
 <body>
 	<div class="container">
 		<h2>Form</h2>
-		<form action="">
+		<form>
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input type="text" id="name" value="The quick brown fox jumps over the lazy dog" class="form-control"/>
@@ -125,7 +134,7 @@
 				</select>
 			</div>
 
-			<button class="btn-default">Submit</button>
+			<button class="btn-default" ng-click="dialog.show('Submit')">Submit</button>
 			<button class="btn-default" type="reset">Reset</button>
 			<button class="btn-default">確定</button>
 			<button class="btn-default">取消</button>
@@ -172,6 +181,85 @@
 				<input type="text" class="cell stretch">
 			</div>
 		</div>
+		<h2>Disabled</h2>
+		<form>
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" id="name" value="The quick brown fox jumps over the lazy dog" class="form-control" disabled>
+			</div>
+
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="text" id="email" value="床前明月光 疑是地上霜" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="comment">Leave a comment</label>
+				<textarea id="comment" placeholder="Type something. This is a placeholder." class="form-control" disabled></textarea>
+			</div>
+
+			<fieldset class="form-group">
+				<legend>Select your gender</legend>
+				<div class="radio">
+					<label>
+						<input type="radio" name="gender" id="gender-male" disabled>
+						Male
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="gender" id="gender-female"/>
+						Female
+					</label>
+				</div>
+			</fieldset>
+
+			<fieldset class="form-group">
+				<legend>Options</legend>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="google" disabled>
+						Google
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="yahoo"/>
+						Yahoo
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="bing"/>
+						Bing
+					</label>
+				</div>
+			</fieldset>
+
+			<div class="form-group">
+				<label for="option-1">Select</label>
+				<select id="opiton-1" class="form-control" disabled>
+					<option value="">Option 1</option>
+					<option value="">Option 2</option>
+					<option value="">Option 3</option>
+					<option value="">Option 4</option>
+					<option value="">Option 5</option>
+				</select>
+			</div>
+
+			<div class="form-group"><label for="option-2">Multiple select</label>
+				<select id="option-2" multiple class="form-control" disabled>
+					<option value="">Option 1</option>
+					<option value="">Option 2</option>
+					<option value="">Option 3</option>
+					<option value="">Option 4</option>
+					<option value="">Option 5</option>
+				</select>
+			</div>
+
+			<button class="btn-default" disabled>確定</button>
+			<button class="btn-default">取消</button>
+		</form>
 	</div>
 </body>
 </html>

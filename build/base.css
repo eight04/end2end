@@ -103,6 +103,7 @@ button {
   height: 2em;
   color: inherit;
   background-color: transparent;
+  border: none;
 }
 input:focus,
 textarea:focus,
@@ -132,6 +133,10 @@ button:focus {
 ::-moz-placeholder,
 :-moz-placeholder {
   opacity: 1;
+}
+:invalid {
+  outline: none;
+  box-shadow: none;
 }
 textarea {
   height: auto;

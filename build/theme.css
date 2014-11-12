@@ -68,6 +68,15 @@ a:active {
   border-color: #0a53f8;
   box-shadow: inset 0.12em 0.12em 0.5em #dedede;
 }
+.btn[disabled] {
+  background-color: #f0f0f0;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+.btn[disabled]:hover,
+.btn[disabled]:active {
+  border-color: #cccccc;
+}
 .btn-default {
   border: 1px solid #808080;
   border-radius: 0.1875em;
@@ -89,6 +98,45 @@ a:active {
 .btn-default:active {
   border-color: #0a53f8;
   box-shadow: inset 0.12em 0.12em 0.5em #dedede;
+}
+.btn-default[disabled] {
+  background-color: #f0f0f0;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+.btn-default[disabled]:hover,
+.btn-default[disabled]:active {
+  border-color: #cccccc;
+}
+.btn-sm {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  width: 2em;
+  line-height: 0.8;
+}
+.btn-sm:hover {
+  border-color: #cccccc;
+}
+.btn-sm:focus {
+  color: #3d3d3d;
+  border-color: #0a53f8;
+}
+.btn-sm:active {
+  border-color: #0a53f8;
+  box-shadow: inset 0.12em 0.12em 0.5em #dedede;
+}
+.btn-sm[disabled] {
+  background-color: #f0f0f0;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+.btn-sm[disabled]:hover,
+.btn-sm[disabled]:active {
+  border-color: #cccccc;
 }
 .btn-close {
   width: 1em;
@@ -127,6 +175,15 @@ a:active {
   border-color: #0a53f8;
   color: #242424;
 }
+.form-control[disabled] {
+  background-color: #f0f0f0;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+.form-control[disabled]:hover,
+.form-control[disabled]:active {
+  border-color: #cccccc;
+}
 .input-group-addon {
   border: 1px solid #808080;
   border-radius: 0.1875em;
@@ -160,6 +217,17 @@ a:active {
 .input-group > *:last-child > * > * {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
+}
+input.ng-invalid,
+textarea.ng-invalid,
+select.ng-invalid,
+input.ng-invalid:hover,
+textarea.ng-invalid:hover,
+select.ng-invalid:hover,
+input.ng-invalid:focus,
+textarea.ng-invalid:focus,
+select.ng-invalid:focus {
+  border-color: #cb1b1b;
 }
 ::-webkit-input-placeholder {
   color: #c9c9c9;
@@ -321,6 +389,7 @@ a:active {
 .table-default thead th,
 .table-default thead td {
   background-color: #f0f0f0;
+  text-align: center;
 }
 .table-default tbody tr:first-child td {
   border-top: 1px solid #808080;
@@ -330,17 +399,16 @@ a:active {
   padding: 0.5em 1.04em;
   border-left: 1px solid #808080;
   vertical-align: middle;
-  text-align: center;
 }
 .table-default th:first-child,
 .table-default td:first-child {
   border-left: none;
 }
-.table-default .table-cell-fixed {
+.table-default .table-fixed-left {
   border-right: 1px solid #808080;
   border-left-width: 0;
 }
-.table-default .table-cell-fixed + * {
+.table-default .table-fixed-left + * {
   border-left-width: 0;
 }
 .table-responsive {

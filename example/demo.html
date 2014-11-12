@@ -13,7 +13,7 @@
 	<script src="../dist/end2end.js"></script>
 
 	<script>
-		app = angular.module("App", ["end2end"]);
+		app = angular.module("App", ["end2end", "ngAnimate"]);
 		app.run(function($rootScope, dialog, modal){
 			$rootScope.dialog = dialog;
 			$rootScope.modal = modal;
@@ -893,8 +893,9 @@
 				</div>
 
 				<h2>Modal service</h2>
+				<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 				<button class="btn-default" ng-click="modal.open({templateUrl:'modal-example'})">Open</button>
-				<script type="text/ng-template" id="model-example">
+				<script type="text/ng-template" id="modal-example">
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia minus cupiditate, eligendi, nobis sint eos ut aperiam sit minima veniam id! Animi maiores, cumque dolores odio, culpa facere ea fuga.</p>
 				</script>
 

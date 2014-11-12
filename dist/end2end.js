@@ -17,7 +17,7 @@ function getAniTimeout(element){
 	return ms;
 }
 
-angular.module("end2end", ["ngAnimate"])
+angular.module("end2end", [])
 	.directive("navbar", function(collapse){
 		return {
 			restrict: "C",
@@ -598,7 +598,12 @@ angular.module("end2end", ["ngAnimate"])
 
 				$timeout(function(){
 					var input = element[0].querySelector("[autofocus]");
-					(input || element[0]).focus();
+					if (input) {
+						input.focus();
+					}
+					if (document.activeElement == modal.focusElement) {
+						element[0].focus();
+					}
 				});
 			}
 		};
@@ -614,7 +619,7 @@ angular.module("end2end", ["ngAnimate"])
 		});
 
 		$document.on("keydown", function(e){
-			var modal, inputs, dirty, next, i;
+			var modal, inputs, dirty, next, i, t;
 			if (!modalStack || !(modal = modalStack.top()) || e.ctrlKey || e.altKey) {
 				return;
 			}
@@ -628,6 +633,13 @@ angular.module("end2end", ["ngAnimate"])
 
 			if (e.keyCode == 9) {
 				inputs = modal.element[0].querySelectorAll("input, select, button, textarea, a, [tabindex]");
+				t = [];
+				for (i = 0; i < inputs.length; i++) {
+					if (!inputs[i].disabled) {
+						t.push(inputs[i]);
+					}
+				}
+				inputs = t;
 				for (i = 0; i < inputs.length; i++) {
 					if (inputs[i] == document.activeElement) {
 						if (!e.shiftKey) {
@@ -662,11 +674,13 @@ angular.module("end2end", ["ngAnimate"])
 				modal.close = function(value){
 					modalStack.remove(modal);
 					deferred.resolve(value);
+					modal.focusElement.focus();
 				};
 
 				modal.dismiss = function(value){
 					modalStack.remove(modal);
 					deferred.reject(value);
+					modal.focusElement.focus();
 				};
 
 				modalStack.add(modal);
@@ -765,6 +779,10 @@ angular.module("end2end", ["ngAnimate"])
 			dialog.close = function(value){
 				var evt, ret;
 
+				if (dialog.fakeBinding) {
+					dialog.fakeBinding();
+				}
+
 				if (dialog.onclose) {
 					evt = {
 						dialog: dialog,
@@ -805,6 +823,36 @@ angular.module("end2end", ["ngAnimate"])
 			},
 			create: function(msg, title){
 				return createDialog(msg, title, "create");
+			}
+		};
+	})
+	.directive("e2eDialog", function($templateCache, $http, $compile){
+		return {
+			restrict: "A",
+			scope: true,
+			link: function(scope, element){
+				var dialog = scope.dialog, key;
+
+				for (key in dialog.scope) {
+					scope[key] = dialog.scope[key];
+				}
+
+				dialog.fakeBinding = function(){
+					var key;
+					for (key in dialog.scope) {
+						dialog.scope[key] = scope[key];
+					}
+				};
+
+				$http({
+					method: "GET",
+					url: dialog.templateUrl,
+					cache: $templateCache
+				}).success(function(result){
+					var ele = angular.element(result);
+					element.append(ele);
+					$compile(ele)(scope);
+				});
 			}
 		};
 	})
@@ -953,54 +1001,82 @@ angular.module("end2end", ["ngAnimate"])
 				tableModel: "="
 			},
 			link: function(scope, element, attrs) {
-				if (!attrs.fixedLeft) {
+				if (!attrs.fixedLeft && !attrs.fixedRight) {
 					return;
 				}
-				var rows = attrs.fixedLeft * 1, rendering = false;
+				var fixedLeft = +attrs.fixedLeft || 0,
+					fixedRight = +attrs.fixedRight || 0,
+					rendering = false;
 
 				function calc(){
 					var trs, j;
-					var i, rect, widths = [], widthSum = 0, td, tds, height;
-					tds = element[0].querySelectorAll(".table-cell-fixed");
+					var i, rect, td, eles, height, last,
+						widths = {
+							left: {
+								len: [],
+								sum: 0
+							},
+							right: {
+								len: [],
+								sum: 0
+							}
+						};
+					eles = element[0].querySelectorAll(".table-fixed-cell");
 
-					if (tds) {
-						for (i = 0; i < tds.length; i++) {
-							td = angular.element(tds[i]);
+					if (eles) {
+						for (i = 0; i < eles.length; i++) {
+							td = angular.element(eles[i]);
 							td.css("width", "");
 							td.css("height", "");
-							td.removeClass("table-cell-fixed");
+							td.removeClass("table-fixed-cell");
 						}
 					}
 
 					trs = element.find("tr");
-					for (i = 0; i < rows; i++) {
+					for (i = 0; i < fixedLeft; i++) {
 						td = trs[0].children[i];
 						rect = td.getBoundingClientRect();
-						widths.push({
-							offset: widthSum,
+						widths.left.len.push({
+							offset: widths.left.sum,
 							width: rect.right - rect.left
 						});
-						widthSum += rect.right - rect.left;
+						widths.left.sum += rect.right - rect.left;
+					}
+					last = trs[0].children.length - 1;
+					for (i = 0; i < fixedRight; i++) {
+						td = trs[0].children[last - i];
+						rect = td.getBoundingClientRect();
+						widths.right.len.push({
+							offset: widths.right.sum,
+							width: rect.right - rect.left
+						});
+						widths.right.sum += rect.right - rect.left;
 					}
 
 					for (j = 0; j < trs.length; j++) {
 						rect = trs[j].children[0].getBoundingClientRect();
 						height = rect.bottom - rect.top;
 
-						for (i = 0; i < rows && i < trs[j].children.length; i++) {
+						for (i = 0; i < fixedLeft; i++) {
 							td = angular.element(trs[j].children[i]);
-							td.css("width", widths[i].width + "px");
+							td.css("width", widths.left.len[i].width + "px");
 							td.css("height", height + "px");
-//							console.log(height);
-							td.css("left", widths[i].offset + "px");
-							td.addClass("table-cell-fixed");
+							td.css("left", widths.left.len[i].offset + "px");
+							td.addClass("table-fixed-cell table-fixed-left");
 						}
-						if (trs[j].children[i]) {
-							angular.element(trs[j].children[i]).addClass("table-cell-scroll");
+
+						last = trs[j].children.length - 1;
+						for (i = 0; i < fixedRight; i++) {
+							td = angular.element(trs[j].children[last - i]);
+							td.css("width", widths.right.len[i].width + "px");
+							td.css("height", height + "px");
+							td.css("right", widths.right.len[i].offset + "px");
+							td.addClass("table-fixed-cell table-fixed-right");
 						}
 					}
 
-					element.css("padding-left", widthSum + "px");
+					element.css("padding-left", widths.left.sum + "px");
+					element.css("padding-right", widths.right.sum + "px");
 				}
 
 				function calcContainer (){
@@ -1030,7 +1106,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/dialog.html',
-    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-include=\"dialog.templateUrl\" ng-if=\"!!dialog.templateUrl\" onload=\"dialog.templateLoaded = true\"></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 

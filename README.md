@@ -20,10 +20,8 @@ Todos
 * Refactor those messy less.
 * Use margin-top only?
 * Create ie polyfill or keep using css hack?
-* Add disabled form control.
-* Handle disabled control in modal dialog.
 * Scroll spy.
-* Button overlay on inputs?!
+* Enter key doesn't handled properly in dialog form on IE8.
 
 Refactor guide
 --------------
