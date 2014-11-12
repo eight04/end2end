@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/modal.css">
+	<link rel="stylesheet" href="../build/components/dialog.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+<!--	<script src="../bower_components/angular/angular.js"></script>-->
+<!--	<script src="../dist/end2end.js"></script>-->
+	<script>
+//		angular.module("app", ["end2end"]).run(function($rootScope, dialog){
+//			$rootScope.dialog = dialog;
+//		});
+		for (var i = 0; i < 121063; i++) {;}
+		alert(i);
+	</script>
+	<style>
+		body {
+			padding-bottom: 2em;
+/*			color: red9;*/
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h3>IE8 form button issue</h3>
+		<form ng-submit="dialog.show('Submit')" onsubmit="alert('submit')">
+			<input type="text" ng-model="test">
+<!--			<button type="submit" ng-click="dialog.show('Clicked')" onclick="alert('click')">Submit</button>-->
+			<input type="submit" onclick="alert('click input')">
+		</form>
+	</div>
+</body>
+</html>
