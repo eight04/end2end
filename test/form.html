@@ -29,6 +29,22 @@
 			background-clip: padding-box;
 			overflow: hidden;
 		}
+		.t {
+/*			display: table;*/
+		}
+		.r {
+			display: table;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.cell {
+			display: table-cell;
+
+		}
+		.h {
+/*			display: none;*/
+			width: 0;
+		}
 	</style>
 </head>
 <body>
@@ -143,6 +159,17 @@
 		<div class="c">
 			<div class="w">
 				<div class="b">Test</div>
+			</div>
+		</div>
+
+		<div class="t">
+			<div class="r">
+				<div class="cell shrink">test</div>
+				<input type="text" class="cell stretch">
+				<div class="cell h"></div>
+				<input type="text" class="cell stretch">
+				<div class="cell h"></div>
+				<input type="text" class="cell stretch">
 			</div>
 		</div>
 	</div>

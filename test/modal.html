@@ -12,8 +12,9 @@
 	<!--[if lte ie 8]>
 	<script src="../bower_components/respond/dest/respond.min.js"></script>
 	<![endif]-->
-	<script src="../bower_components/angular/angular.js"></script>
-	<script src="../bower_components/angular-animate/angular-animate.js"></script>
+<!--	<script src="../bower_components/angular/angular.js"></script>-->
+<!--	<script src="../bower_components/angular-animate/angular-animate.js"></script>-->
+	<script src="https://code.angularjs.org/1.3.2/angular.js"></script>
 	<script src="../dist/end2end.js"></script>
 	<style>
 		body {
@@ -26,17 +27,17 @@
 		}
 	</style>
 	<script>
-		app = angular.module("app", ["ngAnimate", "end2end"]);
+		app = angular.module("app", ["end2end"]);
 		app.run(function($rootScope, dialog){
 //			$rootScope.dialog = dialog;
 			$rootScope.open = function(){
-				dialog.confirm("終於？");
+				dialog.confirm({templateUrl:"test"});
 			};
 		});
 	</script>
 	<script type="text/ng-template" id="test">
-		<div class="box">
-			Test
+		<div class="">
+			<input type="text">
 		</div>
 	</script>
 </head>
