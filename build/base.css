@@ -134,6 +134,10 @@ button:focus {
 :-moz-placeholder {
   opacity: 1;
 }
+:invalid {
+  outline: none;
+  box-shadow: none;
+}
 textarea {
   height: auto;
   line-height: 1.55;

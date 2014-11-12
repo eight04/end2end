@@ -218,6 +218,17 @@ a:active {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
 }
+input.ng-invalid,
+textarea.ng-invalid,
+select.ng-invalid,
+input.ng-invalid:hover,
+textarea.ng-invalid:hover,
+select.ng-invalid:hover,
+input.ng-invalid:focus,
+textarea.ng-invalid:focus,
+select.ng-invalid:focus {
+  border-color: #cb1b1b;
+}
 ::-webkit-input-placeholder {
   color: #c9c9c9;
 }
