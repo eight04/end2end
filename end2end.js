@@ -808,6 +808,12 @@ angular.module("end2end", ["ngAnimate"])
 			}
 		};
 	})
+	.controller("e2eDialog", function($scope){
+		var dialog = $scope.dialog, key;
+		for (key in dialog.scope) {
+			$scope[key] = dialog.scope[key];
+		}
+	})
     .factory("togglerHelper", function(){
         return {
             getStatus: function(element) {
