@@ -72,19 +72,19 @@
   color: #cb1b1b;
 }
 .bg-primary {
-  background-color: #9fbbfc;
+  background-color: #ceddfe;
 }
 .bg-info {
-  background-color: #99e3ff;
+  background-color: #ccf1ff;
 }
 .bg-success {
-  background-color: #72e746;
+  background-color: #d6e6cf;
 }
 .bg-warning {
-  background-color: #ffe799;
+  background-color: #fff3cc;
 }
-.text-danger {
-  background-color: #f08f8f;
+.bg-danger {
+  background-color: #f5d1d1;
 }
 .page-header {
   padding: 2.5em 0;
