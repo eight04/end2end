@@ -59,8 +59,8 @@
 .text-primary {
   color: #0a53f8;
 }
-.text-danger {
-  color: #cb1b1b;
+.text-info {
+  color: #00baff;
 }
 .text-success {
   color: #308311;
@@ -68,8 +68,23 @@
 .text-warning {
   color: #ffc400;
 }
-.text-info {
-  color: #00baff;
+.text-danger {
+  color: #cb1b1b;
+}
+.bg-primary {
+  background-color: #9fbbfc;
+}
+.bg-info {
+  background-color: #99e3ff;
+}
+.bg-success {
+  background-color: #72e746;
+}
+.bg-warning {
+  background-color: #ffe799;
+}
+.text-danger {
+  background-color: #f08f8f;
 }
 .page-header {
   padding: 2.5em 0;
