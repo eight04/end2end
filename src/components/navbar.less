@@ -1,16 +1,16 @@
 // Navbar component
 @import "../vars.less";
-@import "form.less";
-@import "table.less";
+@import (reference) "form.less";
+@import (reference) "table.less";
 
 .navbar {
 	position: relative;
 	z-index: 1000;
-	
+
 	> * {
 		padding-left: 0;
 		padding-right: 0;
-		
+
 		> * {
 			display: table-cell;
 			vertical-align: middle;
@@ -21,7 +21,7 @@
 @media (min-width: @window-sm) {
 	.navbar-collapse {
 		width: 100%;
-		
+
 		&.collapse {
 			display: table-cell;
 		}
@@ -35,7 +35,7 @@
 @media (max-width: (@window-sm - 1)) {
 	.navbar-collapse {
 		display: block;
-		overflow: hidden;		
+		overflow: hidden;
 	}
 	.navbar-menu {
 		> * {
@@ -70,7 +70,7 @@
 	width: 2em;
 	line-height: 0.8;
 	overflow: hidden;
-	
+
 	&:first-line {
 		font-size: 200%;
 		font-weight: bold;
