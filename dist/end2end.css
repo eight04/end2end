@@ -3328,6 +3328,16 @@ select.ng-invalid:focus {
 .nav-tree > *.active > a {
   border-left: 0.25em solid #0a53f8;
 }
+.nav-tree > *.active > a:link,
+.nav-tree > *.active > a:visited {
+  color: #0a53f8;
+}
+.nav-tree > *.active > a:hover {
+  color: #0a53f8;
+}
+.nav-tree > *.active > a:active {
+  color: #0a53f8;
+}
 .nav-tree .nav-tree {
   margin-left: 2em;
   font-size: 90%;

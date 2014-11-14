@@ -849,6 +849,7 @@ angular.module("end2end", [])
 					url: dialog.templateUrl,
 					cache: $templateCache
 				}).success(function(result){
+					dialog.templateLoaded = true;
 					var ele = angular.element(result);
 					element.append(ele);
 					$compile(ele)(scope);

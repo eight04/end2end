@@ -2,7 +2,7 @@
 	<div class="dialog-header">
 		{{dialog.title}}
 	</div>
-	<form class="dialog-body" name="form">
+	<form class="dialog-body" name="form" ng-submit="">
 		<div class="marger pre-wrap" ng-if="!!dialog.msg && !dialog.templateLoaded">
 			{{dialog.msg}}
 		</div>

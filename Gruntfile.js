@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 			options: {
 				mangle: true,
 				compress: true,
-				sourceMap: true,
+				sourceMap: true
 			}
 		}
     },
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('dist', ["eslint", "less", "copy", "ngtemplates"]);
+  grunt.registerTask('dist', ["less", "dist-js"]);
   grunt.registerTask('dist-js', ["copy", "ngtemplates"]);
 
 };
