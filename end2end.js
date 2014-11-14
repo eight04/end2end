@@ -939,14 +939,10 @@ angular.module("end2end", [])
 				var i, child = toggle.element.children();
 
 				for (i = 0; i < child.length; i++) {
-//					if (status[i] && !/\bactive\b/.test(child[i].className)) {
 					if (status[i]) {
 						$animate.addClass(child[i], "active");
-//                        angular.element(child[i]).addClass("active");
-//					} else if (!status[i] && /\bactive\b/.test(child[i].className)) {
 					} else {
 						$animate.removeClass(child[i], "active");
-//                        angular.element(child[i]).removeClass("active");
 					}
 				}
 			}
