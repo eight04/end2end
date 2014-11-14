@@ -3,6 +3,7 @@
 
 h2 {
 	border-bottom: 1px solid @border-color-base;
+	padding-bottom: 0.25em;
 }
 
 code {
@@ -535,20 +536,29 @@ select {
 }
 
 .nav-tree {
+	transition: all 1s;
+	overflow: hidden;
+
+	.nav-tree {
+		max-height: 0;
+		margin-left: 2em;
+		font-size: 90%;
+	}
+
 	> * {
 		> a {
 			padding: 0.25em 0.5em;
 		}
 
-		&.active > a {
-			.make-link-color(@brand-primary, @brand-primary);
-			border-left: 0.25em solid @brand-primary;
+		&.active, &:hover {
+			> a {
+				.make-link-color(@brand-primary, @brand-primary);
+				border-left: 0.25em solid @brand-primary;
+			}
+			.nav-tree {
+				max-height: 300px;
+			}
 		}
-	}
-
-	.nav-tree {
-		margin-left: 2em;
-		font-size: 90%;
 	}
 }
 
@@ -572,3 +582,9 @@ select {
 		}
 	}
 }
+
+// Progress
+.progress-bar {
+	background-color: @bg-color-base;
+}
+

@@ -29,12 +29,6 @@
 .nav-tree > * > a {
   margin: 0.25em 0;
 }
-.nav-tree .nav-tree {
-  display: none;
-}
-.nav-tree > .active > .nav-tree {
-  display: block;
-}
 .nav-pill a {
   display: block;
   text-decoration: none;
