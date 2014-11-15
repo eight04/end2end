@@ -284,7 +284,7 @@ select.ng-invalid:focus {
   .sidebar.active {
     box-shadow: 0 0 1em black;
   }
-  .sidebar-toggle .sidebar.active {
+  .sidebar.active .sidebar-toggle:before {
     content: "»";
   }
 }

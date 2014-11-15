@@ -22,6 +22,7 @@ Todos
 * Create ie polyfill or keep using css hack?
 * Scroll spy.
 * Enter key doesn't handled properly in dialog form on IE8.
+* Handle z-index in modal stack.
 
 Refactor guide
 --------------
