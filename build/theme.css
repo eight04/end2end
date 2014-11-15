@@ -1,5 +1,6 @@
 h2 {
   border-bottom: 1px solid #808080;
+  padding-bottom: 0.25em;
 }
 code {
   background-color: #f0f0f0;
@@ -556,15 +557,39 @@ select.ng-invalid:focus {
 .nav-tab > *.active > *:focus {
   background-color: transparent;
 }
+.nav-tree {
+  transition: all 1s;
+  overflow: hidden;
+}
+.nav-tree .nav-tree {
+  max-height: 0;
+  margin-left: 2em;
+  font-size: 90%;
+}
 .nav-tree > * > a {
   padding: 0.25em 0.5em;
 }
-.nav-tree > *.active > a {
+.nav-tree > *.active > a,
+.nav-tree > *:hover > a {
   border-left: 0.25em solid #0a53f8;
 }
-.nav-tree .nav-tree {
-  margin-left: 2em;
-  font-size: 90%;
+.nav-tree > *.active > a:link,
+.nav-tree > *:hover > a:link,
+.nav-tree > *.active > a:visited,
+.nav-tree > *:hover > a:visited {
+  color: #0a53f8;
+}
+.nav-tree > *.active > a:hover,
+.nav-tree > *:hover > a:hover {
+  color: #0a53f8;
+}
+.nav-tree > *.active > a:active,
+.nav-tree > *:hover > a:active {
+  color: #0a53f8;
+}
+.nav-tree > *.active .nav-tree,
+.nav-tree > *:hover .nav-tree {
+  max-height: 300px;
 }
 .nav-pill > * > * {
   border-radius: 0.1875em;
@@ -587,5 +612,8 @@ select.ng-invalid:focus {
   background-color: #f0f0f0;
 }
 .nav-pill > *.active > * {
+  background-color: #f0f0f0;
+}
+.progress-bar {
   background-color: #f0f0f0;
 }

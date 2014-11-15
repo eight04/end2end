@@ -1,6 +1,6 @@
 @import "../vars.less";
 @import "../mixins.less";
-@import "table.less";
+@import (reference) "table.less";
 
 // Nav
 .nav {
@@ -17,7 +17,7 @@
 .nav-tab {
 	.nav();
 	.table();
-	
+
 	> * {
 		vertical-align: bottom;
 		white-space: nowrap;
@@ -30,17 +30,9 @@
 
 .nav-tree {
 	.nav();
-	
+
 	> * > a {
 		margin: 0.25em 0;
-	}
-	
-	.nav-tree {
-		display: none;
-	}
-	
-	> .active > .nav-tree {
-		display: block;
 	}
 }
 

@@ -941,14 +941,10 @@ angular.module("end2end", [])
 				var i, child = toggle.element.children();
 
 				for (i = 0; i < child.length; i++) {
-//					if (status[i] && !/\bactive\b/.test(child[i].className)) {
 					if (status[i]) {
 						$animate.addClass(child[i], "active");
-//                        angular.element(child[i]).addClass("active");
-//					} else if (!status[i] && /\bactive\b/.test(child[i].className)) {
 					} else {
 						$animate.removeClass(child[i], "active");
-//                        angular.element(child[i]).removeClass("active");
 					}
 				}
 			}
@@ -1000,9 +996,6 @@ angular.module("end2end", [])
 	.directive("tableFixed", function($timeout){
 		return {
 			restrict: "C",
-			scope: {
-				tableModel: "="
-			},
 			link: function(scope, element, attrs) {
 				if (!attrs.fixedLeft && !attrs.fixedRight) {
 					return;
@@ -1036,6 +1029,11 @@ angular.module("end2end", [])
 					}
 
 					trs = element.find("tr");
+
+					for (i = 0; i < trs.length; i++) {
+						angular.element(trs[i]).css("height", "");
+					}
+
 					for (i = 0; i < fixedLeft; i++) {
 						td = trs[0].children[i];
 						rect = td.getBoundingClientRect();
@@ -1045,6 +1043,7 @@ angular.module("end2end", [])
 						});
 						widths.left.sum += rect.right - rect.left;
 					}
+
 					last = trs[0].children.length - 1;
 					for (i = 0; i < fixedRight; i++) {
 						td = trs[0].children[last - i];
@@ -1057,9 +1056,9 @@ angular.module("end2end", [])
 					}
 
 					for (j = 0; j < trs.length; j++) {
-						rect = trs[j].children[0].getBoundingClientRect();
+						rect = trs[j].getBoundingClientRect();
 						height = rect.bottom - rect.top;
-
+						angular.element(trs[j]).css("height", height + "px");
 						for (i = 0; i < fixedLeft; i++) {
 							td = angular.element(trs[j].children[i]);
 							td.css("width", widths.left.len[i].width + "px");
@@ -1083,24 +1082,27 @@ angular.module("end2end", [])
 				}
 
 				function calcContainer (){
-//					console.log(element[0].offsetHeight);
-
 					if (!element[0].offsetHeight) {
-						rendering = true;
 						$timeout(calcContainer, 300);
 						return;
 					}
 
 					rendering = false;
-//					console.log("render");
 					calc();
 				}
 
-				scope.$watch("tableModel", function(){
-					if (!rendering) {
-						calcContainer();
-					}
-				});
+				if (attrs.name) {
+					scope[attrs.name] = {
+						render: function(){
+							if (!rendering) {
+								rendering = true;
+								$timeout(calcContainer);
+							}
+						}
+					};
+				}
+
+				calcContainer();
 			}
 		};
 	});
