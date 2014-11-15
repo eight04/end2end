@@ -223,30 +223,36 @@ select {
 }
 
 // Sidebar
-.sidebar {
-	border-left: 1px solid @border;
-	z-index: 1100;
+@media (max-width: (@sidebar-breakpoint - 1)) {
+	.sidebar {
+		border-left: 1px solid @border;
+		z-index: 1100;
 
-	&.active-add {
-		transition: 0.4s all;
-		transform: translateX(100%);
-
-		&-active {
-			transform: none;
-		}
-	}
-	&.active-remove {
-		transition: 0.4s all;
-		right: 0;
-		left: auto;
-		transform: none;
-
-		&-active {
+		&.active-add {
+			transition: 0.4s all;
 			transform: translateX(100%);
+
+			&-active {
+				transform: none;
+			}
 		}
-	}
-	&.active {
-		box-shadow: 0 0 1em black;
+		&.active-remove {
+			transition: 0.4s all;
+			right: 0;
+			left: auto;
+			transform: none;
+
+			&-active {
+				transform: translateX(100%);
+			}
+		}
+		&.active {
+			box-shadow: 0 0 1em black;
+
+			.sidebar-toggle & {
+				content: "»";
+			}
+		}
 	}
 }
 
@@ -278,10 +284,6 @@ select {
 
 	&:before {
 		content: "«";
-
-		.sidebar.expand & {
-			content: "»";
-		}
 	}
 }
 

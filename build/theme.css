@@ -259,28 +259,33 @@ select.ng-invalid:focus {
 ::-moz-selection {
   background-color: rgba(255, 169, 46, 0.4);
 }
-.sidebar {
-  border-left: 1px solid #a3a3a3;
-  z-index: 1100;
-}
-.sidebar.active-add {
-  transition: 0.4s all;
-  transform: translateX(100%);
-}
-.sidebar.active-add-active {
-  transform: none;
-}
-.sidebar.active-remove {
-  transition: 0.4s all;
-  right: 0;
-  left: auto;
-  transform: none;
-}
-.sidebar.active-remove-active {
-  transform: translateX(100%);
-}
-.sidebar.active {
-  box-shadow: 0 0 1em black;
+@media (max-width: 1023px) {
+  .sidebar {
+    border-left: 1px solid #a3a3a3;
+    z-index: 1100;
+  }
+  .sidebar.active-add {
+    transition: 0.4s all;
+    transform: translateX(100%);
+  }
+  .sidebar.active-add-active {
+    transform: none;
+  }
+  .sidebar.active-remove {
+    transition: 0.4s all;
+    right: 0;
+    left: auto;
+    transform: none;
+  }
+  .sidebar.active-remove-active {
+    transform: translateX(100%);
+  }
+  .sidebar.active {
+    box-shadow: 0 0 1em black;
+  }
+  .sidebar-toggle .sidebar.active {
+    content: "»";
+  }
 }
 .sidebar-toggle {
   background-color: #3d3d3d;
@@ -308,9 +313,6 @@ select.ng-invalid:focus {
 }
 .sidebar-toggle:before {
   content: "«";
-}
-.sidebar.expand .sidebar-toggle:before {
-  content: "»";
 }
 .collapse {
   display: none;

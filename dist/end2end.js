@@ -322,35 +322,37 @@ angular.module("end2end", [])
 			restrict: "C",
 			controller: function($element, $animate, $timeout){
 				var controller = this;
+				var active = false;
 
 				controller.toggle = function(){
-					if (!$element.hasClass("expand")) {
-						$animate.addClass($element, "expand");
+					if (!active) {
+						$animate.addClass($element, "active");
 						$element.on("click", controller.toggle);
 					} else {
-						$animate.removeClass($element, "expand");
+						$animate.removeClass($element, "active");
 						$element.off("click", controller.toggle);
 					}
+					active = !active;
 				};
 
-				var row = $element;
-				while(!row.hasClass("row")) {
-					row = row.parent();
-				}
+//				var row = $element;
+//				while(!row.hasClass("row")) {
+//					row = row.parent();
+//				}
 
 				// Affix
-				var sidebar = {
-					element: $element,
-					elementContent: angular.element($element[0].querySelector(".sidebar-content")),
-					elementRow: row
-				};
+//				var sidebar = {
+//					element: $element,
+//					elementContent: angular.element($element[0].querySelector(".sidebar-content")),
+//					elementRow: row
+//				};
 
 				// IE8 issue with respond?
-				$timeout(function(){
-					calc(sidebar);
-				});
-
-				sidebarJar.push(sidebar);
+//				$timeout(function(){
+//					calc(sidebar);
+//				});
+//
+//				sidebarJar.push(sidebar);
 			}
 		};
 	})
