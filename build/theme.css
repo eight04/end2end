@@ -615,3 +615,12 @@ select.ng-invalid:focus {
 .progress-bar {
   background-color: #f0f0f0;
 }
+.pool {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
