@@ -6,13 +6,14 @@
 */
 
 // Container
-.container-fluid {
-	padding: 0 @gap;
+._container(){
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .container {
+	._container();
 	padding: 0 @gap;
-	margin: 0 auto;
 
 	@media (min-width: @window-sm) {
 		max-width: @window-sm;
@@ -24,14 +25,19 @@
 		max-width: @window-lg;
 	}
 }
-
+.container-fluid {
+	padding: 0 @gap;
+}
 .container-sm {
+	._container();
 	max-width: @window-sm;
 }
 .container-md {
+	._container();
 	max-width: @window-md;
 }
 .container-lg {
+	._container();
 	max-width: @window-lg;
 }
 
