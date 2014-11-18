@@ -829,13 +829,13 @@ angular.module("end2end", [])
 	.directive("e2eDialog", function($templateCache, $http, $compile, $controller){
 		return {
 			restrict: "A",
-//			scope: false,
 			link: function(scope, element){
 				var dialog = scope.dialog, key;
 
 				if (dialog.controller) {
 					dialog.ctrlInstance = $controller(dialog.controller, {
-						"$scope": scope
+						"$scope": scope,
+						"dialogInstance": dialog
 					});
 				}
 
@@ -856,9 +856,10 @@ angular.module("end2end", [])
 					cache: $templateCache
 				}).success(function(result){
 					dialog.templateLoaded = true;
-					var ele = angular.element(result);
-					element.append(ele);
-					$compile(ele)(scope);
+//					console.log(result);
+//					var ele = angular.element(result);
+					element.append(result);
+					$compile(element.contents())(scope);
 				});
 			}
 		};

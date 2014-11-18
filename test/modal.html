@@ -43,8 +43,33 @@
 					dialog.show(scope.number);
 				});
 			};
-		}).controller("test", function($scope){
-			console.log($scope.dialog);
+			$rootScope.ctrlTest = function(){
+				dialog.show({
+					controller:'test',
+					scope: {
+						number:10
+					},
+					templateUrl: 'controller-test'
+				}).on("close", function(result){
+					dialog.show("ctrlTest result: " + result);
+				});
+			}
+		}).controller("test", function($scope, dialogInstance, $interval){
+
+			function countdown(){
+				console.log($scope.number);
+				$scope.number--;
+				if (!$scope.number) {
+					dialogInstance.close("OHHHHNOOOOOO!");
+					$interval.cancel(timer);
+				}
+			}
+
+			var timer = $interval(countdown, 1000);
+
+			$scope.$on("$destroy", function(){
+				$interval.cancel(timer);
+			});
 		});
 	</script>
 </head>
@@ -58,7 +83,7 @@
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'sm'})">sm</button>
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'md'})">md</button>
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'lg'})">lg</button>
-		<button class="btn-default" ng-click="dialog.show({controller:'test',scope:{number:10},templateUrl:'controller-test'})">Controller test</button>
+		<button class="btn-default" ng-click="ctrlTest()">Controller test</button>
 		<script type="text/ng-template" id="modal">
 			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 		</script>
@@ -77,10 +102,7 @@
 			</div>
 		</script>
 		<script type="text/ng-template" id="controller-test">
-			<div class="form-group">
-				<label for="require">Controller</label>
-				<input type="text" class="form-control" ng-model="number" id="require" required autofocus>
-			</div>
+			<p>Countdown {{number}} seconds...</p>
 		</script>
 	</div>
 </body>
