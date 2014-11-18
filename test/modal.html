@@ -53,6 +53,9 @@
 		<button class="btn-default" ng-click="dialog.show('Hi there!')">Dialog service</button>
 		<button class="btn-default" ng-click="biDirectionTest()">Fake bi-directional binding</button>
 		<button class="btn-default" ng-click="dialog.confirm({templateUrl:'valid-test'})">Form validation</button>
+		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'sm'})">sm</button>
+		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'md'})">md</button>
+		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'lg'})">lg</button>
 		<script type="text/ng-template" id="modal">
 			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 		</script>
