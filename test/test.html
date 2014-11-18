@@ -14,9 +14,16 @@
 	<script src="../bower_components/angular/angular.js"></script>
 	<script src="../dist/end2end.js"></script>
 	<script>
-		angular.module("app", ["end2end"]).run(function($rootScope, dialog, $controller){
+		angular.module("app", ["end2end"]).run(function($rootScope, dialog, $controller, $q){
 			$rootScope.dialog = dialog;
 			$controller("test", {});
+			var deferred = $q.defer();
+
+			deferred.promise.then(function(result){
+				console.log("Promise result: %s", result);
+			});
+
+			deferred.resolve(true);
 		});
 		function test(dialog){
 			console.log(dialog);

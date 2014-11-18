@@ -25,6 +25,8 @@ Todos
 * Add notify. (notify-brand, notify-content...)
 * Dialog size.
 * If using wrapped body?
+* Support finally in dialog.
+* Yes/No/Cancel dialog.
 
 Refactor guide
 --------------
