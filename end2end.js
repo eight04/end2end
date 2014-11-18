@@ -826,12 +826,18 @@ angular.module("end2end", [])
 			}
 		};
 	})
-	.directive("e2eDialog", function($templateCache, $http, $compile){
+	.directive("e2eDialog", function($templateCache, $http, $compile, $controller){
 		return {
 			restrict: "A",
-			scope: true,
+//			scope: false,
 			link: function(scope, element){
 				var dialog = scope.dialog, key;
+
+				if (dialog.controller) {
+					dialog.ctrlInstance = $controller(dialog.controller, {
+						"$scope": scope
+					});
+				}
 
 				for (key in dialog.scope) {
 					scope[key] = dialog.scope[key];

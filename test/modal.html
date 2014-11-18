@@ -43,6 +43,8 @@
 					dialog.show(scope.number);
 				});
 			};
+		}).controller("test", function($scope){
+			console.log($scope.dialog);
 		});
 	</script>
 </head>
@@ -56,6 +58,7 @@
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'sm'})">sm</button>
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'md'})">md</button>
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'lg'})">lg</button>
+		<button class="btn-default" ng-click="dialog.show({controller:'test',scope:{number:10},templateUrl:'controller-test'})">Controller test</button>
 		<script type="text/ng-template" id="modal">
 			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 		</script>
@@ -70,6 +73,12 @@
 		<script type="text/ng-template" id="valid-test">
 			<div class="form-group">
 				<label for="require">This field is required</label>
+				<input type="text" class="form-control" ng-model="number" id="require" required autofocus>
+			</div>
+		</script>
+		<script type="text/ng-template" id="controller-test">
+			<div class="form-group">
+				<label for="require">Controller</label>
 				<input type="text" class="form-control" ng-model="number" id="require" required autofocus>
 			</div>
 		</script>
