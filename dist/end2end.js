@@ -625,7 +625,8 @@ angular.module("end2end", [])
 			}
 
 			if (e.keyCode == 27 && !e.shiftKey) {
-				$rootScope.$apply(function(){
+				// Use $timeout to fix IE9 form validation issue.
+				$timeout(function(){
 					modal.dismiss();
 				});
 				e.preventDefault();
@@ -1133,7 +1134,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/modalStack.html',
-    "<div class=\"modal-backdrop active\" ng-if=\"modals.length\"></div><div class=\"modal active\" ng-repeat=\"modal in modals\" e2e-modal=\"modal\" tabindex=\"0\"></div>"
+    "<div class=\"modal-backdrop active\" ng-if=\"modals.length\" ng-style=\"{'z-index':1399+(modals.length-1)*10}\"></div><div class=\"modal active\" ng-repeat=\"modal in modals\" e2e-modal=\"modal\" tabindex=\"0\" ng-style=\"{'z-index':1400+$index*10}\"></div>"
   );
 
 

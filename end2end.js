@@ -625,7 +625,8 @@ angular.module("end2end", [])
 			}
 
 			if (e.keyCode == 27 && !e.shiftKey) {
-				$rootScope.$apply(function(){
+				// Use $timeout to fix IE9 form validation issue.
+				$timeout(function(){
 					modal.dismiss();
 				});
 				e.preventDefault();

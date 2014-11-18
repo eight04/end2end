@@ -24,6 +24,7 @@ Todos
 * Enter key doesn't handled properly in dialog form on IE8.
 * Add notify. (notify-brand, notify-content...)
 * Dialog size.
+* If using wrapped body?
 
 Refactor guide
 --------------

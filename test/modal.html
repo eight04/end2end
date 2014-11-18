@@ -50,9 +50,17 @@
 						number:10
 					},
 					templateUrl: 'controller-test'
+				}).then(function(result){
+					dialog.show("Controller Test result: " + result);
+				}, function(result){
+					dialog.show("Modal dismissed: " + result);
 				});
 			}
 		}).controller("test", function($scope, dialogInstance, $interval){
+
+			dialogInstance.onclose = function(ev){
+				console.log(ev);
+			}
 
 			function countdown(){
 				console.log($scope.number);
