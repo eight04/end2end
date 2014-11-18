@@ -19,6 +19,8 @@
 			$controller("test", {});
 			var deferred = $q.defer();
 
+			var ret = 12;
+
 			deferred.promise.then(function(result){
 				console.log("Promise result: %s", result);
 			});

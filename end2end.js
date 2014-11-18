@@ -627,7 +627,7 @@ angular.module("end2end", [])
 			if (e.keyCode == 27 && !e.shiftKey) {
 				// Use $timeout to fix IE9 form validation issue.
 				$timeout(function(){
-					modal.dismiss();
+					modal.close();
 				});
 				e.preventDefault();
 			}
@@ -678,19 +678,19 @@ angular.module("end2end", [])
 					modal.focusElement.focus();
 				};
 
-				modal.dismiss = function(value){
-					modalStack.remove(modal);
-					deferred.reject(value);
-					modal.focusElement.focus();
-				};
-
-				modalStack.add(modal);
+//				modal.dismiss = function(value){
+//					modalStack.remove(modal);
+//					deferred.reject(value);
+//					modal.focusElement.focus();
+//				};
+//
+//				modalStack.add(modal);
 
 				return modal;
 			}
 		};
     })
-	.factory("dialog", function(modal){
+	.factory("dialog", function(modal, $q){
 		var types = {
 			create: {
 				title: "Dialog",
@@ -777,34 +777,59 @@ angular.module("end2end", [])
 				}
 			});
 
+			var deferred = $q.defer();
+			var promise = {}, on = {};
+
 			dialog.close = function(value){
 				var evt, ret;
 
 				if (dialog.fakeBinding) {
 					dialog.fakeBinding();
 				}
-
-				if (dialog.onclose) {
-					evt = {
-						dialog: dialog,
-						value: value
-					};
-
-					ret = dialog.onclose(evt);
+				if (dialog.returnValue) {
+					value = dialog.returnValue(value);
 				}
 
-				if (ret !== false) {
-					if (value) {
-						md.close(value);
-					} else {
-						md.dismiss(value);
+				if (value) {
+					if (on.ok && on.ok(value) === false) {
+						return;
+					}
+					if (promise.success) {
+						promise.success(value);
+					}
+				} else if (value != null) {
+					if (on.cancel && on.cancel(value) === false) {
+						return;
+					}
+					if (promise.fail) {
+						promise.fail(value);
 					}
 				}
+				if (on.close && on.close(value) === false) {
+					return;
+				}
+				if (promise.always) {
+					promise.always(value);
+				}
+
+				md.close(value);
 			};
 
-			dialog.then = function(success, fail, notify){
-				return md.then(success, fail, notify);
+			dialog.on = function(event, callback) {
+				on[event] = callback;
+				return dialog;
+			}
+
+			dialog.then = function(success, fail){
+				promise.success = success;
+				promise.fail = fail;
+				return dialog;
 			};
+
+			dialog.always = function(always) {
+				promise.always = always;
+				return dialog;
+			}
 
 			return dialog;
 		}

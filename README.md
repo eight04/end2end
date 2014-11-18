@@ -27,6 +27,7 @@ Todos
 * If using wrapped body?
 * Support finally in dialog.
 * Yes/No/Cancel dialog.
+* New dialog implement? Use button, input's value to return! Remains `then()` behavior. Move keydown listener from modal to dialog. Also solve IE8 enter issue.
 
 Refactor guide
 --------------
