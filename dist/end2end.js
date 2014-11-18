@@ -1109,7 +1109,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/dialog.html',
-    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand + (dialog.size ? 'dialog-' + dialog.size : '')\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 
