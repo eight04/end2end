@@ -23,6 +23,7 @@ Todos
 * Scroll spy.
 * Enter key doesn't handled properly in dialog form on IE8.
 * Add notify. (notify-brand, notify-content...)
+* Dialog size.
 
 Refactor guide
 --------------
