@@ -50,11 +50,11 @@
 						number:10
 					},
 					templateUrl: 'controller-test'
-				}).on("close", function(result){
-					dialog.show("ctrlTest result: " + result);
 				});
 			}
 		}).controller("test", function($scope, dialogInstance, $interval){
+
+			console.log($scope);
 
 			function countdown(){
 				console.log($scope.number);

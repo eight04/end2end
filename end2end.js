@@ -832,17 +832,12 @@ angular.module("end2end", [])
 			link: function(scope, element){
 				var dialog = scope.dialog, key;
 
-				if (dialog.controller) {
-					dialog.ctrlInstance = $controller(dialog.controller, {
-						"$scope": scope,
-						"dialogInstance": dialog
-					});
-				}
-
+				// Put scope things into $scope
 				for (key in dialog.scope) {
 					scope[key] = dialog.scope[key];
 				}
 
+				// FakeBinding, put $scope things back to scope, will be called after dialog closed.
 				dialog.fakeBinding = function(){
 					var key;
 					for (key in dialog.scope) {
@@ -850,14 +845,21 @@ angular.module("end2end", [])
 					}
 				};
 
+				// Create controller
+				if (dialog.controller) {
+					dialog.ctrlInstance = $controller(dialog.controller, {
+						"$scope": scope,
+						"dialogInstance": dialog
+					});
+				}
+
+				// Include template
 				$http({
 					method: "GET",
 					url: dialog.templateUrl,
 					cache: $templateCache
 				}).success(function(result){
 					dialog.templateLoaded = true;
-//					console.log(result);
-//					var ele = angular.element(result);
 					element.append(result);
 					$compile(element.contents())(scope);
 				});

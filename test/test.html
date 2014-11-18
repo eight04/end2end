@@ -21,6 +21,9 @@
 		function test(dialog){
 			console.log(dialog);
 		}
+		function ff($scope) {
+			console.log($scope.form, $scope);
+		}
 	</script>
 	<style>
 		body {
@@ -31,7 +34,7 @@
 <body>
 	<div class="container">
 		<h3>IE8 form button issue</h3>
-		<form ng-submit="dialog.show('Submit')" onsubmit="alert('submit')">
+		<form ng-submit="dialog.show('Submit')" onsubmit="alert('submit')" name="form" ng-controller="ff">
 			<input type="text" ng-model="test">
 			<button type="submit" ng-click="dialog.show('Clicked')" onclick="alert('click')">Submit</button>
 			<input type="submit" onclick="alert('click input')">
