@@ -14,7 +14,7 @@
 						type="{{btn.submit?'submit':'button'}}"
 						class="btn btn-default"
 						ng-disabled="btn.submit && form.$invalid"
-						ng-click="dialog.close(btn.value)"
+						ng-click="dialog.submit(btn.value)"
 						autofocus>
 						{{btn.label}}
 					</button>

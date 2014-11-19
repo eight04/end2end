@@ -799,61 +799,75 @@ angular.module("end2end", [])
 				scope: {
 					dialog: dialog
 				}
+			}).on("backdrop", function(e){
+				e.preventDefault();
+				if (dialog.onbackdrop) {
+					dialog.onbackdrop();
+				}
+			}).on("esc", function(e){
+				e.preventDefault();
+				if (dialog.onesc) {
+					dialog.onesc();
+				}
+				switch (dialog.btns.length) {
+					case 1:
+						dialog.ok();
+						break;
+					case 2:
+						dialog.cancel();
+						break;
+					case 3:
+						dialog.dismiss();
+						break;
+				}
+			}).on("close", function(value){
+				if (dialog.onclose) {
+					dialog.onclose(value);
+				}
 			});
 
 			var promise = {};
 
-			dialog.close = function(value){
+			dialog.submit = function(value) {
+				if (dialog.btns.length <= 1 || value) {
+					dialog.ok(value);
+				} else if (dialog.btns.length <= 2 || (dialog.btns.length >= 3 && value != null)) {
+					dialog.cancel(value);
+				} else {
+					dialog.dismiss(value);
+				}
+			};
 
+			dialog.ok = function(value) {
+				dialog.close(value, "ok");
+			};
+
+			dialog.cancel = function(value) {
+				dialog.close(value, "cancel");
+			}
+
+			dialog.dismiss = function(value) {
+				dialog.close(value, "dismiss");
+			}
+
+			dialog.close = function(value, method){
 				if (dialog.fakeBinding) {
 					dialog.fakeBinding();
 				}
-//				if (dialog.returnValue) {
-//					value = dialog.returnValue(value);
-//				}
-
-				if (dialog.btns.length <= 1 || value || (dialog.btns.length >= 3 && value != null)) {
-//					if (on.ok && on.ok(value) === false) {
-//						return;
-//					}
-					if (promise.success) {
-						promise.success(value);
-					}
-				} else if (dialog.btns.length <= 2 || value != null) {
-//					if (on.cancel && on.cancel(value) === false) {
-//						return;
-//					}
-					if (promise.fail) {
-						promise.fail(value);
-					}
+				if (dialog["on" + method]) {
+					dialog["on" + method](value);
 				}
-//				if (on.close && on.close(value) === false) {
-//					return;
-//				}
-				if (promise.always) {
-					promise.always(value);
-				}
-
 				dialog.modal.close(value);
 			};
 
 			dialog.on = function(event, callback) {
-				if (event == "close" || event == "backdrop" || event == "esc") {
-					dialog.modal.on(event, callback);
-				} else {
-					dialog["on" + event] = callback;
-				}
+				dialog["on" + event] = callback;
 				return dialog;
 			};
 
 			dialog.then = function(success, fail) {
-				promise.success = success;
-				promise.fail = fail;
-				return dialog;
-			};
-
-			dialog.always = function(always) {
-				promise.always = always;
+				dialog.onok = success;
+				dialog.oncancel = fail;
 				return dialog;
 			};
 
@@ -1170,7 +1184,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/dialog.html',
-    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand + ' ' + (dialog.size ? 'dialog-' + dialog.size : '')\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.close(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand + ' ' + (dialog.size ? 'dialog-' + dialog.size : '')\"><div class=\"dialog-header\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.submit(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 
