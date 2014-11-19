@@ -28,6 +28,7 @@ Todos
 * Support finally in dialog.
 * Yes/No/Cancel dialog.
 * New dialog implement? Use button, input's value to return! Remains `then()` behavior. Move keydown listener from modal to dialog. Also solve IE8 enter issue.
+* Fix progress bar theme.
 
 Refactor guide
 --------------
