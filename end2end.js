@@ -709,7 +709,7 @@ angular.module("end2end", [])
 			}
 		};
     })
-	.factory("dialog", function(modal){
+	.factory("dialog", function(modal, $q){
 //	.factory("dialog", function(modal, $q){
 		var types = {
 			create: {
@@ -790,9 +790,11 @@ angular.module("end2end", [])
 			if (typeof msg == "object") {
 				angular.extend(dialog, msg);
 			} else {
-				dialog.msg = msg;
+				dialog.msg = String(msg);
 				dialog.title = title || dialog.title;
 			}
+
+			dialog.deferred = $q.defer();
 
 			dialog.modal = modal.open({
 				templateUrl: "templates/dialog.html",
@@ -827,6 +829,7 @@ angular.module("end2end", [])
 			});
 
 			dialog.submit = function(value) {
+				console.log(value);
 				if (dialog.btns.length <= 1 || value) {
 					dialog.ok(value);
 				} else if (dialog.btns.length <= 2 || (dialog.btns.length >= 3 && value != null)) {
@@ -838,14 +841,23 @@ angular.module("end2end", [])
 
 			dialog.ok = function(value) {
 				dialog.close(value, "ok");
+				dialog.deferred.resolve(value);
 			};
 
 			dialog.cancel = function(value) {
 				dialog.close(value, "cancel");
+				if (dialog.btns.length <= 2) {
+					dialog.deferred.reject(value);
+				} else {
+					dialog.deferred.resolve(value);
+				}
 			};
 
 			dialog.dismiss = function(value) {
 				dialog.close(value, "dismiss");
+				if (dialog.btns.length >= 3) {
+					dialog.deferred.reject(value);
+				}
 			};
 
 			dialog.close = function(value, method){
@@ -867,8 +879,7 @@ angular.module("end2end", [])
 			};
 
 			dialog.then = function(success, fail) {
-				dialog.onok = success;
-				dialog.oncancel = fail;
+				dialog.deferred.promise.then(success, fail);
 				return dialog;
 			};
 

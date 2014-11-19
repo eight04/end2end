@@ -54,7 +54,7 @@
 					result: function(){
 						return scope.number;
 					}
-				}).then(function(result){
+				}).on("close", function(result){
 					dialog.show("Controller Test result: " + result);
 				});
 			}
@@ -88,6 +88,7 @@
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'md'})">md</button>
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'lg'})">lg</button>
 		<button class="btn-default" ng-click="ctrlTest()">Controller test</button>
+		<button class="btn-default" ng-click="dialog.yesno('Do you want to save all files?').then(dialog.show)">Yes/No</button>
 		<script type="text/ng-template" id="modal">
 			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 		</script>
