@@ -49,21 +49,17 @@
 					scope: {
 						number:10
 					},
-					templateUrl: 'controller-test'
+					templateUrl: 'controller-test',
+					result: function(){
+						return scope.number;
+					}
 				}).then(function(result){
 					dialog.show("Controller Test result: " + result);
-				}, function(result){
-					dialog.show("Modal dismissed: " + result);
 				});
 			}
 		}).controller("test", function($scope, dialogInstance, $interval){
 
-			dialogInstance.onclose = function(ev){
-				console.log(ev);
-			}
-
 			function countdown(){
-				console.log($scope.number);
 				$scope.number--;
 				if (!$scope.number) {
 					dialogInstance.close("OHHHHNOOOOOO!");
@@ -76,6 +72,7 @@
 			$scope.$on("$destroy", function(){
 				$interval.cancel(timer);
 			});
+
 		});
 	</script>
 </head>
