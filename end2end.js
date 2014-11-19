@@ -1080,7 +1080,7 @@ angular.module("end2end", [])
 			}
 		};
 	})
-	.directive("tableFixed", function($timeout){
+	.directive("tableFixed", function($timeout, $parse){
 		return {
 			restrict: "C",
 			link: function(scope, element, attrs) {
@@ -1179,14 +1179,15 @@ angular.module("end2end", [])
 				}
 
 				if (attrs.name) {
-					scope[attrs.name] = {
+					var setter = $parse(attrs.name).assign;
+					setter(scope, {
 						render: function(){
 							if (!rendering) {
 								rendering = true;
 								$timeout(calcContainer);
 							}
 						}
-					};
+					});
 				}
 
 				calcContainer();
