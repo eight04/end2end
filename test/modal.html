@@ -57,6 +57,12 @@
 				}).on("close", function(result){
 					dialog.show("Controller Test result: " + result);
 				});
+			};
+			$rootScope.resolve = function(result) {
+				dialog.show("Dialog promise is resolved: " + result);
+			};
+			$rootScope.reject = function(result) {
+				dialog.show("Dialog promise is rejected: " + result);
 			}
 		}).controller("test", function($scope, dialogInstance, $interval){
 
@@ -88,7 +94,9 @@
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'md'})">md</button>
 		<button class="btn-default" ng-click="dialog.show({msg:'hi',size:'lg'})">lg</button>
 		<button class="btn-default" ng-click="ctrlTest()">Controller test</button>
-		<button class="btn-default" ng-click="dialog.yesno('Do you want to save all files?').then(dialog.show)">Yes/No</button>
+		<button class="btn-default" ng-click="dialog.show('Some text').then(resolve, reject)">Show</button>
+		<button class="btn-default" ng-click="dialog.confirm('Are you sure?').then(resolve, reject)">Confirm</button>
+		<button class="btn-default" ng-click="dialog.yesno('Do you want to save all files?').then(resolve, reject)">Yes/No</button>
 		<script type="text/ng-template" id="modal">
 			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 		</script>
