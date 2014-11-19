@@ -540,7 +540,7 @@ angular.module("end2end", [])
 		return {
 			restrict: "C",
 			templateUrl: "templates/modalStack.html",
-			scope: {},
+			scope: true,
 			controller: function($scope){
 				this.modals = $scope.modals = [];
 
@@ -639,12 +639,15 @@ angular.module("end2end", [])
 			}
 
 			if (e.keyCode == 27 && !e.shiftKey) {
-				$timeout(function(){
+				$rootScope.$apply(function(){
 					if (modal.onesc) {
 						modal.onesc(e);
 					}
+
 					if (!e.defaultPrevented) {
-						modal.close();
+						$timeout(function(){
+							modal.close();
+						});
 					}
 				});
 			}
