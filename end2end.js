@@ -605,6 +605,16 @@ angular.module("end2end", [])
 						element[0].focus();
 					}
 				});
+
+				element.on("click", function(e){
+					if (e.target != element[0]) {
+						return;
+					}
+					if (modal.onbackdrop) {
+						modal.onbackdrop(e);
+					}
+					modal.close();
+				});
 			}
 		};
 	})
@@ -625,6 +635,9 @@ angular.module("end2end", [])
 			}
 
 			if (e.keyCode == 27 && !e.shiftKey) {
+				if (modal.onesc) {
+					modal.onesc(e);
+				}
 				// Use $timeout to fix IE9 form validation issue.
 				$timeout(function(){
 					modal.close();
@@ -673,9 +686,17 @@ angular.module("end2end", [])
 				};
 
 				modal.close = function(value){
+					if (modal.onclose) {
+						modal.onclose(value);
+					}
 					modalStack.remove(modal);
 					deferred.resolve(value);
 					modal.focusElement.focus();
+				};
+
+				modal.on = function(event, callback) {
+					modal["on" + event] = callback;
+					return modal;
 				};
 
 //				modal.dismiss = function(value){
@@ -755,6 +776,10 @@ angular.module("end2end", [])
 					{
 						label: "No",
 						value: false
+					},
+					{
+						label: "Cancel",
+						value: null
 					}
 				],
 				brand: "warning"
@@ -778,27 +803,25 @@ angular.module("end2end", [])
 				}
 			});
 
-//			var deferred = $q.defer();
 			var promise = {}, on = {};
 
 			dialog.close = function(value){
-//				var evt, ret;
 
 				if (dialog.fakeBinding) {
 					dialog.fakeBinding();
 				}
-				if (dialog.returnValue) {
-					value = dialog.returnValue(value);
-				}
+//				if (dialog.returnValue) {
+//					value = dialog.returnValue(value);
+//				}
 
-				if (value) {
+				if (dialog.btns.length <= 1 || value || (dialog.btns.length >= 3 && value != null)) {
 					if (on.ok && on.ok(value) === false) {
 						return;
 					}
 					if (promise.success) {
 						promise.success(value);
 					}
-				} else if (value != null) {
+				} else if (dialog.btns.length <= 2 || value != null) {
 					if (on.cancel && on.cancel(value) === false) {
 						return;
 					}
