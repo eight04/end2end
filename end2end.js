@@ -826,8 +826,6 @@ angular.module("end2end", [])
 				}
 			});
 
-			var promise = {};
-
 			dialog.submit = function(value) {
 				if (dialog.btns.length <= 1 || value) {
 					dialog.ok(value);
@@ -844,15 +842,18 @@ angular.module("end2end", [])
 
 			dialog.cancel = function(value) {
 				dialog.close(value, "cancel");
-			}
+			};
 
 			dialog.dismiss = function(value) {
 				dialog.close(value, "dismiss");
-			}
+			};
 
 			dialog.close = function(value, method){
 				if (dialog.fakeBinding) {
 					dialog.fakeBinding();
+				}
+				if (dialog.result) {
+					value = dialog.result(value);
 				}
 				if (dialog["on" + method]) {
 					dialog["on" + method](value);

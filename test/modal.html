@@ -44,11 +44,12 @@
 				});
 			};
 			$rootScope.ctrlTest = function(){
+				var scope = {
+					number: 10
+				};
 				dialog.show({
 					controller:'test',
-					scope: {
-						number:10
-					},
+					scope: scope,
 					templateUrl: 'controller-test',
 					result: function(){
 						return scope.number;
@@ -62,7 +63,7 @@
 			function countdown(){
 				$scope.number--;
 				if (!$scope.number) {
-					dialogInstance.close("OHHHHNOOOOOO!");
+					dialogInstance.submit();
 					$interval.cancel(timer);
 				}
 			}
