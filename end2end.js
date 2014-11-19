@@ -829,7 +829,6 @@ angular.module("end2end", [])
 			});
 
 			dialog.submit = function(value) {
-				console.log(value);
 				if (dialog.btns.length <= 1 || value) {
 					dialog.ok(value);
 				} else if (dialog.btns.length <= 2 || (dialog.btns.length >= 3 && value != null)) {
