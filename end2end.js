@@ -610,10 +610,14 @@ angular.module("end2end", [])
 					if (e.target != element[0]) {
 						return;
 					}
-					if (modal.onbackdrop) {
-						modal.onbackdrop(e);
-					}
-					modal.close();
+					scope.$apply(function(){
+						if (modal.onbackdrop) {
+							modal.onbackdrop(e);
+						}
+						if (!e.defaultPrevented) {
+							modal.close();
+						}
+					});
 				});
 			}
 		};
@@ -635,14 +639,14 @@ angular.module("end2end", [])
 			}
 
 			if (e.keyCode == 27 && !e.shiftKey) {
-				if (modal.onesc) {
-					modal.onesc(e);
-				}
-				// Use $timeout to fix IE9 form validation issue.
 				$timeout(function(){
-					modal.close();
+					if (modal.onesc) {
+						modal.onesc(e);
+					}
+					if (!e.defaultPrevented) {
+						modal.close();
+					}
 				});
-				e.preventDefault();
 			}
 
 			if (e.keyCode == 9) {
@@ -699,12 +703,6 @@ angular.module("end2end", [])
 					return modal;
 				};
 
-//				modal.dismiss = function(value){
-//					modalStack.remove(modal);
-//					deferred.reject(value);
-//					modal.focusElement.focus();
-//				};
-//
 				modalStack.add(modal);
 
 				return modal;
@@ -803,7 +801,7 @@ angular.module("end2end", [])
 				}
 			});
 
-			var promise = {}, on = {};
+			var promise = {};
 
 			dialog.close = function(value){
 
@@ -815,23 +813,23 @@ angular.module("end2end", [])
 //				}
 
 				if (dialog.btns.length <= 1 || value || (dialog.btns.length >= 3 && value != null)) {
-					if (on.ok && on.ok(value) === false) {
-						return;
-					}
+//					if (on.ok && on.ok(value) === false) {
+//						return;
+//					}
 					if (promise.success) {
 						promise.success(value);
 					}
 				} else if (dialog.btns.length <= 2 || value != null) {
-					if (on.cancel && on.cancel(value) === false) {
-						return;
-					}
+//					if (on.cancel && on.cancel(value) === false) {
+//						return;
+//					}
 					if (promise.fail) {
 						promise.fail(value);
 					}
 				}
-				if (on.close && on.close(value) === false) {
-					return;
-				}
+//				if (on.close && on.close(value) === false) {
+//					return;
+//				}
 				if (promise.always) {
 					promise.always(value);
 				}
@@ -840,11 +838,15 @@ angular.module("end2end", [])
 			};
 
 			dialog.on = function(event, callback) {
-				on[event] = callback;
+				if (event == "close" || event == "backdrop" || event == "esc") {
+					dialog.modal.on(event, callback);
+				} else {
+					dialog["on" + event] = callback;
+				}
 				return dialog;
 			};
 
-			dialog.then = function(success, fail){
+			dialog.then = function(success, fail) {
 				promise.success = success;
 				promise.fail = fail;
 				return dialog;

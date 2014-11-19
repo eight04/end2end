@@ -605,6 +605,20 @@ angular.module("end2end", [])
 						element[0].focus();
 					}
 				});
+
+				element.on("click", function(e){
+					if (e.target != element[0]) {
+						return;
+					}
+					scope.$apply(function(){
+						if (modal.onbackdrop) {
+							modal.onbackdrop(e);
+						}
+						if (!e.defaultPrevented) {
+							modal.close();
+						}
+					});
+				});
 			}
 		};
 	})
@@ -625,11 +639,14 @@ angular.module("end2end", [])
 			}
 
 			if (e.keyCode == 27 && !e.shiftKey) {
-				// Use $timeout to fix IE9 form validation issue.
 				$timeout(function(){
-					modal.close();
+					if (modal.onesc) {
+						modal.onesc(e);
+					}
+					if (!e.defaultPrevented) {
+						modal.close();
+					}
 				});
-				e.preventDefault();
 			}
 
 			if (e.keyCode == 9) {
@@ -673,17 +690,19 @@ angular.module("end2end", [])
 				};
 
 				modal.close = function(value){
+					if (modal.onclose) {
+						modal.onclose(value);
+					}
 					modalStack.remove(modal);
 					deferred.resolve(value);
 					modal.focusElement.focus();
 				};
 
-//				modal.dismiss = function(value){
-//					modalStack.remove(modal);
-//					deferred.reject(value);
-//					modal.focusElement.focus();
-//				};
-//
+				modal.on = function(event, callback) {
+					modal["on" + event] = callback;
+					return modal;
+				};
+
 				modalStack.add(modal);
 
 				return modal;
@@ -755,6 +774,10 @@ angular.module("end2end", [])
 					{
 						label: "No",
 						value: false
+					},
+					{
+						label: "Cancel",
+						value: null
 					}
 				],
 				brand: "warning"
@@ -778,37 +801,35 @@ angular.module("end2end", [])
 				}
 			});
 
-//			var deferred = $q.defer();
-			var promise = {}, on = {};
+			var promise = {};
 
 			dialog.close = function(value){
-//				var evt, ret;
 
 				if (dialog.fakeBinding) {
 					dialog.fakeBinding();
 				}
-				if (dialog.returnValue) {
-					value = dialog.returnValue(value);
-				}
+//				if (dialog.returnValue) {
+//					value = dialog.returnValue(value);
+//				}
 
-				if (value) {
-					if (on.ok && on.ok(value) === false) {
-						return;
-					}
+				if (dialog.btns.length <= 1 || value || (dialog.btns.length >= 3 && value != null)) {
+//					if (on.ok && on.ok(value) === false) {
+//						return;
+//					}
 					if (promise.success) {
 						promise.success(value);
 					}
-				} else if (value != null) {
-					if (on.cancel && on.cancel(value) === false) {
-						return;
-					}
+				} else if (dialog.btns.length <= 2 || value != null) {
+//					if (on.cancel && on.cancel(value) === false) {
+//						return;
+//					}
 					if (promise.fail) {
 						promise.fail(value);
 					}
 				}
-				if (on.close && on.close(value) === false) {
-					return;
-				}
+//				if (on.close && on.close(value) === false) {
+//					return;
+//				}
 				if (promise.always) {
 					promise.always(value);
 				}
@@ -817,11 +838,15 @@ angular.module("end2end", [])
 			};
 
 			dialog.on = function(event, callback) {
-				on[event] = callback;
+				if (event == "close" || event == "backdrop" || event == "esc") {
+					dialog.modal.on(event, callback);
+				} else {
+					dialog["on" + event] = callback;
+				}
 				return dialog;
 			};
 
-			dialog.then = function(success, fail){
+			dialog.then = function(success, fail) {
 				promise.success = success;
 				promise.fail = fail;
 				return dialog;
