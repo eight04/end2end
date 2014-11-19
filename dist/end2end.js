@@ -684,13 +684,14 @@ angular.module("end2end", [])
 //					modal.focusElement.focus();
 //				};
 //
-//				modalStack.add(modal);
+				modalStack.add(modal);
 
 				return modal;
 			}
 		};
     })
-	.factory("dialog", function(modal, $q){
+	.factory("dialog", function(modal){
+//	.factory("dialog", function(modal, $q){
 		var types = {
 			create: {
 				title: "Dialog",
@@ -770,18 +771,18 @@ angular.module("end2end", [])
 				dialog.title = title || dialog.title;
 			}
 
-			var md = modal.open({
+			dialog.modal = modal.open({
 				templateUrl: "templates/dialog.html",
 				scope: {
 					dialog: dialog
 				}
 			});
 
-			var deferred = $q.defer();
+//			var deferred = $q.defer();
 			var promise = {}, on = {};
 
 			dialog.close = function(value){
-				var evt, ret;
+//				var evt, ret;
 
 				if (dialog.fakeBinding) {
 					dialog.fakeBinding();
@@ -812,13 +813,13 @@ angular.module("end2end", [])
 					promise.always(value);
 				}
 
-				md.close(value);
+				dialog.modal.close(value);
 			};
 
 			dialog.on = function(event, callback) {
 				on[event] = callback;
 				return dialog;
-			}
+			};
 
 			dialog.then = function(success, fail){
 				promise.success = success;
@@ -829,7 +830,7 @@ angular.module("end2end", [])
 			dialog.always = function(always) {
 				promise.always = always;
 				return dialog;
-			}
+			};
 
 			return dialog;
 		}
