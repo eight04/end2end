@@ -967,14 +967,16 @@ angular.module("end2end", [])
 //                id: "@toggled"
 //            },
             link: function(scope, element, attrs){
-                scope.element = element;
+//                scope.element = element;
 //				var id = scope.$eval(attrs.toggled);
 				var tg = toggler.get(attrs.toggled);
                 if (!tg) {
 					tg = toggler.create(attrs.toggled);
                     tg.set(togglerHelper.getStatus(element));
                 }
-                tg.add(scope);
+                tg.add({
+					element: element
+				});
             }
         };
     })
@@ -992,17 +994,15 @@ angular.module("end2end", [])
 
 		return {
 			restrict: "A",
-//			scope: {
-//				id: "@toggler"
-//			},
 			link: function(scope, element, attrs){
-				scope.element = element;
 				var tg = toggler.get(attrs.toggler);
 				if (!tg) {
 					tg = toggler.create(attrs.toggler);
 					tg.set(togglerHelper.getStatus(element));
 				}
-				tg.add(scope);
+				tg.add({
+					element: element
+				});
 
 				element.on("click", function(e){
 					if (e.target == element[0]) {
@@ -1180,6 +1180,7 @@ angular.module("end2end", [])
 
 				if (attrs.name) {
 					var setter = $parse(attrs.name).assign;
+//					console.log(scope);
 					setter(scope, {
 						render: function(){
 							if (!rendering) {
