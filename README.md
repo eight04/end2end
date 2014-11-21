@@ -24,6 +24,7 @@ Todos
 * Enter key doesn't handled properly in dialog form on IE8.
 * Handle z-index in modal stack.
 * Affix and Bffix.
+* Inline-form button, input z-index issue.
 
 Refactor guide
 --------------
