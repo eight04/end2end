@@ -813,16 +813,10 @@ angular.module("end2end", [])
 				if (dialog.onesc) {
 					dialog.onesc();
 				}
-				switch (dialog.btns.length) {
-					case 1:
-						dialog.ok();
-						break;
-					case 2:
-						dialog.cancel();
-						break;
-					case 3:
-						dialog.dismiss();
-						break;
+				if (dialog.btns.length <= 2) {
+					dialog.cancel();
+				} else if (dialog.btns.length >= 3) {
+					dialog.dismiss();
 				}
 			}).on("close", function(value){
 				if (dialog.onclose) {
