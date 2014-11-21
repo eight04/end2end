@@ -60,7 +60,6 @@ angular.module("end2end", [])
 		return {
 			restrict: "C",
 			require: "?^navbar",
-			scope: {},
 			link: function(scope, element, attrs, nbCtrl) {
 				nbCtrl.addCollapse(element);
 			}
@@ -569,7 +568,7 @@ angular.module("end2end", [])
 	.directive("e2eModal", function($compile, $http, $templateCache, $timeout){
 		return {
 			restrict: "A",
-			scope: true,
+//			scope: true,
 			link: function(scope, element) {
 				var ele, key, modal = scope.modal;
 
@@ -964,14 +963,15 @@ angular.module("end2end", [])
     .directive("toggled", function(toggler, togglerHelper) {
         return {
             restrict: "A",
-            scope: {
-                id: "@toggled"
-            },
-            link: function(scope, element){
+//            scope: {
+//                id: "@toggled"
+//            },
+            link: function(scope, element, attrs){
                 scope.element = element;
-                var tg = toggler.get(scope.id);
+//				var id = scope.$eval(attrs.toggled);
+				var tg = toggler.get(attrs.toggled);
                 if (!tg) {
-                    tg = toggler.create(scope.id);
+					tg = toggler.create(attrs.toggled);
                     tg.set(togglerHelper.getStatus(element));
                 }
                 tg.add(scope);
@@ -992,14 +992,14 @@ angular.module("end2end", [])
 
 		return {
 			restrict: "A",
-			scope: {
-				id: "@toggler"
-			},
-			link: function(scope, element){
+//			scope: {
+//				id: "@toggler"
+//			},
+			link: function(scope, element, attrs){
 				scope.element = element;
-				var tg = toggler.get(scope.id);
+				var tg = toggler.get(attrs.toggler);
 				if (!tg) {
-					tg = toggler.create(scope.id);
+					tg = toggler.create(attrs.toggler);
 					tg.set(togglerHelper.getStatus(element));
 				}
 				tg.add(scope);
