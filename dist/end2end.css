@@ -182,12 +182,10 @@ pre {
 /**
 	Grid system
 */
-.container-fluid {
-  padding: 0 15px;
-}
 .container {
+  margin-left: auto;
+  margin-right: auto;
   padding: 0 15px;
-  margin: 0 auto;
 }
 @media (min-width: 768px) {
   .container {
@@ -204,10 +202,27 @@ pre {
     max-width: 1440px;
   }
 }
+.container-fluid {
+  padding: 0 15px;
+}
+.container-sm {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+}
+.container-md {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+}
+.container-lg {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1440px;
+}
 ._row {
   margin-left: -15px;
   margin-right: -15px;
-  min-height: 15px;
 }
 ._row > * {
   padding-left: 15px;
@@ -216,7 +231,6 @@ pre {
 .row {
   margin-left: -15px;
   margin-right: -15px;
-  min-height: 15px;
   display: flex;
   flex-wrap: wrap;
   letter-spacing: -9999px\9;
@@ -238,14 +252,15 @@ pre {
   margin-left: -7.5px;
   margin-right: -7.5px;
   align-items: baseline;
+  min-height: 15px;
 }
 .row-inline > * {
   width: auto;
   padding-left: 0;
   padding-right: 0;
   margin-top: 15px;
-  margin-left: 7.5px;
-  margin-right: 7.5px;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
   vertical-align: baseline;
 }
 .row-justify {
@@ -283,6 +298,13 @@ pre {
 }
 .row-right > * {
   text-align: left\9;
+}
+.row-gap {
+  margin-top: -15px;
+  min-height: 15px;
+}
+.row-gap > * {
+  padding-top: 15px;
 }
 .row-nogap {
   margin-top: 0;
@@ -3095,6 +3117,7 @@ select.ng-invalid:focus {
   background-color: #f0f0f0;
   text-align: center;
 }
+.table-default tbody tr:first-child th,
 .table-default tbody tr:first-child td {
   border-top: 1px solid #808080;
 }
@@ -3318,4 +3341,26 @@ select.ng-invalid:focus {
 .progress-bar {
   background-color: #f0f0f0;
 }
+<<<<<<< HEAD
+=======
+.pool {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.pool-lg {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 1em;
+}
+>>>>>>> 0acee6833fc54d9349329cbb20289bd818138207
 

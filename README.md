@@ -13,6 +13,7 @@ Features
 * Richer layout with flex and inline-block.
 * Angular animation on modern browser (IE10+).
 * Bootstrap components rewrote in Angular.
+* Scrollbar issue in Chrome?
 
 Todos
 -----
@@ -25,6 +26,13 @@ Todos
 * Handle z-index in modal stack.
 * Affix and Bffix.
 * Inline-form button, input z-index issue.
+* Add notify. (notify-brand, notify-content...)
+* Dialog size.
+* If using wrapped body?
+* Support finally in dialog.
+* Yes/No/Cancel dialog.
+* New dialog implement? Use button, input's value to return! Remains `then()` behavior. Move keydown listener from modal to dialog. Also solve IE8 enter issue.
+* Fix progress bar theme.
 
 Refactor guide
 --------------

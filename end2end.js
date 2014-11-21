@@ -60,7 +60,6 @@ angular.module("end2end", [])
 		return {
 			restrict: "C",
 			require: "?^navbar",
-			scope: {},
 			link: function(scope, element, attrs, nbCtrl) {
 				nbCtrl.addCollapse(element);
 			}
@@ -542,7 +541,7 @@ angular.module("end2end", [])
 		return {
 			restrict: "C",
 			templateUrl: "templates/modalStack.html",
-			scope: {},
+			scope: true,
 			controller: function($scope){
 				this.modals = $scope.modals = [];
 
@@ -571,7 +570,7 @@ angular.module("end2end", [])
 	.directive("e2eModal", function($compile, $http, $templateCache, $timeout){
 		return {
 			restrict: "A",
-			scope: true,
+//			scope: true,
 			link: function(scope, element) {
 				var ele, key, modal = scope.modal;
 
@@ -607,6 +606,20 @@ angular.module("end2end", [])
 						element[0].focus();
 					}
 				});
+
+				element.on("click", function(e){
+					if (e.target != element[0]) {
+						return;
+					}
+					scope.$apply(function(){
+						if (modal.onbackdrop) {
+							modal.onbackdrop(e);
+						}
+						if (!e.defaultPrevented) {
+							modal.close();
+						}
+					});
+				});
 			}
 		};
 	})
@@ -628,9 +641,16 @@ angular.module("end2end", [])
 
 			if (e.keyCode == 27 && !e.shiftKey) {
 				$rootScope.$apply(function(){
-					modal.dismiss();
+					if (modal.onesc) {
+						modal.onesc(e);
+					}
+
+					if (!e.defaultPrevented) {
+						$timeout(function(){
+							modal.close();
+						});
+					}
 				});
-				e.preventDefault();
 			}
 
 			if (e.keyCode == 9) {
@@ -674,15 +694,17 @@ angular.module("end2end", [])
 				};
 
 				modal.close = function(value){
+					if (modal.onclose) {
+						modal.onclose(value);
+					}
 					modalStack.remove(modal);
 					deferred.resolve(value);
 					modal.focusElement.focus();
 				};
 
-				modal.dismiss = function(value){
-					modalStack.remove(modal);
-					deferred.reject(value);
-					modal.focusElement.focus();
+				modal.on = function(event, callback) {
+					modal["on" + event] = callback;
+					return modal;
 				};
 
 				modalStack.add(modal);
@@ -691,7 +713,8 @@ angular.module("end2end", [])
 			}
 		};
     })
-	.factory("dialog", function(modal){
+	.factory("dialog", function(modal, $q){
+//	.factory("dialog", function(modal, $q){
 		var types = {
 			create: {
 				title: "Dialog",
@@ -755,6 +778,10 @@ angular.module("end2end", [])
 					{
 						label: "No",
 						value: false
+					},
+					{
+						label: "Cancel",
+						value: null
 					}
 				],
 				brand: "warning"
@@ -767,44 +794,90 @@ angular.module("end2end", [])
 			if (typeof msg == "object") {
 				angular.extend(dialog, msg);
 			} else {
-				dialog.msg = msg;
+				dialog.msg = String(msg);
 				dialog.title = title || dialog.title;
 			}
 
-			var md = modal.open({
+			dialog.deferred = $q.defer();
+
+			dialog.modal = modal.open({
 				templateUrl: "templates/dialog.html",
 				scope: {
 					dialog: dialog
 				}
+			}).on("backdrop", function(e){
+				e.preventDefault();
+				if (dialog.onbackdrop) {
+					dialog.onbackdrop();
+				}
+			}).on("esc", function(e){
+				e.preventDefault();
+				if (dialog.onesc) {
+					dialog.onesc();
+				}
+				if (dialog.btns.length <= 2) {
+					dialog.cancel();
+				} else if (dialog.btns.length >= 3) {
+					dialog.dismiss();
+				}
+			}).on("close", function(value){
+				if (dialog.onclose) {
+					dialog.onclose(value);
+				}
 			});
 
-			dialog.close = function(value){
-				var evt, ret;
-
-				if (dialog.fakeBinding) {
-					dialog.fakeBinding();
-				}
-
-				if (dialog.onclose) {
-					evt = {
-						dialog: dialog,
-						value: value
-					};
-
-					ret = dialog.onclose(evt);
-				}
-
-				if (ret !== false) {
-					if (value) {
-						md.close(value);
-					} else {
-						md.dismiss(value);
-					}
+			dialog.submit = function(value) {
+				if (dialog.btns.length <= 1 || value) {
+					dialog.ok(value);
+				} else if (dialog.btns.length <= 2 || (dialog.btns.length >= 3 && value != null)) {
+					dialog.cancel(value);
+				} else {
+					dialog.dismiss(value);
 				}
 			};
 
-			dialog.then = function(success, fail, notify){
-				return md.then(success, fail, notify);
+			dialog.ok = function(value) {
+				dialog.close(value, "ok");
+				dialog.deferred.resolve(value);
+			};
+
+			dialog.cancel = function(value) {
+				dialog.close(value, "cancel");
+				if (dialog.btns.length <= 2) {
+					dialog.deferred.reject(value);
+				} else {
+					dialog.deferred.resolve(value);
+				}
+			};
+
+			dialog.dismiss = function(value) {
+				dialog.close(value, "dismiss");
+				if (dialog.btns.length >= 3) {
+					dialog.deferred.reject(value);
+				}
+			};
+
+			dialog.close = function(value, method){
+				if (dialog.fakeBinding) {
+					dialog.fakeBinding();
+				}
+				if (dialog.result) {
+					value = dialog.result(value);
+				}
+				if (dialog["on" + method]) {
+					dialog["on" + method](value);
+				}
+				dialog.modal.close(value);
+			};
+
+			dialog.on = function(event, callback) {
+				dialog["on" + event] = callback;
+				return dialog;
+			};
+
+			dialog.then = function(success, fail) {
+				dialog.deferred.promise.then(success, fail);
+				return dialog;
 			};
 
 			return dialog;
@@ -828,17 +901,18 @@ angular.module("end2end", [])
 			}
 		};
 	})
-	.directive("e2eDialog", function($templateCache, $http, $compile){
+	.directive("e2eDialog", function($templateCache, $http, $compile, $controller){
 		return {
 			restrict: "A",
-			scope: true,
 			link: function(scope, element){
 				var dialog = scope.dialog, key;
 
+				// Put scope things into $scope
 				for (key in dialog.scope) {
 					scope[key] = dialog.scope[key];
 				}
 
+				// FakeBinding, put $scope things back to scope, will be called after dialog closed.
 				dialog.fakeBinding = function(){
 					var key;
 					for (key in dialog.scope) {
@@ -846,15 +920,23 @@ angular.module("end2end", [])
 					}
 				};
 
+				// Create controller
+				if (dialog.controller) {
+					dialog.ctrlInstance = $controller(dialog.controller, {
+						"$scope": scope,
+						"dialogInstance": dialog
+					});
+				}
+
+				// Include template
 				$http({
 					method: "GET",
 					url: dialog.templateUrl,
 					cache: $templateCache
 				}).success(function(result){
 					dialog.templateLoaded = true;
-					var ele = angular.element(result);
-					element.append(ele);
-					$compile(ele)(scope);
+					element.append(result);
+					$compile(element.contents())(scope);
 				});
 			}
 		};
@@ -877,17 +959,20 @@ angular.module("end2end", [])
     .directive("toggled", function(toggler, togglerHelper) {
         return {
             restrict: "A",
-            scope: {
-                id: "@toggled"
-            },
-            link: function(scope, element){
-                scope.element = element;
-                var tg = toggler.get(scope.id);
+//            scope: {
+//                id: "@toggled"
+//            },
+            link: function(scope, element, attrs){
+//                scope.element = element;
+//				var id = scope.$eval(attrs.toggled);
+				var tg = toggler.get(attrs.toggled);
                 if (!tg) {
-                    tg = toggler.create(scope.id);
+					tg = toggler.create(attrs.toggled);
                     tg.set(togglerHelper.getStatus(element));
                 }
-                tg.add(scope);
+                tg.add({
+					element: element
+				});
             }
         };
     })
@@ -905,17 +990,15 @@ angular.module("end2end", [])
 
 		return {
 			restrict: "A",
-			scope: {
-				id: "@toggler"
-			},
-			link: function(scope, element){
-				scope.element = element;
-				var tg = toggler.get(scope.id);
+			link: function(scope, element, attrs){
+				var tg = toggler.get(attrs.toggler);
 				if (!tg) {
-					tg = toggler.create(scope.id);
+					tg = toggler.create(attrs.toggler);
 					tg.set(togglerHelper.getStatus(element));
 				}
-				tg.add(scope);
+				tg.add({
+					element: element
+				});
 
 				element.on("click", function(e){
 					if (e.target == element[0]) {
@@ -993,7 +1076,7 @@ angular.module("end2end", [])
 			}
 		};
 	})
-	.directive("tableFixed", function($timeout){
+	.directive("tableFixed", function($timeout, $parse){
 		return {
 			restrict: "C",
 			link: function(scope, element, attrs) {
@@ -1092,14 +1175,16 @@ angular.module("end2end", [])
 				}
 
 				if (attrs.name) {
-					scope[attrs.name] = {
+					var setter = $parse(attrs.name).assign;
+//					console.log(scope);
+					setter(scope, {
 						render: function(){
 							if (!rendering) {
 								rendering = true;
 								$timeout(calcContainer);
 							}
 						}
-					};
+					});
 				}
 
 				calcContainer();

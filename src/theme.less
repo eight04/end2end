@@ -385,8 +385,10 @@ select {
 		}
 	}
 
-	tbody tr:first-child td {
-		border-top: 1px solid @border-color-base;
+	tbody tr:first-child {
+		th, td {
+			border-top: 1px solid @border-color-base;
+		}
 	}
 
 	th, td {
@@ -574,7 +576,8 @@ select {
 			padding-bottom: 0.5em;
 			text-align: center;
 
-			&:hover {
+			&:hover,
+			&:focus {
 				background-color: @bg-color-base;
 			}
 		}
@@ -590,3 +593,16 @@ select {
 	background-color: @bg-color-base;
 }
 
+// Pool
+.pool {
+	.make-border();
+	background-color: @bg-color-base;
+	padding: 0.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.pool-lg {
+	.pool();
+	padding: 1em;
+}

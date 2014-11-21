@@ -16,7 +16,10 @@
 	<script src="../bower_components/respond/dest/respond.min.js"></script>
 	<![endif]-->
 	<script>
-		app = angular.module("app", ["end2end"]);
+		app = angular.module("app", ["end2end", "ngAnimate"]);
+		app.run(function($rootScope){
+
+		});
 	</script>
 	<style>
 		.box {
@@ -32,12 +35,27 @@
 			height: 100%;
 			vertical-align: middle;
 		}
+		.ani.ng-hide-add {
+			transition: all 1s;
+			opacity: 1;
+		}
+		.ani.ng-hide-add-active {
+			opacity: 0;
+		}
+		.ani.ng-hide-remove {
+			transition: all 1s;
+			opacity: 0;
+			display: block!important;
+		}
+		.ani.ng-hide-remove-active {
+			opacity: 1;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="marger">
-			<div class="table-fixed" fixed-left="2" table-model="input" ng-show="show">
+		<div class="marger ani" ng-show="show">
+			<div class="table-fixed" fixed-left="2" fixed-right="2" name="myTable">
 				<div class="table-responsive">
 					<table class="table-default">
 						<thead>
@@ -52,35 +70,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>{{input}}</td>
-								<td>Content 2</td>
-								<td>Content 3</td>
-								<td>Content 4</td>
-								<td>Content 5</td>
-								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque veniam nobis placeat harum iusto, saepe, iste, quaerat, consequuntur ea minima praesentium vitae maxime mollitia nesciunt dolor blanditiis earum corporis ullam!</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="marger">
-			<div class="table-fixed" fixed-left="2" fixed-right="2" table-model="input">
-				<div class="table-responsive">
-					<table class="table-default">
-						<thead>
-							<tr>
-								<th>Title 1</th>
-								<th>Title 2</th>
-								<th>Title 3</th>
-								<th>Title 4</th>
-								<th>Title 5</th>
-								<th>Title 6</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Content 3</td>
+								<td contenteditable="true">Content 3</td>
 								<td>Content 4</td>
 								<td>Content 5</td>
 								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque veniam nobis placeat harum iusto, saepe, iste, quaerat, consequuntur ea minima praesentium vitae maxime mollitia nesciunt dolor blanditiis earum corporis ullam!</td>
@@ -93,8 +83,11 @@
 			</div>
 		</div>
 		<div class="marger">
-			<input type="text" class="form-control" ng-model="input">
-			<input type="checkbox" ng-model="show">
+			<button class="btn-default" ng-click="myTable.render()">Render</button>
+			<label>
+				<input type="checkbox" ng-model="show">
+				Show
+			</label>
 		</div>
 		<div class="marger">
 			<div class="input-group">
