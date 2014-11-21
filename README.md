@@ -13,6 +13,7 @@ Features
 * Richer layout with flex and inline-block.
 * Angular animation on modern browser (IE10+).
 * Bootstrap components rewrote in Angular.
+* Scrollbar issue in Chrome?
 
 Todos
 -----
