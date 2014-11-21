@@ -607,7 +607,8 @@ select.ng-invalid:focus {
 .nav-pill > * > *:active {
   color: #3d3d3d;
 }
-.nav-pill > * > *:hover {
+.nav-pill > * > *:hover,
+.nav-pill > * > *:focus {
   background-color: #f0f0f0;
 }
 .nav-pill > *.active > * {
