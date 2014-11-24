@@ -1019,13 +1019,14 @@ angular.module("end2end", [])
 			var toggleJar = [];
 
 			function updateToggle(toggle){
-				var i, child = toggle.element.children();
+				var i, child = toggle.element.children(), c;
 
 				for (i = 0; i < child.length; i++) {
+					c = angular.element(child[i]);
 					if (status[i]) {
-						$animate.addClass(child[i], "active");
+						$animate.addClass(c, "active");
 					} else {
-						$animate.removeClass(child[i], "active");
+						$animate.removeClass(c, "active");
 					}
 				}
 			}
