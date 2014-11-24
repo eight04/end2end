@@ -999,7 +999,7 @@ angular.module("end2end", [])
 				});
 
 				element.on("click", function(e){
-					if (e.target == element[0]) {
+					if (e.target.nodeName != "A") {
 						return;
 					}
 					var ele = e.target;
