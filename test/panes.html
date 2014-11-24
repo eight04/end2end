@@ -24,12 +24,15 @@
 		});
 	</script>
 	<style>
+		.box:after {
+			content: " world!";
+		}
 	</style>
 </head>
 <body>
 	<div class="container marger">
 		<ul class="nav-tab" toggler="myToggler">
-			<li><a href="">Tab 1</a></li>
+			<li class="active"><a href="">Tab 1</a></li>
 			<li><a href="">Tab 2</a></li>
 			<li><a href="">Tab 3</a></li>
 			<li><a href="">Tab 4</a></li>
@@ -52,6 +55,7 @@
 				<p>Necessitatibus incidunt voluptatum cum, quidem architecto nisi. Rerum dicta facere vel, aut aperiam autem numquam ad perferendis iure consequatur reprehenderit nam ratione dolorem modi suscipit quod dignissimos delectus explicabo assumenda.</p>
 			</div>
 		</div>
+		<div class="box">Hello</div>
 	</div>
 </body>
 </html>

@@ -256,67 +256,6 @@ angular.module("end2end", [])
 		};
 	})
 	.directive("sidebar", function(){
-//		var sidebarJar = [];
-//
-//		function moveSidebar(){
-//			var i, sidebar, state;
-//			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-//			// console.log(sidebarJar);
-//			for(i = 0; i < sidebarJar.length; i++) {
-//				sidebar = sidebarJar[i];
-//
-//				if (sidebar.top >= scrollY) {
-//					// top
-//					state = "sidebar-top";
-//				} else if (scrollY + sidebar.height >= sidebar.rowBottom) {
-//					// bottom
-//					state = "sidebar-bottom";
-//				} else {
-//					// fixed
-//					state = "sidebar-fixed";
-//				}
-//
-//				if (sidebar.state == state) {
-//					return;
-//				}
-//
-//				if (state == "sidebar-bottom") {
-//					sidebar.elementContent.css("top", sidebar.rowBottom - sidebar.top - sidebar.height + "px");
-//				} else {
-//					sidebar.elementContent.css("top", "");
-//				}
-//
-//				sidebar.element.removeClass("sidebar-top sidebar-bottom sidebar-fixed");
-//				sidebar.element.addClass(state);
-//				sidebar.state = state;
-//			}
-//		}
-
-//		function calc(sidebar){
-//			var rect = sidebar.element[0].getBoundingClientRect();
-//			var rowRect = sidebar.elementRow[0].getBoundingClientRect();
-//			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-//
-//			sidebar.top = rect.top + scrollY;
-//			sidebar.width = rect.right - rect.left;
-//			sidebar.rowBottom = rowRect.bottom + scrollY;
-//			sidebar.elementContent.css("width", sidebar.width + "px");
-//			sidebar.height = sidebar.elementContent[0].scrollHeight;
-			// console.log(sidebar);
-//		}
-
-//		function calcSidebar(){
-//			var i;
-//			for (i = 0; i < sidebarJar.length; i++) {
-//				calc(sidebarJar[i]);
-//			}
-//			moveSidebar();
-//		}
-
-//		var w = angular.element(window);
-//		w.on("scroll", moveSidebar);
-//		w.on("resize", calcSidebar);
-
 		return {
 			restrict: "C",
 			controller: function($element, $animate){
@@ -331,25 +270,6 @@ angular.module("end2end", [])
 						$element.off("click", controller.toggle);
 					}
 				};
-
-//				var row = $element;
-//				while(!row.hasClass("row")) {
-//					row = row.parent();
-//				}
-
-				// Affix
-//				var sidebar = {
-//					element: $element,
-//					elementContent: angular.element($element[0].querySelector(".sidebar-content")),
-//					elementRow: row
-//				};
-
-				// IE8 issue with respond?
-//				$timeout(function(){
-//					calc(sidebar);
-//				});
-//
-//				sidebarJar.push(sidebar);
 			}
 		};
 	})
@@ -379,12 +299,8 @@ angular.module("end2end", [])
 		};
 	})
 	.directive("eznavTarget", function(eznav, $window){
-		// var doc = $window.document;
-
 		angular.element($window).on("scroll", function(){
 			var i, node, clone;
-
-			// trackScroll.track();
 
 			for (i = 0; i < eznav.navs.length; i++) {
 				eznav.navs[i].rect = eznav.navs[i].element[0].getBoundingClientRect();
@@ -396,8 +312,6 @@ angular.module("end2end", [])
 					break;
 				}
 			}
-
-			// console.log(eznav);
 
 			if (!clone && eznav.navs[i].rect.top <= 32 && eznav.element[0].getBoundingClientRect().bottom > 32) {
 				clone = eznav.navs[i];
@@ -490,51 +404,51 @@ angular.module("end2end", [])
 			}
 		};
 	})
-	.directive("tabGroup", function(){
-		return {
-			restrict: "C",
-			templateUrl: "templates/tabGroup.html",
-			transclude: true,
-			scope: {},
-			controller: function($scope) {
-				$scope.current = null;
-				$scope.tabs = [];
-				$scope.addTab = this.addTab = function(tab) {
-					$scope.tabs.push(tab);
-					if ($scope.tabs.length == 1) {
-						$scope.active(tab);
-					}
-				};
-				$scope.active = this.active = function(tab) {
-					if ($scope.current) {
-						$scope.current.active = false;
-					}
-					tab.active = true;
-					$scope.current = tab;
-				};
-			}
-		};
-	})
-	.directive("tab", function(){
-		return {
-			restrict: "C",
-			// template: "<div class='pane' ng-class='{active: active}' ng-transclude></div>",
-			template: "<div class='pane' ng-class='{active: active}'></div>",
-			require: "^tabGroup",
-			transclude: true,
-			replace: true,
-			scope: {
-				title: "@tabHeading"
-			},
-			link: function(scope, element, attrs, controller, transclude){
-				transclude(scope.$parent, function(clone){
-					element.append(clone);
-				});
-				scope.element = element;
-				controller.addTab(scope);
-			}
-		};
-	})
+//	.directive("tabGroup", function(){
+//		return {
+//			restrict: "C",
+//			templateUrl: "templates/tabGroup.html",
+//			transclude: true,
+//			scope: {},
+//			controller: function($scope) {
+//				$scope.current = null;
+//				$scope.tabs = [];
+//				$scope.addTab = this.addTab = function(tab) {
+//					$scope.tabs.push(tab);
+//					if ($scope.tabs.length == 1) {
+//						$scope.active(tab);
+//					}
+//				};
+//				$scope.active = this.active = function(tab) {
+//					if ($scope.current) {
+//						$scope.current.active = false;
+//					}
+//					tab.active = true;
+//					$scope.current = tab;
+//				};
+//			}
+//		};
+//	})
+//	.directive("tab", function(){
+//		return {
+//			restrict: "C",
+//			// template: "<div class='pane' ng-class='{active: active}' ng-transclude></div>",
+//			template: "<div class='pane' ng-class='{active: active}'></div>",
+//			require: "^tabGroup",
+//			transclude: true,
+//			replace: true,
+//			scope: {
+//				title: "@tabHeading"
+//			},
+//			link: function(scope, element, attrs, controller, transclude){
+//				transclude(scope.$parent, function(clone){
+//					element.append(clone);
+//				});
+//				scope.element = element;
+//				controller.addTab(scope);
+//			}
+//		};
+//	})
 	.directive("modalStack", function(){
 		return {
 			restrict: "C",
@@ -568,7 +482,6 @@ angular.module("end2end", [])
 	.directive("e2eModal", function($compile, $http, $templateCache, $timeout){
 		return {
 			restrict: "A",
-//			scope: true,
 			link: function(scope, element) {
 				var ele, key, modal = scope.modal;
 
@@ -712,7 +625,6 @@ angular.module("end2end", [])
 		};
     })
 	.factory("dialog", function(modal, $q){
-//	.factory("dialog", function(modal, $q){
 		var types = {
 			create: {
 				title: "Dialog",
@@ -957,12 +869,7 @@ angular.module("end2end", [])
     .directive("toggled", function(toggler, togglerHelper) {
         return {
             restrict: "A",
-//            scope: {
-//                id: "@toggled"
-//            },
             link: function(scope, element, attrs){
-//                scope.element = element;
-//				var id = scope.$eval(attrs.toggled);
 				var tg = toggler.get(attrs.toggled);
                 if (!tg) {
 					tg = toggler.create(attrs.toggled);
