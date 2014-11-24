@@ -2374,8 +2374,8 @@ pre {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
   cursor: default;
   font-size: 80%;
 }
@@ -3013,6 +3013,7 @@ select.ng-invalid:focus {
   box-sizing: content-box;
   opacity: 0.5;
   box-shadow: 0 0 1em black;
+  transition: all 0.4s;
 }
 .sidebar-toggle:active {
   box-shadow: 0 0 1em black;
@@ -3374,9 +3375,6 @@ select.ng-invalid:focus {
 }
 .affix-content {
   overflow: auto;
-}
-.affix-top .affix-content {
-  position: static;
 }
 .affix-bottom .affix-content {
   position: absolute;

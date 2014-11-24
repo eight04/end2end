@@ -2,8 +2,8 @@
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
   cursor: default;
   font-size: 80%;
 }
