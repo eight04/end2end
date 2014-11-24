@@ -664,3 +664,18 @@ select.ng-invalid:focus {
   position: fixed;
   top: 0;
 }
+.pane.active-remove {
+  transition: 0.2s all linear;
+  display: inline-block;
+}
+.pane.active-remove-active {
+  opacity: 0;
+}
+.pane.active-add {
+  transition: 0.2s all linear;
+  display: inline-block;
+  opacity: 0;
+}
+.pane.active-add-active {
+  opacity: 1;
+}

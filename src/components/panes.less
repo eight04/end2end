@@ -1,44 +1,17 @@
 // Panes
 .panes {
-	display: flex;
-	white-space: nowrap;
-	letter-spacing: -1em;
-	
+	.make-oneline();
 	&:before {
 		content: "";
-		display: inline-block;
 		width: 100%;
 	}
 }
-
 .pane {
 	display: none;
 	width: 100%;
 	margin-left: -100%;
-	white-space: normal;
-	letter-spacing: normal;
-	
 	&.active {
-		display: inline-block;		
-	}
-	
-	&.active-remove {
-		transition: 0.2s all linear;
-		display: block;
-		
-		&.active-remove-active {
-			opacity: 0;
-		}
-	}
-	
-	&.active-add {
-		transition: 0.2s all linear;
-		display: block;
-		opacity: 0;
-		
-		&.active-add-active {
-			opacity: 1;
-		}
+		display: inline-block;
 	}
 }
 

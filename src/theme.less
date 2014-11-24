@@ -634,3 +634,25 @@ select {
 		top: 0;
 	}
 }
+
+// Panes
+.pane {
+	&.active-remove {
+		transition: 0.2s all linear;
+		display: inline-block;
+
+		&-active {
+			opacity: 0;
+		}
+	}
+
+	&.active-add {
+		transition: 0.2s all linear;
+		display: inline-block;
+		opacity: 0;
+
+		&-active {
+			opacity: 1;
+		}
+	}
+}

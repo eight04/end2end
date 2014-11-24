@@ -66,3 +66,27 @@
 		text-align: ~"left\9";
 	}
 }
+
+.make-oneline(){
+	letter-spacing: -9999px;
+	white-space: nowrap;
+	> * {
+		display: inline-block;
+		vertical-align: top;
+		letter-spacing: normal;
+		white-space: normal;
+	}
+	&:before,
+	&:after {
+		display: inline-block;
+		vertical-align: top;
+		letter-spacing: normal;
+		white-space: normal;
+	}
+	@media (-webkit-min-device-pixel-ratio: 0) {
+		letter-spacing: normal;
+		&:first-line {
+			font-size: 0;
+		}
+	}
+}
