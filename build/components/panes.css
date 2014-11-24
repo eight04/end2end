@@ -1,35 +1,32 @@
 .panes {
   display: flex;
-  white-space: nowrap;
-  letter-spacing: -1em;
+  flex-wrap: wrap;
+  letter-spacing: -9999px\9;
+  flex-wrap: nowrap;
+  white-space: nowrap\9;
+}
+.panes > *,
+.panes:before,
+.panes:after {
+  display: inline-block\9;
+  letter-spacing: normal\9;
+  vertical-align: top\9;
+}
+.panes > *,
+.panes:before,
+.panes:after {
+  white-space: normal\9;
 }
 .panes:before {
   content: "";
-  display: inline-block;
   width: 100%;
 }
 .pane {
   display: none;
   width: 100%;
   margin-left: -100%;
-  white-space: normal;
-  letter-spacing: normal;
 }
 .pane.active {
-  display: inline-block;
-}
-.pane.active-remove {
-  transition: 0.2s all linear;
   display: block;
-}
-.pane.active-remove.active-remove-active {
-  opacity: 0;
-}
-.pane.active-add {
-  transition: 0.2s all linear;
-  display: block;
-  opacity: 0;
-}
-.pane.active-add.active-add-active {
-  opacity: 1;
+  display: inline-block\9;
 }

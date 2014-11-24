@@ -1,6 +1,10 @@
+@import "../vars.less";
+@import "../mixins.less";
+
 // Panes
 .panes {
-	.make-oneline();
+	.make-flex();
+	.make-flex-nowrap();
 	&:before {
 		content: "";
 		width: 100%;
@@ -11,7 +15,8 @@
 	width: 100%;
 	margin-left: -100%;
 	&.active {
-		display: inline-block;
+		display: block;
+		display: ~"inline-block\9";
 	}
 }
 

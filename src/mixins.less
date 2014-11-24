@@ -36,7 +36,9 @@
 	flex-wrap: wrap;
 	letter-spacing: ~"-9999px\9";
 
-	> * {
+	> *,
+	&:before,
+	&:after {
 		display: ~"inline-block\9";
 		letter-spacing: ~"normal\9";
 		vertical-align: ~"top\9";
@@ -67,26 +69,12 @@
 	}
 }
 
-.make-oneline(){
-	letter-spacing: -9999px;
-	white-space: nowrap;
-	> * {
-		display: inline-block;
-		vertical-align: top;
-		letter-spacing: normal;
-		white-space: normal;
-	}
+.make-flex-nowrap(){
+	flex-wrap: nowrap;
+	white-space: ~"nowrap\9";
+	> *,
 	&:before,
 	&:after {
-		display: inline-block;
-		vertical-align: top;
-		letter-spacing: normal;
-		white-space: normal;
-	}
-	@media (-webkit-min-device-pixel-ratio: 0) {
-		letter-spacing: normal;
-		&:first-line {
-			font-size: 0;
-		}
+		white-space: ~"normal\9";
 	}
 }
