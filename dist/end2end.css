@@ -3372,4 +3372,17 @@ select.ng-invalid:focus {
   margin-bottom: 0.5em;
   padding: 1em;
 }
+.affix-content {
+  overflow: auto;
+}
+.affix-top .affix-content {
+  position: static;
+}
+.affix-bottom .affix-content {
+  position: absolute;
+}
+.affix-fixed .affix-content {
+  position: fixed;
+  top: 0;
+}
 

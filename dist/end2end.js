@@ -256,70 +256,70 @@ angular.module("end2end", [])
 		};
 	})
 	.directive("sidebar", function(){
-		var sidebarJar = [];
+//		var sidebarJar = [];
+//
+//		function moveSidebar(){
+//			var i, sidebar, state;
+//			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+//			// console.log(sidebarJar);
+//			for(i = 0; i < sidebarJar.length; i++) {
+//				sidebar = sidebarJar[i];
+//
+//				if (sidebar.top >= scrollY) {
+//					// top
+//					state = "sidebar-top";
+//				} else if (scrollY + sidebar.height >= sidebar.rowBottom) {
+//					// bottom
+//					state = "sidebar-bottom";
+//				} else {
+//					// fixed
+//					state = "sidebar-fixed";
+//				}
+//
+//				if (sidebar.state == state) {
+//					return;
+//				}
+//
+//				if (state == "sidebar-bottom") {
+//					sidebar.elementContent.css("top", sidebar.rowBottom - sidebar.top - sidebar.height + "px");
+//				} else {
+//					sidebar.elementContent.css("top", "");
+//				}
+//
+//				sidebar.element.removeClass("sidebar-top sidebar-bottom sidebar-fixed");
+//				sidebar.element.addClass(state);
+//				sidebar.state = state;
+//			}
+//		}
 
-		function moveSidebar(){
-			var i, sidebar, state;
-			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-			// console.log(sidebarJar);
-			for(i = 0; i < sidebarJar.length; i++) {
-				sidebar = sidebarJar[i];
-
-				if (sidebar.top >= scrollY) {
-					// top
-					state = "sidebar-top";
-				} else if (scrollY + sidebar.height >= sidebar.rowBottom) {
-					// bottom
-					state = "sidebar-bottom";
-				} else {
-					// fixed
-					state = "sidebar-fixed";
-				}
-
-				if (sidebar.state == state) {
-					return;
-				}
-
-				if (state == "sidebar-bottom") {
-					sidebar.elementContent.css("top", sidebar.rowBottom - sidebar.top - sidebar.height + "px");
-				} else {
-					sidebar.elementContent.css("top", "");
-				}
-
-				sidebar.element.removeClass("sidebar-top sidebar-bottom sidebar-fixed");
-				sidebar.element.addClass(state);
-				sidebar.state = state;
-			}
-		}
-
-		function calc(sidebar){
-			var rect = sidebar.element[0].getBoundingClientRect();
-			var rowRect = sidebar.elementRow[0].getBoundingClientRect();
-			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-
-			sidebar.top = rect.top + scrollY;
-			sidebar.width = rect.right - rect.left;
-			sidebar.rowBottom = rowRect.bottom + scrollY;
-			sidebar.elementContent.css("width", sidebar.width + "px");
-			sidebar.height = sidebar.elementContent[0].scrollHeight;
+//		function calc(sidebar){
+//			var rect = sidebar.element[0].getBoundingClientRect();
+//			var rowRect = sidebar.elementRow[0].getBoundingClientRect();
+//			var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+//
+//			sidebar.top = rect.top + scrollY;
+//			sidebar.width = rect.right - rect.left;
+//			sidebar.rowBottom = rowRect.bottom + scrollY;
+//			sidebar.elementContent.css("width", sidebar.width + "px");
+//			sidebar.height = sidebar.elementContent[0].scrollHeight;
 			// console.log(sidebar);
-		}
+//		}
 
-		function calcSidebar(){
-			var i;
-			for (i = 0; i < sidebarJar.length; i++) {
-				calc(sidebarJar[i]);
-			}
-			moveSidebar();
-		}
+//		function calcSidebar(){
+//			var i;
+//			for (i = 0; i < sidebarJar.length; i++) {
+//				calc(sidebarJar[i]);
+//			}
+//			moveSidebar();
+//		}
 
-		var w = angular.element(window);
+//		var w = angular.element(window);
 //		w.on("scroll", moveSidebar);
 //		w.on("resize", calcSidebar);
 
 		return {
 			restrict: "C",
-			controller: function($element, $animate, $timeout){
+			controller: function($element, $animate){
 				var controller = this;
 
 				controller.toggle = function(){
@@ -1187,6 +1187,65 @@ angular.module("end2end", [])
 				}
 
 				calcContainer();
+			}
+		};
+	}).directive("affix", function(){
+
+		return {
+			restrict: "C",
+			link: function(scope, element){
+				var containerElement = element;
+				while (!containerElement.hasClass("affix-container") && containerElement[0]) {
+					containerElement = containerElement.parent();
+				}
+				if (!containerElement[0]) {
+					throw "Can't find affix-container!";
+				}
+
+				var contentElement = angular.element(element[0].querySelector(".affix-content"));
+				if (!contentElement[0]) {
+					throw "Can't find affix-content!";
+				}
+
+				var currentState = null;
+				var currentWidth = null;
+
+				function affix(){
+					var rect = element[0].getBoundingClientRect();
+					var containerRect = containerElement[0].getBoundingClientRect();
+					var contentRect = contentElement[0].getBoundingClientRect();
+
+					var width = rect.right - rect.left;
+					if (width != currentWidth) {
+						contentElement.css("width", width + "px");
+						currentWidth = width;
+					}
+
+					var state;
+					if (rect.top >= 0) {
+						state = "affix-top";
+					} else if (rect.top < 0 && containerRect.bottom - (contentRect.bottom - contentRect.top) <= 0) {
+						state = "affix-bottom";
+					} else {
+						state = "affix-fixed";
+					}
+
+					if (state != currentState) {
+						if (state == "affix-bottom") {
+							contentElement.css("top", containerRect.bottom - containerRect.top - (contentRect.bottom - contentRect.top) + "px");
+						} else {
+							contentElement.css("top", "");
+						}
+						element.removeClass(currentState);
+						element.addClass(state);
+						currentState = state;
+					}
+
+				}
+
+				var w = angular.element(window);
+				w.on("scroll", affix);
+				w.on("resize", affix);
 			}
 		};
 	});

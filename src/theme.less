@@ -618,3 +618,18 @@ select {
 	.pool();
 	padding: 1em;
 }
+
+// Affix
+.affix-content {
+	overflow: auto;
+	.affix-top & {
+		position: static;
+	}
+	.affix-bottom & {
+		position: absolute;
+	}
+	.affix-fixed & {
+		position: fixed;
+		top: 0;
+	}
+}
