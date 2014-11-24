@@ -30,6 +30,7 @@ Todos
 * Yes/No/Cancel dialog.
 * New dialog implement? Use button, input's value to return! Remains `then()` behavior. Move keydown listener from modal to dialog. Also solve IE8 enter issue.
 * Fix progress bar theme.
+* Chrome bug with flexbox and overflow: auto. <http://jsbin.com/poduho>
 
 Refactor guide
 --------------
