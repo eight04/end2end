@@ -681,3 +681,36 @@ select.ng-invalid:focus {
 .pane.active-add-active {
   opacity: 1;
 }
+.text-muted {
+  color: #8a8a8a;
+}
+.text-primary {
+  color: #0a53f8;
+}
+.text-info {
+  color: #00baff;
+}
+.text-success {
+  color: #308311;
+}
+.text-warning {
+  color: #ffc400;
+}
+.text-danger {
+  color: #cb1b1b;
+}
+.bg-primary {
+  background-color: #ceddfe;
+}
+.bg-info {
+  background-color: #ccf1ff;
+}
+.bg-success {
+  background-color: #d6e6cf;
+}
+.bg-warning {
+  background-color: #fff3cc;
+}
+.bg-danger {
+  background-color: #f5d1d1;
+}
