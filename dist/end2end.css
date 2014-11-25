@@ -2440,9 +2440,11 @@ pre {
   width: 100%;
 }
 .table-responsive {
+  overflow: auto;
+  -webkit-animation-name: chrome-overflow-hack;
+  -webkit-animation-duration: 9999s;
   display: inline-block;
   max-width: 100%;
-  overflow-x: auto;
   vertical-align: top;
 }
 .table-responsive th,
@@ -2450,9 +2452,11 @@ pre {
   white-space: nowrap;
 }
 .table-fixed {
+  overflow: auto;
+  -webkit-animation-name: chrome-overflow-hack;
+  -webkit-animation-duration: 9999s;
   display: inline-block;
   max-width: 100%;
-  overflow-x: auto;
   position: relative;
 }
 .table-fixed-cell {
@@ -3403,5 +3407,10 @@ img.right-xs {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
+}
+@-webkit-keyframes chrome-overflow-hack {
+  to {
+    margin-left: 0%;
+  }
 }
 

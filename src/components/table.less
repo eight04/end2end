@@ -1,8 +1,9 @@
 // This is not table stye file! This is table layout component.
+@import "../vars.less";
+@import "../mixins.less";
 @import (reference) "../helpers.less";
 
 .table {
-//	display: table;
 	> * {
 		display: table-cell;
 		vertical-align: middle;
@@ -20,11 +21,10 @@
 
 // Responsive Table
 .table-responsive {
+	.make-overflow();
 	display: inline-block;
 	max-width: 100%;
-	overflow-x: auto;
 	vertical-align: top;
-
 	th, td {
 		white-space: nowrap;
 	}
@@ -32,9 +32,9 @@
 
 // Table fixed
 .table-fixed {
+	.make-overflow();
 	display: inline-block;
 	max-width: 100%;
-	overflow-x: auto;
 	position: relative;
 }
 
