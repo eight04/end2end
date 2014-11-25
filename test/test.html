@@ -18,62 +18,41 @@
 		angular.module(
 			"app", ["end2end", "ngAnimate"]
 		).animation(".ani-test", function($log, $timeout){
-			function cleanup(e) {
-				var ele = angular.element(e.target);
-				e.target.style.height = "";
-				ele.off("transitionend", cleanup);
-			}
-
 			return {
+				beforeAddClass: function(element, cls, done) {
+					console.log("before add", element[0].className);
+					done();
+				},
 				addClass: function(element, cls, done){
-					if (cls != "ng-hide") {
-						return;
-					}
-					var h = element[0].scrollHeight;
-					element.css("height", h + "px");
-					void(element[0].offsetHeight);
-					element.css("height", "0");
-					element.on("transitionend", done);
-					return function(isCancelled) {
-						element.off("transitionend", done);
-						element.removeClass("ng-hide-add-active");
-					}
+					console.log("add", element[0].className);
+					done();
+				},
+				beforeRemoveClass: function(element, cls, done) {
+					console.log("before remove", element[0].className);
+					done();
 				},
 				removeClass: function(element, cls, done){
-					if (cls != "ng-hide") {
-						return;
-					}
-					var h = element[0].scrollHeight;
-					element.css("height", "0");
-					void(element[0].offsetHeight);
-					element.css("height", h + "px");
-					element.on("transitionend", done);
-					return function(isCancelled) {
-						element.off("transitionend", done);
-					}
+					console.log("remove", element[0].className);
+					done();
 				},
 				enter: function(element, done){
-					console.log(element[0].className);
-					var h = element[0].scrollHeight;
-					element.css("height", "0");
-					$timeout(function(){
-						element.css("height", h + "px");
-						element.on("transitionend", done);
-					}, 15);
-					return function(isCancelled) {
-						element.off("transitionend", done);
+					console.log("enter", element[0].className);
+					function enterActive(){
+						if (!element.hasClass("ng-enter-active")) {
+							$timeout(enterActive);
+							return;
+						}
+						console.log(element[0].className);
 					}
+					$timeout(enterActive);
+					done();
 				},
 				leave: function(element, done){
-					var h = element[0].scrollHeight;
-					element.css("height", h + "px");
+					console.log("leave", element[0].className);
 					$timeout(function(){
-						element.css("height", "0");
-						element.on("transitionend", done);
-					}, 15);
-					return function(isCancelled) {
-						element.off("transitionend", done);
-					}
+						console.log("after leave", element[0].className);
+					});
+					done();
 				}
 			};
 		});
