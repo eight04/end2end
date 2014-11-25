@@ -26,7 +26,6 @@
 
 			return {
 				addClass: function(element, cls, done){
-//					console.log("add class");
 					if (cls != "ng-hide") {
 						return;
 					}
@@ -54,16 +53,27 @@
 					}
 				},
 				enter: function(element, done){
-					$log.log("enter", element[0].getBoundingClientRect());
-					done();
-				},
-				move: function(element, done){
-					$log.log("move", element[0].getBoundingClientRect());
-					done();
+					console.log(element[0].className);
+					var h = element[0].scrollHeight;
+					element.css("height", "0");
+					$timeout(function(){
+						element.css("height", h + "px");
+						element.on("transitionend", done);
+					}, 15);
+					return function(isCancelled) {
+						element.off("transitionend", done);
+					}
 				},
 				leave: function(element, done){
-					$log.log("leave", element[0].getBoundingClientRect());
-					done();
+					var h = element[0].scrollHeight;
+					element.css("height", h + "px");
+					$timeout(function(){
+						element.css("height", "0");
+						element.on("transitionend", done);
+					}, 15);
+					return function(isCancelled) {
+						element.off("transitionend", done);
+					}
 				}
 			};
 		});
@@ -76,9 +86,9 @@
 			border: 1px solid;
 			overflow: hidden;
 		}
-		.ani-test.ng-hide-add {
-			transition: 1s all;
-		}
+		.ani-test.ng-enter,
+		.ani-test.ng-leave,
+		.ani-test.ng-hide-add,
 		.ani-test.ng-hide-remove {
 			transition: 1s all;
 		}

@@ -23,7 +23,7 @@ Todos
 * Add scroll spy.
 * Add notify. (notify-brand, notify-content...)
 * Add table item.
-* Add collapse.
+* Refactor collapse. (Finally understand how ngAnimate works?!)
 
 Known bugs
 ----------
