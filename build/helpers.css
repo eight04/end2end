@@ -38,6 +38,9 @@
   padding-top: 3.75px;
   padding-bottom: 3.75px;
 }
+.padded {
+  padding: 0.3em;
+}
 .text-left {
   text-align: left;
 }
@@ -55,6 +58,9 @@
 }
 .text-bottom {
   vertical-align: bottom;
+}
+.text-muted {
+  color: #707070;
 }
 .text-primary {
   color: #0a53f8;
