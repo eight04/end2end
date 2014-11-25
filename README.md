@@ -23,6 +23,7 @@ Todos
 * Add scroll spy.
 * Add notify. (notify-brand, notify-content...)
 * Add table item.
+* Add collapse.
 
 Known bugs
 ----------
