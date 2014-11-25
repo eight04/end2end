@@ -12,42 +12,88 @@
 	<link rel="stylesheet" href="../build/helpers.css">
 	<script src="../bower_components/respond/dest/respond.min.js"></script>
 	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
 	<script src="../dist/end2end.js"></script>
 	<script>
-		angular.module("app", ["end2end"]).run(function($rootScope, dialog, $controller, $q){
-			$rootScope.dialog = dialog;
-			$controller("test", {});
-			var deferred = $q.defer();
+		angular.module(
+			"app", ["end2end", "ngAnimate"]
+		).animation(".ani-test", function($log, $timeout){
+			function cleanup(e) {
+				var ele = angular.element(e.target);
+				e.target.style.height = "";
+				ele.off("transitionend", cleanup);
+			}
 
-			var ret = 12;
-
-			deferred.promise.then(function(result){
-				console.log("Promise result: %s", result);
-			});
-
-			deferred.resolve(true);
+			return {
+				addClass: function(element, cls, done){
+//					console.log("add class");
+					if (cls != "ng-hide") {
+						return;
+					}
+					var h = element[0].scrollHeight;
+					element.css("height", h + "px");
+					void(element[0].offsetHeight);
+					element.css("height", "0");
+					element.on("transitionend", done);
+					return function(isCancelled) {
+						element.off("transitionend", done);
+						element.removeClass("ng-hide-add-active");
+					}
+				},
+				removeClass: function(element, cls, done){
+					if (cls != "ng-hide") {
+						return;
+					}
+					var h = element[0].scrollHeight;
+					element.css("height", "0");
+					void(element[0].offsetHeight);
+					element.css("height", h + "px");
+					element.on("transitionend", done);
+					return function(isCancelled) {
+						element.off("transitionend", done);
+					}
+				},
+				enter: function(element, done){
+					$log.log("enter", element[0].getBoundingClientRect());
+					done();
+				},
+				move: function(element, done){
+					$log.log("move", element[0].getBoundingClientRect());
+					done();
+				},
+				leave: function(element, done){
+					$log.log("leave", element[0].getBoundingClientRect());
+					done();
+				}
+			};
 		});
-		function test(dialog){
-			console.log(dialog);
-		}
-		function ff($scope) {
-			console.log($scope.form, $scope);
-		}
 	</script>
 	<style>
 		body {
 			padding-bottom: 2em;
 		}
+		.ani-test {
+			border: 1px solid;
+			overflow: hidden;
+		}
+		.ani-test.ng-hide-add {
+			transition: 1s all;
+		}
+		.ani-test.ng-hide-remove {
+			transition: 1s all;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<h3>IE8 form button issue</h3>
-		<form ng-submit="dialog.show('Submit')" onsubmit="alert('submit')" name="form" ng-controller="ff">
-			<input type="text" ng-model="test">
-			<button type="submit" ng-click="dialog.show('Clicked')" onclick="alert('click')">Submit</button>
-			<input type="submit" onclick="alert('click input')">
-		</form>
+		<input type="checkbox" ng-model="show">
+		<div class="ani-test" ng-if="show">
+			ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>
+		</div>
+		<input type="checkbox" ng-model="show2">
+		<div class="ani-test" ng-show="show2">
+			ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>
+		</div>
 	</div>
 </body>
 </html>
