@@ -435,7 +435,7 @@
 
 				<h2>Table</h2>
 
-				<h3>Simple table</h3>
+				<h3>Without responsive class</h3>
 				<table class="table-default">
 					<thead>
 						<tr>
@@ -483,7 +483,7 @@
 					</tbody>
 				</table>
 
-				<h3>Table responsive</h3>
+				<h3>With table-responsive</h3>
 				<div class="table-responsive">
 					<table class="table-default">
 						<thead>
@@ -534,7 +534,10 @@
 				</div>
 
 				<h3>Fixed column</h3>
-				<div class="table-fixed" fixed-left="2">
+				<div class="marger">
+					<button class="btn-default" ng-click="tableFixed.render()">Redraw</button>
+				</div>
+				<div class="table-fixed" fixed-left="2" fixed-right="1" name="tableFixed">
 					<div class="table-responsive">
 						<table class="table-default">
 							<thead>
@@ -552,33 +555,33 @@
 									<td>Content 1</td>
 									<td>Content 2</td>
 									<td>Content 3</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
 									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
 								</tr>
 								<tr>
 									<td>Content 1</td>
 									<td>Content 2</td>
 									<td>Content 3</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
 									<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
 								</tr>
 								<tr>
 									<td>Content 1</td>
 									<td>Content 2</td>
 									<td>Content 3</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
 									<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
 								</tr>
 								<tr>
 									<td>Content 1</td>
 									<td>Content 2</td>
 									<td>Content 3</td>
+									<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
 									<td>Content 4</td>
 									<td>Content 5</td>
-									<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
 								</tr>
 							</tbody>
 						</table>
