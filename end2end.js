@@ -74,7 +74,7 @@ angular.module(
 }).animation(".ani-collapse", function($timeout){
 	function beforeCollapse(element, done){
 		if (!element.hasClass("collapsing")) {
-			element.css("display", "block");
+//			element.css("display", "block");
 			element.css("height", element[0].scrollHeight + "px");
 			element.addClass("collapsing");
 		}
@@ -95,9 +95,9 @@ angular.module(
 		$timeout(active);
 
 		var promise = $timeout(function(){
-			element.css("display", "");
+//			element.css("display", "");
 //			element.css("height", "");
-			element.css("overflow", "");
+//			element.css("overflow", "");
 			element.removeClass("collapsing");
 			done();
 		}, getAniTimeout(element));
@@ -112,7 +112,7 @@ angular.module(
 	}
 	function beforeUncollapse(element, done){
 		if (!element.hasClass("collapsing")) {
-			element.css("display", "block");
+//			element.css("display", "block");
 			element.css("height", "0");
 			element.addClass("collapsing");
 		}
@@ -126,9 +126,9 @@ angular.module(
 		element.css("height", element[0].scrollHeight + "px");
 
 		var promise = $timeout(function(){
-			element.css("display", "");
+//			element.css("display", "");
 			element.css("height", "");
-			element.css("overflow", "");
+//			element.css("overflow", "");
 			element.removeClass("collapsing");
 			done();
 		}, getAniTimeout(element));

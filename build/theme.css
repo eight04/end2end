@@ -317,12 +317,6 @@ select.ng-invalid:focus {
 .sidebar.active .sidebar-toggle:before {
   content: "»";
 }
-.collapse {
-  display: none;
-}
-.collapsing {
-  transition: 0.4s all;
-}
 .addword {
   display: inline-block;
   padding-left: 15px;
