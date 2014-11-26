@@ -404,6 +404,10 @@ select.ng-invalid:focus {
 .table-default td:first-child {
   border-left: none;
 }
+.table-default .table-cell-inner {
+  border-left: 1px solid #808080;
+  border-top: 1px solid #808080;
+}
 .table-default .table-fixed-left {
   border-right: 1px solid #808080;
   border-left-width: 0;
