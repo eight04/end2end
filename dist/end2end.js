@@ -461,7 +461,7 @@ angular.module(
 	return {
 		restrict: "A",
 		link: function(scope, element) {
-			var ele, key, modal = scope.modal;
+			var key, modal = scope.modal;
 
 			if (modal.scope) {
 				for (key in modal.scope) {
@@ -469,18 +469,19 @@ angular.module(
 				}
 			}
 
+			// Compile template
 			if (modal.templateUrl) {
 				$http({
 					method: "GET",
 					url: modal.templateUrl,
 					cache: $templateCache
 				}).success(function(result){
-					ele = $compile(result)(scope);
-					element.append(ele);
+					element.append(result);
+					$compile(element.contents())(scope);
 				});
 			} else {
-				ele = $compile(modal.template)(scope);
-				element.append(ele);
+				element.append(modal.template);
+				$compile(element.contents())(scope);
 			}
 
 			modal.element = element;
@@ -1139,8 +1140,8 @@ angular.module(
 				this.stop();
 			}
 			modal.open({
-				teamplate: "<img src=''>",
-				esc: false,
+				template: "Loading...",
+				escToggle: false,
 				backdropToggle: false
 			});
 		},
