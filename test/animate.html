@@ -17,10 +17,19 @@
 	<script>
 		angular.module(
 			"app", ["end2end", "ngAnimate"]
-		).run(function($rootScope){
+		).run(function($rootScope, $animate){
 			$rootScope.items = [
 				"Apple", "Orange", "Banana", "Grapes", "Sandwitch"
 			];
+			var ele = angular.element(document.querySelector(".box")), show = false;
+			$rootScope.toggle = function(){
+				if (show) {
+					$animate.removeClass(ele, "active");
+				} else {
+					$animate.addClass(ele, "active");
+				}
+				show = !show;
+			};
 		});
 	</script>
 	<style>
@@ -30,6 +39,12 @@
 		}
 		.collapsing {
 			display: block!important;
+		}
+		.box {
+			display: none;
+		}
+		.box.active {
+			display: block;
 		}
 	</style>
 </head>
@@ -63,6 +78,14 @@
 		</div>
 		<div class="ani-collapse" ng-repeat="i in items | filter:search">
 			<p>{{i}}</p>
+		</div>
+		<div class="marger">
+			<button class="btn-default" ng-click="toggle()">Toggle</button>
+			<div class="ani-collapse box">
+				<p>
+					Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>
+				</p>
+			</div>
 		</div>
 	</div>
 </body>

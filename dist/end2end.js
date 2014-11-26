@@ -19,29 +19,30 @@ function getAniTimeout(element){
 
 angular.module(
 	"end2end", []
-).directive("navbar", function(collapse){
-		return {
-			restrict: "C",
-			controller: function() {
-				var menus = [];
+).directive("navbar", function($animate){
+	return {
+		restrict: "C",
+		controller: function() {
+			var collapse = null;
 
-				this.addCollapse = function(ele){
-					menus.push(ele);
-				};
+			this.addCollapse = function(c){
+				collapse = c;
+			};
 
-				this.toggle = function(){
-					var i;
+			this.toggle = function(){
+				if (!collapse) {
+					return;
+				}
 
-					for (i = 0; i < menus.length; i++) {
-						if (menus[i].hasClass("collapse")) {
-							collapse.show(menus[i]);
-						} else {
-							collapse.hide(menus[i]);
-						}
-					}
-				};
-			}
-		};
+				if (!collapse.show) {
+					$animate.addClass("active");
+				} else {
+					$animate.removeClass("active");
+				}
+				collapse.show = !collapse.show;
+			};
+		}
+	};
 }).directive("navbarToggle", function(){
 	return {
 		restrict: "C",
@@ -60,201 +61,130 @@ angular.module(
 		restrict: "C",
 		require: "?^navbar",
 		link: function(scope, element, attrs, nbCtrl) {
-			nbCtrl.addCollapse(element);
-		}
-	};
-}).factory("collapse", function($animate){
-	return {
-		show: function(element){
-			$animate.removeClass(element, "collapse");
-		},
-		hide: function(element){
-			$animate.addClass(element, "collapse");
-		}
-	};
-}).directive("collapse", function(collapse){
-	return {
-		restrict: "A",
-		link: function(scope, element, attrs){
-			scope.$watch(attrs.collapse, function(value){
-				if (value) {
-					collapse.hide(element);
-				} else {
-					collapse.show(element);
-				}
-			});
-		}
-	};
-}).animation(".collapse", function($timeout){
-	return {
-		beforeAddClass: function(element, cls, done) {
-			if (!element.hasClass("collapsing")) {
-				element.css("display", "block");
-				element.css("height", element[0].scrollHeight + "px");
-				element.addClass("collapsing");
-			}
-			done();
-		},
-		addClass: function(element, cls, done){
-			void(element[0].offsetHeight);
-			// Why I have to trigger reflow manually? I thought angular will
-			// wait 10ms before addClass().
-
-			element.css("height", "0");
-			var promise = $timeout(function(){
-				element.css("display", "");
-				element.css("height", "");
-				element.css("overflow", "");
-				element.removeClass("collapsing");
-				done();
-			}, getAniTimeout(element));
-
-			return function(canceled){
-				if (canceled) {
-					$timeout.cancel(promise);
-					element.css("height", element[0].offsetHeight + "px");
-				}
+			var collapse = {
+				element: element,
+				show: element.hasClass("active")
 			};
-		},
-		beforeRemoveClass: function(element, cls, done){
-			if (!element.hasClass("collapsing")) {
-				element.css("display", "block");
-				element.css("height", "0");
-				element.addClass("collapsing");
-			}
-			done();
-		},
-		removeClass: function(element, cls, done){
-			// console.log();
-			element.css("height", element[0].scrollHeight + "px");
-			var promise = $timeout(function(){
-				element.css("display", "");
-				element.css("height", "");
-				element.css("overflow", "");
-				element.removeClass("collapsing");
-				done();
-			}, getAniTimeout(element));
 
-			return function(canceled){
-				if (canceled) {
-					$timeout.cancel(promise);
-					element.css("height", element[0].offsetHeight + "px");
-				}
-			};
+			element.addClass("ani-collapse");
+
+			nbCtrl.addCollapse(collapse);
 		}
 	};
 }).animation(".ani-collapse", function($timeout){
+	function beforeCollapse(element, done){
+		if (!element.hasClass("collapsing")) {
+			element.css("display", "block");
+			element.css("height", element[0].scrollHeight + "px");
+			element.addClass("collapsing");
+		}
+		void(element[0].offsetHeight);
+		if (done) {
+			done();
+		}
+	}
+	function collapse(element, done){
+//		console.log("collapse");
+		function active(){
+			if (!element.hasClass("ng-leave-active") && element.hasClass("ng-leave")) {
+				$timeout(active);
+				return;
+			}
+			element.css("height", "0");
+		}
+		$timeout(active);
+
+		var promise = $timeout(function(){
+			element.css("display", "");
+//			element.css("height", "");
+			element.css("overflow", "");
+			element.removeClass("collapsing");
+			done();
+		}, getAniTimeout(element));
+
+		return function(canceled){
+			if (canceled) {
+				$timeout.cancel(promise);
+				element.css("height", element[0].offsetHeight + "px");
+				done();
+			}
+		};
+	}
+	function beforeUncollapse(element, done){
+		if (!element.hasClass("collapsing")) {
+			element.css("display", "block");
+			element.css("height", "0");
+			element.addClass("collapsing");
+		}
+		void(element[0].offsetHeight);
+		if (done) {
+			done();
+		}
+	}
+	function uncollapse(element, done) {
+//		console.log("uncollapse");
+		element.css("height", element[0].scrollHeight + "px");
+
+		var promise = $timeout(function(){
+			element.css("display", "");
+			element.css("height", "");
+			element.css("overflow", "");
+			element.removeClass("collapsing");
+			done();
+		}, getAniTimeout(element));
+
+		return function(canceled){
+			if (canceled) {
+				$timeout.cancel(promise);
+				element.css("height", element[0].offsetHeight + "px");
+				done();
+			}
+		};
+	}
 	return {
 		beforeAddClass: function(element, cls, done) {
-			if (!element.hasClass("collapsing")) {
-				element.css("display", "block");
-				element.css("height", element[0].scrollHeight + "px");
-				element.addClass("collapsing");
+			if (cls == "ng-hide") {
+				beforeCollapse(element, done);
+			} else if (cls == "active") {
+				beforeUncollapse(element, done);
+			} else {
+				done();
 			}
-			done();
 		},
 		addClass: function(element, cls, done){
-			void(element[0].offsetHeight);
-			// Why I have to trigger reflow manually? I thought angular will
-			// wait 10ms before addClass().
-
-			element.css("height", "0");
-			var promise = $timeout(function(){
-				element.css("display", "");
-				element.css("height", "");
-				element.css("overflow", "");
-				element.removeClass("collapsing");
+			if (cls == "ng-hide") {
+				return collapse(element, done);
+			} else if (cls == "active") {
+				return uncollapse(element, done);
+			} else {
 				done();
-			}, getAniTimeout(element));
-
-			return function(canceled){
-				if (canceled) {
-					$timeout.cancel(promise);
-					element.css("height", element[0].offsetHeight + "px");
-				}
-			};
+			}
 		},
 		beforeRemoveClass: function(element, cls, done){
-			if (!element.hasClass("collapsing")) {
-				element.css("display", "block");
-				element.css("height", "0");
-				element.addClass("collapsing");
+			if (cls == "ng-hide") {
+				beforeUncollapse(element, done);
+			} else if (cls == "active") {
+				beforeCollapse(element, done);
+			} else {
+				done();
 			}
-			done();
 		},
 		removeClass: function(element, cls, done){
-			// console.log();
-			element.css("height", element[0].scrollHeight + "px");
-			var promise = $timeout(function(){
-				element.css("display", "");
-				element.css("height", "");
-				element.css("overflow", "");
-				element.removeClass("collapsing");
+			if (cls == "ng-hide") {
+				return uncollapse(element, done);
+			} else if (cls == "active") {
+				return collapse(element, done);
+			} else {
 				done();
-			}, getAniTimeout(element));
-
-			return function(canceled){
-				if (canceled) {
-					$timeout.cancel(promise);
-					element.css("height", element[0].offsetHeight + "px");
-				}
-			};
+			}
 		},
 		enter: function(element, done){
-			if (!element.hasClass("collapsing")) {
-				element.css("display", "block");
-				element.css("height", "0");
-				element.css("box-sizing", "border-box");
-				element.addClass("collapsing");
-			}
-			void(element[0].offsetHeight);
-			element.css("height", element[0].scrollHeight + "px");
-			var promise = $timeout(function(){
-				element.css("display", "");
-				element.css("height", "");
-				element.css("overflow", "");
-				element.removeClass("collapsing");
-				done();
-			}, getAniTimeout(element));
-
-			return function(canceled){
-				if (canceled) {
-					$timeout.cancel(promise);
-					console.log(element[0].offsetHeight);
-					element.css("height", element[0].offsetHeight + "px");
-				}
-			};
+			beforeUncollapse(element);
+			return uncollapse(element, done);
 		},
 		leave: function(element, done){
-			if (!element.hasClass("collapsing")) {
-				element.css("display", "block");
-				element.css("height", element[0].scrollHeight + "px");
-				element.addClass("collapsing");
-			}
-			function active(){
-				console.log(element[0].className);
-				if (!element.hasClass("ng-leave-active") && element.hasClass("ng-leave")) {
-					$timeout(active);
-					return;
-				}
-				element.css("height", "0");
-			}
-			$timeout(active);
-
-			var promise = $timeout(function(){
-				element.css("display", "");
-//				element.css("height", "");
-				element.css("overflow", "");
-				element.removeClass("collapsing");
-				done();
-			}, getAniTimeout(element));
-
-			return function(canceled){
-				if (canceled) {
-					$timeout.cancel(promise);
-					element.css("height", element[0].offsetHeight + "px");
-				}
-			};
+			beforeCollapse(element);
+			return collapse(element, done);
 		}
 	};
 }).directive("checkPass", function(){
