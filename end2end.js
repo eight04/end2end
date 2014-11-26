@@ -690,6 +690,9 @@ angular.module(
 			dialog.msg = String(msg);
 			dialog.title = title || dialog.title;
 		}
+		if (dialog.backdropToggle === undefined) {
+			dialog.backdropToggle = false;
+		}
 
 		dialog.deferred = $q.defer();
 
@@ -697,7 +700,9 @@ angular.module(
 			templateUrl: "templates/dialog.html",
 			scope: {
 				dialog: dialog
-			}
+			},
+			escToggle: dialog.escToggle,
+			backdropToggle: dialog.backdropToggle
 		}).on("backdrop", function(e){
 			e.preventDefault();
 			if (dialog.onbackdrop) {
