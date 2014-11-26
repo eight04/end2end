@@ -86,8 +86,8 @@ h6 {
   font-size: 85%;
 }
 p {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.9375em;
+  margin-bottom: 0.9375em;
   line-height: 1.55;
 }
 input,
