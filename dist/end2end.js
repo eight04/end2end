@@ -1139,13 +1139,19 @@ angular.module(
 			if (m) {
 				this.stop();
 			}
-			modal.open({
+			m = modal.open({
 				template: "Loading...",
 				escToggle: false,
 				backdropToggle: false
 			});
 		},
-		stop: function(){}
+		stop: function(){
+			if (!m) {
+				return;
+			}
+			m.close();
+			m = null;
+		}
 	};
 });
 

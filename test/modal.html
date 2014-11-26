@@ -29,7 +29,7 @@
 	</style>
 	<script>
 		app = angular.module("app", ["ngAnimate", "end2end"]);
-		app.run(function($rootScope, dialog, modal){
+		app.run(function($rootScope, dialog, modal, loader, $timeout){
 			$rootScope.modal = modal;
 			$rootScope.dialog = dialog;
 			$rootScope.biDirectionTest = function(){
@@ -64,6 +64,12 @@
 			$rootScope.reject = function(result) {
 				dialog.show("Dialog promise is rejected: " + result);
 			}
+			$rootScope.loaderTest = function(){
+				loader.start();
+				$timeout(function(){
+					loader.stop();
+				}, 3000);
+			}
 		}).controller("test", function($scope, dialogInstance, $interval){
 
 			function countdown(){
@@ -97,6 +103,7 @@
 		<button class="btn-default" ng-click="dialog.show('Some text').then(resolve, reject)">Show</button>
 		<button class="btn-default" ng-click="dialog.confirm('Are you sure?').then(resolve, reject)">Confirm</button>
 		<button class="btn-default" ng-click="dialog.yesno('Do you want to save all files?').then(resolve, reject)">Yes/No</button>
+		<button class="btn-default" ng-click="loaderTest()">Loader test</button>
 		<script type="text/ng-template" id="modal">
 			<p>Press <kbd>Esc</kbd> to dismiss modal.</p>
 		</script>
