@@ -25,6 +25,7 @@ Todos
 * Add table item.
 * Refactor collapse. (Finally understand how ngAnimate works?!)
 * Add waiting dialog.
+* Any idea of rowspan, colspan on table-fixed?
 
 Known bugs
 ----------
