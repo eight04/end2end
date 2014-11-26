@@ -35,9 +35,9 @@ angular.module(
 				}
 
 				if (!collapse.show) {
-					$animate.addClass("active");
+					$animate.addClass(collapse.element, "active");
 				} else {
-					$animate.removeClass("active");
+					$animate.removeClass(collapse.element, "active");
 				}
 				collapse.show = !collapse.show;
 			};
