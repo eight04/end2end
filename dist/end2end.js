@@ -497,7 +497,7 @@ angular.module(
 			});
 
 			element.on("click", function(e){
-				if (e.target != element[0]) {
+				if (e.target != element[0] || !modal.backdropToggle) {
 					return;
 				}
 				scope.$apply(function(){
@@ -527,7 +527,7 @@ angular.module(
 			return;
 		}
 
-		if (e.keyCode == 27 && !e.shiftKey) {
+		if (e.keyCode == 27 && !e.shiftKey && modal.escToggle) {
 			$rootScope.$apply(function(){
 				if (modal.onesc) {
 					modal.onesc(e);
@@ -573,6 +573,12 @@ angular.module(
 		open: function(modal){
 			if (!modal.template && !modal.templateUrl) {
 				throw "template and templateUrl are undefined.";
+			}
+			if (modal.escToggle === undefined) {
+				modal.escToggle = true;
+			}
+			if (modal.backdropToggle === undefined) {
+				modal.backdropToggle = true;
 			}
 
 			var deferred = $q.defer();
@@ -890,65 +896,65 @@ angular.module(
 		}
 	};
 }).factory("toggler", function($animate){
-var togglerJar = {};
+	var togglerJar = {};
 
-function createToggler(id){
-	var status = [];
-	var toggleJar = [];
+	function createToggler(id){
+		var status = [];
+		var toggleJar = [];
 
-	function updateToggle(toggle){
-		var i, child = toggle.element.children(), c;
+		function updateToggle(toggle){
+			var i, child = toggle.element.children(), c;
 
-		for (i = 0; i < child.length; i++) {
-			c = angular.element(child[i]);
-			if (status[i]) {
-				$animate.addClass(c, "active");
-			} else {
-				$animate.removeClass(c, "active");
+			for (i = 0; i < child.length; i++) {
+				c = angular.element(child[i]);
+				if (status[i]) {
+					$animate.addClass(c, "active");
+				} else {
+					$animate.removeClass(c, "active");
+				}
 			}
 		}
-	}
 
-	function updateToggles(){
-		var i;
-		for (i = 0; i < toggleJar.length; i++) {
-			updateToggle(toggleJar[i]);
+		function updateToggles(){
+			var i;
+			for (i = 0; i < toggleJar.length; i++) {
+				updateToggle(toggleJar[i]);
+			}
 		}
+
+		return {
+			id: id,
+			set: function(sts){
+				var i;
+				for (i = 0; i < sts.length; i++) {
+					status[i] = sts[i];
+				}
+				updateToggles();
+			},
+			active: function(index){
+				var i;
+				for (i = 0; i < status.length; i++) {
+					status[i] = index == i;
+				}
+				updateToggles();
+			},
+			add: function(toggle){
+				toggleJar.push(toggle);
+				updateToggle(toggle);
+			}
+		};
 	}
 
 	return {
-		id: id,
-		set: function(sts){
-			var i;
-			for (i = 0; i < sts.length; i++) {
-				status[i] = sts[i];
-			}
-			updateToggles();
+		get: function(id){
+			return togglerJar[id];
 		},
-		active: function(index){
-			var i;
-			for (i = 0; i < status.length; i++) {
-				status[i] = index == i;
+		create: function(id){
+			if (togglerJar[id]) {
+				throw "Duplicate toggler id!";
 			}
-			updateToggles();
-		},
-		add: function(toggle){
-			toggleJar.push(toggle);
-			updateToggle(toggle);
-		}
-	};
-}
-
-return {
-	get: function(id){
-		return togglerJar[id];
-	},
-	create: function(id){
-		if (togglerJar[id]) {
-			throw "Duplicate toggler id!";
-		}
-		var toggler = createToggler(id);
-		togglerJar[id] = toggler;
+			var toggler = createToggler(id);
+			togglerJar[id] = toggler;
 			return toggler;
 		}
 	};
@@ -1124,6 +1130,21 @@ return {
 			w.on("scroll", affix);
 			w.on("resize", affix);
 		}
+	};
+}).factory("loader", function(modal){
+	var m = null;
+	return {
+		start: function(){
+			if (m) {
+				this.stop();
+			}
+			modal.open({
+				teamplate: "<img src=''>",
+				esc: false,
+				backdropToggle: false
+			});
+		},
+		stop: function(){}
 	};
 });
 

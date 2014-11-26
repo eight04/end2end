@@ -76,8 +76,10 @@
 			<label for="repeat">ng-repeat</label>
 			<input type="text" ng-model="search" class="form-control">
 		</div>
-		<div class="ani-collapse" ng-repeat="i in items | filter:search">
-			<p>{{i}}</p>
+		<div class="marger">
+			<div class="ani-collapse" ng-repeat="i in items | filter:search">
+				<p>{{i}}</p>
+			</div>
 		</div>
 		<div class="marger">
 			<button class="btn-default" ng-click="toggle()">Toggle</button>
