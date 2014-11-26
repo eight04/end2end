@@ -2693,6 +2693,11 @@ img.right-xs {
   height: 100%;
   vertical-align: middle;
 }
+.collapsing {
+  transition: 0.4s all;
+  display: block;
+  overflow: hidden;
+}
 @-webkit-keyframes chrome-overflow-hack {
   to {
     margin-left: 0%;
@@ -3017,12 +3022,6 @@ select.ng-invalid:focus {
 }
 .sidebar.active .sidebar-toggle:before {
   content: "»";
-}
-.collapse {
-  display: none;
-}
-.collapsing {
-  transition: 0.4s all;
 }
 .addword {
   display: inline-block;
