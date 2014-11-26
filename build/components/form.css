@@ -2,9 +2,19 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
+.row > .form-group {
+  margin: 0;
+}
+label {
+  line-height: 1;
+  display: inline-block;
+}
 .form-control {
   display: block;
   width: 100%;
+}
+label + .form-control {
+  margin-top: 0.3em;
 }
 .radio,
 .checkbox {
