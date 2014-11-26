@@ -24,6 +24,7 @@ Todos
 * Add notify. (notify-brand, notify-content...)
 * Add table item.
 * Refactor collapse. (Finally understand how ngAnimate works?!)
+* Add waiting dialog.
 
 Known bugs
 ----------
