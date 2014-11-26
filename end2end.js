@@ -145,6 +145,61 @@ angular.module(
 	};
 }).animation(".ani-collapse", function($timeout){
 	return {
+		beforeAddClass: function(element, cls, done) {
+			if (!element.hasClass("collapsing")) {
+				element.css("display", "block");
+				element.css("height", element[0].scrollHeight + "px");
+				element.addClass("collapsing");
+			}
+			done();
+		},
+		addClass: function(element, cls, done){
+			void(element[0].offsetHeight);
+			// Why I have to trigger reflow manually? I thought angular will
+			// wait 10ms before addClass().
+
+			element.css("height", "0");
+			var promise = $timeout(function(){
+				element.css("display", "");
+				element.css("height", "");
+				element.css("overflow", "");
+				element.removeClass("collapsing");
+				done();
+			}, getAniTimeout(element));
+
+			return function(canceled){
+				if (canceled) {
+					$timeout.cancel(promise);
+					element.css("height", element[0].offsetHeight + "px");
+				}
+			};
+		},
+		beforeRemoveClass: function(element, cls, done){
+			if (!element.hasClass("collapsing")) {
+				element.css("display", "block");
+				element.css("height", "0");
+				element.addClass("collapsing");
+			}
+			done();
+		},
+		removeClass: function(element, cls, done){
+			// console.log();
+			element.css("height", element[0].scrollHeight + "px");
+			var promise = $timeout(function(){
+				element.css("display", "");
+				element.css("height", "");
+				element.css("overflow", "");
+				element.removeClass("collapsing");
+				done();
+			}, getAniTimeout(element));
+
+			return function(canceled){
+				if (canceled) {
+					$timeout.cancel(promise);
+					element.css("height", element[0].offsetHeight + "px");
+				}
+			};
+		},
 		enter: function(element, done){
 			if (!element.hasClass("collapsing")) {
 				element.css("display", "block");
@@ -165,6 +220,7 @@ angular.module(
 			return function(canceled){
 				if (canceled) {
 					$timeout.cancel(promise);
+					console.log(element[0].offsetHeight);
 					element.css("height", element[0].offsetHeight + "px");
 				}
 			};
@@ -175,11 +231,19 @@ angular.module(
 				element.css("height", element[0].scrollHeight + "px");
 				element.addClass("collapsing");
 			}
-			void(element[0].offsetHeight);
-			element.css("height", "0");
+			function active(){
+				console.log(element[0].className);
+				if (!element.hasClass("ng-leave-active") && element.hasClass("ng-leave")) {
+					$timeout(active);
+					return;
+				}
+				element.css("height", "0");
+			}
+			$timeout(active);
+
 			var promise = $timeout(function(){
 				element.css("display", "");
-				element.css("height", "");
+//				element.css("height", "");
 				element.css("overflow", "");
 				element.removeClass("collapsing");
 				done();

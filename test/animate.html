@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Animate</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/modal.css">
+	<link rel="stylesheet" href="../build/components/dialog.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<script>
+		angular.module(
+			"app", ["end2end", "ngAnimate"]
+		).run(function($rootScope){
+			$rootScope.items = [
+				"Apple", "Orange", "Banana", "Grapes", "Sandwitch"
+			];
+		});
+	</script>
+	<style>
+		.ani-collapse {
+			overflow: hidden;
+			background-color: orange;
+		}
+		.collapsing {
+			display: block!important;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="show">
+				Toggle ng-if
+			</label>
+		</div>
+		<div class="ani-collapse" ng-if="show">
+			<p>
+				ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>
+			</p>
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="show2">
+				Toggle ng-show
+			</label>
+		</div>
+		<div class="ani-collapse" ng-show="show2">
+			<p>
+				ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>
+			</p>
+		</div>
+		<div class="form-group">
+			<label for="repeat">ng-repeat</label>
+			<input type="text" ng-model="search" class="form-control">
+		</div>
+		<div class="ani-collapse" ng-repeat="i in items | filter:search">
+			<p>{{i}}</p>
+		</div>
+	</div>
+</body>
+</html>
