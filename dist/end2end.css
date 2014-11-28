@@ -2684,6 +2684,9 @@ img.right-xs {
 .nowrap {
   white-space: nowrap;
 }
+.pre {
+  white-space: pre;
+}
 .pre-line {
   white-space: pre-line;
 }
