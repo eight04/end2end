@@ -2682,16 +2682,16 @@ img.right-xs {
   overflow: hidden;
 }
 .nowrap {
-  white-space: nowrap;
+  white-space: nowrap!important;
 }
 .pre {
-  white-space: pre;
+  white-space: pre!important;
 }
 .pre-line {
-  white-space: pre-line;
+  white-space: pre-line !important;
 }
 .pre-wrap {
-  white-space: pre-wrap;
+  white-space: pre-wrap !important;
 }
 .compact {
   margin: 0;
