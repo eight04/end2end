@@ -20,6 +20,7 @@
 .panes:before {
   content: "";
   display: block;
+  display: inline-block\9;
   width: 100%;
 }
 .pane {
