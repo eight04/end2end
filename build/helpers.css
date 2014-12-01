@@ -232,10 +232,12 @@ img.right-xs {
   display: table-cell;
   vertical-align: middle;
 }
+.ani-collapse {
+  overflow: hidden;
+}
 .collapsing {
   transition: 0.4s all;
   display: block!important;
-  overflow: hidden;
 }
 @-webkit-keyframes chrome-overflow-hack {
   to {
