@@ -66,7 +66,7 @@ angular.module(
 				show: element.hasClass("active")
 			};
 
-			element.addClass("ani-collapse");
+//			element.addClass("ani-collapse");
 
 			nbCtrl.addCollapse(collapse);
 		}

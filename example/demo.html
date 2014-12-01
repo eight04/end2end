@@ -37,7 +37,7 @@
 					&equiv;
 				</button>
 			</div>
-			<div class="navbar-collapse">
+			<div class="navbar-collapse ani-collapse">
 				<div class="navbar-menu">
 					<a href="" class="navbar-link active">link 1</a>
 					<a href="" class="navbar-link">link 2</a>
@@ -535,36 +535,32 @@
 
 				<h3>Fixed column</h3>
 				<p>Since <code>position:absolute</code> will make td have <code>display:block</code>. You have to make it vertical-center manually.</p>
+				<p>Give table-fixed a name so you can call <code>tableFixed.render()</code> to re-calculate the table.</p>
 				<div class="marger">
 					<button class="btn-default" ng-click="tableFixed.render()">Redraw</button>
 				</div>
-				<div class="table-fixed" fixed-left="2" fixed-right="1" name="tableFixed">
+				<div class="table-fixed" fixed-left="2" fixed-right="1">
 					<div class="table-responsive">
 						<table class="table-default">
 							<thead>
 								<tr>
-									<th rowspan="2">
+									<th>
 										Title 1<br>
 										2nd line
 									</th>
-									<th rowspan="2">
+									<th>
 										<div class="vcenter-table">
 											<div class="vcenter-cell">Title 2</div>
 										</div>
 									</th>
-									<th colspan="3">Title 3</th>
-<!--									<th>Title 4</th>-->
-<!--									<th>Title 5</th>-->
-									<th rowspan="2">
+									<th>Title 3</th>
+									<th>Title 4</th>
+									<th>Title 5</th>
+									<th>
 										<div class="vcenter-table">
 											<div class="vcenter-cell">Title 6</div>
 										</div>
 									</th>
-								</tr>
-								<tr>
-									<th class="table-cell-inner table-cell-first">Title 3-1</th>
-									<th class="table-cell-inner">Title 3-2</th>
-									<th class="table-cell-inner">Title 3-3</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -605,28 +601,32 @@
 					</div>
 				</div>
 				<p><code>table-fixed</code> will also calculate colspan and rowspan.</p>
-				<div class="table-fixed" fixed-left="2" fixed-right="1">
+				<div class="table-fixed" fixed-left="2" fixed-right="1" name="tableFixed">
 					<div class="table-responsive">
 						<table class="table-default">
 							<thead>
 								<tr>
-									<th>
-										Title 1<br>
-										2nd line
+									<th rowspan="2">
+										<div class="vcenter-table">
+											<div class="vcenter-cell">Title 1<br>2nd line</div>
+										</div>
 									</th>
-									<th>
+									<th rowspan="2">
 										<div class="vcenter-table">
 											<div class="vcenter-cell">Title 2</div>
 										</div>
 									</th>
-									<th>Title 3</th>
-									<th>Title 4</th>
-									<th>Title 5</th>
-									<th>
+									<th colspan="3">Title 3</th>
+									<th rowspan="2">
 										<div class="vcenter-table">
 											<div class="vcenter-cell">Title 6</div>
 										</div>
 									</th>
+								</tr>
+								<tr>
+									<th class="table-cell-inner table-cell-first">Title 3-1</th>
+									<th class="table-cell-inner">Title 3-2</th>
+									<th class="table-cell-inner">Title 3-3</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -1026,6 +1026,49 @@
 					<div class="pane"><p>Quia incidunt velit, accusantium provident error, fugit quaerat aperiam corporis sequi et qui animi voluptates alias, exercitationem quo veniam repellat quas. Deleniti nulla, optio vero perferendis consequatur minus sapiente! Eos.</p></div>
 					<div class="pane"><p>Temporibus totam, hic facere beatae veniam ea aperiam laudantium fugit odit unde repudiandae, laborum perferendis nisi deserunt molestiae, omnis impedit ipsa inventore accusamus at aliquam sint magni voluptatum. Quos, provident!</p></div>
 				</div>
+
+				<h2>Collapse</h2>
+				<p><code>.ani-collapse</code> support <code>ng-enter, ng-leave, ng-hide and active</code></p>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-model="show">
+						Toggle ng-if
+					</label>
+				</div>
+				<div class="ani-collapse" ng-if="show">
+					<p>
+						ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>
+					</p>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-model="show2">
+						Toggle ng-show
+					</label>
+				</div>
+				<div class="ani-collapse" ng-show="show2">
+					<p>
+						ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>
+					</p>
+				</div>
+				<div class="form-group">
+					<label for="repeat">ng-repeat</label>
+					<input type="text" ng-model="search" class="form-control">
+				</div>
+				<div class="marger">
+					<div class="ani-collapse" ng-repeat="i in items | filter:search">
+						<p>{{i}}</p>
+					</div>
+				</div>
+				<div class="marger">
+					<button class="btn-default" ng-click="toggle()">Toggle</button>
+					<div class="ani-collapse box">
+						<p>
+							Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>Use $animate<br>
+						</p>
+					</div>
+				</div>
+
 			</div>
 			<div class="col-md-1-4 pull-md-3-4 ">
 				<div class="sidebar affix">
