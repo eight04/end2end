@@ -977,7 +977,7 @@ angular.module(
 
 			function calc(){
 				var trs, j;
-				var i, rect, td, eles, height, last,
+				var i, rect, td, eles, height, last, bounds, boundLen, colspan, rowspan, k, rowspans, len, end,
 					widths = {
 						left: {
 							len: [],
@@ -1005,14 +1005,79 @@ angular.module(
 					angular.element(trs[i]).css("height", "");
 				}
 
-				var ws = [], boundLen = 0;
-
-				// Get original cell rect
-				bounds[0] = trs[0].childre[0].getBoundingClientRect().left;
-				for (i = 0; i < trs.length && boundLen < fixedLeft; i++) {
-					len = trs[i].children.length;
+				bounds = [];
+				boundLen = 0;
+				rowspans = [];
+				// Get original cell rect: left
+				bounds[0] = trs[0].children[0].getBoundingClientRect().left;
+				for (i = 0; i < trs.length; i++) {
 					for (j = 0; j < fixedLeft; j++) {
+						for (k = 0; k < rowspans.length; k++) {
+							if (rowspans[k].start == j) {
+								j = rowspans[k].end + 1;
+							}
+						}
+						if (j >= fixedLeft) {
+							continue;
+						}
+
 						td = trs[i].children[j];
+						colspan = td.getAttribute("colspan");
+						rowspan = td.getAttribute("rowspan");
+
+						td.className += " table-fixed-left";
+						td.tableFixed = {
+							offset: bounds[j] - bounds[0]
+						};
+
+						if (colspan && +colspan > 0) {
+							end = j + +colspan - 1;
+						} else {
+							end = j;
+						}
+
+						if (!bounds[end + 1]) {
+							bounds[end + 1] = td.getBoundingClientRect().right;
+							boundLen++;
+						}
+
+						td.tableFixed.width = bounds[end] - bounds[j];
+
+						if (rowspan) {
+							rowspans.push({
+								start: j,
+								end: end,
+								rows: +rowspan
+							});
+						}
+						for (k = 0; k < rowspans.length; k++) {
+							rowspans[k].rows--;
+							if (!rowspans[k].rows) {
+								rowspans.splice(k, 1);
+								k--;
+							}
+						}
+					}
+				}
+				// Calculate td widths...
+				for (i = 0; i < fixedLeft; i++) {
+					widths.left.len.push({
+						offset: bounds[i] - bounds[0],
+						width: bounds[i + 1] - bounds[i]
+					});
+				}
+				widths.left.sum = bounds[i] - bounds[0];
+
+				bounds = [];
+				boundLen = 0;
+				rowspans = [];
+				// Get original cell rect: right
+				len = trs[0].children.length;
+				bounds[0] = trs[0].children[len - 1].getBoundingClientRect().right;
+				for (i = 0; i < trs.length && boundLen < fixedRight; i++) {
+					len = trs[i].children.length;
+					for (j = 0; j < fixedRight; j++) {
+						td = trs[i].children[len - 1 - j];
 						colspan = td.getAttribute("colspan");
 						rowspan = td.getAttribute("rowspan");
 
@@ -1026,7 +1091,7 @@ angular.module(
 							j += +colspan - 1;
 						}
 						if (!bounds[j + 1]) {
-							bounds[j + 1] = td.getBoundingClientRect().right;
+							bounds[j + 1] = td.getBoundingClientRect().left;
 							boundLen++;
 						}
 						if (rowspan) {
@@ -1036,28 +1101,35 @@ angular.module(
 								rows: +rowspan
 							});
 						}
+						for (k = 0; k < rowspans.length; k++) {
+							rowspans[k].rows--;
+							if (!rowspans[k].rows) {
+								rowspans.splice(k, 1);
+								k--;
+							}
+						}
 					}
 				}
-
 				// Calculate td widths...
-				for (i = 0; i < fixedLeft; i++) {
-					widths.left.len.push({
-						offset: bounds[i] - bounds[0],
-						width: bounds[i + 1] - bounds[i]
-					});
-				}
-
-				last = trs[0].children.length - 1;
 				for (i = 0; i < fixedRight; i++) {
-					td = trs[0].children[last - i];
-					rect = td.getBoundingClientRect();
 					widths.right.len.push({
-						offset: widths.right.sum,
-						width: rect.right - rect.left
+						offset: bounds[0] - bounds[i],
+						width: bounds[i] - bounds[i + 1]
 					});
-					widths.right.sum += rect.right - rect.left;
 				}
+				widths.right.sum = bounds[0] - bounds[i];
 
+//				last = trs[0].children.length - 1;
+//				for (i = 0; i < fixedRight; i++) {
+//					td = trs[0].children[last - i];
+//					rect = td.getBoundingClientRect();
+//					widths.right.len.push({
+//						offset: widths.right.sum,
+//						width: rect.right - rect.left
+//					});
+//					widths.right.sum += rect.right - rect.left;
+//				}
+//
 				for (j = 0; j < trs.length; j++) {
 					rect = trs[j].getBoundingClientRect();
 					height = rect.bottom - rect.top;
