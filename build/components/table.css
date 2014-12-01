@@ -39,3 +39,8 @@
   height: 100%;
   vertical-align: middle;
 }
+.table-fixed tr:before {
+  content: "";
+  padding: 0;
+  width: 0;
+}

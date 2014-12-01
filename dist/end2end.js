@@ -981,7 +981,6 @@ angular.module(
 		for (i = 0; i < trs.length; i++) {
 			len = trs[i].children.length;
 			for (j = 0; j < cells; j++) {
-				console.log(rowspans.length);
 				for (k = 0; k < rowspans.length; k++) {
 					if (rowspans[k].start == j) {
 						j = rowspans[k].end + 1;

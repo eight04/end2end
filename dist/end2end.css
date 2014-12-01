@@ -2482,6 +2482,11 @@ label + .form-control {
   height: 100%;
   vertical-align: middle;
 }
+.table-fixed tr:before {
+  content: "";
+  padding: 0;
+  width: 0;
+}
 
 .marger-xl {
   margin-top: 60px;
