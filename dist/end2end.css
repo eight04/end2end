@@ -141,6 +141,8 @@ button:focus {
 textarea {
   height: auto;
   line-height: 1.55;
+  padding-top: 0.225em;
+  padding-bottom: 0.225em;
 }
 select {
   cursor: pointer;

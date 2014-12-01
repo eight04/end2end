@@ -1005,14 +1005,46 @@ angular.module(
 					angular.element(trs[i]).css("height", "");
 				}
 
+				var ws = [], boundLen = 0;
+
+				// Get original cell rect
+				bounds[0] = trs[0].childre[0].getBoundingClientRect().left;
+				for (i = 0; i < trs.length && boundLen < fixedLeft; i++) {
+					len = trs[i].children.length;
+					for (j = 0; j < fixedLeft; j++) {
+						td = trs[i].children[j];
+						colspan = td.getAttribute("colspan");
+						rowspan = td.getAttribute("rowspan");
+
+						for (k = 0; k < rowspans.length; k++) {
+							if (rowspans[k].start == j) {
+								j = rowspans[k].end + 1;
+							}
+						}
+
+						if (colspan) {
+							j += +colspan - 1;
+						}
+						if (!bounds[j + 1]) {
+							bounds[j + 1] = td.getBoundingClientRect().right;
+							boundLen++;
+						}
+						if (rowspan) {
+							rowspans.push({
+								start: colspan ? j - colspan + 1 : j,
+								end: j,
+								rows: +rowspan
+							});
+						}
+					}
+				}
+
+				// Calculate td widths...
 				for (i = 0; i < fixedLeft; i++) {
-					td = trs[0].children[i];
-					rect = td.getBoundingClientRect();
 					widths.left.len.push({
-						offset: widths.left.sum,
-						width: rect.right - rect.left
+						offset: bounds[i] - bounds[0],
+						width: bounds[i + 1] - bounds[i]
 					});
-					widths.left.sum += rect.right - rect.left;
 				}
 
 				last = trs[0].children.length - 1;
