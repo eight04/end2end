@@ -2370,6 +2370,7 @@ label + .form-control {
 }
 .panes:before {
   content: "";
+  display: block;
   width: 100%;
 }
 .pane {
