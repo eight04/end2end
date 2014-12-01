@@ -54,7 +54,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="marger ani" ng-show="show">
+		<div class="marger">
 			<div class="table-fixed" fixed-left="2" fixed-right="2" name="myTable">
 				<div class="table-responsive">
 					<table class="table-default">
@@ -83,11 +83,74 @@
 			</div>
 		</div>
 		<div class="marger">
-			<button class="btn-default" ng-click="myTable.render()">Render</button>
-			<label>
-				<input type="checkbox" ng-model="show">
-				Show
-			</label>
+			<div class="table-fixed" fixed-left="2" fixed-right="2" name="myTable">
+				<div class="table-responsive">
+					<table class="table-default">
+						<thead>
+							<tr>
+								<th>
+									<div class="vc-wrapper">
+										<div class="vc">Title 1<br>2nd line</div>
+									</div>
+								</th>
+								<th>
+									<div class="vcenter-table">
+										<div class="vcenter-cell">Title 2</div>
+									</div>
+								</th>
+								<th>Title 3</th>
+								<th>Title 4</th>
+								<th>Title 5</th>
+								<th>Title 6</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td contenteditable="true">Content 3</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque veniam nobis placeat harum iusto, saepe, iste, quaerat, consequuntur ea minima praesentium vitae maxime mollitia nesciunt dolor blanditiis earum corporis ullam!</td>
+								<td>{{input}}</td>
+								<td>Content 2</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="marger">
+			<div class="table-fixed" fixed-left="2" fixed-right="2" name="myTable">
+				<div class="table-responsive">
+					<table class="table-default">
+						<thead>
+							<tr>
+								<th>
+									<div class="vcenter-table">
+										<div class="vcenter-cell">
+											Title 1
+										</div>
+									</div>
+								</th>
+								<th>Title 2</th>
+								<th>Title 3<br>2nd line</th>
+								<th>Title 4</th>
+								<th>Title 5</th>
+								<th>Title 6</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td contenteditable="true">Content 3</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque veniam nobis placeat harum iusto, saepe, iste, quaerat, consequuntur ea minima praesentium vitae maxime mollitia nesciunt dolor blanditiis earum corporis ullam!</td>
+								<td>{{input}}</td>
+								<td>Content 2</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 		<div class="marger">
 			<div class="input-group">

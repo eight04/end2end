@@ -223,6 +223,15 @@ img.right-xs {
   height: 100%;
   vertical-align: middle;
 }
+.vcenter-table {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.vcenter-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
 .collapsing {
   transition: 0.4s all;
   display: block;
