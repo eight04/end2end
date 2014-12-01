@@ -965,6 +965,84 @@ angular.module(
 		}
 	};
 }).directive("tableFixed", function($timeout, $parse){
+
+	function setTableCell(f, trs, cells){
+		var bounds = [],
+			rowspans = [],
+			i, j, k,
+			td, colspan, rowspan, end, len, rect;
+		// Get original cell rect: left
+		if (f == "left") {
+			bounds[0] = trs[0].children[0].getBoundingClientRect().left;
+		} else {
+			len = trs[0].children.length;
+			bounds[0] = trs[0].children[len - 1].getBoundingClientRect().right;
+		}
+		for (i = 0; i < trs.length; i++) {
+			len = trs[i].children.length;
+			for (j = 0; j < cells; j++) {
+				console.log(rowspans.length);
+				for (k = 0; k < rowspans.length; k++) {
+					if (rowspans[k].start == j) {
+						j = rowspans[k].end + 1;
+					}
+				}
+				if (j >= cells) {
+					continue;
+				}
+
+				if (f == "left") {
+					td = trs[i].children[j];
+				} else {
+					td = trs[i].children[len - j - 1];
+				}
+
+				rect = td.getBoundingClientRect();
+
+				colspan = td.getAttribute("colspan");
+				rowspan = td.getAttribute("rowspan");
+
+				td.className += " table-fixed-" + f + "-calc";
+				td.tableFixed = {
+					offset: Math.abs(bounds[j] - bounds[0]),
+					width: Math.abs(rect.right - rect.left),
+					height: Math.abs(rect.bottom - rect.top)
+				};
+
+				if (colspan && +colspan > 0) {
+					end = j + +colspan - 1;
+				} else {
+					end = j;
+				}
+
+				if (!bounds[end + 1]) {
+					if (f == "left") {
+						bounds[end + 1] = rect.right;
+					} else {
+						bounds[end + 1] = rect.left;
+					}
+				}
+
+				if (rowspan) {
+					rowspans.push({
+						start: j,
+						end: end,
+						rows: +rowspan
+					});
+				}
+			}
+			for (k = 0; k < rowspans.length; k++) {
+				rowspans[k].rows--;
+				if (!rowspans[k].rows) {
+					rowspans.splice(k, 1);
+					k--;
+				}
+			}
+		}
+
+		return Math.abs(bounds[0] - bounds[cells]);
+	}
+
 	return {
 		restrict: "C",
 		link: function(scope, element, attrs) {
@@ -977,17 +1055,8 @@ angular.module(
 
 			function calc(){
 				var trs, j;
-				var i, rect, td, eles, height, last, bounds, boundLen, colspan, rowspan, k, rowspans, len, end,
-					widths = {
-						left: {
-							len: [],
-							sum: 0
-						},
-						right: {
-							len: [],
-							sum: 0
-						}
-					};
+				var i, rect, td, eles, height, sumLeft, sumRight;
+
 				eles = element[0].querySelectorAll(".table-fixed-cell");
 
 				if (eles) {
@@ -1005,155 +1074,37 @@ angular.module(
 					angular.element(trs[i]).css("height", "");
 				}
 
-				bounds = [];
-				boundLen = 0;
-				rowspans = [];
-				// Get original cell rect: left
-				bounds[0] = trs[0].children[0].getBoundingClientRect().left;
-				for (i = 0; i < trs.length; i++) {
-					for (j = 0; j < fixedLeft; j++) {
-						for (k = 0; k < rowspans.length; k++) {
-							if (rowspans[k].start == j) {
-								j = rowspans[k].end + 1;
-							}
-						}
-						if (j >= fixedLeft) {
-							continue;
-						}
+				sumLeft = setTableCell("left", trs, fixedLeft);
+				sumRight = setTableCell("right", trs, fixedRight);
 
-						td = trs[i].children[j];
-						colspan = td.getAttribute("colspan");
-						rowspan = td.getAttribute("rowspan");
-
-						td.className += " table-fixed-left";
-						td.tableFixed = {
-							offset: bounds[j] - bounds[0]
-						};
-
-						if (colspan && +colspan > 0) {
-							end = j + +colspan - 1;
-						} else {
-							end = j;
-						}
-
-						if (!bounds[end + 1]) {
-							bounds[end + 1] = td.getBoundingClientRect().right;
-							boundLen++;
-						}
-
-						td.tableFixed.width = bounds[end] - bounds[j];
-
-						if (rowspan) {
-							rowspans.push({
-								start: j,
-								end: end,
-								rows: +rowspan
-							});
-						}
-						for (k = 0; k < rowspans.length; k++) {
-							rowspans[k].rows--;
-							if (!rowspans[k].rows) {
-								rowspans.splice(k, 1);
-								k--;
-							}
-						}
-					}
-				}
-				// Calculate td widths...
-				for (i = 0; i < fixedLeft; i++) {
-					widths.left.len.push({
-						offset: bounds[i] - bounds[0],
-						width: bounds[i + 1] - bounds[i]
-					});
-				}
-				widths.left.sum = bounds[i] - bounds[0];
-
-				bounds = [];
-				boundLen = 0;
-				rowspans = [];
-				// Get original cell rect: right
-				len = trs[0].children.length;
-				bounds[0] = trs[0].children[len - 1].getBoundingClientRect().right;
-				for (i = 0; i < trs.length && boundLen < fixedRight; i++) {
-					len = trs[i].children.length;
-					for (j = 0; j < fixedRight; j++) {
-						td = trs[i].children[len - 1 - j];
-						colspan = td.getAttribute("colspan");
-						rowspan = td.getAttribute("rowspan");
-
-						for (k = 0; k < rowspans.length; k++) {
-							if (rowspans[k].start == j) {
-								j = rowspans[k].end + 1;
-							}
-						}
-
-						if (colspan) {
-							j += +colspan - 1;
-						}
-						if (!bounds[j + 1]) {
-							bounds[j + 1] = td.getBoundingClientRect().left;
-							boundLen++;
-						}
-						if (rowspan) {
-							rowspans.push({
-								start: colspan ? j - colspan + 1 : j,
-								end: j,
-								rows: +rowspan
-							});
-						}
-						for (k = 0; k < rowspans.length; k++) {
-							rowspans[k].rows--;
-							if (!rowspans[k].rows) {
-								rowspans.splice(k, 1);
-								k--;
-							}
-						}
-					}
-				}
-				// Calculate td widths...
-				for (i = 0; i < fixedRight; i++) {
-					widths.right.len.push({
-						offset: bounds[0] - bounds[i],
-						width: bounds[i] - bounds[i + 1]
-					});
-				}
-				widths.right.sum = bounds[0] - bounds[i];
-
-//				last = trs[0].children.length - 1;
-//				for (i = 0; i < fixedRight; i++) {
-//					td = trs[0].children[last - i];
-//					rect = td.getBoundingClientRect();
-//					widths.right.len.push({
-//						offset: widths.right.sum,
-//						width: rect.right - rect.left
-//					});
-//					widths.right.sum += rect.right - rect.left;
-//				}
-//
 				for (j = 0; j < trs.length; j++) {
 					rect = trs[j].getBoundingClientRect();
 					height = rect.bottom - rect.top;
 					angular.element(trs[j]).css("height", height + "px");
-					for (i = 0; i < fixedLeft; i++) {
-						td = angular.element(trs[j].children[i]);
-						td.css("width", widths.left.len[i].width + "px");
-						td.css("height", height + "px");
-						td.css("left", widths.left.len[i].offset + "px");
-						td.addClass("table-fixed-cell table-fixed-left");
-					}
-
-					last = trs[j].children.length - 1;
-					for (i = 0; i < fixedRight; i++) {
-						td = angular.element(trs[j].children[last - i]);
-						td.css("width", widths.right.len[i].width + "px");
-						td.css("height", height + "px");
-						td.css("right", widths.right.len[i].offset + "px");
-						td.addClass("table-fixed-cell table-fixed-right");
-					}
 				}
 
-				element.css("padding-left", widths.left.sum + "px");
-				element.css("padding-right", widths.right.sum + "px");
+				eles = element[0].querySelectorAll(".table-fixed-left-calc");
+				for (i = 0; i < eles.length; i++) {
+					td = angular.element(eles[i]);
+					td.css("width", td[0].tableFixed.width + "px");
+					td.css("height", td[0].tableFixed.height + "px");
+					td.css("left", td[0].tableFixed.offset + "px");
+					td.addClass("table-fixed-cell table-fixed-left");
+					td.removeClass("table-fixed-left-calc");
+				}
+
+				eles = element[0].querySelectorAll(".table-fixed-right-calc");
+				for (i = 0; i < eles.length; i++) {
+					td = angular.element(eles[i]);
+					td.css("width", td[0].tableFixed.width + "px");
+					td.css("height", td[0].tableFixed.height + "px");
+					td.css("right", td[0].tableFixed.offset + "px");
+					td.addClass("table-fixed-cell table-fixed-right");
+					td.removeClass("table-fixed-left-calc");
+				}
+
+				element.css("padding-left", sumLeft + "px");
+				element.css("padding-right", sumRight + "px");
 			}
 
 			function calcContainer (){
