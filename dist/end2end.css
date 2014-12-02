@@ -2477,14 +2477,6 @@ label + .form-control {
 .table-fixed-cell {
   position: absolute;
 }
-.table-fixed-cell > * {
-  display: table;
-  width: 100%;
-  height: 100%;
-}
-.table-fixed-cell > * > * {
-  display: table-cell;
-}
 .table-fixed tr:before {
   content: "";
   padding: 0;
@@ -2892,6 +2884,22 @@ a:active {
 }
 .btn-close:hover {
   color: inherit;
+}
+.btn-circle {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: baseline;
+  color: #707070;
+  border-color: #707070;
+  border-radius: 0.75em;
+  font-size: 80%;
+}
+.btn-circle:hover {
+  color: inherit;
+  border-color: inherit;
 }
 .btn-group {
   border: 1px solid #808080;
