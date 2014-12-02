@@ -597,7 +597,9 @@ select {
 			padding: 0.25em 0.5em;
 		}
 
-		&.active, &:hover {
+		&.active,
+		&:hover,
+		&:focus {
 			> a {
 				.make-link-color(@brand-primary, @brand-primary);
 				border-left: 0.25em solid @brand-primary;
