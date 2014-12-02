@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	// Default task(s).
-	grunt.registerTask('dist', ["less", "dist-js"]);
+	grunt.registerTask('dist', ["clean", "less", "dist-js"]);
 	grunt.registerTask('dist-js', ["copy", "ngtemplates"]);
 
 };

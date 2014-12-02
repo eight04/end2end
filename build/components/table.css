@@ -37,3 +37,10 @@
   padding: 0;
   width: 0;
 }
+.table-block {
+  display: block;
+  width: 100%;
+}
+.table-block > * {
+  width: 100%;
+}

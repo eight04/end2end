@@ -2482,6 +2482,51 @@ label + .form-control {
   padding: 0;
   width: 0;
 }
+.table-block {
+  display: block;
+  width: 100%;
+}
+.table-block > * {
+  width: 100%;
+}
+
+.talk {
+  max-width: 994px;
+  margin: 0 auto;
+}
+.talk-first {
+  overflow: hidden;
+  margin: 15px 0;
+}
+.talk-first > * {
+  float: left;
+  clear: both;
+}
+.talk-second {
+  overflow: hidden;
+  margin: 15px 0;
+}
+.talk-second > * {
+  float: right;
+  clear: both;
+}
+.talk-content {
+  width: 90%;
+  line-height: 1.55;
+  padding: 0.725em 1em;
+  margin-top: 7.5px;
+}
+.talk-first .talk-content {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+}
+.talk-second .talk-content {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
 
 .marger-xl {
   margin-top: 60px;
