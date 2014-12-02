@@ -1,0 +1,40 @@
+@import "../vars.less";
+@import "../mixins.less";
+
+// Talk
+.talk {
+	max-width: @window-md - @gap * 2;
+	margin: 0 auto;
+}
+
+.talk-first {
+	overflow: hidden;
+	margin: @gap 0;
+	> * {
+		float: left;
+		clear: both;
+	}
+}
+
+.talk-second {
+	overflow: hidden;
+	margin: @gap 0;
+	> * {
+		float: right;
+		clear: both;
+	}
+}
+
+.talk-content {
+	width: 90%;
+	line-height: @line-height-base;
+	padding: (1 - (@line-height-base - 1)/2em) 1em;
+	margin-top: @gap/2;
+	.talk-first & {
+		.make-border();
+	}
+	.talk-second & {
+		.make-border();
+		background-color: @bg-color-base;
+	}
+}

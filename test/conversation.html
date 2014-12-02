@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Conversation</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/modal.css">
+	<link rel="stylesheet" href="../build/components/dialog.css">
+	<link rel="stylesheet" href="../build/components/talk.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<script>
+		angular.module("app", ["end2end"]).run(function($rootScope, dialog){
+			$rootScope.dialog = dialog;
+		});
+	</script>
+	<style>
+		body {
+			padding: 2em 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="talk">
+			<div class="talk-first">
+				<div class="talk-name">Test</div>
+				<div class="talk-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis culpa optio in nesciunt consequatur, molestiae voluptate, quia mollitia iusto minima eligendi unde sint consectetur magni corporis facilis laboriosam placeat a.</div>
+			</div>
+			<div class="talk-second">
+				<div class="talk-name">Test2</div>
+				<div class="talk-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam ea eligendi molestiae perferendis dignissimos dolores, assumenda veniam similique ducimus asperiores aliquid, ipsum voluptatem obcaecati quasi incidunt, at reiciendis aspernatur reprehenderit.</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
