@@ -88,7 +88,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			grunt
+			build: ["build"]
 		}
 	});
 
