@@ -23,9 +23,11 @@ Todos
 * Add scroll spy.
 * Add notify. (notify-brand, notify-content...)
 * Add table item.
-* Refactor collapse. (Finally understand how ngAnimate works?!)
-* Add waiting dialog.
-* Any idea of rowspan, colspan on table-fixed?
+* <del>Refactor collapse. (Finally understand how ngAnimate works?!)</del>
+* <del>Add waiting dialog.</del>
+* <del>Any idea of rowspan, colspan on table-fixed?</del>
+* Fix inline-form style on navbar?
+* Don't focus on button if user use custom template on dialog?
 
 Known bugs
 ----------
