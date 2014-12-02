@@ -28,6 +28,7 @@ Todos
 * <del>Any idea of rowspan, colspan on table-fixed?</del>
 * Fix inline-form style on navbar?
 * Don't focus on button if user use custom template on dialog?
+* One-line vertical align issue.
 
 Known bugs
 ----------
