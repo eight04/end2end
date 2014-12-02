@@ -540,6 +540,14 @@ select {
 		&.active > * {
 			background-color: @bg-color-base;
 		}
+		&.danger > * {
+			background-color: @bg-color-danger;
+			&:hover,
+			&:focus {
+				background-color: @bg-color-danger;
+//				color: @font-color-base;
+			}
+		}
 	}
 }
 
@@ -701,18 +709,18 @@ select {
 
 // BG
 .bg-primary {
-	background-color: screen(@brand-primary, #CCCCCC);
+	background-color: @bg-color-primary;
 }
 .bg-info {
-	background-color: screen(@brand-info, #CCCCCC);
+	background-color: @bg-color-info;
 }
 .bg-success {
-	background-color: screen(@brand-success, #CCCCCC);
+	background-color: @bg-color-success;
 }
 .bg-warning {
-	background-color: screen(@brand-warning, #CCCCCC);
+	background-color: @bg-color-warning;
 }
 .bg-danger {
-	background-color: screen(@brand-danger, #CCCCCC);
+	background-color: @bg-color-danger;
 }
 

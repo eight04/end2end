@@ -1,5 +1,4 @@
 .talk {
-  max-width: 994px;
   margin: 0 auto;
 }
 .talk-first {
@@ -19,7 +18,7 @@
   clear: both;
 }
 .talk-content {
-  width: 90%;
+  max-width: 90%;
   line-height: 1.55;
   padding: 0.725em 1em;
   margin-top: 7.5px;

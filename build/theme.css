@@ -566,6 +566,13 @@ select.ng-invalid:focus {
 .nav-list > *.active > * {
   background-color: #f0f0f0;
 }
+.nav-list > *.danger > * {
+  background-color: #f5d1d1;
+}
+.nav-list > *.danger > *:hover,
+.nav-list > *.danger > *:focus {
+  background-color: #f5d1d1;
+}
 .nav-tab {
   border-bottom: 1px solid #808080;
 }
