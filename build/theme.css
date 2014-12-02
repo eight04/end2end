@@ -159,11 +159,14 @@ a:active {
   overflow: hidden;
   width: 1.5em;
   height: 1.5em;
-  vertical-align: baseline;
+  vertical-align: 0.05em;
   color: #707070;
   border-color: #707070;
   border-radius: 0.75em;
   font-size: 80%;
+  margin-top: -0.25em;
+  margin-bottom: -0.25em;
+  line-height: 1.57;
 }
 .btn-circle:hover {
   color: inherit;
