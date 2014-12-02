@@ -777,6 +777,10 @@ angular.module(
 			dialog.deferred.promise.then(success, fail);
 			return dialog;
 		};
+		
+		dialog["catch"] = function(callback) {
+			dialog.deferred.promise["catch"](callback);
+		};
 
 		return dialog;
 	}
