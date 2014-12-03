@@ -2078,12 +2078,13 @@ label {
   line-height: 1;
   display: inline-block;
 }
+label + .form-control,
+label + .input-group {
+  margin-top: 0.3em;
+}
 .form-control {
   display: block;
   width: 100%;
-}
-label + .form-control {
-  margin-top: 0.3em;
 }
 .radio,
 .checkbox {
@@ -3399,25 +3400,31 @@ select.ng-invalid:focus {
   padding: 0.25em 0.5em;
 }
 .nav-tree > *.active > a,
-.nav-tree > *:hover > a {
+.nav-tree > *:hover > a,
+.nav-tree > *:focus > a {
   border-left: 0.25em solid #0a53f8;
 }
 .nav-tree > *.active > a:link,
 .nav-tree > *:hover > a:link,
+.nav-tree > *:focus > a:link,
 .nav-tree > *.active > a:visited,
-.nav-tree > *:hover > a:visited {
+.nav-tree > *:hover > a:visited,
+.nav-tree > *:focus > a:visited {
   color: #0a53f8;
 }
 .nav-tree > *.active > a:hover,
-.nav-tree > *:hover > a:hover {
+.nav-tree > *:hover > a:hover,
+.nav-tree > *:focus > a:hover {
   color: #0a53f8;
 }
 .nav-tree > *.active > a:active,
-.nav-tree > *:hover > a:active {
+.nav-tree > *:hover > a:active,
+.nav-tree > *:focus > a:active {
   color: #0a53f8;
 }
 .nav-tree > *.active .nav-tree,
-.nav-tree > *:hover .nav-tree {
+.nav-tree > *:hover .nav-tree,
+.nav-tree > *:focus .nav-tree {
   max-height: 300px;
 }
 .nav-pill > * > * {

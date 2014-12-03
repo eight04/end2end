@@ -9,12 +9,13 @@ label {
   line-height: 1;
   display: inline-block;
 }
+label + .form-control,
+label + .input-group {
+  margin-top: 0.3em;
+}
 .form-control {
   display: block;
   width: 100%;
-}
-label + .form-control {
-  margin-top: 0.3em;
 }
 .radio,
 .checkbox {
