@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Table</title>
@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="../build/components/table.css">
 	<link rel="stylesheet" href="../build/helpers.css">
 	<link rel="stylesheet" href="../build/theme.css">
-	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../dist/end2end.js"></script>
 	<style>
 		body {
 			padding-bottom: 2em;
@@ -44,13 +45,7 @@
 		}
 	</style>
 	<script>
-		setTimeout(function(){
-			document.querySelector(".box").setAttribute("head", "ok");
-		}, 1000);
-		var a = {};
-		for (key in a) {
-			alert(key);
-		}
+		angular.module("app", ["end2end"]);
 	</script>
 </head>
 <body>
@@ -103,6 +98,108 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+		<div class="marger">
+			<div class="table-responsive">
+				<table class="table-border">
+					<thead>
+						<tr>
+							<th>title</th>
+							<th>title</th>
+							<th>title</th>
+							<th>title</th>
+							<th>title</th>
+							<th>title</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="marger">
+			<div class="table-fixed" fixed-left="1" fixed-right="1">
+				<div class="table-responsive">
+					<table class="table-border">
+						<thead>
+							<tr>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="marger">
