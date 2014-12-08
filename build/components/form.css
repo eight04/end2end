@@ -42,6 +42,7 @@ label + .input-group {
 }
 .form-inline input,
 .form-inline select,
+.form-inline button,
 .form-inline .radio,
 .form-inline .checkbox,
 .form-inline fieldset,
