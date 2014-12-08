@@ -66,15 +66,12 @@ angular.module(
 				show: element.hasClass("active")
 			};
 
-//			element.addClass("ani-collapse");
-
 			nbCtrl.addCollapse(collapse);
 		}
 	};
 }).animation(".ani-collapse", function($timeout){
 	function beforeCollapse(element, done){
 		if (!element.hasClass("collapsing")) {
-//			element.css("display", "block");
 			element.css("height", element[0].scrollHeight + "px");
 			element.addClass("collapsing");
 		}
@@ -84,7 +81,6 @@ angular.module(
 		}
 	}
 	function collapse(element, done){
-//		console.log("collapse");
 		function active(){
 			if (!element.hasClass("ng-leave-active") && element.hasClass("ng-leave")) {
 				$timeout(active);
@@ -95,9 +91,6 @@ angular.module(
 		$timeout(active);
 
 		var promise = $timeout(function(){
-//			element.css("display", "");
-//			element.css("height", "");
-//			element.css("overflow", "");
 			element.removeClass("collapsing");
 			done();
 		}, getAniTimeout(element));
@@ -112,7 +105,6 @@ angular.module(
 	}
 	function beforeUncollapse(element, done){
 		if (!element.hasClass("collapsing")) {
-//			element.css("display", "block");
 			element.css("height", "0");
 			element.addClass("collapsing");
 		}
@@ -122,13 +114,10 @@ angular.module(
 		}
 	}
 	function uncollapse(element, done) {
-//		console.log("uncollapse");
 		element.css("height", element[0].scrollHeight + "px");
 
 		var promise = $timeout(function(){
-//			element.css("display", "");
 			element.css("height", "");
-//			element.css("overflow", "");
 			element.removeClass("collapsing");
 			done();
 		}, getAniTimeout(element));
@@ -270,164 +259,166 @@ angular.module(
 			});
 		}
 	};
-}).factory("eznav", function(){
-	return {};
-}).directive("eznav", function(eznav){
-	return {
-		restrict: "C",
-		scope: {},
-		template: "<ul class='nav-tree' eznav-tree='eznav.data'></ul>",
-		link: function(scope){
-			scope.eznav = eznav;
-		}
-	};
-}).directive("eznavTarget", function(eznav, $window){
+}).factory("scrollspy", function($window){
+	var target, nav;
 	angular.element($window).on("scroll", function(){
-		var i, node, clone;
-
-		for (i = 0; i < eznav.navs.length; i++) {
-			eznav.navs[i].rect = eznav.navs[i].element[0].getBoundingClientRect();
+		if (!target) {
+			return;
 		}
-
-		for (i = 0; i < eznav.navs.length - 1; i++) {
-			if (eznav.navs[i].rect.top <= 32 && eznav.navs[i + 1].rect.top > 32) {
-				clone = eznav.navs[i];
-				break;
-			}
-		}
-
-		if (!clone && eznav.navs[i].rect.top <= 32 && eznav.element[0].getBoundingClientRect().bottom > 32) {
-			clone = eznav.navs[i];
-		}
-
-		if (eznav.currentView) {
-			node = eznav.currentView;
-			while(node.parent) {
-				node.active = false;
-				node.leafElement.removeClass("active");
-				node = node.parent;
-			}
-			eznav.currentView = null;
-		}
-
-		if (clone) {
-			while (clone.parent) {
-				clone.active = true;
-				clone.leafElement.addClass("active");
-				clone = clone.parent;
-			}
-			eznav.currentView = eznav.navs[i];
-		}
+		var id = target.getActiveId();
+		nav.active(id);
 	});
-
 	return {
-		restrict: "C",
-		link: function(scope, element){
-			var navs = element[0].querySelectorAll("h1, h2, h3, h4, h5, h6"),
-				i, root = {
-					prior: 0,
-					parent: null,
-					children: []
-				}, last = root, navList = [], name, node;
-
-			for (i = 0; i < navs.length; i++) {
-				name = navs[i].textContent || navs[i].innerText;
-				if (!navs[i].id) {
-					navs[i].id = name.replace(/\s+/g, "-");
-				}
-				node = {
-					parent: null,
-					prior: navs[i].nodeName.substr(1) * 1,
-					name: name,
-					url: "#" + navs[i].id,
-					children: [],
-					element: angular.element(navs[i])
-				};
-
-				navList.push(node);
-
-				while (last.prior >= node.prior) {
-					last = last.parent;
-				}
-				node.parent = last;
-				last.children.push(node);
-				last = node;
-			}
-
-			eznav.data = root.children;
-			eznav.navs = navList;
-			eznav.element = element;
-		}
-	};
-}).directive("eznavTree", function(){
-	return {
-		restrict: "A",
-		template: "<li ng-repeat='node in nodes' eznav-leaf='node'></li>",
-		scope: {
-			nodes: "=eznavTree"
-		}
-	};
-}).directive("eznavLeaf", function($compile){
-	var treeTemplate = angular.element("<ul class='nav-tree' eznav-tree='node.children'></ul>");
-	return {
-		restrict: "A",
-		template: "<a href='{{node.url}}'>{{node.name}}</a>",
-		scope: {
-			node: "=eznavLeaf"
+		registerTarget: function(e){
+			target = e;
 		},
-		link: function(scope, element){
-			scope.node.leafElement = element;
-			if (scope.node.children && scope.node.children.length) {
-				$compile(treeTemplate)(scope, function(cloned){
-					element.append(cloned);
-				});
-			}
+		registerNav: function(e){
+			nav = e;
 		}
 	};
-//}).directive("tabGroup", function(){
-//		return {
-//			restrict: "C",
-//			templateUrl: "templates/tabGroup.html",
-//			transclude: true,
-//			scope: {},
-//			controller: function($scope) {
-//				$scope.current = null;
-//				$scope.tabs = [];
-//				$scope.addTab = this.addTab = function(tab) {
-//					$scope.tabs.push(tab);
-//					if ($scope.tabs.length == 1) {
-//						$scope.active(tab);
-//					}
-//				};
-//				$scope.active = this.active = function(tab) {
-//					if ($scope.current) {
-//						$scope.current.active = false;
-//					}
-//					tab.active = true;
-//					$scope.current = tab;
-//				};
+}).directive("scrollspyTarget", function(scrollspy){
+	return {
+		restrict: "A",
+		link: function(scope, element){
+			scrollspy.registerTarget({
+				element: element,
+				getActiveId: function(){
+					var eles = element[0].querySelectorAll("h1, h2, h3, h4, h5, h6"),
+						i, navs = [];
+					for (i = 0; i < eles.length; i++) {
+						if (!eles[i].id) {
+							continue;
+						}
+						navs.push({
+							element: eles[i],
+							rect: eles[i].getBoundingClientRect()
+						});
+					}
+					for (i = 0; i < navs.length; i++) {
+						// Use 1 instead of 0 to match sub-pixel
+						if (navs[i].rect.top <= 1 &&
+							(navs[i + 1] && navs[i + 1].rect.top > 1 ||
+							!navs[i + 1] && element[0].getBoundingClientRect().bottom > 1)) {
+							return navs[i].element.id;
+						}
+					}
+					return null;
+				}
+			});
+		}
+	};
+}).directive("scrollspyNav", function(scrollspy){
+	return {
+		restrict: "A",
+		link: function(scope, element) {
+			scrollspy.registerNav({
+				element: element,
+				active: function(id){
+					var eles, ele;
+
+					eles = element[0].querySelectorAll(".active");
+					angular.element(eles).removeClass("active");
+
+					if (!id) {
+						return;
+					}
+
+					ele = element[0].querySelector("[href='#" + id + "']");
+					if (!ele) {
+						return;
+					}
+					ele = angular.element(ele);
+					while (ele[0] != element[0]) {
+						if (ele[0].nodeName == "LI") {
+							ele.addClass("active");
+						}
+						ele = ele.parent();
+					}
+				}
+			});
+		}
+	};
+//}).factory("eznav", function(){
+//	return {};
+//}).directive("eznav", function(eznav){
+//	return {
+//		restrict: "C",
+//		scope: {},
+//		template: "<ul class='nav-tree' eznav-tree='eznav.data'></ul>",
+//		link: function(scope){
+//			scope.eznav = eznav;
+//		}
+//	};
+//}).directive("eznavTarget", function(eznav, $window){
+//	angular.element($window).on("scroll", function(){
+//		var i, node, clone;
+//
+//		for (i = 0; i < eznav.navs.length; i++) {
+//			eznav.navs[i].rect = eznav.navs[i].element[0].getBoundingClientRect();
+//		}
+//
+//		for (i = 0; i < eznav.navs.length - 1; i++) {
+//			if (eznav.navs[i].rect.top <= 32 && eznav.navs[i + 1].rect.top > 32) {
+//				clone = eznav.navs[i];
+//				break;
 //			}
-//		};
-//	})
-//	.directive("tab", function(){
-//		return {
-//			restrict: "C",
-//			// template: "<div class='pane' ng-class='{active: active}' ng-transclude></div>",
-//			template: "<div class='pane' ng-class='{active: active}'></div>",
-//			require: "^tabGroup",
-//			transclude: true,
-//			replace: true,
-//			scope: {
-//				title: "@tabHeading"
-//			},
-//			link: function(scope, element, attrs, controller, transclude){
-//				transclude(scope.$parent, function(clone){
-//					element.append(clone);
+//		}
+//
+//		if (!clone && eznav.navs[i].rect.top <= 32 && eznav.element[0].getBoundingClientRect().bottom > 32) {
+//			clone = eznav.navs[i];
+//		}
+//
+//		if (eznav.currentView) {
+//			node = eznav.currentView;
+//			while(node.parent) {
+//				node.active = false;
+//				node.leafElement.removeClass("active");
+//				node = node.parent;
+//			}
+//			eznav.currentView = null;
+//		}
+//
+//		if (clone) {
+//			while (clone.parent) {
+//				clone.active = true;
+//				clone.leafElement.addClass("active");
+//				clone = clone.parent;
+//			}
+//			eznav.currentView = eznav.navs[i];
+//		}
+//	});
+//
+//	return {
+//		restrict: "C",
+//		link: function(scope, element){
+//
+//		}
+//	};
+//}).directive("eznavTree", function(){
+//	return {
+//		restrict: "A",
+//		template: "<li ng-repeat='node in nodes' eznav-leaf='node'></li>",
+//		scope: {
+//			nodes: "=eznavTree"
+//		}
+//	};
+//}).directive("eznavLeaf", function($compile){
+//	var treeTemplate = angular.element("<ul class='nav-tree' eznav-tree='node.children'></ul>");
+//	return {
+//		restrict: "A",
+//		template: "<a href='{{node.url}}'>{{node.name}}</a>",
+//		scope: {
+//			node: "=eznavLeaf"
+//		},
+//		link: function(scope, element){
+//			scope.node.leafElement = element;
+//			if (scope.node.children && scope.node.children.length) {
+//				$compile(treeTemplate)(scope, function(cloned){
+//					element.append(cloned);
 //				});
-//				scope.element = element;
-//				controller.addTab(scope);
 //			}
-//		};
+//		}
+//	};
 }).directive("modalStack", function(){
 	return {
 		restrict: "C",
@@ -777,7 +768,7 @@ angular.module(
 			dialog.deferred.promise.then(success, fail);
 			return dialog;
 		};
-		
+
 		dialog["catch"] = function(callback) {
 			dialog.deferred.promise["catch"](callback);
 		};
@@ -1122,7 +1113,6 @@ angular.module(
 
 			if (attrs.name) {
 				var setter = $parse(attrs.name).assign;
-//					console.log(scope);
 				setter(scope, {
 					render: function(){
 						if (!rendering) {
