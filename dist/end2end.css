@@ -2250,22 +2250,13 @@ legend + .checkbox {
   display: block;
 }
 
-.nav {
-  overflow: hidden;
-}
 .nav a {
   display: block;
   text-decoration: none;
 }
-.nav-list {
-  overflow: hidden;
-}
 .nav-list a {
   display: block;
   text-decoration: none;
-}
-.nav-tab {
-  overflow: hidden;
 }
 .nav-tab a {
   display: block;
@@ -2283,18 +2274,12 @@ legend + .checkbox {
 .nav-responsive {
   overflow-x: auto;
 }
-.nav-tree {
-  overflow: hidden;
-}
 .nav-tree a {
   display: block;
   text-decoration: none;
 }
 .nav-tree > * > a + .nav-tree {
   margin-top: 0.25em;
-}
-.nav-pill {
-  overflow: hidden;
 }
 .nav-pill a {
   display: block;
@@ -3251,11 +3236,11 @@ select.ng-invalid:focus {
   border-left-width: 0;
 }
 .table-cell-inner {
-  border-left: 1px solid #808080;
-  border-top: 1px solid #808080;
+  border-left: 1px solid #808080 !important;
+  border-top: 1px solid #808080 !important;
 }
 .table-cell-first {
-  border-left-width: 0;
+  border-left-width: 0!important;
 }
 .table-fixed-left {
   border-right: 1px solid #808080;

@@ -1,19 +1,10 @@
-.nav {
-  overflow: hidden;
-}
 .nav a {
   display: block;
   text-decoration: none;
 }
-.nav-list {
-  overflow: hidden;
-}
 .nav-list a {
   display: block;
   text-decoration: none;
-}
-.nav-tab {
-  overflow: hidden;
 }
 .nav-tab a {
   display: block;
@@ -31,18 +22,12 @@
 .nav-responsive {
   overflow-x: auto;
 }
-.nav-tree {
-  overflow: hidden;
-}
 .nav-tree a {
   display: block;
   text-decoration: none;
 }
 .nav-tree > * > a + .nav-tree {
   margin-top: 0.25em;
-}
-.nav-pill {
-  overflow: hidden;
 }
 .nav-pill a {
   display: block;

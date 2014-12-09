@@ -437,11 +437,11 @@ select.ng-invalid:focus {
   border-left-width: 0;
 }
 .table-cell-inner {
-  border-left: 1px solid #808080;
-  border-top: 1px solid #808080;
+  border-left: 1px solid #808080 !important;
+  border-top: 1px solid #808080 !important;
 }
 .table-cell-first {
-  border-left-width: 0;
+  border-left-width: 0!important;
 }
 .table-fixed-left {
   border-right: 1px solid #808080;
