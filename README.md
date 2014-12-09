@@ -20,13 +20,13 @@ Todos
 * Refactor those messy less.
 * Use margin-top only?
 * Create ie polyfill or keep using css hack?
-* Add scroll spy.
+* <del>Add scroll spy.</del>
 * Add notify. (notify-brand, notify-content...)
 * Add table item.
 * <del>Refactor collapse. (Finally understand how ngAnimate works?!)</del>
 * <del>Add waiting dialog.</del>
 * <del>Any idea of rowspan, colspan on table-fixed?</del>
-* Fix inline-form style on navbar?
+* <del>Fix inline-form style on navbar?</del>
 * Don't focus on button if user use custom template on dialog?
 * One-line vertical align issue.
 
