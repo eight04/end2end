@@ -26,11 +26,9 @@
 .talk-first .talk-content {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
 }
 .talk-second .talk-content {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   background-color: #f0f0f0;
 }

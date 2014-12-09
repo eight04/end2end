@@ -58,7 +58,6 @@ a:active {
 .btn {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: linear;
@@ -86,7 +85,6 @@ a:active {
 .btn-default {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: linear;
@@ -117,7 +115,6 @@ a:active {
 .btn-sm {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: linear;
@@ -145,28 +142,15 @@ a:active {
   border-color: #cccccc;
 }
 .btn-close {
-  width: 1em;
-  height: 1em;
-  vertical-align: baseline;
   color: #707070;
 }
 .btn-close:hover {
   color: inherit;
 }
 .btn-circle {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
-  width: 1.5em;
-  height: 1.5em;
-  vertical-align: 0.05em;
+  border: 1px solid #707070;
+  margin: -1px 0;
   color: #707070;
-  border-color: #707070;
-  border-radius: 0.75em;
-  font-size: 80%;
-  margin-top: -0.25em;
-  margin-bottom: -0.25em;
-  line-height: 1.57;
 }
 .btn-circle:hover {
   color: inherit;
@@ -187,7 +171,6 @@ a:active {
 .form-control {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   padding-left: 0.5em;
   padding-right: 0.5em;
   color: #707070;
@@ -348,7 +331,6 @@ select.ng-invalid:focus {
 .dialog {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   margin-top: 1em;
   margin-bottom: 1em;
   background-color: #fff;
@@ -606,7 +588,6 @@ select.ng-invalid:focus {
 .nav-tab > * > * {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -694,7 +675,6 @@ select.ng-invalid:focus {
 .pool {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   background-color: #f0f0f0;
   padding: 0.5em;
   margin-top: 0.5em;
@@ -703,7 +683,6 @@ select.ng-invalid:focus {
 .pool-lg {
   border: 1px solid #808080;
   border-radius: 0.1875em;
-  overflow: hidden;
   background-color: #f0f0f0;
   padding: 0.5em;
   margin-top: 0.5em;
