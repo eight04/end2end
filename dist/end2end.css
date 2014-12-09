@@ -3223,31 +3223,31 @@ select.ng-invalid:focus {
 .table-default > * > * > *:first-child {
   border-left: none;
 }
-.table-border {
+.table-bordered {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
   border-collapse: separate;
 }
-.table-border > * > * > * {
+.table-bordered > * > * > * {
   padding: 0.375em 1em;
   line-height: 1.25;
   vertical-align: middle;
 }
-.table-border thead > * > * {
+.table-bordered thead > * > * {
   background-color: #f0f0f0;
   text-align: center;
 }
-.table-border > * > * > * {
+.table-bordered > * > * > * {
   border-top: 1px solid #808080;
 }
-.table-border > thead > * > * {
+.table-bordered > thead > * > * {
   border-top-width: 0;
 }
-.table-border > * > * > * {
+.table-bordered > * > * > * {
   border-left: 1px solid #808080;
 }
-.table-border > * > * > *:first-child {
+.table-bordered > * > * > *:first-child {
   border-left-width: 0;
 }
 .table-cell-inner {
