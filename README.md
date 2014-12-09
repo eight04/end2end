@@ -32,5 +32,5 @@ Todos
 
 Known bugs
 ----------
-* Enter key doesn't handled properly in dialog form on IE8.
+* Enter key won't be handled properly in dialog form on IE8.
 * Double scrollbar issue of scrollable modal.
