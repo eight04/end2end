@@ -89,6 +89,14 @@ module.exports = function(grunt) {
 		},
 		clean: {
 			build: ["build"]
+		},
+		bump: {
+			options: {
+				files: ["package.json"],
+				updateConfigs: ["pkg"],
+				commitFiles: ["-a"],
+				push: false
+			}
 		}
 	});
 
@@ -100,6 +108,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-angular-templates');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-bump');
 
 	// Default task(s).
 	grunt.registerTask('dist', ["clean", "less", "dist-js"]);
