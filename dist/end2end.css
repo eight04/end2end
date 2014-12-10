@@ -2824,6 +2824,7 @@ h4 small,
 h5 small,
 h6 small {
   font-size: 70%;
+  color: #707070;
 }
 hr {
   border: none;
