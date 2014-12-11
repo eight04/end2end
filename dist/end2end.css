@@ -3513,7 +3513,6 @@ select.ng-invalid:focus {
   position: relative;
   margin-top: 1.5em;
   font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
-  padding: 0.8em 1em;
   font-size: 90%;
   line-height: 1.4;
   border: 1px dotted #808080;
@@ -3528,6 +3527,12 @@ select.ng-invalid:focus {
   font-size: 80%;
   margin-top: -1px;
   line-height: 1;
+}
+.code > * {
+  font-size: 100%;
+  padding: 0.8em 1em;
+  overflow-x: auto;
+  background-color: transparent;
 }
 .text-muted {
   color: #8a8a8a;
