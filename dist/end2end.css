@@ -2809,8 +2809,6 @@ code {
 }
 pre {
   font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
-  padding: 0.25em;
-  font-size: 90%;
 }
 h1 small,
 h2 small,
@@ -3510,28 +3508,14 @@ select.ng-invalid:focus {
   opacity: 1;
 }
 .code {
-  position: relative;
-  margin-top: 1.5em;
   font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
-  font-size: 90%;
-  line-height: 1.4;
   border: 1px dotted #808080;
 }
 .code:before {
-  content: "Code";
-  position: absolute;
-  top: -1em;
   border: 1px dotted #808080;
   background: white;
-  padding: 0.4em;
-  font-size: 80%;
-  margin-top: -1px;
-  line-height: 1;
 }
-.code > * {
-  font-size: 100%;
-  padding: 0.8em 1em;
-  overflow-x: auto;
+.code > code {
   background-color: transparent;
 }
 .text-muted {
