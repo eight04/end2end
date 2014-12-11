@@ -14,15 +14,16 @@ code {
 }
 
 pre {
-	background-color: @bg-color-base;
 	font-family: @font-family-monospace;
 	padding: 0.8em 1em;
 	font-size: 90%;
 	line-height: 1.4;
+	border: 1px dotted @border-color-base;
 
 	code {
 		padding: 0;
 		font-size: 100%;
+		background-color: transparent;
 	}
 }
 
@@ -689,6 +690,21 @@ select {
 			opacity: 1;
 		}
 	}
+}
+
+// Code
+.code {
+	position: relative;
+	margin-top: 1.5em;
+}
+.code:before {
+	content: "Code";
+	position: absolute;
+	top: -1em;
+	border: 1px dotted @border-color-base;
+	background: white;
+	padding: 0.25em 0.5em;
+	font-size: 80%;
 }
 
 // Text color
