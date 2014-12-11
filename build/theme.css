@@ -10,15 +10,8 @@ code {
 }
 pre {
   font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
-  padding: 0.8em 1em;
+  padding: 0.25em;
   font-size: 90%;
-  line-height: 1.4;
-  border: 1px dotted #808080;
-}
-pre code {
-  padding: 0;
-  font-size: 100%;
-  background-color: transparent;
 }
 h1 small,
 h2 small,
@@ -720,6 +713,11 @@ select.ng-invalid:focus {
 .code {
   position: relative;
   margin-top: 1.5em;
+  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  padding: 0.8em 1em;
+  font-size: 90%;
+  line-height: 1.4;
+  border: 1px dotted #808080;
 }
 .code:before {
   content: "Code";
