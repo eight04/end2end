@@ -11,8 +11,9 @@ code {
 pre {
   background-color: #f0f0f0;
   font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
-  padding: 0.25em;
+  padding: 1em;
   font-size: 90%;
+  line-height: 1.2;
 }
 pre code {
   padding: 0;
