@@ -173,10 +173,10 @@ img {
   max-height: 100%;
 }
 code {
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
 }
 pre {
   margin-top: 1em;
   margin-bottom: 1em;
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
 }

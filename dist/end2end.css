@@ -173,12 +173,12 @@ img {
   max-height: 100%;
 }
 code {
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
 }
 pre {
   margin-top: 1em;
   margin-bottom: 1em;
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
 }
 
 /**
@@ -2803,12 +2803,12 @@ h2 {
 }
 code {
   background-color: #f0f0f0;
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
   font-size: 90%;
   padding: 0.25em;
 }
 pre {
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
   padding: 0.25em;
   font-size: 90%;
 }
@@ -3512,7 +3512,7 @@ select.ng-invalid:focus {
 .code {
   position: relative;
   margin-top: 1.5em;
-  font-family: Source Code Pro, Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
   padding: 0.8em 1em;
   font-size: 90%;
   line-height: 1.4;
