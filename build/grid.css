@@ -58,7 +58,9 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-.row > * {
+.row > *,
+.row:before,
+.row:after {
   display: inline-block\9;
   letter-spacing: normal\9;
   vertical-align: top\9;

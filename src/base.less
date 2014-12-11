@@ -49,8 +49,8 @@ h6 {
 }
 
 p {
-	margin-top: 1em;
-	margin-bottom: 1em;
+	margin-top: 0.9375em;
+	margin-bottom: 0.9375em;
 	line-height: @line-height-base;
 }
 
@@ -89,6 +89,8 @@ button {
 textarea {
 	height: auto;
 	line-height: @line-height-base;
+	padding-top: unit(0.5 - (@line-height-base - 1)/2, em);
+	padding-bottom: unit(0.5 - (@line-height-base - 1)/2, em);
 }
 
 select {

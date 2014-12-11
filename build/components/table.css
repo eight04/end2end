@@ -10,9 +10,11 @@
   width: 100%;
 }
 .table-responsive {
+  overflow: auto;
+  -webkit-animation-name: chrome-overflow-hack;
+  -webkit-animation-duration: 9999s;
   display: inline-block;
   max-width: 100%;
-  overflow-x: auto;
   vertical-align: top;
 }
 .table-responsive th,
@@ -20,18 +22,25 @@
   white-space: nowrap;
 }
 .table-fixed {
+  overflow: auto;
+  -webkit-animation-name: chrome-overflow-hack;
+  -webkit-animation-duration: 9999s;
   display: inline-block;
   max-width: 100%;
-  overflow-x: auto;
   position: relative;
 }
 .table-fixed-cell {
-  vertical-align: middle;
   position: absolute;
 }
-.table-fixed-cell:before {
+.table-fixed tr:before {
   content: "";
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
+  padding: 0;
+  width: 0;
+}
+.table-block {
+  display: block;
+  width: 100%;
+}
+.table-block > * {
+  width: 100%;
 }

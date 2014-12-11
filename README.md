@@ -1,6 +1,6 @@
 end2end
 =======
-This project were inspired by Bootstrap, a css framework containing grid system, bunch of components and more. So I try to make my own css framework with AngularJS.
+This project was inspired by Bootstrap, a css framework containing grid system, bunch of components and more.
 
 Demo page
 ---------
@@ -10,10 +10,9 @@ Features
 --------
 * IE8 support.
 * Responsive layout.
-* Richer layout with flex and inline-block.
+* A rich grid system built with flex and inline-block.
 * Angular animation on modern browser (IE10+).
-* Bootstrap components rewrote in Angular.
-* Scrollbar issue in Chrome?
+* Bootstrap's components rewrote in Angular.
 
 Todos
 -----
@@ -21,22 +20,12 @@ Todos
 * Refactor those messy less.
 * Use margin-top only?
 * Create ie polyfill or keep using css hack?
-* Scroll spy.
 * Enter key doesn't handled properly in dialog form on IE8.
-* Handle z-index in modal stack.
-* Affix and Bffix.
-* Inline-form button, input z-index issue.
-* Add notify. (notify-brand, notify-content...)
-* Dialog size.
-* If using wrapped body?
-* Support finally in dialog.
-* Yes/No/Cancel dialog.
-* New dialog implement? Use button, input's value to return! Remains `then()` behavior. Move keydown listener from modal to dialog. Also solve IE8 enter issue.
-* Fix progress bar theme.
+* Add table item.
+* Don't focus on button if user use custom template on dialog?
+* One-line vertical align issue.
 
-Refactor guide
---------------
-* Use tag selector only in `reset.css`.
-* Use class selector to create controls.
-* Use universe selector to prevent over-specifying.
-* Do not use extend.
+Known bugs
+----------
+* Enter key won't be handled properly in dialog form on IE8.
+* Double scrollbar issue of scrollable modal.

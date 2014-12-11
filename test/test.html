@@ -12,42 +12,77 @@
 	<link rel="stylesheet" href="../build/helpers.css">
 	<script src="../bower_components/respond/dest/respond.min.js"></script>
 	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
 	<script src="../dist/end2end.js"></script>
 	<script>
-		angular.module("app", ["end2end"]).run(function($rootScope, dialog, $controller, $q){
-			$rootScope.dialog = dialog;
-			$controller("test", {});
-			var deferred = $q.defer();
-
-			var ret = 12;
-
-			deferred.promise.then(function(result){
-				console.log("Promise result: %s", result);
-			});
-
-			deferred.resolve(true);
+		angular.module(
+			"app", ["end2end", "ngAnimate"]
+		).animation(".ani-test", function($log, $timeout){
+			return {
+				beforeAddClass: function(element, cls, done) {
+					console.log("before add", element[0].className);
+					done();
+				},
+				addClass: function(element, cls, done){
+					console.log("add", element[0].className);
+					done();
+				},
+				beforeRemoveClass: function(element, cls, done) {
+					console.log("before remove", element[0].className);
+					done();
+				},
+				removeClass: function(element, cls, done){
+					console.log("remove", element[0].className);
+					done();
+				},
+				enter: function(element, done){
+					console.log("enter", element[0].className);
+					function enterActive(){
+						if (!element.hasClass("ng-enter-active")) {
+							$timeout(enterActive);
+							return;
+						}
+						console.log(element[0].className);
+					}
+					$timeout(enterActive);
+					done();
+				},
+				leave: function(element, done){
+					console.log("leave", element[0].className);
+					$timeout(function(){
+						console.log("after leave", element[0].className);
+					});
+					done();
+				}
+			};
 		});
-		function test(dialog){
-			console.log(dialog);
-		}
-		function ff($scope) {
-			console.log($scope.form, $scope);
-		}
 	</script>
 	<style>
 		body {
 			padding-bottom: 2em;
 		}
+		.ani-test {
+			border: 1px solid;
+			overflow: hidden;
+		}
+		.ani-test.ng-enter,
+		.ani-test.ng-leave,
+		.ani-test.ng-hide-add,
+		.ani-test.ng-hide-remove {
+			transition: 1s all;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<h3>IE8 form button issue</h3>
-		<form ng-submit="dialog.show('Submit')" onsubmit="alert('submit')" name="form" ng-controller="ff">
-			<input type="text" ng-model="test">
-			<button type="submit" ng-click="dialog.show('Clicked')" onclick="alert('click')">Submit</button>
-			<input type="submit" onclick="alert('click input')">
-		</form>
+		<input type="checkbox" ng-model="show">
+		<div class="ani-test" ng-if="show">
+			ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>
+		</div>
+		<input type="checkbox" ng-model="show2">
+		<div class="ani-test" ng-show="show2">
+			ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>
+		</div>
 	</div>
 </body>
 </html>

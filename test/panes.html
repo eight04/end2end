@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Panes</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/table.css">
+	<link rel="stylesheet" href="../build/components/form.css">
+	<link rel="stylesheet" href="../build/components/panes.css">
+	<link rel="stylesheet" href="../build/components/nav.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<!--[if lte ie 8]>
+	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<![endif]-->
+	<script>
+		app = angular.module("app", ["end2end", "ngAnimate"]);
+		app.run(function($rootScope){
+
+		});
+	</script>
+	<style>
+		.box:after {
+			content: " world!";
+		}
+	</style>
+</head>
+<body>
+	<div class="container marger">
+		<ul class="nav-tab" toggler="myToggler">
+			<li class="active"><a href="">Tab 1</a></li>
+			<li><a href="">Tab 2</a></li>
+			<li><a href="">Tab 3</a></li>
+			<li><a href="">Tab 4</a></li>
+			<li><a href="">Tab 5</a></li>
+		</ul>
+		<div class="panes" toggled="myToggler">
+			<div class="pane">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptas pariatur libero officia reprehenderit vitae error nisi consequatur quibusdam, molestias sequi repellendus fugiat, perferendis consectetur eius veritatis distinctio, ducimus nihil.</p>
+			</div>
+			<div class="pane">
+				<p>Iure sit blanditiis qui, quas rerum. Magni blanditiis laborum repellendus ea sed doloribus quisquam. Velit dolorem distinctio nisi vitae, nemo, suscipit consequuntur assumenda cumque nostrum, veritatis totam ab adipisci expedita!</p>
+			</div>
+			<div class="pane">
+				<p>Unde id, dolor totam ullam fugiat. Commodi unde fugiat placeat recusandae optio suscipit eius voluptatum adipisci qui voluptates magni ducimus debitis, est quaerat eligendi doloribus quae similique, iure, architecto perferendis!</p>
+			</div>
+			<div class="pane">
+				<p>Quo iure quibusdam ex mollitia alias magni quae eaque architecto, perspiciatis laborum molestias veritatis adipisci est! Dolorem eos esse consequuntur fugit, perferendis obcaecati. Eaque ipsa, a exercitationem debitis ducimus odit.</p>
+			</div>
+			<div class="pane">
+				<p>Necessitatibus incidunt voluptatum cum, quidem architecto nisi. Rerum dicta facere vel, aut aperiam autem numquam ad perferendis iure consequatur reprehenderit nam ratione dolorem modi suscipit quod dignissimos delectus explicabo assumenda.</p>
+			</div>
+		</div>
+		<div class="box">Hello</div>
+	</div>
+</body>
+</html>

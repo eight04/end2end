@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Table</title>
@@ -8,82 +8,48 @@
 	<link rel="stylesheet" href="../build/components/table.css">
 	<link rel="stylesheet" href="../build/helpers.css">
 	<link rel="stylesheet" href="../build/theme.css">
-	<script src="../bower_components/respond/dest/respond.min.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../dist/end2end.js"></script>
 	<style>
 		body {
 			padding-bottom: 2em;
 		}
-		.container {
-			background-attachment: scroll;
-			background-image: url(https://cdn2.iconfinder.com/data/icons/3d-bluefx-desktop-icons/256/My-Computer.png);
-			height: 200px;
-			overflow: auto;
-			padding: 2em;
-		}
 		.box:before {
 			content: attr(head) " ";
 		}
+		.table-test {
+			border-collapse: collapse;
+		}
+		.table-test th,
+		.table-test td {
+			padding: 0.5em 1em;
+		}
+		.table-test thead {
+			background-color: #eee;
+		}
+		.table-test tbody {
+			border-top: 1px solid;
+		}
+		.table-test td,
+		.table-test th {
+			border-left: 1px solid;
+		}
+		.table-test td:first-child {
+			border-left-width: 0px;
+		}
+		.table-test thead {
+			border-left-width: 1px;
+		}
+		.table-test th:first-child {
+			border-left-width: 0;
+		}
 	</style>
 	<script>
-		setTimeout(function(){
-			document.querySelector(".box").setAttribute("head", "ok");
-		}, 1000);
-		var a = {};
-		for (key in a) {
-			alert(key);
-		}
+		angular.module("app", ["end2end"]);
 	</script>
 </head>
 <body>
 	<div class="container">
-		<div class="marger">
-			<table class="table-default">
-				<thead>
-					<tr>
-						<th>title</th>
-						<th>title</th>
-						<th>title</th>
-						<th>title</th>
-						<th>title</th>
-						<th>title</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-					</tr>
-					<tr>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-					</tr>
-					<tr>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-					</tr>
-					<tr>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-						<td>content</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 		<div class="marger">
 			<div class="table-responsive">
 				<table class="table-default">
@@ -136,7 +102,7 @@
 		</div>
 		<div class="marger">
 			<div class="table-responsive">
-				<table class="table-default">
+				<table class="table-border">
 					<thead>
 						<tr>
 							<th>title</th>
@@ -147,12 +113,147 @@
 							<th>title</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
 		<div class="marger">
-			<div class="box" head="test">world</div>
+			<div class="table-fixed" fixed-left="1" fixed-right="1">
+				<div class="table-responsive">
+					<table class="table-border">
+						<thead>
+							<tr>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+								<th>title</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+							<tr>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+								<td>content</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="marger">
+			<div class="table-scroll">
+				<table class="table-test">
+					<thead>
+						<tr>
+							<th rowspan="2">title</th>
+							<th rowspan="2">title</th>
+							<th colspan="3">title</th>
+							<th rowspan="2">title</th>
+						</tr>
+						<tr>
+							<th>a</th>
+							<th>b</th>
+							<th>c</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+						<tr>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+							<td>content</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

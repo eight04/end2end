@@ -35,6 +35,11 @@
 	.make-padding(@gap/4);
 }
 
+// Padded
+.padded {
+	padding: 0.3em;
+}
+
 // Text aligns
 .text-left {
 	text-align: left;
@@ -54,40 +59,6 @@
 }
 .text-bottom {
 	vertical-align: bottom;
-}
-
-// Text color
-.text-primary {
-	color: @brand-primary
-}
-.text-info {
-	color: @brand-info;
-}
-.text-success {
-	color: @brand-success;
-}
-.text-warning {
-	color: @brand-warning;
-}
-.text-danger {
-	color: @brand-danger;
-}
-
-// BG
-.bg-primary {
-	background-color: screen(@brand-primary, #CCCCCC);
-}
-.bg-info {
-	background-color: screen(@brand-info, #CCCCCC);
-}
-.bg-success {
-	background-color: screen(@brand-success, #CCCCCC);
-}
-.bg-warning {
-	background-color: screen(@brand-warning, #CCCCCC);
-}
-.bg-danger {
-	background-color: screen(@brand-danger, #CCCCCC);
 }
 
 // Page
@@ -179,15 +150,19 @@ img {
 
 // Whitespace
 .nowrap {
-	white-space: nowrap;
+	white-space: nowrap!important;
+}
+
+.pre {
+	white-space: pre!important;
 }
 
 .pre-line {
-	white-space: pre-line;
+	white-space: pre-line!important;
 }
 
 .pre-wrap {
-	white-space: pre-wrap;
+	white-space: pre-wrap!important;
 }
 
 .compact {
@@ -202,5 +177,31 @@ img {
 		display: inline-block;
 		height: 100%;
 		vertical-align: middle;
+	}
+}
+
+.vcenter-table {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.vcenter-cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+// Collapse
+.ani-collapse {
+	overflow: hidden;
+}
+.collapsing {
+	transition: 0.4s all;
+	display: block!important;
+}
+
+@-webkit-keyframes chrome-overflow-hack {
+	to {
+		margin-left: 0%;
 	}
 }

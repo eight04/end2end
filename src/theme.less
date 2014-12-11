@@ -14,21 +14,20 @@ code {
 }
 
 pre {
-	background-color: @bg-color-base;
 	font-family: @font-family-monospace;
-	padding: 0.25em;
-	font-size: 90%;
-
-	code {
-		padding: 0;
-		font-size: 100%;
-	}
 }
 
 h1, h2, h3, h4, h5, h6 {
 	small {
 		font-size: 70%;
+		color: @font-color-lighter;
 	}
+}
+
+hr {
+	border: none;
+	border-top: 1px solid @border-color-base;
+	margin: @gap 0;
 }
 
 small {
@@ -90,13 +89,18 @@ a {
 	line-height: 0.8;
 }
 .btn-close {
-	width: 1em;
-	height: 1em;
-	vertical-align: baseline;
 	color: @font-color-light;
-
 	&:hover {
 		color: inherit;
+	}
+}
+.btn-circle {
+	border: 1px solid @font-color-light;
+	margin: -1px 0;
+	color: @font-color-light;
+	&:hover {
+		color: inherit;
+		border-color: inherit;
 	}
 }
 .btn-group{
@@ -141,6 +145,7 @@ a {
 
 .input-group-addon {
 	.make-border();
+	overflow: hidden;
 	> * {
 		padding: 0 0.5em;
 		background-color: @color-bg;
@@ -265,7 +270,9 @@ select {
 	border-right: none;
 	box-sizing: content-box;
 	opacity: 0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	box-shadow: 0 0 1em black;
+	transition: all 0.4s;
 
 	&:active {
 		box-shadow: 0 0 1em black;
@@ -285,16 +292,10 @@ select {
 
 	&:before {
 		content: "«";
+		.sidebar.active & {
+			content: "»";
+		}
 	}
-}
-
-// Animate
-.collapse {
-	display: none;
-}
-
-.collapsing {
-	transition: 0.4s all;
 }
 
 .addword {
@@ -374,44 +375,61 @@ select {
 }
 
 // Table
-.table-default {
+._table() {
 	.make-border();
+	overflow: hidden;
 	border-collapse: separate;
-
-	thead {
-		th, td {
-			background-color: @bg-color-base;
-			text-align: center;
-		}
-	}
-
-	tbody tr:first-child {
-		th, td {
-			border-top: 1px solid @border-color-base;
-		}
-	}
-
-	th, td {
-		padding: 0.5em 1.04em;
-		border-left: 1px solid @border-color-base;
+	> * > * > * {
+		padding: (0.5 - (1.25 - 1) / 2em) 1em;
+		line-height: 1.25;
 		vertical-align: middle;
-
+	}
+	thead > * > * {
+		background-color: @bg-color-base;
+		text-align: center;
+	}
+}
+.table-default {
+	._table();
+	tbody > :first-child > * {
+		border-top: 1px solid @border-color-base;
+	}
+	> * > * > * {
+		border-left: 1px solid @border-color-base;
 		&:first-child {
 			border-left: none;
 		}
 	}
-
-	.table-fixed-left {
-		border-right: 1px solid @border-color-base;
-		border-left-width: 0;
-
-		+ * {
+}
+.table-bordered {
+	._table();
+	> * > * > * {
+		border-top: 1px solid @border-color-base;
+	}
+	> thead > * > * {
+		border-top-width: 0;
+	}
+	> * > * > * {
+		border-left: 1px solid @border-color-base;
+		&:first-child {
 			border-left-width: 0;
 		}
 	}
+}
 
-	.table-fixed-right {
-//		border-left: 1px solid @border-color-base;
+.table-cell-inner {
+	border-left: 1px solid @border-color-base!important;
+	border-top: 1px solid @border-color-base!important;
+}
+.table-cell-first {
+	border-left-width: 0!important;
+}
+.table-fixed-left {
+	border-right: 1px solid @border-color-base;
+	border-left-width: 0;
+
+	+ * {
+		border-left-width: 0;
 	}
 }
 
@@ -427,6 +445,7 @@ select {
 
 .table-fixed {
 	.make-border();
+	overflow: hidden;
 	> * {
 		border-width: 0;
 		border-radius: 0;
@@ -467,15 +486,18 @@ select {
 }
 
 // Blackboard
+.blackboard {
+	background-color: @bg-color-base;
+	padding-top: @gap*2;
+	padding-bottom: @gap*2;
+}
+.blackboard-head {
+	margin-top: 0.4em;
+}
 .blackboard-side {
 	font-size: 80%;
 }
-@media (min-width: @window-sm) {
-	.blackboard {
-		background-color: @bg-color-base;
-		padding-top: @gap*2;
-		padding-bottom: @gap*2;
-	}
+@media (min-width: @blackboard-breakpoint) {
 	.blackboard-head {
 		font-size: 320%;
 	}
@@ -483,19 +505,29 @@ select {
 		font-size: 140%;
 	}
 }
-@media (max-width: (@window-sm - 1)) {
-
+@media (max-width: (@blackboard-breakpoint - 1)) {
+	.blackboard-head {
+		font-size: 210%;
+		text-align: center;
+	}
+	.blackboard {
+		padding: 0 0 @gap;
+	}
+	.blackboard-side {
+		line-height: 1.3;
+	}
 }
 
 // Navs
 .nav-list {
 	.make-border();
-
+	overflow: hidden;
 	> * {
 		> * {
 			.make-link-color(@font-color-light, @font-color-base);
 			padding: 0.5em 1em;
-			&:hover {
+			&:hover,
+			&:focus {
 				background-color: @bg-color-base;
 			}
 		}
@@ -504,6 +536,14 @@ select {
 		}
 		&.active > * {
 			background-color: @bg-color-base;
+		}
+		&.danger > * {
+			background-color: @bg-color-danger;
+			&:hover,
+			&:focus {
+				background-color: @bg-color-danger;
+//				color: @font-color-base;
+			}
 		}
 	}
 }
@@ -544,23 +584,24 @@ select {
 	overflow: hidden;
 
 	.nav-tree {
-		max-height: 0;
 		margin-left: 2em;
 		font-size: 90%;
 	}
 
 	> * {
 		> a {
-			padding: 0.25em 0.5em;
+			padding: 0.5em;
+			border-left: 0 solid @brand-primary;
 		}
 
-		&.active, &:hover {
+		&.active,
+		&:hover {
 			> a {
 				.make-link-color(@brand-primary, @brand-primary);
-				border-left: 0.25em solid @brand-primary;
-			}
-			.nav-tree {
-				max-height: 300px;
+				border-left-width: 0.25em;
+//				background-color: @bg-color-base;
+//				border-top-right-radius: @radius-base;
+//				border-bottom-right-radius: @radius-base;
 			}
 		}
 	}
@@ -606,3 +647,91 @@ select {
 	.pool();
 	padding: 1em;
 }
+
+// Affix
+.affix-content {
+	overflow: auto;
+	.affix-top & {
+//		position: static;
+	}
+	.affix-bottom & {
+		position: absolute;
+	}
+	.affix-fixed & {
+		position: fixed;
+		top: 0;
+	}
+}
+
+// Panes
+.pane {
+	&.active-remove {
+		transition: 0.2s all linear;
+		display: inline-block;
+
+		&-active {
+			opacity: 0;
+		}
+	}
+
+	&.active-add {
+		transition: 0.2s all linear;
+		display: inline-block;
+		opacity: 0;
+
+		&-active {
+			opacity: 1;
+		}
+	}
+}
+
+// Code
+.code {
+	font-family: @font-family-monospace;
+	border: 1px dotted @border-color-base;
+	&:before {
+		border: 1px dotted @border-color-base;
+		background: white;
+	}
+	> code {
+		background-color: transparent;
+	}
+}
+
+// Text color
+.text-muted {
+	color: @font-color-lighter;
+}
+.text-primary {
+	color: @brand-primary
+}
+.text-info {
+	color: @brand-info;
+}
+.text-success {
+	color: @brand-success;
+}
+.text-warning {
+	color: @brand-warning;
+}
+.text-danger {
+	color: @brand-danger;
+}
+
+// BG
+.bg-primary {
+	background-color: @bg-color-primary;
+}
+.bg-info {
+	background-color: @bg-color-info;
+}
+.bg-success {
+	background-color: @bg-color-success;
+}
+.bg-warning {
+	background-color: @bg-color-warning;
+}
+.bg-danger {
+	background-color: @bg-color-danger;
+}
+
