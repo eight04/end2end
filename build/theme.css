@@ -263,6 +263,7 @@ select.ng-invalid:focus {
 }
 @media (max-width: 1023px) {
   .sidebar {
+    border-left: 1px solid #a3a3a3;
     z-index: 1100;
   }
   .sidebar.active-add {
@@ -282,8 +283,10 @@ select.ng-invalid:focus {
     transform: translateX(100%);
   }
   .sidebar.active {
-    border-left: 1px solid #a3a3a3;
     box-shadow: 0 0 1em black;
+  }
+  .sidebar.active .sidebar-toggle:before {
+    content: "»";
   }
 }
 .sidebar-toggle {

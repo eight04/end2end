@@ -964,7 +964,8 @@ angular.module(
 			}
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
-				rendering = false;
+				rendering = false,
+				setter;
 
 			function calc(){
 				var trs, j;
@@ -1031,7 +1032,7 @@ angular.module(
 			}
 
 			if (attrs.name) {
-				var setter = $parse(attrs.name).assign;
+				setter = $parse(attrs.name).assign;
 				setter(scope, {
 					render: function(){
 						if (!rendering) {

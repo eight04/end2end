@@ -231,6 +231,7 @@ select {
 // Sidebar
 @media (max-width: (@sidebar-breakpoint - 1)) {
 	.sidebar {
+		border-left: 1px solid @border;
 		z-index: 1100;
 
 		&.active-add {
@@ -252,8 +253,11 @@ select {
 			}
 		}
 		&.active {
-			border-left: 1px solid @border;
 			box-shadow: 0 0 1em black;
+
+			.sidebar-toggle:before {
+				content: "»";
+			}
 		}
 	}
 }
@@ -288,7 +292,6 @@ select {
 
 	&:before {
 		content: "«";
-
 		.sidebar.active & {
 			content: "»";
 		}

@@ -2053,7 +2053,7 @@ pre {
   position: absolute;
   top: -1em;
   left: 1.25em;
-  padding: 0.4em;
+  padding: 0.5em 0.4em 0.3em;
   font-size: 80%;
   margin-top: -1px;
   line-height: 1;
@@ -2063,9 +2063,10 @@ pre {
   font-size: 100%;
   padding: 0.8em 1em;
   line-height: 1.2;
-  max-height: 36em;
   white-space: pre-wrap;
   tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
   overflow: auto;
 }
 
@@ -2475,8 +2476,8 @@ legend + .checkbox {
     height: 100%;
   }
   .sidebar.active {
-    right: 0;
     left: auto;
+    right: 0;
   }
   .sidebar .sidebar-toggle {
     display: block;
@@ -2491,6 +2492,10 @@ legend + .checkbox {
 @media (min-width: 1024px) {
   .sidebar .sidebar-toggle {
     display: none;
+  }
+  .sidebar.active-add,
+  .sidebar.active-remove {
+    transition: none;
   }
 }
 
@@ -3088,6 +3093,7 @@ select.ng-invalid:focus {
 }
 @media (max-width: 1023px) {
   .sidebar {
+    border-left: 1px solid #a3a3a3;
     z-index: 1100;
   }
   .sidebar.active-add {
@@ -3107,8 +3113,10 @@ select.ng-invalid:focus {
     transform: translateX(100%);
   }
   .sidebar.active {
-    border-left: 1px solid #a3a3a3;
     box-shadow: 0 0 1em black;
+  }
+  .sidebar.active .sidebar-toggle:before {
+    content: "»";
   }
 }
 .sidebar-toggle {
