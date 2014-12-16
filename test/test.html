@@ -3,86 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Form</title>
-	<link rel="stylesheet" href="../build/base.css">
-	<link rel="stylesheet" href="../build/grid.css">
-	<link rel="stylesheet" href="../build/components/form.css">
-	<link rel="stylesheet" href="../build/components/modal.css">
-	<link rel="stylesheet" href="../build/components/dialog.css">
-	<link rel="stylesheet" href="../build/theme.css">
-	<link rel="stylesheet" href="../build/helpers.css">
-	<script src="../bower_components/respond/dest/respond.min.js"></script>
-	<script src="../bower_components/angular/angular.js"></script>
-	<script src="../bower_components/angular-animate/angular-animate.js"></script>
-	<script src="../dist/end2end.js"></script>
-	<script>
-		angular.module(
-			"app", ["end2end", "ngAnimate"]
-		).animation(".ani-test", function($log, $timeout){
-			return {
-				beforeAddClass: function(element, cls, done) {
-					console.log("before add", element[0].className);
-					done();
-				},
-				addClass: function(element, cls, done){
-					console.log("add", element[0].className);
-					done();
-				},
-				beforeRemoveClass: function(element, cls, done) {
-					console.log("before remove", element[0].className);
-					done();
-				},
-				removeClass: function(element, cls, done){
-					console.log("remove", element[0].className);
-					done();
-				},
-				enter: function(element, done){
-					console.log("enter", element[0].className);
-					function enterActive(){
-						if (!element.hasClass("ng-enter-active")) {
-							$timeout(enterActive);
-							return;
-						}
-						console.log(element[0].className);
-					}
-					$timeout(enterActive);
-					done();
-				},
-				leave: function(element, done){
-					console.log("leave", element[0].className);
-					$timeout(function(){
-						console.log("after leave", element[0].className);
-					});
-					done();
-				}
-			};
-		});
-	</script>
 	<style>
 		body {
 			padding-bottom: 2em;
 		}
-		.ani-test {
-			border: 1px solid;
+		.container {
+			border-radius: 0.1875em;
 			overflow: hidden;
+			position: relative;
+			box-sizing: border-box;
+			height: 300px;
 		}
-		.ani-test.ng-enter,
-		.ani-test.ng-leave,
-		.ani-test.ng-hide-add,
-		.ani-test.ng-hide-remove {
-			transition: 1s all;
+		.box {
+			width: 100%;
+			height: 100px;
+			position: fixed;
+			top: 0;
+			background-color: orange;
+		}
+		.filler {
+			height: 5000px;
 		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<input type="checkbox" ng-model="show">
-		<div class="ani-test" ng-if="show">
-			ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>ng-if<br>
-		</div>
-		<input type="checkbox" ng-model="show2">
-		<div class="ani-test" ng-show="show2">
-			ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>ng-show<br>
-		</div>
+		<div class="box">test</div>
 	</div>
+	<div class="filler"></div>
 </body>
 </html>

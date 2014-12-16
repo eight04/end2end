@@ -460,9 +460,13 @@ select.ng-invalid:focus {
   border-radius: 0.1875em;
   overflow: hidden;
 }
-.table-fixed > * {
+.table-fixed .table-responsive {
   border-width: 0;
   border-radius: 0;
+}
+.table-fixed .table-fixed-head {
+  border-bottom: 1px solid #808080;
+  background-color: #f0f0f0;
 }
 .navbar {
   color: #707070;

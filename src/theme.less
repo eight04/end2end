@@ -446,9 +446,13 @@ select {
 .table-fixed {
 	.make-border();
 	overflow: hidden;
-	> * {
+	.table-responsive {
 		border-width: 0;
 		border-radius: 0;
+	}
+	.table-fixed-head {
+		border-bottom: 1px solid @border-color-base;
+		background-color: @bg-color-base;
 	}
 }
 

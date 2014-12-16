@@ -906,7 +906,7 @@ angular.module(
 			return toggler;
 		}
 	};
-}).directive("tableFixed", function($timeout, $parse){
+}).directive("tableFixed", function($timeout, $parse, affix, scrollsync){
 
 	function setTableCell(f, trs, cells){
 		var bounds = [],
@@ -986,18 +986,26 @@ angular.module(
 
 	return {
 		restrict: "C",
+		templateUrl: "templates/tableFixed.html",
+		transclude: true,
 		link: function(scope, element, attrs) {
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
 				rendering = false,
-				setter, tableFixedHead, table;
+				setter, head, table, tableFixedHead, tableFixedTable;
 
-			table = element.children()[0];
+			table = element[0].querySelector("table");
+			head = element[0].querySelector(".table-fixed-head > .table-responsive");
+			tableFixedHead = element[0].querySelector(".table-fixed-head");
+			tableFixedTable = element[0].querySelector(".table-fixed-table");
+
+			affix.affix(element, element, angular.element(tableFixedHead));
+			scrollsync.create(head, table.parentNode);
 
 			function calc(){
 				var trs, i, td, eles, sumLeft, sumRight, tds;
 
-				eles = element[0].querySelectorAll(".table-fixed-cell");
+				eles = table.querySelectorAll(".table-fixed-cell");
 
 				if (eles) {
 					for (i = 0; i < eles.length; i++) {
@@ -1006,12 +1014,9 @@ angular.module(
 					}
 				}
 
-				trs = element.find("tr");
-				for (i = 0; i < trs.length; i++) {
-					angular.element(trs[i]).css("height", "");
-				}
+				trs = table.querySelectorAll("tr");
 
-				tds = element[0].querySelectorAll("td, th");
+				tds = table.querySelectorAll("td, th");
 				for (i = 0; i < tds.length; i++) {
 					tds[i].style.width = "";
 					tds[i].style.height = "";
@@ -1025,41 +1030,33 @@ angular.module(
 				sumLeft = setTableCell("left", trs, fixedLeft);
 				sumRight = setTableCell("right", trs, fixedRight);
 
-//				for (j = 0; j < trs.length; j++) {
-//					rect = trs[j].getBoundingClientRect();
-//					height = rect.bottom - rect.top;
-//					angular.element(trs[j]).css("height", height + "px");
-//				}
-
-				eles = element[0].querySelectorAll(".table-fixed-left-calc");
+				eles = table.querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < eles.length; i++) {
 					td = angular.element(eles[i]);
-//					td.css("width", td[0].tableFixed.width + "px");
-//					td.css("height", td[0].tableFixed.height + "px");
 					td.css("left", td[0].tableFixed.offset + "px");
 					td.addClass("table-fixed-cell table-fixed-left");
 					td.removeClass("table-fixed-left-calc");
 				}
 
-				eles = element[0].querySelectorAll(".table-fixed-right-calc");
+				eles = table.querySelectorAll(".table-fixed-right-calc");
 				for (i = 0; i < eles.length; i++) {
 					td = angular.element(eles[i]);
-//					td.css("width", td[0].tableFixed.width + "px");
-//					td.css("height", td[0].tableFixed.height + "px");
 					td.css("right", td[0].tableFixed.offset + "px");
 					td.addClass("table-fixed-cell table-fixed-right");
 					td.removeClass("table-fixed-left-calc");
 				}
 
-				element.css("padding-left", sumLeft + "px");
-				element.css("padding-right", sumRight + "px");
+				tableFixedHead.style.paddingLeft = sumLeft + "px";
+				tableFixedHead.style.paddingRight = sumRight + "px";
+				tableFixedTable.style.paddingLeft = sumLeft + "px";
+				tableFixedTable.style.paddingRight = sumRight + "px";
 
 				// Make fixed header
-				var tableHead = element.children()[0].cloneNode(true);
+				var tableHead = table.cloneNode(true);
 				var body = tableHead.querySelector("tbody");
+				tableHead.style.width = table.offsetWidth + "px";
 				body.parentNode.removeChild(body);
-				var tableFixedHead = angular.element("<div class='table-fixed-head'></div>").append(tableHead);
-				tableFixedHead
+				head.appendChild(tableHead);
 			}
 
 			function calcContainer (){
@@ -1087,7 +1084,64 @@ angular.module(
 			calcContainer();
 		}
 	};
-}).directive("affix", function(){
+}).factory("affix", function($window){
+	var affixJar = [];
+
+	function affix(o){
+		var rect, parentRect, containerRect, width, state;
+
+		rect = o.element[0].getBoundingClientRect();
+		containerRect = o.container[0].getBoundingClientRect();
+		parentRect = o.parent[0].getBoundingClientRect();
+
+		width = o.parent[0].clientWidth;
+		if (width != o.width) {
+			o.element.css("width", width + "px");
+			o.width = width;
+		}
+
+		if (parentRect.top >= 0) {
+			state = "affix-top";
+		} else if (parentRect.top < 0 && containerRect.bottom - (rect.bottom - rect.top) <= 0) {
+			state = "affix-bottom";
+		} else {
+			state = "affix-fixed";
+		}
+
+		if (state != o.state) {
+			if (state == "affix-bottom") {
+				o.element.css("top", containerRect.bottom - containerRect.top - (rect.bottom - rect.top) + "px");
+			} else {
+				o.element.css("top", "");
+			}
+			o.parent.removeClass(o.state);
+			o.parent.addClass(state);
+			o.state = state;
+		}
+	}
+
+	function affixContainer(){
+		var i;
+		for (i = 0; i < affixJar.length; i++) {
+			affix(affixJar[i]);
+		}
+	}
+
+	angular.element(window).on("resize", affixContainer);
+	angular.element(window).on("scroll", affixContainer);
+
+	return {
+		affix: function(container, parent, element) {
+			affixJar.push({
+				element: element,
+				container: container,
+				parent: parent,
+				width: null,
+				state: null
+			});
+		}
+	};
+}).directive("affix", function(affix){
 
 	return {
 		restrict: "C",
@@ -1105,45 +1159,7 @@ angular.module(
 				throw "Can't find affix-content!";
 			}
 
-			var currentState = null;
-			var currentWidth = null;
-
-			function affix(){
-				var rect = element[0].getBoundingClientRect();
-				var containerRect = containerElement[0].getBoundingClientRect();
-				var contentRect = contentElement[0].getBoundingClientRect();
-
-				var width = rect.right - rect.left;
-				if (width != currentWidth) {
-					contentElement.css("width", width + "px");
-					currentWidth = width;
-				}
-
-				var state;
-				if (rect.top >= 0) {
-					state = "affix-top";
-				} else if (rect.top < 0 && containerRect.bottom - (contentRect.bottom - contentRect.top) <= 0) {
-					state = "affix-bottom";
-				} else {
-					state = "affix-fixed";
-				}
-
-				if (state != currentState) {
-					if (state == "affix-bottom") {
-						contentElement.css("top", containerRect.bottom - containerRect.top - (contentRect.bottom - contentRect.top) + "px");
-					} else {
-						contentElement.css("top", "");
-					}
-					element.removeClass(currentState);
-					element.addClass(state);
-					currentState = state;
-				}
-
-			}
-
-			var w = angular.element(window);
-			w.on("scroll", affix);
-			w.on("resize", affix);
+			affix.affix(containerElement, element, contentElement);
 		}
 	};
 }).factory("loader", function(modal){
@@ -1259,6 +1275,50 @@ angular.module(
 			autonav.setNav(element);
 		}
 	};
+}).factory("scrollsync", function(){
+
+	function registEvent(nodes, node) {
+		angular.element(node.element).on("scroll", function(){
+			if (node.triggered) {
+				node.triggered = false;
+				return;
+			}
+			var percentage = node.element.scrollLeft / (node.element.scrollWidth - node.element.clientWidth), i;
+
+			for (i = 0; i < nodes.length; i++) {
+				if (nodes[i] != node.element) {
+					nodes[i].triggered = true;
+					nodes[i].element.scrollLeft = percentage * (nodes[i].element.scrollWidth - nodes[i].element.clientWidth);
+				}
+			}
+		});
+	}
+
+	return {
+		create: function(){
+			var i, nodes;
+			if (arguments.length > 1) {
+				nodes = [];
+				for (i = 0; i < arguments.length; i++) {
+					nodes.push({
+						element: arguments[i],
+						triggered: false
+					});
+				}
+			} else {
+				for (i = 0; i < arguments[0].length; i++) {
+					nodes.push({
+						element: arguments[0][i],
+						triggered: false
+					});
+				}
+			}
+
+			for (i = 0; i < nodes.length; i++) {
+				registEvent(nodes, nodes[i]);
+			}
+		}
+	}
 });
 
 })();
@@ -1285,8 +1345,8 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('templates/tabGroup.html',
-    "<div class=\"nav-responsive\"><ul class=\"nav-tab\"><li ng-repeat=\"tab in tabs\" ng-click=\"active(tab)\" ng-class=\"{'active': tab.active}\"><a href=\"\">{{tab.title}}</a></li></ul></div><div class=\"panes\" ng-transclude></div>"
+  $templateCache.put('templates/tableFixed.html',
+    "<div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div><div class=\"table-fixed-table\"><div class=\"table-responsive\" ng-transclude></div></div>"
   );
 
 }]);

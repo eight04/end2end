@@ -541,131 +541,127 @@
 					<button class="btn-default" ng-click="tableFixed.render()">Redraw</button>
 				</div>
 				<div class="table-fixed" fixed-left="2" fixed-right="1">
-					<div class="table-responsive">
-						<table class="table-default">
-							<thead>
-								<tr>
-									<th>
-										Title 1<br>
-										2nd line
-									</th>
-									<th>
-										<div class="vcenter-table">
-											<div class="vcenter-cell">Title 2</div>
-										</div>
-									</th>
-									<th>Title 3</th>
-									<th>Title 4</th>
-									<th>Title 5</th>
-									<th>
-										<div class="vcenter-table">
-											<div class="vcenter-cell">Title 6</div>
-										</div>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+					<table class="table-default">
+						<thead>
+							<tr>
+								<th>
+									Title 1<br>
+									2nd line
+								</th>
+								<th>
+									<div class="vcenter-table">
+										<div class="vcenter-cell">Title 2</div>
+									</div>
+								</th>
+								<th>Title 3</th>
+								<th>Title 4</th>
+								<th>Title 5</th>
+								<th>
+									<div class="vcenter-table">
+										<div class="vcenter-cell">Title 6</div>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<p><code>table-fixed</code> will also calculate colspan and rowspan.</p>
 				<div class="table-fixed" fixed-left="2" fixed-right="1" name="tableFixed">
-					<div class="table-responsive">
-						<table class="table-default">
-							<thead>
-								<tr>
-									<th rowspan="2">
-										<div class="vcenter-table">
-											<div class="vcenter-cell">Title 1<br>2nd line</div>
-										</div>
-									</th>
-									<th rowspan="2">
-										<div class="vcenter-table">
-											<div class="vcenter-cell">Title 2</div>
-										</div>
-									</th>
-									<th colspan="3">Title 3</th>
-									<th rowspan="2">
-										<div class="vcenter-table">
-											<div class="vcenter-cell">Title 6</div>
-										</div>
-									</th>
-								</tr>
-								<tr>
-									<th class="table-cell-inner table-cell-first">Title 3-1</th>
-									<th class="table-cell-inner">Title 3-2</th>
-									<th class="table-cell-inner">Title 3-3</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-								<tr>
-									<td>Content 1</td>
-									<td>Content 2</td>
-									<td>Content 3</td>
-									<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
-									<td>Content 4</td>
-									<td>Content 5</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+					<table class="table-default">
+						<thead>
+							<tr>
+								<th rowspan="2">
+									<div class="vcenter-table">
+										<div class="vcenter-cell">Title 1<br>2nd line</div>
+									</div>
+								</th>
+								<th rowspan="2">
+									<div class="vcenter-table">
+										<div class="vcenter-cell">Title 2</div>
+									</div>
+								</th>
+								<th colspan="3">Title 3</th>
+								<th rowspan="2">
+									<div class="vcenter-table">
+										<div class="vcenter-cell">Title 6</div>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th class="table-cell-inner table-cell-first">Title 3-1</th>
+								<th class="table-cell-inner">Title 3-2</th>
+								<th class="table-cell-inner">Title 3-3</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+							<tr>
+								<td>Content 1</td>
+								<td>Content 2</td>
+								<td>Content 3</td>
+								<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
+								<td>Content 4</td>
+								<td>Content 5</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 
 				<h2 id="form">Form</h2>

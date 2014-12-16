@@ -36,6 +36,20 @@
 	display: inline-block;
 	max-width: 100%;
 	position: relative;
+	&.affix-top .table-fixed-head {
+		position: absolute;
+		top: -99999px;
+	}
+	&.affix-fixed .table-fixed-head {
+		position: fixed;
+		top: 0;
+	}
+	&.affix-bottom .table-fixed-head {
+		position: absolute;
+	}
+	.table-fixed-head {
+		z-index: 1;
+	}
 }
 
 .table-fixed-cell {
