@@ -946,8 +946,6 @@ angular.module(
 				td.className += " table-fixed-" + f + "-calc";
 				td.tableFixed = {
 					offset: Math.abs(bounds[j] - bounds[0])
-//					width: Math.abs(rect.right - rect.left),
-//					height: Math.abs(rect.bottom - rect.top)
 				};
 
 				if (colspan && +colspan > 0) {
@@ -1050,6 +1048,11 @@ angular.module(
 				tableFixedHead.style.paddingRight = sumRight + "px";
 				tableFixedTable.style.paddingLeft = sumLeft + "px";
 				tableFixedTable.style.paddingRight = sumRight + "px";
+
+				// Stupid chrome hack
+				table.style.display = "inline";
+				void(table.offsetWidth);
+				table.style.display = "";
 
 				// Make fixed header
 				var tableHead = table.cloneNode(true);
@@ -1278,7 +1281,8 @@ angular.module(
 }).factory("scrollsync", function(){
 
 	function registEvent(nodes, node) {
-		angular.element(node.element).on("scroll", function(){
+		var timeout = null;
+		angular.element(node.element).on("scroll", function calc(){
 			if (node.triggered) {
 				node.triggered = false;
 				return;
@@ -1291,6 +1295,8 @@ angular.module(
 					nodes[i].element.scrollLeft = percentage * (nodes[i].element.scrollWidth - nodes[i].element.clientWidth);
 				}
 			}
+			clearTimeout(timeout);
+			timeout = setTimeout(calc, 34);
 		});
 	}
 

@@ -24,11 +24,15 @@ Todos
 * Add table item.
 * Don't focus on button if user use custom template on dialog?
 * One-line vertical align issue.
+* Use content box on table?
 
 Known bugs
 ----------
 * Enter key won't be handled properly in dialog form on IE8.
 * Double scrollbar issue of scrollable modal.
+* IE 9+ overflow, border-radius, and position bug. (http://x.co/65DI4)
+* Chrome bug with table-fixed. Fixed by triggering redraw manually.
+* Chrome bug with flex and overflow: auto. Fixed by triggering redraw with animation.
 
 The standard
 ------------
