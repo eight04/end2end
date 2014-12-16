@@ -26,9 +26,6 @@
   display: block;
   text-decoration: none;
 }
-.nav-tree > * > a + .nav-tree {
-  margin-top: 0.25em;
-}
 .nav-pill a {
   display: block;
   text-decoration: none;

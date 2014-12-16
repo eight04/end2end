@@ -307,17 +307,26 @@ angular.module(
 			});
 		}
 	};
-}).directive("scrollspyNav", function(scrollspy){
+}).directive("scrollspyNav", function(scrollspy, $animate){
 	return {
 		restrict: "A",
 		link: function(scope, element) {
+			var activated = [];
+
+			function notIn(element, nodes) {
+				var i;
+				for (i = 0; i < nodes.length; i++) {
+					if (nodes[i][0] == element[0]) {
+						return false;
+					}
+				}
+				return true;
+			}
+
 			scrollspy.registerNav({
 				element: element,
 				active: function(id){
-					var eles, ele;
-
-					eles = element[0].querySelectorAll(".active");
-					angular.element(eles).removeClass("active");
+					var ele, toActive, i;
 
 					if (!id) {
 						return;
@@ -327,13 +336,32 @@ angular.module(
 					if (!ele) {
 						return;
 					}
+					toActive = [];
 					ele = angular.element(ele);
 					while (ele[0] != element[0]) {
 						if (ele[0].nodeName == "LI") {
-							ele.addClass("active");
+							toActive.push(ele);
 						}
 						ele = ele.parent();
 					}
+
+					for (i = 0; i < activated.length; i++) {
+						if (notIn(activated[i], toActive)) {
+//							$animate.removeClass(activated[i], "active");
+							activated[i].removeClass("active");
+							$animate.addClass(activated[i].children()[1], "ng-hide");
+						}
+					}
+
+					for (i = 0; i < toActive.length; i++) {
+						if (notIn(toActive[i], activated)) {
+//							$animate.addClass(toActive[i], "active");
+							toActive[i].addClass("active");
+							$animate.removeClass(toActive[i].children()[1], "ng-hide");
+						}
+					}
+
+					activated = toActive;
 				}
 			});
 		}
@@ -917,9 +945,9 @@ angular.module(
 
 				td.className += " table-fixed-" + f + "-calc";
 				td.tableFixed = {
-					offset: Math.abs(bounds[j] - bounds[0]),
-					width: Math.abs(rect.right - rect.left),
-					height: Math.abs(rect.bottom - rect.top)
+					offset: Math.abs(bounds[j] - bounds[0])
+//					width: Math.abs(rect.right - rect.left),
+//					height: Math.abs(rect.bottom - rect.top)
 				};
 
 				if (colspan && +colspan > 0) {
@@ -959,49 +987,55 @@ angular.module(
 	return {
 		restrict: "C",
 		link: function(scope, element, attrs) {
-			if (!attrs.fixedLeft && !attrs.fixedRight) {
-				return;
-			}
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
 				rendering = false,
-				setter;
+				setter, tableFixedHead, table;
+
+			table = element.children()[0];
 
 			function calc(){
-				var trs, j;
-				var i, rect, td, eles, height, sumLeft, sumRight;
+				var trs, i, td, eles, sumLeft, sumRight, tds;
 
 				eles = element[0].querySelectorAll(".table-fixed-cell");
 
 				if (eles) {
 					for (i = 0; i < eles.length; i++) {
 						td = angular.element(eles[i]);
-						td.css("width", "");
-						td.css("height", "");
 						td.removeClass("table-fixed-cell");
 					}
 				}
 
 				trs = element.find("tr");
-
 				for (i = 0; i < trs.length; i++) {
 					angular.element(trs[i]).css("height", "");
+				}
+
+				tds = element[0].querySelectorAll("td, th");
+				for (i = 0; i < tds.length; i++) {
+					tds[i].style.width = "";
+					tds[i].style.height = "";
+				}
+
+				for (i = 0; i < tds.length; i++) {
+					tds[i].style.width = tds[i].offsetWidth + "px";
+					tds[i].style.height = tds[i].offsetHeight + "px";
 				}
 
 				sumLeft = setTableCell("left", trs, fixedLeft);
 				sumRight = setTableCell("right", trs, fixedRight);
 
-				for (j = 0; j < trs.length; j++) {
-					rect = trs[j].getBoundingClientRect();
-					height = rect.bottom - rect.top;
-					angular.element(trs[j]).css("height", height + "px");
-				}
+//				for (j = 0; j < trs.length; j++) {
+//					rect = trs[j].getBoundingClientRect();
+//					height = rect.bottom - rect.top;
+//					angular.element(trs[j]).css("height", height + "px");
+//				}
 
 				eles = element[0].querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < eles.length; i++) {
 					td = angular.element(eles[i]);
-					td.css("width", td[0].tableFixed.width + "px");
-					td.css("height", td[0].tableFixed.height + "px");
+//					td.css("width", td[0].tableFixed.width + "px");
+//					td.css("height", td[0].tableFixed.height + "px");
 					td.css("left", td[0].tableFixed.offset + "px");
 					td.addClass("table-fixed-cell table-fixed-left");
 					td.removeClass("table-fixed-left-calc");
@@ -1010,8 +1044,8 @@ angular.module(
 				eles = element[0].querySelectorAll(".table-fixed-right-calc");
 				for (i = 0; i < eles.length; i++) {
 					td = angular.element(eles[i]);
-					td.css("width", td[0].tableFixed.width + "px");
-					td.css("height", td[0].tableFixed.height + "px");
+//					td.css("width", td[0].tableFixed.width + "px");
+//					td.css("height", td[0].tableFixed.height + "px");
 					td.css("right", td[0].tableFixed.offset + "px");
 					td.addClass("table-fixed-cell table-fixed-right");
 					td.removeClass("table-fixed-left-calc");
@@ -1019,6 +1053,13 @@ angular.module(
 
 				element.css("padding-left", sumLeft + "px");
 				element.css("padding-right", sumRight + "px");
+
+				// Make fixed header
+				var tableHead = element.children()[0].cloneNode(true);
+				var body = tableHead.querySelector("tbody");
+				body.parentNode.removeChild(body);
+				var tableFixedHead = angular.element("<div class='table-fixed-head'></div>").append(tableHead);
+				tableFixedHead
 			}
 
 			function calcContainer (){
@@ -1124,6 +1165,98 @@ angular.module(
 			}
 			m.close();
 			m = null;
+		}
+	};
+}).factory("autonav", function(){
+	var targetElement, navElement, idPrefix = "nav";
+
+	function getParent(index, spec) {
+		var i;
+		for (i = spec - 1; i >= 0; i--) {
+			if (index[i]) {
+				return index[i];
+			}
+		}
+	}
+
+	function cleanIndex(index, spec) {
+		var i;
+		for (i = +spec; i <= 6; i++) {
+			index[i] = null;
+		}
+	}
+
+	function buildNavTree(nodes) {
+		var i, ul, li;
+		ul = angular.element("<ul class='nav-tree'></ul>");
+		for (i = 0; i < nodes.length; i++) {
+			li = angular.element("<li><a href='#" + idPrefix + nodes[i].id + "'>" + nodes[i].title + "</a></li>");
+			if (nodes[i].children.length) {
+				li.append(buildNavTree(nodes[i].children));
+			}
+			ul.append(li);
+		}
+		ul.addClass("ani-collapse ng-hide");
+		return ul;
+	}
+
+	function init(){
+		if (!targetElement || !navElement) {
+			return;
+		}
+		var hs, hIndex, i, spec, parent, node, navtree;
+		hs = targetElement[0].querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+		// Build hs tree
+		hIndex = {
+			0: {
+				children: []
+			}
+		};
+		for (i = 0; i < hs.length; i++) {
+			spec = hs[i].nodeName.substr(1);
+			parent = getParent(hIndex, spec);
+			cleanIndex(hIndex, spec);
+			node = {
+				id: (parent.id ? (parent.id + ".") : "") + (parent.children.length + 1),
+				title: hs[i].textContent,
+				element: hs[i],
+				spec: spec,
+				children: []
+			};
+			parent.children.push(node);
+			hIndex[spec] = node;
+			hs[i].id = idPrefix + node.id;
+		}
+
+		// Build nav tree
+		navtree = buildNavTree(hIndex[0].children);
+		navtree.removeClass("ng-hide");
+		navElement.append(navtree);
+	}
+
+	return {
+		setTarget: function(element){
+			targetElement = element;
+			init();
+		},
+		setNav: function(element){
+			navElement = element;
+			init();
+		}
+	};
+}).directive("autonavTarget", function(autonav){
+	return {
+		restrict: "A",
+		link: function(scope, element){
+			autonav.setTarget(element);
+		}
+	};
+}).directive("autonavNav", function(autonav){
+	return {
+		restrict: "A",
+		link: function(scope, element) {
+			autonav.setNav(element);
 		}
 	};
 });

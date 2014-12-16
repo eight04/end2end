@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Respond.js test</title>
+	<link rel="stylesheet" href="../build/base.css">
+	<link rel="stylesheet" href="../build/grid.css">
+	<link rel="stylesheet" href="../build/components/table.css">
+	<link rel="stylesheet" href="../build/components/code.css">
+	<link rel="stylesheet" href="../build/helpers.css">
+	<link rel="stylesheet" href="../build/theme.css">
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/respond/dest/respond.src.js"></script>
+	<script src="../dist/end2end.js"></script>
+	<script>
+		angular.module("app", ["end2end"]);
+	</script>
+	<style>
+		.container {
+			max-width: 1280px;
+			height: 1600px;
+			background-color: #eee;
+		}
+		@media (max-width: 1280px) {
+			.container {
+				max-width: 1024px;
+			}
+		}
+		@media (max-width: 1024px) {
+			.container {
+				max-width: 768px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+
+	</div>
+</body>
+</html>

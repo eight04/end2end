@@ -29,3 +29,7 @@ Known bugs
 ----------
 * Enter key won't be handled properly in dialog form on IE8.
 * Double scrollbar issue of scrollable modal.
+
+The standard
+------------
+* Use `min-width:@window-size` and `max-width:(@window-size - 1)`.
