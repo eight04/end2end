@@ -1,25 +1,27 @@
-// This is not table stye file! This is table layout component.
 @import "../vars.less";
 @import "../mixins.less";
 @import (reference) "../helpers.less";
 
+// Normal table component
 .table {
-	> * {
-		display: table-cell;
-		vertical-align: middle;
-		white-space: nowrap;
+	th, td {
+		box-sizing: content-box;
 	}
 }
-
+.table-default {
+	&:extend(.table all);
+}
+.table-bordered {
+	&:extend(.table all);
+}
 .shrink {
 	width: 1%;
 }
-
 .stretch {
 	width: 100%;
 }
 
-// Responsive Table
+// Responsive wrapper
 .table-responsive {
 	.make-overflow();
 	display: inline-block;
@@ -53,7 +55,6 @@
 		position: relative;
 	}
 }
-
 .table-fixed-cell {
 	position: absolute;
 }
@@ -70,4 +71,9 @@
 	> * {
 		width: 100%;
 	}
+}
+
+// Trick as <tr>
+.table-row {
+	.make-table-row();
 }

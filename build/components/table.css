@@ -1,7 +1,10 @@
-.table > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
+.table th,
+.table td,
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
 }
 .shrink {
   width: 1%;
@@ -59,4 +62,9 @@
 }
 .table-block > * {
   width: 100%;
+}
+.table-row > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
 }

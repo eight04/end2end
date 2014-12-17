@@ -15,9 +15,8 @@
 }
 
 .nav-tab {
+	&:extend(.table-row all);
 	.nav();
-	.table();
-
 	> * {
 		vertical-align: bottom;
 		white-space: nowrap;
@@ -37,9 +36,8 @@
 }
 
 .nav-pill {
+	&:extend(.table-row all);
 	.nav();
-	.table();
-
 	> * {
 		width: 1%;
 	}

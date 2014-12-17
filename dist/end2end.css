@@ -2094,6 +2094,19 @@ pre {
   padding-right: 15px;
 }
 
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
+}
+.table-row > *,
+.input-group > *,
+.btn-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .form-group {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -2156,11 +2169,6 @@ legend + .checkbox {
   width: auto;
   margin: 0;
 }
-.input-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
 .input-group > * > * > * {
   display: block;
 }
@@ -2183,11 +2191,6 @@ legend + .checkbox {
 }
 .btn-group {
   display: inline-block;
-}
-.btn-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .btn-close {
   width: 1em;
@@ -2277,6 +2280,19 @@ legend + .checkbox {
   display: block;
 }
 
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
+}
+.table-row > *,
+.nav-tab > *,
+.nav-pill > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .nav a {
   display: block;
   text-decoration: none;
@@ -2288,11 +2304,6 @@ legend + .checkbox {
 .nav-tab a {
   display: block;
   text-decoration: none;
-}
-.nav-tab > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .nav-tab > * {
   vertical-align: bottom;
@@ -2310,11 +2321,6 @@ legend + .checkbox {
   text-decoration: none;
 }
 .nav-pill > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-.nav-pill > * {
   width: 1%;
 }
 @media (max-width: 767px) {
@@ -2324,6 +2330,18 @@ legend + .checkbox {
   }
 }
 
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
+}
+.input-group > *,
+.btn-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .navbar {
   position: relative;
   z-index: 1000;
@@ -2496,10 +2514,13 @@ legend + .checkbox {
   }
 }
 
-.table > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
+.table th,
+.table td,
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
 }
 .shrink {
   width: 1%;
@@ -2557,6 +2578,11 @@ legend + .checkbox {
 }
 .table-block > * {
   width: 100%;
+}
+.table-row > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .talk {

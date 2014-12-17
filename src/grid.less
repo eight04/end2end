@@ -43,18 +43,13 @@
 
 // row
 ._row {
-//    margin-top: -@gap;
 	margin-left: -@gap;
 	margin-right: -@gap;
-//	min-height: @gap;
-
 	> * {
 		padding-left: @gap;
 		padding-right: @gap;
-//        margin-top: @gap;
 	}
 }
-
 .row {
 	._row();
 	.make-flex();
@@ -63,11 +58,9 @@
 		width: 100%;
 
 		> :first-child {
-//			margin-top: 0;
 		}
 	}
 }
-
 .row-inline {
 	margin-top: -@gap;
 	margin-left: -@gap/2;
@@ -85,8 +78,6 @@
 		vertical-align: baseline;
 	}
 }
-
-
 .row-justify {
 	justify-content: space-between;
 	text-align: ~"justify\9";
@@ -107,12 +98,10 @@
 		vertical-align: ~"top\9";
 	}
 }
-
 .row-left {
 	justify-content: flex-start;
 	text-align: ~"left\9";
 }
-
 .row-center {
 	justify-content: center;
 	text-align: ~"center\9";
@@ -121,7 +110,6 @@
 		text-align: ~"left\9";
 	}
 }
-
 .row-right {
 	justify-content: flex-end;
 	text-align: ~"right\9";
@@ -130,7 +118,6 @@
 		text-align: ~"left\9";
 	}
 }
-
 .row-gap {
 	margin-top: -@gap;
 	min-height: @gap;
@@ -139,7 +126,6 @@
 		padding-top: @gap;
 	}
 }
-
 .row-nogap {
 	margin-top: 0;
 	margin-left: 0;
@@ -152,7 +138,6 @@
 		padding-right: 0;
 	}
 }
-
 .row-top {
 	align-items: flex-start;
 
@@ -160,7 +145,6 @@
 		vertical-align: ~"top\9";
 	}
 }
-
 .row-middle {
 	align-items: center;
 
@@ -168,7 +152,6 @@
 		vertical-align: ~"middle\9";
 	}
 }
-
 .row-bottom {
 	align-items: flex-end;
 
@@ -176,22 +159,18 @@
 		vertical-align: ~"bottom\9";
 	}
 }
-
 .col-top {
 	align-self: flex-start;
 	vertical-align: top;
 }
-
 .col-middle {
 	align-self: center;
 	vertical-align: middle;
 }
-
 .col-bottom {
 	align-self: flex-end;
 	vertical-align: bottom;
 }
-
 [class*="push-"],
 [class*="pull-"] {
 	position: relative;

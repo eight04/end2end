@@ -1,3 +1,15 @@
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
+}
+.input-group > *,
+.btn-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .navbar {
   position: relative;
   z-index: 1000;

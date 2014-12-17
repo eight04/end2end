@@ -1,3 +1,16 @@
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
+}
+.table-row > *,
+.nav-tab > *,
+.nav-pill > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .nav a {
   display: block;
   text-decoration: none;
@@ -9,11 +22,6 @@
 .nav-tab a {
   display: block;
   text-decoration: none;
-}
-.nav-tab > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .nav-tab > * {
   vertical-align: bottom;
@@ -29,11 +37,6 @@
 .nav-pill a {
   display: block;
   text-decoration: none;
-}
-.nav-pill > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .nav-pill > * {
   width: 1%;

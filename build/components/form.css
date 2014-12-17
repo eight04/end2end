@@ -1,3 +1,16 @@
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  box-sizing: content-box;
+}
+.table-row > *,
+.input-group > *,
+.btn-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .form-group {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -60,11 +73,6 @@ legend + .checkbox {
   width: auto;
   margin: 0;
 }
-.input-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
 .input-group > * > * > * {
   display: block;
 }
@@ -87,11 +95,6 @@ legend + .checkbox {
 }
 .btn-group {
   display: inline-block;
-}
-.btn-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .btn-close {
   width: 1em;
