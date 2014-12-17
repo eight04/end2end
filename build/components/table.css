@@ -29,19 +29,18 @@
   max-width: 100%;
   position: relative;
 }
-.table-fixed.affix-top .table-fixed-head {
-  position: absolute;
-  top: -99999px;
+.table-fixed .table-fixed-head {
+  z-index: 1;
 }
-.table-fixed.affix-fixed .table-fixed-head {
+.table-fixed .table-fixed-head.affix-top {
+  display: none;
+}
+.table-fixed .table-fixed-head.affix-fixed {
   position: fixed;
   top: 0;
 }
-.table-fixed.affix-bottom .table-fixed-head {
+.table-fixed .table-fixed-head.affix-bottom {
   position: absolute;
-}
-.table-fixed .table-fixed-head {
-  z-index: 1;
 }
 .table-fixed .table-fixed-table {
   position: relative;

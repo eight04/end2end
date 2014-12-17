@@ -1262,7 +1262,7 @@
     right: 91.66666667%;
   }
 }
-@media (min-width: 1440px) {
+@media (min-width: 1280px) {
   .col-lg-0 {
     width: 1%;
   }

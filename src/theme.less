@@ -444,8 +444,10 @@ select {
 }
 
 .table-fixed {
-	.make-border();
-	overflow: hidden;
+	.table-fixed-wrapper {
+		.make-border();
+		overflow: hidden;
+	}
 	.table-responsive {
 		border-width: 0;
 		border-radius: 0;
@@ -652,13 +654,13 @@ select {
 // Affix
 .affix-content {
 	overflow: auto;
-	.affix-top & {
+	&.affix-top {
 //		position: static;
 	}
-	.affix-bottom & {
+	&.affix-bottom {
 		position: absolute;
 	}
-	.affix-fixed & {
+	&.affix-fixed {
 		position: fixed;
 		top: 0;
 	}

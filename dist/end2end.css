@@ -1619,7 +1619,7 @@ pre {
     right: 91.66666667%;
   }
 }
-@media (min-width: 1440px) {
+@media (min-width: 1280px) {
   .col-lg-0 {
     width: 1%;
   }
@@ -2527,19 +2527,18 @@ legend + .checkbox {
   max-width: 100%;
   position: relative;
 }
-.table-fixed.affix-top .table-fixed-head {
-  position: absolute;
-  top: -99999px;
+.table-fixed .table-fixed-head {
+  z-index: 1;
 }
-.table-fixed.affix-fixed .table-fixed-head {
+.table-fixed .table-fixed-head.affix-top {
+  display: none;
+}
+.table-fixed .table-fixed-head.affix-fixed {
   position: fixed;
   top: 0;
 }
-.table-fixed.affix-bottom .table-fixed-head {
+.table-fixed .table-fixed-head.affix-bottom {
   position: absolute;
-}
-.table-fixed .table-fixed-head {
-  z-index: 1;
 }
 .table-fixed .table-fixed-table {
   position: relative;
@@ -3299,7 +3298,7 @@ select.ng-invalid:focus {
   border-width: 0;
   border-radius: 0;
 }
-.table-fixed {
+.table-fixed .table-fixed-wrapper {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
@@ -3537,10 +3536,10 @@ select.ng-invalid:focus {
 .affix-content {
   overflow: auto;
 }
-.affix-bottom .affix-content {
+.affix-content.affix-bottom {
   position: absolute;
 }
-.affix-fixed .affix-content {
+.affix-content.affix-fixed {
   position: fixed;
   top: 0;
 }

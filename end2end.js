@@ -997,7 +997,7 @@ angular.module(
 			tableFixedHead = element[0].querySelector(".table-fixed-head");
 			tableFixedTable = element[0].querySelector(".table-fixed-table");
 
-			affix.affix(element, element, angular.element(tableFixedHead));
+			affix.affix(element, element.children(), angular.element(tableFixedHead));
 			scrollsync.create(head, table.parentNode);
 
 			function calc(){
@@ -1117,8 +1117,8 @@ angular.module(
 			} else {
 				o.element.css("top", "");
 			}
-			o.parent.removeClass(o.state);
-			o.parent.addClass(state);
+			o.element.removeClass(o.state);
+			o.element.addClass(state);
 			o.state = state;
 		}
 	}
@@ -1130,8 +1130,8 @@ angular.module(
 		}
 	}
 
-	angular.element(window).on("resize", affixContainer);
-	angular.element(window).on("scroll", affixContainer);
+	angular.element($window).on("resize", affixContainer);
+	angular.element($window).on("scroll", affixContainer);
 
 	return {
 		affix: function(container, parent, element) {
@@ -1296,7 +1296,7 @@ angular.module(
 				}
 			}
 			clearTimeout(timeout);
-			timeout = setTimeout(calc, 34);
+			timeout = setTimeout(calc, 10);
 		});
 	}
 
@@ -1324,7 +1324,7 @@ angular.module(
 				registEvent(nodes, nodes[i]);
 			}
 		}
-	}
+	};
 });
 
 })();

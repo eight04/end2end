@@ -455,7 +455,7 @@ select.ng-invalid:focus {
   border-width: 0;
   border-radius: 0;
 }
-.table-fixed {
+.table-fixed .table-fixed-wrapper {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
@@ -693,10 +693,10 @@ select.ng-invalid:focus {
 .affix-content {
   overflow: auto;
 }
-.affix-bottom .affix-content {
+.affix-content.affix-bottom {
   position: absolute;
 }
-.affix-fixed .affix-content {
+.affix-content.affix-fixed {
   position: fixed;
   top: 0;
 }
