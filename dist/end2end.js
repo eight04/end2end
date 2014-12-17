@@ -1282,7 +1282,7 @@ angular.module(
 
 	function registEvent(nodes, node) {
 		var timeout = null;
-		angular.element(node.element).on("scroll", function calc(){
+		function calc(){
 			if (node.triggered) {
 				node.triggered = false;
 				return;
@@ -1295,8 +1295,14 @@ angular.module(
 					nodes[i].element.scrollLeft = percentage * (nodes[i].element.scrollWidth - nodes[i].element.clientWidth);
 				}
 			}
+		}
+		function scrollEnd(){
+			calc();
+		}
+		angular.element(node.element).on("scroll", function (){
+			calc();
 			clearTimeout(timeout);
-			timeout = setTimeout(calc, 10);
+			timeout = setTimeout(scrollEnd, 10);
 		});
 	}
 

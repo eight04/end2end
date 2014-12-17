@@ -1,9 +1,3 @@
-.table-default th,
-.table-default td,
-.table-bordered th,
-.table-bordered td {
-  box-sizing: content-box;
-}
 .table-row > *,
 .nav-tab > *,
 .nav-pill > * {

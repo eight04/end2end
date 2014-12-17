@@ -1,11 +1,3 @@
-.table th,
-.table td,
-.table-default th,
-.table-default td,
-.table-bordered th,
-.table-bordered td {
-  box-sizing: content-box;
-}
 .shrink {
   width: 1%;
 }
