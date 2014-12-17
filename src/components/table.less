@@ -39,21 +39,19 @@
 	display: inline-block;
 	max-width: 100%;
 	position: relative;
+	.affix-wrapper .clipper {
+		position: relative;
+		z-index: 1;
+		&.affix-fixed {
+			position: fixed;
+			top: 0;
+		}
+		&.affix-bottom {
+			position: absolute;
+		}
+	}
 	.table-fixed-head tbody {
 		visibility: hidden;
-		z-index: 1;
-	}
-	.affix-top {
-		position: relative;
-	}
-	.affix-fixed {
-		position: fixed;
-		z-index: 1;
-		top: 0;
-	}
-	.affix-bottom {
-		position: absolute;
-		z-index: 1;
 	}
 	.table-fixed-table {
 		position: relative;

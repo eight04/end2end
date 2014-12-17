@@ -2520,21 +2520,19 @@ legend + .checkbox {
   max-width: 100%;
   position: relative;
 }
-.table-fixed .table-fixed-head tbody {
-  visibility: hidden;
-  z-index: 1;
-}
-.table-fixed .affix-top {
+.table-fixed .affix-wrapper .clipper {
   position: relative;
-}
-.table-fixed .affix-fixed {
-  position: fixed;
   z-index: 1;
+}
+.table-fixed .affix-wrapper .clipper.affix-fixed {
+  position: fixed;
   top: 0;
 }
-.table-fixed .affix-bottom {
+.table-fixed .affix-wrapper .clipper.affix-bottom {
   position: absolute;
-  z-index: 1;
+}
+.table-fixed .table-fixed-head tbody {
+  visibility: hidden;
 }
 .table-fixed .table-fixed-table {
   position: relative;

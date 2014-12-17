@@ -1091,7 +1091,7 @@ angular.module(
 				tableFixedTable.css("padding-Right", sum.right + "px");
 
 				// Stupid chrome hack
-				table.css("display", "inline");
+				table.css("display", "none");
 				void(table[0].offsetWidth);
 				table.css("display", "");
 
@@ -1145,16 +1145,18 @@ angular.module(
 			state = "affix-fixed";
 		}
 
-		width = o.parent[0].clientWidth;
-		if (width && width != o.width) {
-			o.element.css("width", width + "px");
-			o.width = width;
-		}
+		if (state != "affix-top") {
+			width = o.parent[0].clientWidth;
+			if (width && width != o.width) {
+				o.element.css("width", width + "px");
+				o.width = width;
+			}
 
-		height = o.element[0].offsetHeight;
-		if (height && height != o.height) {
-			o.parent.css("height", height + "px");
-			o.height = height;
+			height = o.element[0].offsetHeight;
+			if (height && height != o.height && state != "affix-top") {
+				o.parent.css("height", height + "px");
+				o.height = height;
+			}
 		}
 
 		if (state != o.state) {
@@ -1163,9 +1165,7 @@ angular.module(
 			} else {
 				o.element.css("top", "");
 			}
-			o.parent.css("height", "");
 			o.element.removeClass(o.state);
-			o.parent.css("height", o.parent[0].offsetHeight + "px");
 			o.element.addClass(state);
 			o.state = state;
 		}
