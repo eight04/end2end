@@ -30,7 +30,7 @@ Known bugs
 ----------
 * Enter key won't be handled properly in dialog form on IE8.
 * Double scrollbar issue of scrollable modal.
-* IE 9+ overflow, border-radius, and position bug. (http://x.co/65DI4)
+* IE 9+ overflow, border-radius, and position bug(http://x.co/65DI4). The table-fixed-head corner issue at affix-bottom.
 * Chrome bug with table-fixed. Fixed by triggering redraw manually.
 * Chrome bug with flex and overflow: auto. Fixed by triggering redraw with animation.
 

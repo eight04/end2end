@@ -2515,9 +2515,6 @@ legend + .checkbox {
   white-space: nowrap;
 }
 .table-fixed {
-  overflow: auto;
-  -webkit-animation-name: chrome-overflow-hack;
-  -webkit-animation-duration: 9999s;
   display: inline-block;
   max-width: 100%;
   position: relative;

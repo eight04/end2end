@@ -1238,7 +1238,7 @@ angular.module(
 			cleanIndex(hIndex, spec);
 			node = {
 				id: (parent.id ? (parent.id + ".") : "") + (parent.children.length + 1),
-				title: hs[i].textContent,
+				title: hs[i].textContent || hs[i].innerText,
 				element: hs[i],
 				spec: spec,
 				children: []
