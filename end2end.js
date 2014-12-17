@@ -1290,7 +1290,7 @@ angular.module(
 			var percentage = node.element.scrollLeft / (node.element.scrollWidth - node.element.clientWidth), i;
 
 			for (i = 0; i < nodes.length; i++) {
-				if (nodes[i] != node.element) {
+				if (nodes[i] != node) {
 					nodes[i].triggered = true;
 					nodes[i].element.scrollLeft = percentage * (nodes[i].element.scrollWidth - nodes[i].element.clientWidth);
 				}
