@@ -908,27 +908,30 @@ angular.module(
 	};
 }).directive("tableFixed", function($timeout, $parse, affix, scrollsync){
 
-	function setTableCell(f, trs, cells){
+	function calcBounds(f, trs, fixedLength, vbounds) {
 		var bounds = [],
 			rowspans = [],
 			i, j, k,
-			td, colspan, rowspan, end, len, rect;
-		// Get original cell rect: left
+			td, colspan, rowspan, end, len, rect, vend;
+
+		// Get first cell rect
 		if (f == "left") {
 			bounds[0] = trs[0].children[0].getBoundingClientRect().left;
 		} else {
 			len = trs[0].children.length;
 			bounds[0] = trs[0].children[len - 1].getBoundingClientRect().right;
 		}
+
+		// Claculate horizontal bounds and save result to element.offset
 		for (i = 0; i < trs.length; i++) {
 			len = trs[i].children.length;
-			for (j = 0; j < cells; j++) {
+			for (j = 0; j < fixedLength; j++) {
 				for (k = 0; k < rowspans.length; k++) {
 					if (rowspans[k].start == j) {
 						j = rowspans[k].end + 1;
 					}
 				}
-				if (j >= cells) {
+				if (j >= fixedLength) {
 					continue;
 				}
 
@@ -943,11 +946,6 @@ angular.module(
 				colspan = td.getAttribute("colspan");
 				rowspan = td.getAttribute("rowspan");
 
-				td.className += " table-fixed-" + f + "-calc";
-				td.tableFixed = {
-					offset: Math.abs(bounds[j] - bounds[0])
-				};
-
 				if (colspan && +colspan > 0) {
 					end = j + +colspan - 1;
 				} else {
@@ -961,6 +959,19 @@ angular.module(
 						bounds[end + 1] = rect.left;
 					}
 				}
+
+				if (rowspan && +rowspan > 0) {
+					vend = i + +rowspan - 1;
+				} else {
+					vend = i;
+				}
+
+				td.className += " table-fixed-" + f + "-calc";
+				td.tableFixed = {
+					offset: Math.abs(bounds[j] - bounds[0]),
+					width: Math.abs(bounds[j] - bounds[end + 1]),
+					height: vbounds[vend + 1] - vbounds[i]
+				};
 
 				if (rowspan) {
 					rowspans.push({
@@ -978,9 +989,40 @@ angular.module(
 				}
 			}
 		}
-
-		return Math.abs(bounds[0] - bounds[cells]);
+		return Math.abs(bounds[0] - bounds[fixedLength]);
 	}
+
+	function setOffset(table, leftLength, rightLength){
+		var vbounds = [], i, rect, trs, theadRect, tbodyRect, sumLeft, sumRight;
+
+		trs = table.find("tr");
+
+		// Calculate vertical bounds
+		for (i = 0; i < trs.length; i++) {
+			rect = trs[i].getBoundingClientRect();
+			vbounds[i] = rect.top;
+			trs[i].style.height = rect.bottom - rect.top + "px";
+		}
+		vbounds[i] = rect.bottom;
+
+		// Calculate thead, tbody
+		theadRect = table.find("thead")[0].getBoundingClientRect();
+		tbodyRect = table.find("tbody")[0].getBoundingClientRect();
+
+		sumLeft = calcBounds("left", trs, leftLength, vbounds);
+		sumRight = calcBounds("right", trs, rightLength, vbounds);
+
+		return {
+			left: sumLeft,
+			right: sumRight,
+			theadHeight: theadRect.bottom - theadRect.top,
+			tbodyHeight: tbodyRect.bottom - tbodyRect.top
+		};
+	}
+
+//	function setCellSize(trs) {
+//		var i;
+//	}
 
 	return {
 		restrict: "C",
@@ -990,7 +1032,7 @@ angular.module(
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
 				rendering = false,
-				setter, table, tableFixedHead, tableFixedTable, headContainer;
+				setter, table, tableFixedHead, tableFixedTable, headContainer, affixWrapper;
 
 			tableFixedHead = angular.element(element[0].querySelector(".table-fixed-head"));
 			tableFixedTable = angular.element(element[0].querySelector(".table-fixed-table"));
@@ -998,39 +1040,37 @@ angular.module(
 			headContainer = tableFixedHead.children();
 			table = tableFixedTable.find("table");
 
-			affix.affix(element, tableFixedHead.parent(), tableFixedHead);
+			affixWrapper = angular.element(element[0].querySelector(".affix-wrapper"));
+
+			affix.affix(element, affixWrapper, affixWrapper.children());
 			scrollsync.create(headContainer, table.parent());
 
 			function calc(){
-				var trs, i, td, sumLeft, sumRight, thead, tds;
+				var i, td, sum, thead, tds;
+
+				thead = table.find("thead");
 
 				table.css("width", "");
 				table.css("height", "");
-				table.find("thead").css("display", "");
+				table.css("margin-top", "");
+
+				table.find("tr").css("height", "");
 
 				tds = angular.element(table[0].querySelectorAll(".table-fixed-cell"));
 				tds.removeClass("table-fixed-cell");
-
-				tds = angular.element(table[0].querySelectorAll("td, th"));
 				tds.css("width", "");
 				tds.css("height", "");
 
-				thead = table.find("thead");
 				thead.css("display", "");
 
-				for (i = 0; i < tds.length; i++) {
-					tds[i].style.width = tds[i].offsetWidth + "px";
-					tds[i].style.height = tds[i].offsetHeight + "px";
-				}
-
-				trs = table.find("tr");
-				sumLeft = setTableCell("left", trs, fixedLeft);
-				sumRight = setTableCell("right", trs, fixedRight);
+				sum = setOffset(table, fixedLeft, fixedRight);
 
 				tds = table[0].querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < tds.length; i++) {
 					td = angular.element(tds[i]);
 					td.css("left", td[0].tableFixed.offset + "px");
+					td.css("width", td[0].tableFixed.width + "px");
+					td.css("height", td[0].tableFixed.height + "px");
 					td.addClass("table-fixed-cell table-fixed-left");
 					td.removeClass("table-fixed-left-calc");
 				}
@@ -1039,14 +1079,16 @@ angular.module(
 				for (i = 0; i < tds.length; i++) {
 					td = angular.element(tds[i]);
 					td.css("right", td[0].tableFixed.offset + "px");
+					td.css("width", td[0].tableFixed.width + "px");
+					td.css("height", td[0].tableFixed.height + "px");
 					td.addClass("table-fixed-cell table-fixed-right");
 					td.removeClass("table-fixed-left-calc");
 				}
 
-				tableFixedHead.css("padding-left", sumLeft + "px");
-				tableFixedHead.css("padding-right", sumRight + "px");
-				tableFixedTable.css("padding-left", sumLeft + "px");
-				tableFixedTable.css("padding-Right", sumRight + "px");
+				tableFixedHead.css("padding-left", sum.left + "px");
+				tableFixedHead.css("padding-right", sum.right + "px");
+				tableFixedTable.css("padding-left", sum.left + "px");
+				tableFixedTable.css("padding-Right", sum.right + "px");
 
 				// Stupid chrome hack
 				table.css("display", "inline");
@@ -1054,14 +1096,10 @@ angular.module(
 				table.css("display", "");
 
 				// Make fixed header
-				var tableHead = table.clone();
-				table.css("width", table[0].offsetWidth + "px");
-				tableHead.css("width", table[0].offsetWidth + "px");
-
-				tableHead.find("tbody").remove();
-				thead.css("display", "none");
-
-				headContainer.empty().append(tableHead);
+				var clone = table.clone();
+				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
+				table.css("margin-top", "-" + sum.theadHeight + "px");
+				headContainer.empty().append(clone);
 			}
 
 			function calcContainer (){
@@ -1093,17 +1131,11 @@ angular.module(
 	var affixJar = [];
 
 	function affix(o){
-		var rect, parentRect, containerRect, width, state;
+		var rect, parentRect, containerRect, width, height, state;
 
 		rect = o.element[0].getBoundingClientRect();
 		containerRect = o.container[0].getBoundingClientRect();
 		parentRect = o.parent[0].getBoundingClientRect();
-
-		width = o.parent[0].clientWidth;
-		if (width != o.width) {
-			o.element.css("width", width + "px");
-			o.width = width;
-		}
 
 		if (parentRect.top >= 0) {
 			state = "affix-top";
@@ -1111,6 +1143,18 @@ angular.module(
 			state = "affix-bottom";
 		} else {
 			state = "affix-fixed";
+		}
+
+		width = o.parent[0].clientWidth;
+		if (width && width != o.width) {
+			o.element.css("width", width + "px");
+			o.width = width;
+		}
+
+		height = o.element[0].offsetHeight;
+		if (height && height != o.height) {
+			o.parent.css("height", height + "px");
+			o.height = height;
 		}
 
 		if (state != o.state) {
@@ -1125,6 +1169,7 @@ angular.module(
 			o.element.addClass(state);
 			o.state = state;
 		}
+
 	}
 
 	function affixContainer(){

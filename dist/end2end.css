@@ -2506,6 +2506,7 @@ legend + .checkbox {
   overflow: auto;
   -webkit-animation-name: chrome-overflow-hack;
   -webkit-animation-duration: 9999s;
+  overflow-y: hidden;
   display: inline-block;
   max-width: 100%;
   vertical-align: top;
@@ -2519,18 +2520,21 @@ legend + .checkbox {
   max-width: 100%;
   position: relative;
 }
-.table-fixed .table-fixed-head {
+.table-fixed .table-fixed-head tbody {
+  visibility: hidden;
   z-index: 1;
 }
-.table-fixed .table-fixed-head.affix-top {
+.table-fixed .affix-top {
   position: relative;
 }
-.table-fixed .table-fixed-head.affix-fixed {
+.table-fixed .affix-fixed {
   position: fixed;
+  z-index: 1;
   top: 0;
 }
-.table-fixed .table-fixed-head.affix-bottom {
+.table-fixed .affix-bottom {
   position: absolute;
+  z-index: 1;
 }
 .table-fixed .table-fixed-table {
   position: relative;
