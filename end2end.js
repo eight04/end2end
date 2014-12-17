@@ -906,7 +906,7 @@ angular.module(
 			return toggler;
 		}
 	};
-}).directive("tableFixed", function($timeout, $parse, affix, scrollsync){
+}).directive("tableFixed", function($timeout, $parse, affix, scrollsync, debuger){
 
 	function calcBounds(f, trs, fixedLength, vbounds) {
 		var bounds = [],
@@ -1020,10 +1020,6 @@ angular.module(
 		};
 	}
 
-//	function setCellSize(trs) {
-//		var i;
-//	}
-
 	return {
 		restrict: "C",
 		templateUrl: "templates/tableFixed.html",
@@ -1047,6 +1043,8 @@ angular.module(
 
 			function calc(){
 				var i, td, sum, thead, tds;
+
+				debuger.ts.start();
 
 				thead = table.find("thead");
 
@@ -1100,6 +1098,8 @@ angular.module(
 				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
 				table.css("margin-top", "-" + sum.theadHeight + "px");
 				headContainer.empty().append(clone);
+
+				debuger.ts.sum();
 			}
 
 			function calcContainer (){
@@ -1124,7 +1124,7 @@ angular.module(
 				});
 			}
 
-			calcContainer();
+			$timeout(calcContainer);
 		}
 	};
 }).factory("affix", function($window){
@@ -1378,6 +1378,23 @@ angular.module(
 			for (i = 0; i < nodes.length; i++) {
 				registEvent(nodes, nodes[i]);
 			}
+		}
+	};
+}).factory("debuger", function($log){
+	return {
+		ts: {
+			arr: [],
+			start: function(){
+				this.arr.push(new Date());
+				$log.log("ts start: " + this.arr[this.arr.length - 1]);
+			},
+			sum: function(){
+				this.arr.push(new Date());
+				$log.log("ts end: " + this.arr[this.arr.length - 1], "elapsed: " + (this.arr[this.arr.length - 1] - this.arr[this.arr.length - 2]));
+			}
+		},
+		log: function(){
+			$log.log.apply($log, arguments);
 		}
 	};
 });
