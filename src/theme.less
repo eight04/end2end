@@ -456,6 +456,16 @@ select {
 		border-bottom: 1px solid @border-color-base;
 		background-color: @bg-color-base;
 	}
+	.table-fixed-table {
+		.table-responsive {
+			overflow: hidden;
+			tbody tr:first-child {
+				th, td {
+					border-top-width: 0;
+				}
+			}
+		}
+	}
 }
 
 // Navbar

@@ -468,6 +468,13 @@ select.ng-invalid:focus {
   border-bottom: 1px solid #808080;
   background-color: #f0f0f0;
 }
+.table-fixed .table-fixed-table .table-responsive {
+  overflow: hidden;
+}
+.table-fixed .table-fixed-table .table-responsive tbody tr:first-child th,
+.table-fixed .table-fixed-table .table-responsive tbody tr:first-child td {
+  border-top-width: 0;
+}
 .navbar {
   color: #707070;
   border-bottom: 1px solid #a3a3a3;

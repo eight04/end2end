@@ -25,7 +25,7 @@
   z-index: 1;
 }
 .table-fixed .table-fixed-head.affix-top {
-  display: none;
+  position: relative;
 }
 .table-fixed .table-fixed-head.affix-fixed {
   position: fixed;

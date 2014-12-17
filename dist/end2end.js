@@ -990,76 +990,78 @@ angular.module(
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
 				rendering = false,
-				setter, head, table, tableFixedHead, tableFixedTable;
+				setter, table, tableFixedHead, tableFixedTable, headContainer;
 
-			table = element[0].querySelector("table");
-			head = element[0].querySelector(".table-fixed-head > .table-responsive");
-			tableFixedHead = element[0].querySelector(".table-fixed-head");
-			tableFixedTable = element[0].querySelector(".table-fixed-table");
+			tableFixedHead = angular.element(element[0].querySelector(".table-fixed-head"));
+			tableFixedTable = angular.element(element[0].querySelector(".table-fixed-table"));
 
-			affix.affix(element, element.children(), angular.element(tableFixedHead));
-			scrollsync.create(head, table.parentNode);
+			headContainer = tableFixedHead.children();
+			table = tableFixedTable.find("table");
+
+			affix.affix(element, tableFixedHead.parent(), tableFixedHead);
+			scrollsync.create(headContainer, table.parent());
 
 			function calc(){
-				var trs, i, td, eles, sumLeft, sumRight, tds;
+				var trs, i, td, sumLeft, sumRight, thead, tds;
 
-				eles = table.querySelectorAll(".table-fixed-cell");
+				table.css("width", "");
+				table.css("height", "");
+				table.find("thead").css("display", "");
 
-				if (eles) {
-					for (i = 0; i < eles.length; i++) {
-						td = angular.element(eles[i]);
-						td.removeClass("table-fixed-cell");
-					}
-				}
+				tds = angular.element(table[0].querySelectorAll(".table-fixed-cell"));
+				tds.removeClass("table-fixed-cell");
 
-				trs = table.querySelectorAll("tr");
+				tds = angular.element(table[0].querySelectorAll("td, th"));
+				tds.css("width", "");
+				tds.css("height", "");
 
-				tds = table.querySelectorAll("td, th");
-				for (i = 0; i < tds.length; i++) {
-					tds[i].style.width = "";
-					tds[i].style.height = "";
-				}
+				thead = table.find("thead");
+				thead.css("display", "");
 
 				for (i = 0; i < tds.length; i++) {
 					tds[i].style.width = tds[i].offsetWidth + "px";
 					tds[i].style.height = tds[i].offsetHeight + "px";
 				}
 
+				trs = table.find("tr");
 				sumLeft = setTableCell("left", trs, fixedLeft);
 				sumRight = setTableCell("right", trs, fixedRight);
 
-				eles = table.querySelectorAll(".table-fixed-left-calc");
-				for (i = 0; i < eles.length; i++) {
-					td = angular.element(eles[i]);
+				tds = table[0].querySelectorAll(".table-fixed-left-calc");
+				for (i = 0; i < tds.length; i++) {
+					td = angular.element(tds[i]);
 					td.css("left", td[0].tableFixed.offset + "px");
 					td.addClass("table-fixed-cell table-fixed-left");
 					td.removeClass("table-fixed-left-calc");
 				}
 
-				eles = table.querySelectorAll(".table-fixed-right-calc");
-				for (i = 0; i < eles.length; i++) {
-					td = angular.element(eles[i]);
+				tds = table[0].querySelectorAll(".table-fixed-right-calc");
+				for (i = 0; i < tds.length; i++) {
+					td = angular.element(tds[i]);
 					td.css("right", td[0].tableFixed.offset + "px");
 					td.addClass("table-fixed-cell table-fixed-right");
 					td.removeClass("table-fixed-left-calc");
 				}
 
-				tableFixedHead.style.paddingLeft = sumLeft + "px";
-				tableFixedHead.style.paddingRight = sumRight + "px";
-				tableFixedTable.style.paddingLeft = sumLeft + "px";
-				tableFixedTable.style.paddingRight = sumRight + "px";
+				tableFixedHead.css("padding-left", sumLeft + "px");
+				tableFixedHead.css("padding-right", sumRight + "px");
+				tableFixedTable.css("padding-left", sumLeft + "px");
+				tableFixedTable.css("padding-Right", sumRight + "px");
 
 				// Stupid chrome hack
-				table.style.display = "inline";
-				void(table.offsetWidth);
-				table.style.display = "";
+				table.css("display", "inline");
+				void(table[0].offsetWidth);
+				table.css("display", "");
 
 				// Make fixed header
-				var tableHead = table.cloneNode(true);
-				var body = tableHead.querySelector("tbody");
-				tableHead.style.width = table.offsetWidth + "px";
-				body.parentNode.removeChild(body);
-				head.appendChild(tableHead);
+				var tableHead = table.clone();
+				table.css("width", table[0].offsetWidth + "px");
+				tableHead.css("width", table[0].offsetWidth + "px");
+
+				tableHead.find("tbody").remove();
+				thead.css("display", "none");
+
+				headContainer.empty().append(tableHead);
 			}
 
 			function calcContainer (){
@@ -1117,7 +1119,9 @@ angular.module(
 			} else {
 				o.element.css("top", "");
 			}
+			o.parent.css("height", "");
 			o.element.removeClass(o.state);
+			o.parent.css("height", o.parent[0].offsetHeight + "px");
 			o.element.addClass(state);
 			o.state = state;
 		}
@@ -1287,19 +1291,19 @@ angular.module(
 				node.triggered = false;
 				return;
 			}
-			var percentage = node.element.scrollLeft / (node.element.scrollWidth - node.element.clientWidth), i;
+			var percentage = node.element[0].scrollLeft / (node.element[0].scrollWidth - node.element[0].clientWidth), i;
 
 			for (i = 0; i < nodes.length; i++) {
 				if (nodes[i] != node) {
 					nodes[i].triggered = true;
-					nodes[i].element.scrollLeft = percentage * (nodes[i].element.scrollWidth - nodes[i].element.clientWidth);
+					nodes[i].element[0].scrollLeft = percentage * (nodes[i].element[0].scrollWidth - nodes[i].element[0].clientWidth);
 				}
 			}
 		}
 		function scrollEnd(){
 			calc();
 		}
-		angular.element(node.element).on("scroll", function (){
+		node.element.on("scroll", function (){
 			calc();
 			clearTimeout(timeout);
 			timeout = setTimeout(scrollEnd, 10);
@@ -1358,7 +1362,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/tableFixed.html',
-    "<div class=\"table-fixed-wrapper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div><div class=\"table-fixed-table\"><div class=\"table-responsive\" ng-transclude></div></div></div>"
+    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div><div class=\"table-fixed-table\"><div class=\"table-responsive\" ng-transclude></div></div></div>"
   );
 
 }]);
