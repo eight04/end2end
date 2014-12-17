@@ -1044,7 +1044,7 @@ angular.module(
 			function calc(){
 				var i, td, sum, thead, tds;
 
-				debuger.ts.start();
+				debuger.start();
 
 				thead = table.find("thead");
 
@@ -1099,7 +1099,7 @@ angular.module(
 				table.css("margin-top", "-" + sum.theadHeight + "px");
 				headContainer.empty().append(clone);
 
-				debuger.ts.sum();
+				debuger.sum();
 			}
 
 			function calcContainer (){
@@ -1381,17 +1381,27 @@ angular.module(
 		}
 	};
 }).factory("debuger", function($log){
+	var timers = {};
 	return {
-		ts: {
-			arr: [],
-			start: function(){
-				this.arr.push(new Date());
-				$log.log("ts start: " + this.arr[this.arr.length - 1]);
-			},
-			sum: function(){
-				this.arr.push(new Date());
-				$log.log("ts end: " + this.arr[this.arr.length - 1], "elapsed: " + (this.arr[this.arr.length - 1] - this.arr[this.arr.length - 2]));
-			}
+		start: function(id){
+			id = id || "default";
+			timers[id] = {
+				start: new Date(),
+				elapsed: [],
+				sum: null
+			};
+			$log.log("Benchmark start");
+		},
+		elapse: function(id){
+			id = id || "default";
+			var date = new Date();
+			$log.log("elapsed: " + date - timers[id].start);
+
+		},
+		sum: function(id){
+			id = id || "default";
+			this.arr.push(new Date());
+			$log.log("ts end: " + this.arr[this.arr.length - 1], "elapsed: " + (this.arr[this.arr.length - 1] - this.arr[this.arr.length - 2]));
 		},
 		log: function(){
 			$log.log.apply($log, arguments);
