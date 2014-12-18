@@ -1414,14 +1414,48 @@ angular.module(
 	return {
 		restrict: "A",
 		link: function(scope, element){
-			$timeout(function(){
+			function calc(){
 				var vspace = element[0].offsetHeight - element[0].clientHeight,
 					hspace = element[0].offsetWidth - element[0].clientWidth;
 
 				element.css("margin-bottom", "-" + vspace + "px");
 				element.css("margin-right", "-" + hspace + "px");
+			}
+			function calcContainer(){
+				if (!element[0].offsetParent) {
+					$timeout(calcContainer, 300);
+				}
+				calc();
+			}
+			$timeout(calcContainer);
+		}
+	};
+}).directive("autowrap", function(prepare){
+	return {
+		restrict: "C",
+		link: function(scope, element) {
+			prepare(element).then(function(){
+				var scrollWidth = element[0].scrollWidth,
+					offsetWidth = element[0].offsetWidth;
+
+				if (offsetWidth < scrollWidth) {
+					element.addClass("wrap");
+				}
 			});
 		}
+	};
+}).factory("prepare", function($q, $timeout){
+	return function(element){
+		var deferred = $q.defer();
+		function calcContainer(){
+			if (element[0].offsetParent) {
+				deferred.resolve();
+			} else {
+				$timeout(calcContainer, 300);
+			}
+		}
+		$timeout(calcContainer);
+		return deferred.promise;
 	};
 });
 
