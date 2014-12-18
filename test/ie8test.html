@@ -10,29 +10,18 @@
 		}).directive("test", function($timeout){
 			return {
 				restrict: "C",
-				template: "<div class='box1'></div><div class='box2' ng-transclude></div>",
+				template: "<div ng-transclude></div>",
 				transclude: true,
 				link: function(scope, element){
-					var ele = angular.element(element[0].querySelector(".box1"));
-					var ele2 = angular.element(element[0].querySelector(".box2"));
-					$timeout(function(){
-						ele.append(ele2.clone());
-						ele.empty();
-					}, 100);
+					element.clone().remove();
 				}
 			};
 		});
 	</script>
 </head>
 <body ng-controller="main">
-	<div class="test">
-		<table>
-			<tr>
-				<td>{{number}}</td>
-			</tr>
-		</table>
-	</div>
+	<div class="test">{{number}}</div>
 	{{number}}
-	<button ng-click="number=number + 1">number++</button>
+	<button ng-click="number = number + 1">number++</button>
 </body>
 </html>
