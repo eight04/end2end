@@ -1065,11 +1065,7 @@ angular.module(
 
 				thead.css("display", "");
 
-//				debuger.elapse();
-
 				sum = setOffset(table, fixedLeft, fixedRight);
-
-//				debuger.elapse();
 
 				tds = table[0].querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < tds.length; i++) {
@@ -1106,8 +1102,6 @@ angular.module(
 				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
 				table.css("margin-top", "-" + sum.theadHeight + "px");
 				headContainer.empty().append(clone);
-
-//				debuger.sum();
 			}
 
 			function calcContainer (){
@@ -1390,7 +1384,7 @@ angular.module(
 			}
 		}
 	};
-}).factory("debuger", function($log){
+}).factory("debug", function($log){
 	var timers = {};
 	return {
 		start: function(id){
