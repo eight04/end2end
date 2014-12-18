@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Form</title>
 	<style>
+		* {
+			box-sizing: border-box;
+		}
 		body {
 			padding-bottom: 2em;
 			width: 768px;
@@ -32,6 +35,10 @@
 		.filler {
 			height: 300px;
 		}
+		td {
+			max-width: 10em;
+			border: 1px solid;
+		}
 	</style>
 </head>
 <body>
@@ -40,6 +47,14 @@
 		<div class="wrapper">
 			<div class="box">test</div>
 		</div>
+		<table>
+			<tbody>
+				<tr>
+					<td>測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試</td>
+					<td>測試</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<script>
 		setTimeout(function(){

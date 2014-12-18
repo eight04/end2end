@@ -1112,19 +1112,21 @@ angular.module(
 				calc();
 			}
 
+			var tableFixed = {
+				render: function(){
+					if (!rendering) {
+						rendering = true;
+						$timeout(calcContainer);
+					}
+				}
+			};
+
 			if (attrs.name) {
 				setter = $parse(attrs.name).assign;
-				setter(scope, {
-					render: function(){
-						if (!rendering) {
-							rendering = true;
-							$timeout(calcContainer);
-						}
-					}
-				});
+				setter(scope, tableFixed);
 			}
 
-			$timeout(calcContainer);
+			$timeout(tableFixed.render);
 		}
 	};
 }).factory("affix", function($window){
@@ -1385,23 +1387,22 @@ angular.module(
 	return {
 		start: function(id){
 			id = id || "default";
-			timers[id] = {
-				start: new Date(),
-				elapsed: [],
-				sum: null
-			};
-			$log.log("Benchmark start");
+			timers[id] = [new Date()];
+			$log.log("timer started");
 		},
 		elapse: function(id){
 			id = id || "default";
-			var date = new Date();
-			$log.log("elapsed: " + date - timers[id].start);
+			timers[id].push(new Date());
+			var len = timers[id].length;
+			$log.log("elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
 
 		},
 		sum: function(id){
 			id = id || "default";
-			this.arr.push(new Date());
-			$log.log("ts end: " + this.arr[this.arr.length - 1], "elapsed: " + (this.arr[this.arr.length - 1] - this.arr[this.arr.length - 2]));
+			timers[id].push(new Date());
+			var len = timers[id].length;
+			$log.log("elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
+			$log.log("sum: " + (timers[id][len - 1] - timers[id][0]));
 		},
 		log: function(){
 			$log.log.apply($log, arguments);
