@@ -3311,7 +3311,8 @@ select.ng-invalid:focus {
   background-color: #f0f0f0;
 }
 .table-fixed .table-fixed-table .table-responsive {
-  overflow: hidden;
+  overflow: scroll;
+  overflow-y: hidden;
 }
 .table-fixed .table-fixed-table .table-responsive tbody tr:first-child th,
 .table-fixed .table-fixed-table .table-responsive tbody tr:first-child td {

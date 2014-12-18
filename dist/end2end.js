@@ -1410,6 +1410,19 @@ angular.module(
 			$log.log.apply($log, arguments);
 		}
 	};
+}).directive("noscroll", function($timeout){
+	return {
+		restrict: "A",
+		link: function(scope, element){
+			$timeout(function(){
+				var vspace = element[0].offsetHeight - element[0].clientHeight,
+					hspace = element[0].offsetWidth - element[0].clientWidth;
+
+				element.css("margin-bottom", "-" + vspace + "px");
+				element.css("margin-right", "-" + hspace + "px");
+			});
+		}
+	};
 });
 
 })();
@@ -1437,7 +1450,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/tableFixed.html',
-    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\" ng-transclude></div></div></div></div>"
+    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\" noscroll ng-transclude></div></div></div></div>"
   );
 
 }]);

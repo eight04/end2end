@@ -1410,6 +1410,19 @@ angular.module(
 			$log.log.apply($log, arguments);
 		}
 	};
+}).directive("noscroll", function($timeout){
+	return {
+		restrict: "A",
+		link: function(scope, element){
+			$timeout(function(){
+				var vspace = element[0].offsetHeight - element[0].clientHeight,
+					hspace = element[0].offsetWidth - element[0].clientWidth;
+
+				element.css("margin-bottom", "-" + vspace + "px");
+				element.css("margin-right", "-" + hspace + "px");
+			});
+		}
+	};
 });
 
 })();
