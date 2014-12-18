@@ -25,6 +25,7 @@ Todos
 * Don't focus on button if user use custom template on dialog?
 * One-line vertical align issue.
 * Use content box on table?
+* Apply style on plain list.
 
 Known bugs
 ----------

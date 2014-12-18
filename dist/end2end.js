@@ -906,7 +906,7 @@ angular.module(
 			return toggler;
 		}
 	};
-}).directive("tableFixed", function($timeout, $parse, affix, scrollsync, debuger){
+}).directive("tableFixed", function($timeout, $parse, affix, scrollsync){
 
 	function calcBounds(f, trs, fixedLength, vbounds) {
 		var bounds = [],
@@ -1001,9 +1001,13 @@ angular.module(
 		for (i = 0; i < trs.length; i++) {
 			rect = trs[i].getBoundingClientRect();
 			vbounds[i] = rect.top;
-			trs[i].style.height = rect.bottom - rect.top + "px";
 		}
 		vbounds[i] = rect.bottom;
+
+		// Set tr height
+		for (i = 0; i < trs.length; i++) {
+			trs[i].style.height = vbounds[i + 1] - vbounds[i] + "px";
+		}
 
 		// Calculate thead, tbody
 		theadRect = table.find("thead")[0].getBoundingClientRect();
@@ -1044,7 +1048,7 @@ angular.module(
 			function calc(){
 				var i, td, sum, thead, tds;
 
-				debuger.start();
+//				debuger.start();
 
 				thead = table.find("thead");
 
@@ -1061,7 +1065,11 @@ angular.module(
 
 				thead.css("display", "");
 
+//				debuger.elapse();
+
 				sum = setOffset(table, fixedLeft, fixedRight);
+
+//				debuger.elapse();
 
 				tds = table[0].querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < tds.length; i++) {
@@ -1099,7 +1107,7 @@ angular.module(
 				table.css("margin-top", "-" + sum.theadHeight + "px");
 				headContainer.empty().append(clone);
 
-				debuger.sum();
+//				debuger.sum();
 			}
 
 			function calcContainer (){
@@ -1388,21 +1396,21 @@ angular.module(
 		start: function(id){
 			id = id || "default";
 			timers[id] = [new Date()];
-			$log.log("timer started");
+			$log.log(id + " timer started");
 		},
 		elapse: function(id){
 			id = id || "default";
 			timers[id].push(new Date());
 			var len = timers[id].length;
-			$log.log("elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
+			$log.log(id + " elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
 
 		},
 		sum: function(id){
 			id = id || "default";
 			timers[id].push(new Date());
 			var len = timers[id].length;
-			$log.log("elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
-			$log.log("sum: " + (timers[id][len - 1] - timers[id][0]));
+			$log.log(id + " elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
+			$log.log(id + " sum: " + (timers[id][len - 1] - timers[id][0]));
 		},
 		log: function(){
 			$log.log.apply($log, arguments);
