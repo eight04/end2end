@@ -906,7 +906,7 @@ angular.module(
 			return toggler;
 		}
 	};
-}).directive("tableFixed", function($timeout, $parse, affix, scrollsync){
+}).directive("tableFixed", function($timeout, $parse, affix, scrollsync, prepare){
 
 	function calcBounds(f, trs, fixedLength, vbounds) {
 		var bounds = [],
@@ -1045,10 +1045,8 @@ angular.module(
 			affix.affix(element, affixWrapper, affixWrapper.children());
 			scrollsync.create(headContainer, table.parent());
 
-			function calc(){
+			function redraw(){
 				var i, td, sum, thead, tds;
-
-//				debuger.start();
 
 				thead = table.find("thead");
 
@@ -1102,33 +1100,27 @@ angular.module(
 				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
 				table.css("margin-top", "-" + sum.theadHeight + "px");
 				headContainer.empty().append(clone);
+
+				rendering = false;
 			}
 
-			function calcContainer (){
-				if (!element[0].offsetHeight) {
-					$timeout(calcContainer, 300);
+			function render(){
+				if (!rendering) {
 					return;
 				}
 
-				rendering = false;
-				calc();
+				rendering = true;
+				prepare(element).then(redraw);
 			}
-
-			var tableFixed = {
-				render: function(){
-					if (!rendering) {
-						rendering = true;
-						$timeout(calcContainer);
-					}
-				}
-			};
 
 			if (attrs.name) {
 				setter = $parse(attrs.name).assign;
-				setter(scope, tableFixed);
+				setter(scope, {
+					render: render
+				});
 			}
 
-			$timeout(tableFixed.render);
+			render();
 		}
 	};
 }).factory("affix", function($window){
@@ -1410,24 +1402,17 @@ angular.module(
 			$log.log.apply($log, arguments);
 		}
 	};
-}).directive("noscroll", function($timeout){
+}).directive("noscroll", function(prepare){
 	return {
 		restrict: "A",
 		link: function(scope, element){
-			function calc(){
+			prepare(element).then(function(){
 				var vspace = element[0].offsetHeight - element[0].clientHeight,
 					hspace = element[0].offsetWidth - element[0].clientWidth;
 
 				element.css("margin-bottom", "-" + vspace + "px");
 				element.css("margin-right", "-" + hspace + "px");
-			}
-			function calcContainer(){
-				if (!element[0].offsetParent) {
-					$timeout(calcContainer, 300);
-				}
-				calc();
-			}
-			$timeout(calcContainer);
+			});
 		}
 	};
 }).directive("autowrap", function(prepare){
