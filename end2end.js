@@ -1031,7 +1031,6 @@ angular.module(
 		link: function(scope, element, attrs) {
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
-				rendering = false,
 				setter, table, tableFixedHead, tableFixedTable, headContainer, affixWrapper;
 
 			tableFixedHead = angular.element(element[0].querySelector(".table-fixed-head"));
@@ -1045,9 +1044,14 @@ angular.module(
 			affix.affix(element, affixWrapper, affixWrapper.children());
 			scrollsync.create(headContainer, table.parent());
 
-			function redraw(){
-//				console.log(element[0].currentStyle.display);
+//			element.on("$destroy", function(){
+//				alert("what");
+//			});
+//			scope.$on("$destroy", function(){
+//				alert("what??");
+//			});
 
+			function redraw(){
 				var i, td, sum, thead, tds;
 
 				thead = table.find("thead");
@@ -1101,18 +1105,16 @@ angular.module(
 				var clone = table.clone();
 				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
 				table.css("margin-top", "-" + sum.theadHeight + "px");
+				// What the hack? use empty will break two-way binding in IE8
 				headContainer.empty().append(clone);
-
-				rendering = false;
 			}
 
+			var process = null;
 			function render(){
-				if (rendering) {
-					return;
+				if (process) {
+					process.cancel();
 				}
-
-				rendering = true;
-				prepare(element).then(redraw);
+				process = prepare(element).then(redraw);
 			}
 
 			if (attrs.name) {
@@ -1422,6 +1424,7 @@ angular.module(
 		restrict: "C",
 		link: function(scope, element) {
 			prepare(element).then(function(){
+//				console.log("wrap");
 				var scrollWidth = element[0].scrollWidth,
 					offsetWidth = element[0].offsetWidth;
 
@@ -1443,10 +1446,12 @@ angular.module(
 			$timeout(thread.process);
 		},
 		process: function(){
-			var swap = [], done = [], q, i;
+			var swap = [], done = [], rejected = [], q, i;
 			for (i = 0; i < thread.que.length; i++) {
 				q = thread.que[i];
-				if (!q.element[0].offsetParent || !q.element[0].offsetWidth && !q.element[0].offsetHeight) {
+				if (q.canceled) {
+					rejected.push(q);
+				} else if (!q.element[0].offsetParent || !q.element[0].offsetWidth && !q.element[0].offsetHeight) {
 					swap.push(q);
 				} else {
 					done.push(q);
@@ -1456,6 +1461,9 @@ angular.module(
 
 			for (i = 0; i < done.length; i++) {
 				done[i].deferred.resolve();
+			}
+			for (i = 0; i < rejected.length; i++) {
+				rejected[i].deferred.reject();
 			}
 
 			if (thread.que.length) {
@@ -1467,13 +1475,20 @@ angular.module(
 	};
 
 	return function(element){
-		var deferred = $q.defer();
-		thread.que.push({
+		var q = {
 			element: element,
-			deferred: deferred
-		});
+			deferred: $q.defer()
+		};
+		thread.que.push(q);
 		thread.start();
-		return deferred.promise;
+		return {
+			then: function(callback){
+				q.deferred.promise.then(callback);
+			},
+			cancel: function(){
+				q.canceled = true;
+			}
+		};
 	};
 });
 
