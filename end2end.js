@@ -1105,7 +1105,7 @@ angular.module(
 			}
 
 			function render(){
-				if (!rendering) {
+				if (rendering) {
 					return;
 				}
 
@@ -1430,16 +1430,42 @@ angular.module(
 		}
 	};
 }).factory("prepare", function($q, $timeout){
-	return function(element){
-		var deferred = $q.defer();
-		function calcContainer(){
-			if (element[0].offsetParent) {
-				deferred.resolve();
+	var thread = {
+		que: [],
+		running: false,
+		start: function(){
+			if (thread.running) {
+				return;
+			}
+			thread.running = true;
+			$timeout(thread.process);
+		},
+		process: function(){
+			var swap = [], q;
+			while (q = thread.que.shift()) {
+				if (q.element[0].offsetParent) {
+					q.deferred.resolve();
+				} else {
+					swap.push(q);
+				}
+			}
+			thread.que = swap;
+
+			if (thread.que.length) {
+				$timeout(thread.process, 300);
 			} else {
-				$timeout(calcContainer, 300);
+				thread.running = false;
 			}
 		}
-		$timeout(calcContainer);
+	};
+
+	return function(element){
+		var deferred = $q.defer();
+		thread.que.push({
+			element: element,
+			deferred: deferred
+		});
+		thread.start();
 		return deferred.promise;
 	};
 });
