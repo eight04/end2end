@@ -1046,6 +1046,8 @@ angular.module(
 			scrollsync.create(headContainer, table.parent());
 
 			function redraw(){
+//				console.log(element[0].currentStyle.display);
+
 				var i, td, sum, thead, tds;
 
 				thead = table.find("thead");
@@ -1441,15 +1443,20 @@ angular.module(
 			$timeout(thread.process);
 		},
 		process: function(){
-			var swap = [], q;
-			while (q = thread.que.shift()) {
-				if (q.element[0].offsetParent) {
-					q.deferred.resolve();
-				} else {
+			var swap = [], done = [], q, i;
+			for (i = 0; i < thread.que.length; i++) {
+				q = thread.que[i];
+				if (!q.element[0].offsetParent || !q.element[0].offsetWidth && !q.element[0].offsetHeight) {
 					swap.push(q);
+				} else {
+					done.push(q);
 				}
 			}
 			thread.que = swap;
+
+			for (i = 0; i < done.length; i++) {
+				done[i].deferred.resolve();
+			}
 
 			if (thread.que.length) {
 				$timeout(thread.process, 300);
