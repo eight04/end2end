@@ -1,7 +1,3 @@
-@import "vars.less";
-@import "mixins.less";
-@import (inline) "reset.css";
-
 // Box sizing
 * {
 	&,
@@ -136,4 +132,14 @@ code {
 pre {
 	.make-margin();
 	font-family: @font-family-monospace;
+}
+
+ul {
+	.make-margin(1em);
+	list-style: disc outside none;
+	padding-left: 3em;
+	line-height: @line-height-base;
+	ul {
+		list-style-type: circle;
+	}
 }

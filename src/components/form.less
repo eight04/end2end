@@ -1,10 +1,5 @@
 // Form component. Include form controls.
 
-@import "../vars.less";
-@import "../mixins.less";
-@import (reference) "../helpers.less";
-@import (reference) "table.less";
-
 .form-group {
 	.make-margin();
 	.row > & {
@@ -55,12 +50,7 @@ legend {
 
 // Inline form
 .form-inline {
-	input, select, button, .radio, .checkbox, fieldset, .form-group {
-		display: inline-block;
-		vertical-align: middle;
-		width: auto;
-		margin: 0;
-	}
+	.make-form-inline();
 }
 
 // Input group

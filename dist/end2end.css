@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -12,8 +12,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -24,7 +24,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -180,66 +180,74 @@ pre {
   margin-bottom: 1em;
   font-family: Menlo, Monaco, Consolas, "Courier New", "細明體", monospace;
 }
-
+ul {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  list-style: disc outside none;
+  padding-left: 3em;
+  line-height: 1.55;
+}
+ul ul {
+  list-style-type: circle;
+}
 /**
 	Grid system
 */
-.container {
+.container-base,
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg {
   margin-left: auto;
   margin-right: auto;
   padding: 0 15px;
 }
 @media (min-width: 768px) {
-  .container {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
     max-width: 768px;
   }
 }
 @media (min-width: 1024px) {
-  .container {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
     max-width: 1024px;
   }
 }
 @media (min-width: 1280px) {
-  .container {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
     max-width: 1280px;
   }
 }
-.container-fluid {
-  padding: 0 15px;
+@media (min-width: 768px) {
+  .container-sm {
+    max-width: 768px;
+  }
 }
-.container-sm {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 768px;
+@media (min-width: 1024px) {
+  .container-md {
+    max-width: 1024px;
+  }
 }
-.container-md {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1024px;
-}
-.container-lg {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1280px;
-}
-._row {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-._row > * {
-  padding-left: 15px;
-  padding-right: 15px;
+@media (min-width: 1280px) {
+  .container-lg {
+    max-width: 1280px;
+  }
 }
 .row {
-  margin-left: -15px;
-  margin-right: -15px;
   display: flex;
   flex-wrap: wrap;
   letter-spacing: -9999px\9;
-}
-.row > * {
-  padding-left: 15px;
-  padding-right: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 .row > *,
 .row:before,
@@ -250,6 +258,8 @@ pre {
 }
 .row > * {
   width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .row-inline {
   margin-top: -15px;
@@ -2042,7 +2052,6 @@ pre {
   }
 }
 
-
 .code {
   font-size: 90%;
   position: relative;
@@ -2069,7 +2078,6 @@ pre {
   -o-tab-size: 4;
   overflow: auto;
 }
-
 .dialog {
   width: 320px;
   margin-left: auto;
@@ -2092,14 +2100,6 @@ pre {
 .dialog-body {
   padding-left: 15px;
   padding-right: 15px;
-}
-
-.table-row > *,
-.input-group > *,
-.btn-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .form-group {
   margin-top: 1em;
@@ -2201,29 +2201,19 @@ legend + .checkbox {
   vertical-align: baseline;
   border-radius: 50%;
 }
-
-.list {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  list-style: disc outside none;
+.list-unstyled,
+.nav,
+.nav-list,
+.nav-tab,
+.nav-tree,
+.nav-pill {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  line-height: 1;
 }
-.list > * {
-  margin-left: 3em;
-  line-height: 1.55;
-}
-.list-circle {
-  list-style-type: circle;
-}
-.list-decimal {
-  list-style-type: decimal;
-}
-.list-lower-roman {
-  list-style-type: lower-roman;
-}
-.list-upper-roman {
-  list-style-type: upper-roman;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -2273,40 +2263,17 @@ legend + .checkbox {
 .modal-backdrop.active {
   display: block;
 }
-
-.table-row > *,
-.nav-tab > *,
-.nav-pill > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-.nav a {
-  display: block;
-  text-decoration: none;
-}
-.nav-list a {
-  display: block;
-  text-decoration: none;
-}
-.nav-tab a {
+.nav a,
+.nav-list a,
+.nav-tab a,
+.nav-tree a,
+.nav-pill a {
   display: block;
   text-decoration: none;
 }
 .nav-tab > * {
   vertical-align: bottom;
   white-space: nowrap;
-}
-.nav-responsive {
-  overflow-x: auto;
-}
-.nav-tree a {
-  display: block;
-  text-decoration: none;
-}
-.nav-pill a {
-  display: block;
-  text-decoration: none;
 }
 .nav-pill > * {
   width: 1%;
@@ -2316,13 +2283,6 @@ legend + .checkbox {
     width: auto;
     display: block;
   }
-}
-
-.input-group > *,
-.btn-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
 }
 .navbar {
   position: relative;
@@ -2341,6 +2301,17 @@ legend + .checkbox {
     width: 100%;
     display: table-cell;
   }
+}
+@media (max-width: 767px) {
+  .navbar-collapse {
+    display: none;
+    overflow: hidden;
+  }
+  .navbar-collapse.active {
+    display: block;
+  }
+}
+@media (min-width: 768px) {
   .navbar-menu {
     display: table;
     width: 100%;
@@ -2352,28 +2323,20 @@ legend + .checkbox {
   }
 }
 @media (max-width: 767px) {
-  .navbar-collapse {
-    display: none;
-    overflow: hidden;
-  }
-  .navbar-collapse.active {
-    display: block;
-  }
-  .navbar-menu > * {
+  .navbar-menu {
     display: block;
   }
 }
+.navbar-col,
+.navbar-link,
+.navbar-form,
 .navbar-brand {
-  padding: 1em 15px;
-}
-.navbar-link {
-  padding: 1em 15px;
-}
-.navbar-col {
   padding: 0 15px;
 }
-.navbar-form {
-  padding: 0 15px;
+.navbar-link,
+.navbar-brand {
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 @media (min-width: 768px) {
   .navbar-form input,
@@ -2398,7 +2361,6 @@ legend + .checkbox {
   font-size: 200%;
   font-weight: bold;
 }
-
 .panes {
   display: flex;
   flex-wrap: wrap;
@@ -2433,7 +2395,6 @@ legend + .checkbox {
   display: block;
   display: inline-block\9;
 }
-
 .progress {
   border: 1px solid #808080;
   border-radius: 0.1875em;
@@ -2449,21 +2410,6 @@ legend + .checkbox {
 .progress-label {
   padding: 0 0.5em;
 }
-
-.sidebar-toggle {
-  position: absolute;
-  top: 17%;
-  right: 100%;
-  width: 1.7em;
-  height: 2em;
-  line-height: 2;
-  text-align: center;
-  z-index: 1090;
-}
-.sidebar-content {
-  position: relative;
-  z-index: 1110;
-}
 @media (max-width: 1023px) {
   .sidebar {
     top: 0;
@@ -2476,26 +2422,35 @@ legend + .checkbox {
     left: auto;
     right: 0;
   }
-  .sidebar .sidebar-toggle {
-    display: block;
+}
+.sidebar-toggle {
+  display: block;
+  position: absolute;
+  top: 17%;
+  right: 100%;
+  width: 1.7em;
+  height: 2em;
+  line-height: 2;
+  text-align: center;
+  z-index: 1090;
+}
+@media (min-width: 1024px) {
+  .sidebar-toggle {
+    display: none;
   }
-  .sidebar .sidebar-content {
+}
+.sidebar-content {
+  position: relative;
+  z-index: 1110;
+}
+@media (max-width: 1023px) {
+  .sidebar-content {
     height: 100%;
     background-color: white;
     padding: 0 15px;
     overflow: auto;
   }
 }
-@media (min-width: 1024px) {
-  .sidebar .sidebar-toggle {
-    display: none;
-  }
-  .sidebar.active-add,
-  .sidebar.active-remove {
-    transition: none;
-  }
-}
-
 .shrink {
   width: 1%;
 }
@@ -2537,7 +2492,7 @@ legend + .checkbox {
 .table-fixed .table-fixed-table {
   position: relative;
 }
-.table-fixed-cell {
+.table-fixed .table-fixed-cell {
   position: absolute;
 }
 .table-fixed tr:before {
@@ -2552,12 +2507,15 @@ legend + .checkbox {
 .table-block > * {
   width: 100%;
 }
-.table-row > * {
+.table-row > *,
+.input-group > *,
+.btn-group > *,
+.nav-tab > *,
+.nav-pill > * {
   display: table-cell;
   vertical-align: middle;
   white-space: nowrap;
 }
-
 .talk {
   margin: 0 auto;
 }
@@ -2592,7 +2550,6 @@ legend + .checkbox {
   border-radius: 0.1875em;
   background-color: #f0f0f0;
 }
-
 .marger-xl {
   margin-top: 60px;
   margin-bottom: 60px;
@@ -2839,7 +2796,6 @@ img.right-xs {
     margin-left: 0%;
   }
 }
-
 h2 {
   border-bottom: 1px solid #808080;
   padding-bottom: 0.25em;
@@ -3336,7 +3292,8 @@ select.ng-invalid:focus {
 .navbar-brand:active {
   color: #3d3d3d;
 }
-.navbar-link {
+.navbar-link,
+.navbar-brand {
   text-decoration: none;
 }
 .navbar-link:link,
@@ -3609,4 +3566,3 @@ select.ng-invalid:focus {
 .bg-danger {
   background-color: #f5d1d1;
 }
-

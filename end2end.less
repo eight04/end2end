@@ -1,26 +1,30 @@
+@import "src/vars.less";
+@import "src/mixins.less";
+
 // Reset
-@import (inline) "build/base.css";
+@import (inline) "src/reset.css";
+@import "src/base.less";
 
 // Grid system
-@import (inline) "build/grid.css";
+@import "src/grid.less";
+@import (inline) "src/gridCore.css";
 
 // Components
-@import (inline) "build/components/code.css";
-@import (inline) "build/components/dialog.css";
-@import (inline) "build/components/form.css";
-@import (inline) "build/components/list.css";
-@import (inline) "build/components/modal.css";
-@import (inline) "build/components/nav.css";
-@import (inline) "build/components/navbar.css";
-@import (inline) "build/components/panes.css";
-@import (inline) "build/components/progress.css";
-@import (inline) "build/components/sidebar.css";
-@import (inline) "build/components/table.css";
-@import (inline) "build/components/talk.css";
+@import "src/components/code.less";
+@import "src/components/dialog.less";
+@import "src/components/form.less";
+@import "src/components/list.less";
+@import "src/components/modal.less";
+@import "src/components/nav.less";
+@import "src/components/navbar.less";
+@import "src/components/panes.less";
+@import "src/components/progress.less";
+@import "src/components/sidebar.less";
+@import "src/components/table.less";
+@import "src/components/talk.less";
 
 // Helpers
-@import (inline) "build/helpers.css";
+@import "src/helpers.less";
 
 // My theme
-@import (inline) "build/theme.css";
-
+@import "src/theme.less";

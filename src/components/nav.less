@@ -1,51 +1,31 @@
-@import "../vars.less";
-@import "../mixins.less";
-@import (reference) "table.less";
-
 // Nav
 .nav {
+	&:extend(.list-unstyled);
 	a {
 		display: block;
 		text-decoration: none;
 	}
 }
-
 .nav-list {
-	.nav();
+	&:extend(.nav all);
 }
-
 .nav-tab {
 	&:extend(.table-row all);
-	.nav();
+	&:extend(.nav all);
 	> * {
 		vertical-align: bottom;
 		white-space: nowrap;
 	}
 }
-
-.nav-responsive {
-	overflow-x: auto;
-}
-
 .nav-tree {
-	.nav();
-
-	> * > a + .nav-tree {
-//		margin-top: 0.25em;
-	}
+	&:extend(.nav all);
 }
-
 .nav-pill {
 	&:extend(.table-row all);
-	.nav();
+	&:extend(.nav all);
 	> * {
 		width: 1%;
-	}
-}
-
-@media (max-width: (@window-sm - 1)) {
-	.nav-pill {
-		> * {
+		@media (max-width: (@window-sm - 1)) {
 			width: auto;
 			display: block;
 		}

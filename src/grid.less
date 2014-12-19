@@ -1,20 +1,15 @@
-@import "vars.less";
-@import "mixins.less";
-
 /**
 	Grid system
 */
 
 // Container
-._container(){
+.container-base{
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.container {
-	._container();
 	padding: 0 @gap;
-
+}
+.container {
+	&:extend(.container-base);
 	@media (min-width: @window-sm) {
 		max-width: @window-sm;
 	}
@@ -25,42 +20,41 @@
 		max-width: @window-lg;
 	}
 }
-.container-fluid {
-	padding: 0 @gap;
-}
 .container-sm {
-	._container();
-	max-width: @window-sm;
+	&:extend(.container);
+	@media (min-width: @window-sm) {
+		max-width: @window-sm;
+	}
 }
 .container-md {
-	._container();
-	max-width: @window-md;
+	&:extend(.container);
+	@media (min-width: @window-md) {
+		max-width: @window-md;
+	}
 }
 .container-lg {
-	._container();
-	max-width: @window-lg;
+	&:extend(.container);
+	@media (min-width: @window-lg) {
+		max-width: @window-lg;
+	}
+}
+.container-fluid {
+	&:extend(.container-base);
 }
 
-// row
-._row {
+// Row
+.row {
+	.make-flex();
 	margin-left: -@gap;
 	margin-right: -@gap;
 	> * {
+		width: 100%;
 		padding-left: @gap;
 		padding-right: @gap;
 	}
 }
-.row {
-	._row();
-	.make-flex();
 
-	> * {
-		width: 100%;
-
-		> :first-child {
-		}
-	}
-}
+// Row modifier
 .row-inline {
 	margin-top: -@gap;
 	margin-left: -@gap/2;
@@ -159,6 +153,8 @@
 		vertical-align: ~"bottom\9";
 	}
 }
+
+// Col modifier
 .col-top {
 	align-self: flex-start;
 	vertical-align: top;
@@ -171,10 +167,9 @@
 	align-self: flex-end;
 	vertical-align: bottom;
 }
+
+// Push and pull
 [class*="push-"],
 [class*="pull-"] {
 	position: relative;
 }
-
-// Grid core
-@import (inline) "../build/gridCore.css";

@@ -18,23 +18,23 @@ module.exports = function(grunt) {
 		less: {
 			gridCore: {
 				files: {
-					"build/gridCore.css": "src/gridCore.less"
+					"src/gridCore.css": "src/gridCore.less"
 				}
 			},
-			components: {
-				expand: true,
-				cwd: "src/components",
-				src: "*.less",
-				dest: "build/components",
-				ext: ".css"
-			},
-			main: {
-				expand: true,
-				cwd: "src/",
-				src: ["*.less", "!gridCore.less", "!vars.less", "!mixins.less"],
-				dest: "build/",
-				ext: ".css"
-			},
+//			components: {
+//				expand: true,
+//				cwd: "src/components",
+//				src: "*.less",
+//				dest: "build/components",
+//				ext: ".css"
+//			},
+//			main: {
+//				expand: true,
+//				cwd: "src/",
+//				src: ["*.less", "!gridCore.less", "!vars.less", "!mixins.less"],
+//				dest: "build/",
+//				ext: ".css"
+//			},
 			dist: {
 				files: {
 					"dist/end2end.css": "end2end.less"
@@ -75,13 +75,13 @@ module.exports = function(grunt) {
 				tasks: "less:gridCore"
 			},
 			main: {
-				files: "src/*.less",
-				tasks: ["less:main", "less:dist"]
+				files: "src/**/*.less",
+				tasks: "less:dist"
 			},
-			components: {
-				files: "src/components/*.less",
-				tasks: ["less:components", "less:dist"]
-			},
+//			components: {
+//				files: "src/components/*.less",
+//				tasks: ["less:components", "less:dist"]
+//			},
 			js: {
 				files: ["*.js", "templates/*"],
 				tasks: "dist-js"

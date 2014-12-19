@@ -1,3 +1,5 @@
+// Should we move mixins to each components?
+
 .make-margin(@gap: 1em){
 	margin-top: @gap;
 	margin-bottom: @gap;
@@ -90,5 +92,14 @@
 		display: table-cell;
 		vertical-align: middle;
 		white-space: nowrap;
+	}
+}
+
+.make-form-inline() {
+	input, select, button, .radio, .checkbox, fieldset, .form-group {
+		display: inline-block;
+		vertical-align: middle;
+		width: auto;
+		margin: 0;
 	}
 }

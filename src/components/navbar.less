@@ -1,12 +1,7 @@
 // Navbar component
-@import "../vars.less";
-@import (reference) "form.less";
-@import (reference) "table.less";
-
 .navbar {
 	position: relative;
 	z-index: 1000;
-
 	> * {
 		padding-left: 0;
 		padding-right: 0;
@@ -17,60 +12,50 @@
 		}
 	}
 }
-
-@media (min-width: @window-sm) {
-	.navbar-collapse {
+.navbar-collapse {
+	@media (min-width: @window-sm) {
 		width: 100%;
 		display: table-cell;
 	}
-	.navbar-menu {
-		.make-table-row();
-		display: table;
-		width: 100%;
-	}
-}
-@media (max-width: (@window-sm - 1)) {
-	.navbar-collapse {
+	@media (max-width: (@window-sm - 1)) {
 		display: none;
 		overflow: hidden;
 		&.active {
 			display: block;
 		}
 	}
-	.navbar-menu {
-		> * {
-			display: block;
-		}
+}
+.navbar-menu {
+	@media (min-width: @window-sm) {
+		.make-table-row();
+		display: table;
+		width: 100%;
+	}
+	@media (max-width: (@window-sm - 1)) {
+		display: block;
 	}
 }
-
-.navbar-brand {
-	padding: 1em @gap;
-}
-
-.navbar-link {
-	padding: 1em @gap;
-}
-
 .navbar-col {
 	padding: 0 @gap;
 }
-
-.navbar-form {
-	padding: 0 @gap;
+.navbar-link {
+	&:extend(.navbar-col);
+	padding-top: 1em;
+	padding-bottom: 1em;
 }
-
-@media (min-width: @window-sm) {
-	.navbar-form {
-		.form-inline();
+.navbar-brand {
+	&:extend(.navbar-link);
+}
+.navbar-form {
+	&:extend(.navbar-col);
+	@media (min-width: @window-sm) {
+		.make-form-inline();
 	}
 }
-
 .navbar-toggle {
 	width: 2em;
 	line-height: 0.8;
 	overflow: hidden;
-
 	&:first-line {
 		font-size: 200%;
 		font-weight: bold;

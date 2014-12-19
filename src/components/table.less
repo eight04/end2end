@@ -1,19 +1,4 @@
-@import "../vars.less";
-@import "../mixins.less";
-@import (reference) "../helpers.less";
-
-// Normal table component
-.table {
-	th, td {
-//		box-sizing: content-box;
-	}
-}
-.table-default {
-	&:extend(.table all);
-}
-.table-bordered {
-	&:extend(.table all);
-}
+// Cell width control
 .shrink {
 	width: 1%;
 }
@@ -35,7 +20,6 @@
 
 // Table fixed
 .table-fixed {
-//	.make-overflow();
 	display: inline-block;
 	max-width: 100%;
 	position: relative;
@@ -56,17 +40,17 @@
 	.table-fixed-table {
 		position: relative;
 	}
-}
-.table-fixed-cell {
-	position: absolute;
+	.table-fixed-cell {
+		position: absolute;
+	}
+	tr:before {
+		content: "";
+		padding: 0;
+		width: 0;
+	}
 }
 
-.table-fixed tr:before {
-	content: "";
-	padding: 0;
-	width: 0;
-}
-
+// What's this?
 .table-block {
 	display: block;
 	width: 100%;

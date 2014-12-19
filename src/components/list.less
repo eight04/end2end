@@ -1,31 +1,9 @@
-// Navbar component
-@import "../vars.less";
-@import "../mixins.less";
-//@import "form.less";
-//@import "table.less";
-
-.list {
-	.make-margin(1em);
-	list-style: disc outside none;
-	
-	> * {
-		margin-left: 3em;
-		line-height: @line-height-base;
-	}
-}
-
-.list-circle {
-	list-style-type: circle;
-}
-
-.list-decimal {
-	list-style-type: decimal;
-}
-
-.list-lower-roman {
-	list-style-type: lower-roman;
-}
-
-.list-upper-roman {
-	list-style-type: upper-roman;
+// Unstyled only
+.list-unstyled {
+	list-style: none;
+	margin-left: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+	line-height: 1;
 }
