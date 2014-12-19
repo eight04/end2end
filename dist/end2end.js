@@ -1106,7 +1106,9 @@ angular.module(
 				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
 				table.css("margin-top", "-" + sum.theadHeight + "px");
 				// What the hack? use empty will break two-way binding in IE8
-				headContainer.empty().append(clone);
+//				headContainer.empty().append(clone);
+				headContainer[0].innerHTML = "";
+				headContainer.append(clone);
 			}
 
 			var process = null;
