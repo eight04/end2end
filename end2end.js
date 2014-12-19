@@ -1155,9 +1155,21 @@ angular.module(
 			}
 
 			height = o.element[0].offsetHeight;
-			if (height && height != o.height && state != "affix-top") {
+			if (height && height != o.height) {
 				o.parent.css("height", height + "px");
 				o.height = height;
+			}
+		} else {
+			width = null;
+			if (width != o.width) {
+				o.element.css("width", "");
+				o.width = width;
+			}
+
+			height = null;
+			if (height != o.height) {
+				o.parent.css("height", "");
+				o.height = "";
 			}
 		}
 
