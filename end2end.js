@@ -1148,29 +1148,20 @@ angular.module(
 		}
 
 		if (state != "affix-top") {
-			width = o.parent[0].clientWidth;
-			if (width && width != o.width) {
-				o.element.css("width", width + "px");
-				o.width = width;
-			}
-
-			height = o.element[0].offsetHeight;
-			if (height && height != o.height) {
-				o.parent.css("height", height + "px");
-				o.height = height;
-			}
+			width = o.parent[0].clientWidth + "px";
+			height = o.element[0].offsetHeight + "px";
 		} else {
-			width = null;
-			if (width != o.width) {
-				o.element.css("width", "");
-				o.width = width;
-			}
+			width = "";
+			height = "";
+		}
 
-			height = null;
-			if (height != o.height) {
-				o.parent.css("height", "");
-				o.height = "";
-			}
+		if (width != o.width && width != "0px") {
+			o.element.css("width", width);
+			o.width = width;
+		}
+		if (height != o.height && height != "0px") {
+			o.parent.css("height", height);
+			o.height = height;
 		}
 
 		if (state != o.state) {
