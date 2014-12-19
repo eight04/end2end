@@ -10,6 +10,7 @@
 		}).directive("test", function($timeout){
 			return {
 				restrict: "C",
+				priority: 500,
 				template: "<div ng-transclude></div>",
 				transclude: true,
 				link: function(scope, element){

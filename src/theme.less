@@ -643,6 +643,22 @@ select {
 	}
 }
 
+// Nav group
+.nav-group {
+	> * {
+		&:before {
+			content: "";
+			display: block;
+			border-top: 1px solid @border-color-light;
+			margin: 0.5em;
+		}
+		&:first-child:before {
+			display: none;
+		}
+	}
+}
+
+
 // Progress
 .progress-bar {
 	background-color: @bg-color-base;

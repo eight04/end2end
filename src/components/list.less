@@ -1,3 +1,27 @@
+// List
+.list {
+	.make-margin(1em);
+	padding-left: 3em;
+	line-height: @line-height-base;
+	list-style-position: outside;
+}
+
+// List sub
+ul {
+	&:extend(.list);
+	list-style-type: disc;
+	ul {
+		list-style-type: circle;
+	}
+}
+ol {
+	&:extend(.list);
+	list-style-type: decimal;
+	ol {
+		list-style-type: lower-roman;
+	}
+}
+
 // Unstyled only
 .list-unstyled {
 	list-style: none;
