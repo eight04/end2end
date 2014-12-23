@@ -2337,6 +2337,9 @@ ol ol {
   .navbar-menu {
     display: block;
   }
+  .navbar-menu > * {
+    display: block;
+  }
 }
 .navbar-col,
 .navbar-link,
@@ -3354,6 +3357,7 @@ select.ng-invalid:focus {
 @media (max-width: 767px) {
   .blackboard-head {
     font-size: 210%;
+    margin-top: 0.6em;
     text-align: center;
   }
   .blackboard {
