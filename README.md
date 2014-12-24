@@ -26,9 +26,10 @@ Todos
 * One-line vertical align issue.
 * Use content box on table?
 * Apply style on plain list.
-* Move out IE8 hack rules.
-* Move CSS reset into component.
-* Move theme into component.
+* Move out IE8 hack rules?
+* Move CSS reset into component?
+* Move theme into component?
+* Drop extend? Too many bugs with it.
 
 Known bugs
 ----------
