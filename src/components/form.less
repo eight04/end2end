@@ -1,56 +1,54 @@
+
 // Form component. Include form controls.
-
-.form-group {
-	.make-margin();
-	.row > & {
-		margin: 0;
+form {
+	.form-group {
+		.make-margin();
+		.row > & {
+			margin: 0;
+		}
 	}
-}
-
-label,
-legend {
-	line-height: 1;
-	display: inline-block;
-	+ .form-control,
-	+ .input-group,
-	+ .radio,
-	+ .checkbox {
-		margin-top: 0.3em;
-	}
-}
-
-.form-control {
-	display: block;
-	width: 100%;
-}
-
-// Radio and checkbox
-.radio, .checkbox {
-	position: relative;
-
-	input[type="radio"],
-	input[type="checkbox"] {
-		color: inherit;
-		position: absolute;
-		width: auto;
-		height: auto;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto 0;
-	}
-
-	label {
+	label,
+	legend {
+		line-height: 1;
 		display: inline-block;
-		padding-left: 1.5em;
-		cursor: pointer;
-		line-height: @line-height-base;
+		+ .form-control,
+		+ .input-group,
+		+ .radio,
+		+ .checkbox {
+			margin-top: 0.3em;
+		}
 	}
-}
+	.form-control {
+		display: block;
+		width: 100%;
+	}
+	// Radio and checkbox
+	.radio, .checkbox {
+		position: relative;
 
-// Inline form
-.form-inline {
-	.make-form-inline();
+		input[type="radio"],
+		input[type="checkbox"] {
+			color: inherit;
+			position: absolute;
+			width: auto;
+			height: auto;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			margin: auto 0;
+		}
+
+		label {
+			display: inline-block;
+			padding-left: 1.5em;
+			cursor: pointer;
+			line-height: @line-height-base;
+		}
+	}
+	// Inline form
+	&.form-inline {
+		.make-form-inline();
+	}
 }
 
 // Input group
@@ -64,7 +62,7 @@ legend {
 .input-group-addon {
 	height: 2em;
 	> * {
-		.vcenter();
+		.make-vcenter();
 		height: 100%;
 	}
 }
