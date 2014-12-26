@@ -1,93 +1,51 @@
 
 // Form component. Include form controls.
-form {
-	.form-group {
-		.make-margin();
-		.row > & {
-			margin: 0;
-		}
-	}
-	label,
-	legend {
-		line-height: 1;
-		display: inline-block;
-		+ .form-control,
-		+ .input-group,
-		+ .radio,
-		+ .checkbox {
-			margin-top: 0.3em;
-		}
-	}
-	.form-control {
-		display: block;
-		width: 100%;
-	}
-	// Radio and checkbox
-	.radio, .checkbox {
-		position: relative;
-
-		input[type="radio"],
-		input[type="checkbox"] {
-			color: inherit;
-			position: absolute;
-			width: auto;
-			height: auto;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			margin: auto 0;
-		}
-
-		label {
-			display: inline-block;
-			padding-left: 1.5em;
-			cursor: pointer;
-			line-height: @line-height-base;
-		}
-	}
-	// Inline form
-	&.form-inline {
-		.make-form-inline();
+.form-group {
+	.make-margin();
+	.row > & {
+		margin: 0;
 	}
 }
-
-// Input group
-.input-group {
-	&:extend(.table-row all);
-	> * > * > * {
-		display: block;
+label,
+legend {
+	line-height: 1;
+	display: inline-block;
+	+ .form-control,
+	+ .input-group,
+	+ .radio,
+	+ .checkbox {
+		margin-top: 0.3em;
 	}
 }
-
-.input-group-addon {
-	height: 2em;
-	> * {
-		.make-vcenter();
-		height: 100%;
-	}
-}
-
-// Buttons
-.btn-block {
+.form-control {
 	display: block;
 	width: 100%;
 }
-.btn-group {
-	&:extend(.table-row all);
-	display: inline-block;
+// Radio and checkbox
+.radio, .checkbox {
+	position: relative;
+
+	input[type="radio"],
+	input[type="checkbox"] {
+		color: inherit;
+		position: absolute;
+		width: auto;
+		height: auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto 0;
+	}
+
+	label {
+		display: inline-block;
+		padding-left: 1.5em;
+		cursor: pointer;
+		line-height: @line-height-base;
+	}
 }
-.btn-close {
-	width: 1em;
-	height: 1em;
-	vertical-align: baseline;
+// Inline form
+&.form-inline {
+	.make-form-inline();
 }
-.btn-circle {
-	display: inline-block;
-	width: 1.25em;
-	height: 1.25em;
-	text-align: center;
-	line-height: 1.25;
-	font-size: 80%;
-	vertical-align: baseline;
-	border-radius: 50%;
-}
+

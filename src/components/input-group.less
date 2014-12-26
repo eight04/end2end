@@ -1,0 +1,16 @@
+
+// Input group
+.input-group {
+	&:extend(.table-row all);
+	> * > * > * {
+		display: block;
+	}
+}
+
+.input-group-addon {
+	height: 2em;
+	> * {
+		.make-vcenter();
+		height: 100%;
+	}
+}
