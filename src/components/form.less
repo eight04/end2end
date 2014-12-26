@@ -1,4 +1,29 @@
 
+// Angular form state
+input,
+textarea,
+select {
+	&.ng-invalid {
+		&, &:hover, &:focus {
+			border-color: @brand-danger;
+		}
+	}
+}
+
+// Placeholder
+::-webkit-input-placeholder {
+	color: @bg-color-hard;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	color: @bg-color-hard;
+}
+:-ms-input-placeholder {
+	color: @bg-color-hard;
+}
+:-moz-placeholder { /* Firefox 18- */
+	color: @bg-color-hard;
+}
+
 // Form component. Include form controls.
 .form-group {
 	.make-margin();
@@ -8,18 +33,42 @@
 }
 label,
 legend {
-	line-height: 1;
-	display: inline-block;
+	
 	+ .form-control,
 	+ .input-group,
 	+ .radio,
 	+ .checkbox {
 		margin-top: 0.3em;
 	}
+
 }
 .form-control {
+	.make-border();
 	display: block;
 	width: 100%;
+	line-height: 1;
+	display: inline-block;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	color: @font-color-light;
+	transition: 0.2s all linear;
+
+	&:hover {
+		border-color: @border-color-light;
+	}
+	&:focus {
+		border-color: @border-color-active;
+		color: @font-color-active;
+	}
+	&[disabled] {
+		background-color: @bg-color-base;
+		border-color: @border-color-light;
+		cursor: not-allowed;
+		&:hover,
+		&:active {
+			border-color: @border-color-light;
+		}
+	}
 }
 // Radio and checkbox
 .radio, .checkbox {
@@ -42,6 +91,11 @@ legend {
 		padding-left: 1.5em;
 		cursor: pointer;
 		line-height: @line-height-base;
+		transition: 0.2s all linear;
+
+		&:hover {
+			color: @font-color-light;
+		}
 	}
 }
 // Inline form

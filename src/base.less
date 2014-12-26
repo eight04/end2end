@@ -7,6 +7,11 @@
 	}
 }
 
+a {
+	transition: all 0.2s linear;
+	.make-link-color(@font-color-light, @brand-primary);
+}
+
 body {
 	font-size: @font-size-base;
 	font-family: @font-family-base;
@@ -21,6 +26,10 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: @gap*2;
 	margin-bottom: @gap;
 	font-weight: bold;
+	small {
+		font-size: 70%;
+		color: @font-color-lighter;
+	}
 }
 
 h1 {
@@ -29,6 +38,8 @@ h1 {
 
 h2 {
 	font-size: 215%;
+	border-bottom: 1px solid @border-color-base;
+	padding-bottom: 0.25em;
 }
 
 h3 {
@@ -128,10 +139,31 @@ img {
 
 code {
 	font-family: @font-family-monospace;
+	background-color: @bg-color-base;
+	font-size: 90%;
+	padding: 0.25em;
 }
 
 pre {
 	.make-margin();
 	font-family: @font-family-monospace;
+}
+
+small {
+	font-size: 90%;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid @border-color-base;
+	margin: @gap 0;
+}
+
+// Selection
+::selection {
+	background-color: fade(@highlight, 40%);
+}
+::-moz-selection {
+	background-color: fade(@highlight, 40%);
 }
 

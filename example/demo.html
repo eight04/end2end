@@ -20,6 +20,21 @@
 			$rootScope.items = ["Apple", "Orange", "Banana", "Grapes", "Sandwitch"];
 		});
 	</script>
+	
+	<style>
+		.paint-grid .row {
+				background-color: darken(@color-bg, 6%);
+		}
+
+		.paint-grid [class*="col-"] {
+			background-color: darken(@color-bg, 12%);
+		}
+
+		.paint-grid .content {
+			background-color: darken(@color-bg, 18%);
+			overflow: hidden;
+		}
+	</style>
 
 	<!--[if lte ie 8]>
 	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.min.js"></script>
