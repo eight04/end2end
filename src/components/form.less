@@ -1,8 +1,14 @@
 // Reset fieldset
-fieldset {
+fieldset, legend {
 	border: 0 none;
 	margin: 0;
 	padding: 0;
+}
+
+// Fix legend problem
+.row-gap > fieldset > legend {
+	position: relative;
+	top: @gap;
 }
 
 // Angular form state
@@ -12,6 +18,14 @@ select {
 	&.ng-invalid {
 		&, &:hover, &:focus {
 			border-color: @brand-danger;
+		}
+	}
+}
+input[type="checkbox"],
+input[type="radio"] {
+	&.ng-invalid {
+		&, &:hover, &:focus {
+			box-shadow: 0 0 0 1px @brand-danger;
 		}
 	}
 }
@@ -37,9 +51,10 @@ select {
 		margin: 0;
 	}
 }
+
 label,
 legend {
-	
+	vertical-align: bottom;
 	+ .form-control,
 	+ .input-group,
 	+ .radio,
@@ -48,6 +63,7 @@ legend {
 	}
 
 }
+
 .form-control {
 	.make-border();
 	display: block;
