@@ -30,6 +30,11 @@ Todos
 * Move CSS reset into component?
 * Move theme into component?
 * Drop extend? Too many bugs with it.
+* Edit space between checkbox and legend.
+* Gap of input-group in Chrome. Is it a sub-pixel rendering bug?
+* Corner overflow of progress bar.
+* Border is covered by input-group-addon in input-group.
+* Style of navbar-toggle button.
 
 Known bugs
 ----------
