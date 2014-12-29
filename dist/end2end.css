@@ -2086,6 +2086,11 @@ hr {
   padding-left: 15px;
   padding-right: 15px;
 }
+fieldset {
+  border: 0 none;
+  margin: 0;
+  padding: 0;
+}
 input.ng-invalid,
 textarea.ng-invalid,
 select.ng-invalid,
@@ -2471,6 +2476,9 @@ ol ol {
     overflow: auto;
   }
 }
+table {
+  border-spacing: 0;
+}
 .shrink {
   width: 1%;
 }
@@ -2567,55 +2575,6 @@ ol ol {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   background-color: #f0f0f0;
-}
-.input-group > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-.input-group > * {
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
-}
-.input-group > * + * {
-  border-left-width: 0;
-}
-.input-group > * + * > * > * {
-  border-left-color: transparent;
-}
-.input-group > * > * {
-  margin: 0 -1px;
-}
-.input-group > * > * > * {
-  border-radius: 0;
-  background-clip: padding-box;
-  display: block;
-}
-.input-group > *:first-child > * > * {
-  border-top-left-radius: 0.1875em;
-  border-bottom-left-radius: 0.1875em;
-}
-.input-group > *:last-child > * > * {
-  border-top-right-radius: 0.1875em;
-  border-bottom-right-radius: 0.1875em;
-}
-.input-group-addon {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  height: 2em;
-  overflow: hidden;
-}
-.input-group-addon > * {
-  vertical-align: middle;
-  height: 100%;
-  padding: 0 0.5em;
-  background-color: #f2f2f2;
-}
-.input-group-addon > *:before {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
 }
 .btn-default {
   border: 1px solid #808080;
@@ -2723,6 +2682,55 @@ ol ol {
 }
 .btn-group > *:first-child {
   margin-left: -1px;
+}
+.input-group > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.input-group > * {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+.input-group > * + * {
+  border-left-width: 0;
+}
+.input-group > * + * > * > * {
+  border-left-color: transparent;
+}
+.input-group > * > * {
+  margin: 0 -1px;
+}
+.input-group > * > * > * {
+  border-radius: 0;
+  background-clip: padding-box;
+  display: block;
+}
+.input-group > *:first-child > * > * {
+  border-top-left-radius: 0.1875em;
+  border-bottom-left-radius: 0.1875em;
+}
+.input-group > *:last-child > * > * {
+  border-top-right-radius: 0.1875em;
+  border-bottom-right-radius: 0.1875em;
+}
+.input-group-addon {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  height: 2em;
+  overflow: hidden;
+}
+.input-group-addon > * {
+  vertical-align: middle;
+  height: 100%;
+  padding: 0 0.5em;
+  background-color: #f2f2f2;
+}
+.input-group-addon > *:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 .marger-xl {
   margin-top: 60px;
