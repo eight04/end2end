@@ -3514,6 +3514,7 @@ img.right-xs {
 .affix-content.affix-fixed {
   position: fixed;
   top: 0;
+  overflow: auto;
 }
 .pane.active-remove {
   transition: 0.2s all linear;
