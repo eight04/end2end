@@ -35,6 +35,8 @@ Todos
 * Corner overflow of progress bar.
 * Border is covered by input-group-addon in input-group.
 * Style of navbar-toggle button.
+* Min, max validator doesn't work in IE8.
+* Number validator doesn't work in IE8.
 
 Known bugs
 ----------

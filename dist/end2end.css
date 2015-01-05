@@ -221,6 +221,12 @@ hr {
   }
 }
 .row {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  line-height: 1;
   display: flex;
   flex-wrap: wrap;
   letter-spacing: -9999px\9;
@@ -2237,12 +2243,7 @@ ol {
 ol ol {
   list-style-type: lower-roman;
 }
-.list-unstyled,
-.nav,
-.nav-list,
-.nav-tab,
-.nav-tree,
-.nav-pill {
+.list-unstyled {
   list-style: none;
   margin-left: 0;
   margin-top: 0;
@@ -2298,6 +2299,18 @@ ol ol {
 }
 .modal-backdrop.active {
   display: block;
+}
+.nav,
+.nav-list,
+.nav-tab,
+.nav-tree,
+.nav-pill {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  line-height: 1;
 }
 .nav a,
 .nav-list a,
