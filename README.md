@@ -31,12 +31,10 @@ Todos
 * Move theme into component?
 * Drop extend? Too many bugs with it.
 * Edit space between checkbox and legend.
-* Gap between input-group-input in Chrome. Is it a sub-pixel rendering bug?
 * Corner overflow of progress bar.
-* Border is covered by input-group-addon in input-group.
-* Style of navbar-toggle button.
 * Min, max validator doesn't work in IE8.
 * Number validator doesn't work in IE8.
+* Firefox persist scrollbar position. This cause problem on affix.
 
 Known bugs
 ----------

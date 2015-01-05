@@ -1,3 +1,15 @@
+.input-group-addon {
+	.make-border();
+	height: 2em;
+	overflow: hidden;
+	> * {
+		display: table-cell;
+		vertical-align: middle;
+		height: 100%;
+		padding: 0 0.5em;
+		background-color: @color-bg;
+	}
+}
 
 // Input group
 .input-group {
@@ -17,6 +29,10 @@
 				border-radius: 0;
 				background-clip: padding-box;
 				display: block;
+				width: 100%;
+				&.input-group-addon {
+					display: table;
+				}
 			}
 		}
 		&:first-child > * > * {
@@ -27,17 +43,5 @@
 			border-top-right-radius: @radius-base;
 			border-bottom-right-radius: @radius-base;
 		}
-	}
-}
-
-.input-group-addon {
-	.make-border();
-	height: 2em;
-	overflow: hidden;
-	> * {
-		.make-vcenter();
-		height: 100%;
-		padding: 0 0.5em;
-		background-color: @color-bg;
 	}
 }

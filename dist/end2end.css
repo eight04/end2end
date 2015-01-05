@@ -2501,6 +2501,8 @@ ol ol {
 .navbar {
   position: relative;
   z-index: 1000;
+  color: #707070;
+  border-bottom: 1px solid #a3a3a3;
 }
 .navbar > * {
   padding-left: 0;
@@ -2538,6 +2540,7 @@ ol ol {
 }
 @media (max-width: 767px) {
   .navbar-menu {
+    border-top: 1px solid #808080;
     display: block;
   }
   .navbar-menu > * {
@@ -2552,8 +2555,39 @@ ol ol {
 }
 .navbar-link,
 .navbar-brand {
+  text-decoration: none;
   padding-top: 1em;
   padding-bottom: 1em;
+}
+.navbar-link:link,
+.navbar-link:visited {
+  color: inherit;
+}
+.navbar-link:hover {
+  color: #3d3d3d;
+}
+.navbar-link:active {
+  color: #3d3d3d;
+}
+.navbar-link:hover {
+  background-color: #f0f0f0;
+}
+.navbar-link.active {
+  background-color: #f0f0f0;
+}
+.navbar-brand {
+  text-decoration: none;
+  font-weight: bold;
+}
+.navbar-brand:link,
+.navbar-brand:visited {
+  color: inherit;
+}
+.navbar-brand:hover {
+  color: #3d3d3d;
+}
+.navbar-brand:active {
+  color: #3d3d3d;
 }
 @media (min-width: 768px) {
   .navbar-form input,
@@ -2569,10 +2603,41 @@ ol ol {
     margin: 0;
   }
 }
+@media (max-width: 767px) {
+  .navbar-form {
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+  }
+}
 .navbar-toggle {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
   width: 2em;
   line-height: 0.8;
   overflow: hidden;
+}
+.navbar-toggle:hover {
+  border-color: #cccccc;
+}
+.navbar-toggle:focus {
+  color: #3d3d3d;
+  border-color: #0a53f8;
+}
+.navbar-toggle:active {
+  border-color: #0a53f8;
+  box-shadow: inset 0.12em 0.12em 0.5em #dedede;
+}
+.navbar-toggle[disabled] {
+  background-color: #f0f0f0;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+.navbar-toggle[disabled]:hover,
+.navbar-toggle[disabled]:active {
+  border-color: #cccccc;
 }
 .navbar-toggle:first-line {
   font-size: 200%;
@@ -2876,6 +2941,19 @@ th {
 .btn-group > *:first-child {
   margin-left: -1px;
 }
+.input-group-addon {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  height: 2em;
+  overflow: hidden;
+}
+.input-group-addon > * {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  padding: 0 0.5em;
+  background-color: #f2f2f2;
+}
 .input-group > * {
   display: table-cell;
   vertical-align: middle;
@@ -2898,6 +2976,10 @@ th {
   border-radius: 0;
   background-clip: padding-box;
   display: block;
+  width: 100%;
+}
+.input-group > * > * > *.input-group-addon {
+  display: table;
 }
 .input-group > *:first-child > * > * {
   border-top-left-radius: 0.1875em;
@@ -2906,24 +2988,6 @@ th {
 .input-group > *:last-child > * > * {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
-}
-.input-group-addon {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  height: 2em;
-  overflow: hidden;
-}
-.input-group-addon > * {
-  vertical-align: middle;
-  height: 100%;
-  padding: 0 0.5em;
-  background-color: #f2f2f2;
-}
-.input-group-addon > *:before {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
 }
 .marger-xl {
   margin-top: 60px;
@@ -3388,53 +3452,6 @@ img.right-xs {
 .table-fixed .table-fixed-table .table-responsive tbody tr:first-child th,
 .table-fixed .table-fixed-table .table-responsive tbody tr:first-child td {
   border-top-width: 0;
-}
-.navbar {
-  color: #707070;
-  border-bottom: 1px solid #a3a3a3;
-}
-.navbar-brand {
-  text-decoration: none;
-  font-weight: bold;
-}
-.navbar-brand:link,
-.navbar-brand:visited {
-  color: inherit;
-}
-.navbar-brand:hover {
-  color: #3d3d3d;
-}
-.navbar-brand:active {
-  color: #3d3d3d;
-}
-.navbar-link,
-.navbar-brand {
-  text-decoration: none;
-}
-.navbar-link:link,
-.navbar-link:visited {
-  color: inherit;
-}
-.navbar-link:hover {
-  color: #3d3d3d;
-}
-.navbar-link:active {
-  color: #3d3d3d;
-}
-.navbar-link:hover {
-  background-color: #f0f0f0;
-}
-.navbar-link.active {
-  background-color: #f0f0f0;
-}
-@media (max-width: 767px) {
-  .navbar-menu {
-    border-top: 1px solid #808080;
-  }
-  .navbar-form {
-    border-top: 1px solid #808080;
-    border-bottom: 1px solid #808080;
-  }
 }
 .blackboard {
   background-color: #f0f0f0;

@@ -2,6 +2,8 @@
 .navbar {
 	position: relative;
 	z-index: 1000;
+	color: @font-color-light;
+	border-bottom: 1px solid @border;
 	> * {
 		padding-left: 0;
 		padding-right: 0;
@@ -32,6 +34,7 @@
 		width: 100%;
 	}
 	@media (max-width: (@window-sm - 1)) {
+		border-top: 1px solid @border-color-base;
 		display: block;
 		> * {
 			display: block;
@@ -43,19 +46,35 @@
 }
 .navbar-link {
 	&:extend(.navbar-col);
+	.make-link-color(inherit, @font-color-base);
+	text-decoration: none;
+	&:hover {
+		background-color: @bg-color-base;
+	}
+	&.active {
+		background-color: @bg-color-base;
+	}
 	padding-top: 1em;
 	padding-bottom: 1em;
 }
 .navbar-brand {
 	&:extend(.navbar-link);
+	.make-link-color(inherit, @font-color-base);
+	text-decoration: none;
+	font-weight: bold;
 }
 .navbar-form {
 	&:extend(.navbar-col);
 	@media (min-width: @window-sm) {
 		.make-form-inline();
 	}
+	@media (max-width: (@window-sm - 1)) {
+		border-top: 1px solid @border-color-base;
+		border-bottom: 1px solid @border-color-base;
+	}
 }
 .navbar-toggle {
+	.make-btn();
 	width: 2em;
 	line-height: 0.8;
 	overflow: hidden;

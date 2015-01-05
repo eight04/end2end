@@ -242,39 +242,6 @@
 	}
 }
 
-// Navbar
-.navbar {
-	color: @font-color-light;
-	border-bottom: 1px solid @border;
-}
-
-.navbar-brand {
-	.make-link-color(inherit, @font-color-base);
-	text-decoration: none;
-	font-weight: bold;
-}
-
-.navbar-link {
-	.make-link-color(inherit, @font-color-base);
-	text-decoration: none;
-	&:hover {
-		background-color: @bg-color-base;
-	}
-	&.active {
-		background-color: @bg-color-base;
-	}
-}
-
-@media (max-width: (@window-sm - 1)) {
-	.navbar-menu {
-		border-top: 1px solid @border-color-base;
-	}
-	.navbar-form {
-		border-top: 1px solid @border-color-base;
-		border-bottom: 1px solid @border-color-base;
-	}
-}
-
 // Blackboard
 .blackboard {
 	background-color: @bg-color-base;
@@ -340,6 +307,10 @@
 	&.affix-fixed {
 		position: fixed;
 		top: 0;
+//		&:hover {
+//			max-height: 100%;
+//			overflow: auto;
+//		}
 	}
 }
 
