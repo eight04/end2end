@@ -2077,7 +2077,7 @@ hr {
 .dialog-lg {
   width: 1200px;
 }
-.dialog-header {
+.dialog-head {
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -3309,7 +3309,7 @@ img.right-xs {
   margin-bottom: 1em;
   background-color: #fff;
 }
-.dialog-header {
+.dialog-head {
   font-weight: 700;
   font-size: 140%;
   border-bottom: 1px solid #808080;
