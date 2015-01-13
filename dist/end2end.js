@@ -1516,6 +1516,157 @@ angular.module(
 			setHeight(element);
 		}
 	};
+}).factory('route', function(jar){
+	return jar('nav', 'view');
+}).directive('routeNav', function(route){
+	
+	function active(element) {
+		var parent = element.parent();
+		if (parent[0].nodeName == "LI") {
+			parent.addClass("active");
+		} else {
+			element.addClass("active");
+		}
+	}
+
+	function deactive(element) {
+		var parent = element.parent();
+		if (parent[0].nodeName == "LI") {
+			parent.removeClass("active");
+		} else {
+			element.removeClass("active");
+		}
+	}
+	
+	return {
+		restrict: "A",
+		require: "routeNav",
+		controller: function() {
+			var ai = 0, jar = {}, routes = {};
+			
+			this.addRoute = function(route){
+				if (!routes[route.url]) {
+					routes[route.url] = [];
+				}
+				var len = routes[route.url].length;
+				routes[route.url][len] = route;
+				route.pos = len;
+				ai++;
+				jar[ai] = route;
+				return ai;
+			};
+			
+			this.removeRoute = function(id){
+				var route = jar[id];
+				var arr = routes[route.url];
+				var len = arr.length;
+				arr[route.pos] = arr[len - 1];
+				arr[route.pos].pos = route.pos;
+				arr.pop();
+				routes[id] = null;
+			};
+			
+			this.routes = routes;
+		},
+		link: function(scope, element, attr, ctrl){
+			
+			var nav = {
+				id: attr.routeNav,
+				element: element,
+				routes: ctrl.routes,
+				actived: null
+			};
+			
+			element.on("click", function(e){
+				var element = angular.element(e.target);
+				while (element[0] && element[0] != nav.element[0] && element[0].nodeName != 'A') {
+					element = element.parent();
+				}
+				if (!element[0] || element[0] == nav.element[0]) {
+					return;
+				}
+				var routeURL = element.prop("route");
+				if (!routeURL) {
+					return;
+				}
+				e.preventDefault();
+				var actived = nav.actived;
+				if (actived) {
+					if (actived[0] == element[0]) {
+						return;
+					}
+					deactive(actived);
+				}
+				active(element);
+				nav.actived = element;
+				scope.$apply(function(){
+					route.get(nav.id).view.url = routeURL;
+				});
+			});
+			
+			route.addNav(nav);
+		}
+	};
+}).directive('routeView', function(route){
+	return {
+		restrict: "A",
+		template: "<div ng-include='url'></div>",
+		scope: {
+			id: '@routeView'
+		},
+		link: function(scope, element){
+			scope.element = element;
+			route.addView(scope);
+		}
+	};
+}).directive('route', function(){
+	return {
+		restrict: "A",
+		require: "^routeNav",
+		link: function(scope, element, attr, routeNav) {
+			var route = routeNav.addRoute({
+				url: attr.route,
+				element: element
+			});
+			element.$on("$destroy", function(){
+				routeNav.removeRoute(route);
+			});
+		}
+	};
+}).factory('jar', function(){
+	
+	function capFirst(s) {
+		return s[0].toUpperCase() + s.substr(1);
+	}
+	
+	function createAddMethod(name, jar) {
+		return function(id, scope){
+			if (typeof id == 'object') {
+				scope = id;
+				id = scope.id;
+			}
+			id = id || 'default';
+			if (!jar[id]) {
+				jar[id] = {};
+			}
+			jar[id][name] = scope;
+		};
+	}
+	
+	return function(){
+		var jar = {}, api = {}, i;
+		
+		for (i = 0; i < arguments; i++) {
+			api['add' + capFirst(arguments[i])] = createAddMethod(arguments[i], jar);
+		}
+		
+		api.get = function(id){
+			id = id || 'default';
+			return jar[id];
+		};
+		
+		return api;
+	};
 });
 
 })();
