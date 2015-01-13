@@ -1044,13 +1044,6 @@ angular.module(
 			affix.affix(element, affixWrapper, affixWrapper.children());
 			scrollsync.create(headContainer, table.parent());
 
-//			element.on("$destroy", function(){
-//				alert("what");
-//			});
-//			scope.$on("$destroy", function(){
-//				alert("what??");
-//			});
-
 			function redraw(){
 				var i, td, sum, thead, tds;
 
@@ -1516,157 +1509,172 @@ angular.module(
 			setHeight(element);
 		}
 	};
-}).factory('route', function(jar){
-	return jar('nav', 'view');
+}).factory('route', function(){
+	var jar = {};
+	return function(id) {
+		id = id || "default";
+		if (!jar[id]) {
+			jar[id] = {};
+		}
+		return jar[id];
+	};
 }).directive('routeNav', function(route){
-	
-	function active(element) {
-		var parent = element.parent();
-		if (parent[0].nodeName == "LI") {
-			parent.addClass("active");
-		} else {
-			element.addClass("active");
-		}
-	}
 
-	function deactive(element) {
-		var parent = element.parent();
-		if (parent[0].nodeName == "LI") {
-			parent.removeClass("active");
-		} else {
-			element.removeClass("active");
+	var active = {
+		on: function(element) {
+			var parent = element.parent();
+			if (parent[0].nodeName == "LI") {
+				parent.addClass("active");
+			} else {
+				element.addClass("active");
+			}
+		},
+		off: function(element) {
+			var parent = element.parent();
+			if (parent[0].nodeName == "LI") {
+				parent.removeClass("active");
+			} else {
+				element.removeClass("active");
+			}
 		}
-	}
-	
+	};
+
 	return {
 		restrict: "A",
-		require: "routeNav",
-		controller: function() {
-			var ai = 0, jar = {}, routes = {};
-			
-			this.addRoute = function(route){
-				if (!routes[route.url]) {
-					routes[route.url] = [];
-				}
-				var len = routes[route.url].length;
-				routes[route.url][len] = route;
-				route.pos = len;
-				ai++;
-				jar[ai] = route;
-				return ai;
-			};
-			
-			this.removeRoute = function(id){
-				var route = jar[id];
-				var arr = routes[route.url];
-				var len = arr.length;
-				arr[route.pos] = arr[len - 1];
-				arr[route.pos].pos = route.pos;
-				arr.pop();
-				routes[id] = null;
-			};
-			
-			this.routes = routes;
-		},
-		link: function(scope, element, attr, ctrl){
-			
-			var nav = {
-				id: attr.routeNav,
-				element: element,
-				routes: ctrl.routes,
-				actived: null
-			};
-			
-			element.on("click", function(e){
-				var element = angular.element(e.target);
-				while (element[0] && element[0] != nav.element[0] && element[0].nodeName != 'A') {
-					element = element.parent();
-				}
-				if (!element[0] || element[0] == nav.element[0]) {
-					return;
-				}
-				var routeURL = element.prop("route");
-				if (!routeURL) {
-					return;
-				}
-				e.preventDefault();
-				var actived = nav.actived;
-				if (actived) {
-					if (actived[0] == element[0]) {
-						return;
+		controller: function($scope, $attrs) {
+			var id = $attrs.id,
+				scope = route(id),
+				nav = scope.nav = {};
+
+			this.add = function(o){
+				if (!nav[o.route]) {
+					nav[o.route] = {
+						url: o.url,
+						elements: [o.element]
+					};
+					if (o.url == location.href && !scope.current) {
+						this.active(o.route);
 					}
-					deactive(actived);
+				} else {
+					nav[o.route].elements.push(o.element);
+					if (scope.current == o.route) {
+						active.on(o.element);
+					}
 				}
-				active(element);
-				nav.actived = element;
-				scope.$apply(function(){
-					route.get(nav.id).view.url = routeURL;
-				});
+			};
+
+			this.remove = function(o){
+				var l = nav[o.route].elements, i;
+				for (i = 0; i < l.length; i++) {
+					if (l[i][0] == o.element[0]) {
+						break;
+					}
+				}
+				l[i] = l[l.length - 1];
+				l.pop();
+				if (!l.length) {
+					nav[o.route] = null;
+					if (scope.current == o.route) {
+						scope.current = null;
+					}
+				}
+			};
+
+			this.active = function (route) {
+				if (route == scope.current) {
+					return;
+				}
+
+				var i, elements;
+
+				if (scope.current) {
+					elements = nav[scope.current].elements;
+					for (i = 0; i < elements.length; i++) {
+						active.off(elements[i]);
+					}
+				}
+
+				scope.current = route;
+				elements = nav[scope.current].elements;
+				for (i = 0; i < elements.length; i++) {
+					active.on(elements[i]);
+				}
+
+				if (history.pushState) {
+					// Angular will reset url after digest?
+					history.pushState({route: scope.current}, document.title, nav[scope.current].url);
+					scope.pushing = 1;
+				} else {
+					location.href = nav[scope.current].url;
+				}
+			};
+
+			$scope.$on("$locationChangeStart", function(e){
+				console.log(e, scope.pushing);
+				if (scope.pushing == 1) {
+					scope.pushing++;
+				} else if (scope.pushing == 2) {
+//					e.preventDefault();
+//					scope.pushing = 0;
+				}
 			});
-			
-			route.addNav(nav);
 		}
 	};
 }).directive('routeView', function(route){
 	return {
 		restrict: "A",
-		template: "<div ng-include='url'></div>",
-		scope: {
-			id: '@routeView'
-		},
-		link: function(scope, element){
-			scope.element = element;
-			route.addView(scope);
+		template: "<div ng-include='route.current'></div>",
+		scope: true,
+		link: function(scope, element, attrs){
+			var id = attrs.routeView;
+			scope.route = route(id);
 		}
 	};
 }).directive('route', function(){
 	return {
 		restrict: "A",
 		require: "^routeNav",
-		link: function(scope, element, attr, routeNav) {
-			var route = routeNav.addRoute({
-				url: attr.route,
-				element: element
+		link: function(scope, element, attrs, routeNav) {
+			var route = {
+				element: element,
+				route: attrs.route,
+				url: element[0].href
+			};
+
+			routeNav.add(route);
+
+			element.on("$destroy", function(){
+				routeNav.remove(route);
 			});
-			element.$on("$destroy", function(){
-				routeNav.removeRoute(route);
+
+			element.on("click", function(e){
+				e.preventDefault();
+//				e.stopImmediatePropagation();
+				scope.$apply(function(){
+					routeNav.active(route.route);
+				});
 			});
 		}
 	};
-}).factory('jar', function(){
-	
-	function capFirst(s) {
-		return s[0].toUpperCase() + s.substr(1);
-	}
-	
-	function createAddMethod(name, jar) {
-		return function(id, scope){
-			if (typeof id == 'object') {
-				scope = id;
-				id = scope.id;
-			}
-			id = id || 'default';
-			if (!jar[id]) {
-				jar[id] = {};
-			}
-			jar[id][name] = scope;
+}).config(function($provide){
+	$provide.decorator("$browser", function($delegate){
+		var onUrlChange = $delegate.onUrlChange,
+			url = $delegate.url;
+
+		$delegate.onUrlChange = function(){
+			var ret = onUrlChange.apply(this, arguments);
+			console.log(arguments, ret);
+			return ret;
 		};
-	}
-	
-	return function(){
-		var jar = {}, api = {}, i;
-		
-		for (i = 0; i < arguments; i++) {
-			api['add' + capFirst(arguments[i])] = createAddMethod(arguments[i], jar);
-		}
-		
-		api.get = function(id){
-			id = id || 'default';
-			return jar[id];
+
+		$delegate.url = function(){
+			var ret = url.apply(this, arguments);
+			console.log(arguments, ret);
+			return ret;
 		};
-		
-		return api;
-	};
+
+		return $delegate;
+	});
 });
 
 })();

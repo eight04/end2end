@@ -36,6 +36,7 @@ Todos
 * Number validator doesn't work in IE8.
 * Firefox persist scrollbar position. This cause problem on affix.
 * Need better way to seperate theme files.
+* Add component set service.
 
 Known bugs
 ----------
