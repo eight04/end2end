@@ -37,6 +37,7 @@ Todos
 * Firefox persist scrollbar position. This cause problem on affix.
 * Need better way to seperate theme files.
 * Add component set service.
+* input-group button text overflow.
 
 Known bugs
 ----------
