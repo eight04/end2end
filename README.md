@@ -22,10 +22,9 @@ Todos
 * Create ie polyfill or keep using css hack?
 * Enter key doesn't handled properly in dialog form on IE8.
 * Add table item.
-* Don't focus on button if user use custom template on dialog?
+* Don't focus on button if user use custom template on dialog? Or make it configurable.
 * One-line vertical align issue.
 * Use content box on table?
-* Apply style on plain list.
 * Move out IE8 hack rules?
 * Move CSS reset into component?
 * Move theme into component?
@@ -34,15 +33,12 @@ Todos
 * Corner overflow of progress bar.
 * Min, max validator doesn't work in IE8.
 * Number validator doesn't work in IE8.
-* Firefox persist scrollbar position. This cause problem on affix.
 * Need better way to seperate theme files.
-* Add component set service.
-* input-group button text overflow.
-
-Known bugs
-----------
-* Enter key won't be handled properly in dialog form on IE8.
+* Add ani-collapse-children.
 * Double scrollbar issue of scrollable modal.
+
+Annoying bugs note
+------------------
 * IE 9+ overflow, border-radius, and position bug(http://x.co/65DI4). The table-fixed-head corner issue at affix-bottom.
 * Chrome bug with table-fixed. Fixed by triggering redraw manually.
 * Chrome bug with flex and overflow: auto. Fixed by triggering redraw with animation.

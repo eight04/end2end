@@ -117,6 +117,7 @@ angular.module(
 		if (done) {
 			done();
 		}
+//		console.log(prepare.test(element));
 	}
 	function uncollapse(element, done) {
 		element.css("height", element[0].scrollHeight + "px");
