@@ -2334,6 +2334,7 @@ ol ol {
 .nav-table,
 .nav-tab,
 .nav-pill {
+  display: block;
   display: table;
   width: 100%;
 }
@@ -2552,6 +2553,7 @@ ol ol {
 }
 @media (min-width: 768px) {
   .navbar-menu {
+    display: block;
     display: table;
     width: 100%;
   }
@@ -2818,6 +2820,9 @@ th {
 .table-block > * {
   width: 100%;
 }
+.table-row {
+  display: block;
+}
 .table-row > * {
   display: table-cell;
   vertical-align: middle;
@@ -2947,6 +2952,7 @@ th {
   width: 100%;
 }
 .btn-group {
+  display: block;
   display: inline-block;
   border: 1px solid #808080;
   border-radius: 0.1875em;
@@ -2976,6 +2982,9 @@ th {
   height: 100%;
   padding: 0 0.5em;
   background-color: #f2f2f2;
+}
+.input-group {
+  display: block;
 }
 .input-group > * {
   display: table-cell;

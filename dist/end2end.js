@@ -791,21 +791,15 @@ angular.module(
 			$animate.addClass(element.children()[1], "ng-hide");
 		}
 	};
-}).directive("toggled", function(toggler, togglerHelper) {
+}).directive("toggled", function(toggler) {
 	return {
 		restrict: "AC",
 		link: function(scope, element, attrs){
-			var tg = toggler.get(attrs.toggled);
-			if (!tg) {
-				tg = toggler.create(attrs.toggled);
-				tg.set(togglerHelper.getStatus(element));
-			}
-			tg.add({
-				element: element
-			});
+			var id = attrs.toggled;
+			toggler(id).add(element);
 		}
 	};
-}).directive("toggler", function(toggler, togglerHelper){
+}).directive("toggler", function(toggler){
 
 	function getChildIndex(element, child) {
 		var cs = element.children(), i;
@@ -820,89 +814,56 @@ angular.module(
 	return {
 		restrict: "AC",
 		link: function(scope, element, attrs){
-			var tg = toggler.get(attrs.toggler);
-			if (!tg) {
-				tg = toggler.create(attrs.toggler);
-				tg.set(togglerHelper.getStatus(element));
-			}
-			tg.add({
-				element: element
-			});
+			var id = attrs.toggler;
+			toggler(id).add(element);
 
 			element.on("click", function(e){
-				if (e.target.nodeName != "A") {
+				var t = e.target;
+				while (t && t.nodeName != "A" && t.parentNode != element[0]) {
+					t = t.parentNode;
+				}
+				if (!t || t == element[0]) {
 					return;
 				}
-				var ele = e.target;
-				while (ele.parentNode != element[0]) {
-					ele = ele.parentNode;
+				while (t.parentNode != element[0]) {
+					t = t.parentNode;
 				}
-				tg.active(getChildIndex(element, ele));
+				toggler(id).active(getChildIndex(element, t));
 			});
 		}
 	};
-}).factory("toggler", function($animate, togglerHelper){
-	var togglerJar = {};
+}).factory("toggler", function(togglerHelper){
+	var jar = {};
 
-	function createToggler(id){
-		var status = [];
-		var toggleJar = [];
-
-		function updateToggle(toggle){
-			var i, child = toggle.element.children(), c;
-
-			for (i = 0; i < child.length; i++) {
-				c = angular.element(child[i]);
-				if (status[i]) {
-					togglerHelper.active(c);
-				} else {
-					togglerHelper.deactive(c);
-				}
+	function setStatus(element, index){
+		var lis = element.children(), j;
+		for (j = 0; j < lis.length; j++) {
+			if (j == index) {
+				togglerHelper.active(angular.element(lis[j]));
+			} else {
+				togglerHelper.deactive(angular.element(lis[j]));
 			}
 		}
-
-		function updateToggles(){
-			var i;
-			for (i = 0; i < toggleJar.length; i++) {
-				updateToggle(toggleJar[i]);
-			}
-		}
-
-		return {
-			id: id,
-			set: function(sts){
-				var i;
-				for (i = 0; i < sts.length; i++) {
-					status[i] = sts[i];
-				}
-				updateToggles();
-			},
-			active: function(index){
-				var i;
-				for (i = 0; i < status.length; i++) {
-					status[i] = index == i;
-				}
-				updateToggles();
-			},
-			add: function(toggle){
-				toggleJar.push(toggle);
-				updateToggle(toggle);
-			}
-		};
 	}
 
-	return {
-		get: function(id){
-			return togglerJar[id];
-		},
-		create: function(id){
-			if (togglerJar[id]) {
-				throw "Duplicate toggler id!";
-			}
-			var toggler = createToggler(id);
-			togglerJar[id] = toggler;
-			return toggler;
+	return function(id) {
+		if (!jar[id]) {
+			var o = jar[id] = {
+				current: null,
+				elements: [],
+				add: function(element) {
+					o.elements.push(element);
+				},
+				active: function(index) {
+					var i;
+					o.current = index;
+					for (i = 0; i < o.elements.length; i++) {
+						setStatus(o.elements[i], o.current);
+					}
+				}
+			};
 		}
+		return jar[id];
 	};
 }).directive("tableFixed", function($timeout, $parse, affix, scrollsync, prepare){
 
