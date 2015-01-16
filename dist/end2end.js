@@ -90,14 +90,22 @@ angular.module(
 		}
 		$timeout(active);
 
-		var promise = $timeout(function(){
+		function end(){
+			element.off("transitionend", end);
 			element.removeClass("collapsing");
 			done();
-		}, getAniTimeout(element));
+		}
+		element.on("transitionend", end);
+
+//		var promise = $timeout(function(){
+//			element.removeClass("collapsing");
+//			done();
+//		}, getAniTimeout(element));
 
 		return function(canceled){
 			if (canceled) {
-				$timeout.cancel(promise);
+//				$timeout.cancel(promise);
+				element.off("transitionend", end);
 				element.css("height", element[0].offsetHeight + "px");
 				done();
 			}
@@ -116,15 +124,24 @@ angular.module(
 	function uncollapse(element, done) {
 		element.css("height", element[0].scrollHeight + "px");
 
-		var promise = $timeout(function(){
+		function end(){
+			element.off("transitionend", end);
 			element.css("height", "");
 			element.removeClass("collapsing");
 			done();
-		}, getAniTimeout(element));
+		}
+		element.on("transitionend", end);
+
+//		var promise = $timeout(function(){
+//			element.css("height", "");
+//			element.removeClass("collapsing");
+//			done();
+//		}, getAniTimeout(element));
 
 		return function(canceled){
 			if (canceled) {
-				$timeout.cancel(promise);
+//				$timeout.cancel(promise);
+				element.off("transitionend", end);
 				element.css("height", element[0].offsetHeight + "px");
 				done();
 			}
