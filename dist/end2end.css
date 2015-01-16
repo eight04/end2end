@@ -3013,6 +3013,9 @@ th {
 .input-group > * > * > *.input-group-addon {
   display: table;
 }
+.input-group > *.shrink > * > * {
+  width: auto;
+}
 .input-group > *:first-child > * > * {
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
