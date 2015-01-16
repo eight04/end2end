@@ -57,10 +57,23 @@ angular.module(
 	};
 }).animation(".ani-collapse", function($timeout){
 	function beforeCollapse(element, done){
+		var scrollHeight = element[0].scrollHeight;
+
+		// display: none
+		if (!scrollHeight) {
+			if (done) {
+				done();
+			}
+			return;
+		}
+
+		// Start collapsing
 		if (!element.hasClass("collapsing")) {
-			element.css("height", element[0].scrollHeight + "px");
+			element.css("height", scrollHeight + "px");
 			element.addClass("collapsing");
 		}
+
+		// Render
 		void(element[0].offsetHeight);
 		if (done) {
 			done();
@@ -80,7 +93,6 @@ angular.module(
 			element.off("transitionend", end);
 			element.removeClass("collapsing");
 			done();
-//			console.log("end");
 		}
 		element.on("transitionend", end);
 
@@ -1392,7 +1404,9 @@ angular.module(
 		}
 	};
 }).factory("prepare", function($q, $timeout){
-	var thread = {
+	var prepare, thread;
+
+	thread = {
 		que: [],
 		running: false,
 		start: function(){
@@ -1408,7 +1422,7 @@ angular.module(
 				q = thread.que[i];
 				if (q.canceled) {
 					rejected.push(q);
-				} else if (!q.element[0].offsetParent || !q.element[0].offsetWidth && !q.element[0].offsetHeight) {
+				} else if (prepare.test(q.element)) {
 					swap.push(q);
 				} else {
 					done.push(q);
@@ -1431,7 +1445,7 @@ angular.module(
 		}
 	};
 
-	return function(element){
+	prepare = function(element) {
 		var q = {
 			element: element,
 			deferred: $q.defer()
@@ -1447,6 +1461,13 @@ angular.module(
 			}
 		};
 	};
+
+	prepare.test = function(element) {
+		return element[0].offsetParent && (element[0].offsetWidth || element[0].offsetHeight);
+	};
+
+	return prepare;
+	
 }).directive("fillViewHeight", function(){
 	var jar = [];
 
