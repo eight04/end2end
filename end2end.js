@@ -126,7 +126,6 @@ angular.module(
 			element.css("height", "");
 			element.removeClass("collapsing");
 			done();
-//			console.log("end");
 		}
 		element.on("transitionend", end);
 
@@ -135,10 +134,15 @@ angular.module(
 				element.off("transitionend", end);
 				element.css("height", element[0].offsetHeight + "px");
 				done();
-//				console.log("cancel");
 			}
 		};
 	}
+
+	// Some browsers don't support transition
+	if (!window.TransitionEvent) {
+		return {};
+	}
+
 	return {
 		beforeAddClass: function(element, cls, done) {
 			if (cls == "ng-hide") {
