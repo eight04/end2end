@@ -383,3 +383,32 @@
 	background-color: @bg-color-danger;
 }
 
+.item-group {
+	.make-border();
+	&[toggled] {
+		.item-body {
+			display: none;
+		}
+		.active .item-body {
+			display: block;
+		}
+	}
+}
+
+.item {
+	border-top: 1px solid @border-color-base;
+	&:first-child {
+		border-top-width: 0;
+	}
+}
+
+.item-head {
+	padding: 0.5em 1em;
+	font-weight: bold;
+}
+
+.item-body {
+	border-top: 1px solid @border-color-base;
+	padding: 0 1em;
+}
+

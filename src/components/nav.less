@@ -26,25 +26,47 @@
 	.make-border();
 	overflow: hidden;
 	> * {
-		> * {
+		> a {
 			.make-link-color(@font-color-light, @font-color-base);
 			padding: 0.5em 1em;
 			&:hover,
 			&:focus {
 				background-color: @bg-color-base;
 			}
+			+ * {
+				padding: 0 1em;
+				border-top: 1px solid @border-color-base;
+			}
 		}
 		+ * {
 			border-top: 1px solid @border-color-base;
 		}
-		&.active > * {
-			background-color: @bg-color-base;
+		&.active {
+			> a {
+				background-color: @bg-color-base;
+			}
 		}
 		&.danger > * {
 			background-color: @bg-color-danger;
 			&:hover,
 			&:focus {
 				background-color: @bg-color-danger;
+			}
+		}
+	}
+	&[toggler] {
+		> * {
+			> a + * {
+				display: none;
+			}
+			&.active {
+				> a + * {
+					display: block;
+				}
+			}
+			&.active-add,
+			&.active-remove {
+				transition: all 0.4s linear;
 			}
 		}
 	}

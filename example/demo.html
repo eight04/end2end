@@ -887,6 +887,22 @@
 					<li><a href="">Link 5</a></li>
 				</ul>
 
+				<h4>.nav-list-body</h4>
+				<ul class="nav-list">
+					<li class="active">
+						<a href="">Link 1</a>
+						<div class="nav-list-body ani-collapse"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et delectus vero vitae, omnis sit aliquid sapiente maxime optio quia rem ipsum, temporibus mollitia autem aspernatur reprehenderit, sequi obcaecati id unde.</p></div>
+					</li>
+					<li>
+						<a href="">Link 2</a>
+						<div class="nav-list-body ani-collapse"><p>Facere nesciunt incidunt assumenda, repudiandae molestiae doloribus ipsa sunt odit officia, voluptatem animi libero magnam laborum alias, veritatis cumque nostrum error rem vitae. Nemo perferendis, accusantium eligendi provident dolore quasi.</p></div>
+					</li>
+					<li>
+						<a href="">Link 3</a>
+						<div class="nav-list-body ani-collapse"><p>Consequatur, excepturi, distinctio. Deleniti, explicabo non culpa. Corporis officia quas eligendi totam assumenda dolorem dicta et, accusamus asperiores nam voluptate in dolore porro iure hic ipsam voluptatibus fugiat tempora error.</p></div>
+					</li>
+				</ul>
+
 				<h3>Nav tab</h3>
 				<div class="nav-responsive">
 					<ul class="nav-tab">
@@ -1064,6 +1080,39 @@
 					<div class="pane"><p>Quia incidunt velit, accusantium provident error, fugit quaerat aperiam corporis sequi et qui animi voluptates alias, exercitationem quo veniam repellat quas. Deleniti nulla, optio vero perferendis consequatur minus sapiente! Eos.</p></div>
 					<div class="pane"><p>Temporibus totam, hic facere beatae veniam ea aperiam laudantium fugit odit unde repudiandae, laborum perferendis nisi deserunt molestiae, omnis impedit ipsa inventore accusamus at aliquam sint magni voluptatum. Quos, provident!</p></div>
 				</div>
+				<ul class="nav-list" toggler="myToggle">
+					<li>
+						<a href="">Link 1</a>
+						<div class="nav-list-body ani-collapse">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum quo optio iusto quae fugiat repudiandae esse ratione mollitia libero totam rem veritatis expedita natus quod harum eaque, debitis sunt neque.</p>
+						</div>
+					</li>
+					<li>
+						<a href="">Link 2</a>
+						<div class="nav-list-body ani-collapse">
+							<p>Consequatur accusamus iure vitae voluptatibus neque, veritatis repellat fugiat aspernatur dolorum cupiditate, nihil recusandae quisquam animi harum voluptatem eos aliquam, corrupti corporis dolor nesciunt necessitatibus, similique id maxime quam? Amet!</p>
+						</div>
+					</li>
+					<li>
+						<a href="">Link 3</a>
+						<div class="nav-list-body ani-collapse">
+							<p>Ea accusamus, maxime corporis harum impedit odio consequatur. Ea numquam sint delectus saepe maiores quam, praesentium! Error cumque dolorem, laborum omnis fugiat quis sint aperiam impedit explicabo voluptatum optio unde!</p>
+						</div>
+					</li>
+					<li>
+						<a href="">Link 4</a>
+						<div class="nav-list-body ani-collapse">
+							<p>Voluptate molestias quibusdam eos, eum iste magnam dolore corporis nulla iure molestiae non reiciendis provident quasi alias magni eius quis? Nobis dolore neque aut quas molestias excepturi explicabo ad rem!</p>
+						</div>
+					</li>
+					<li>
+						<a href="">Link 5</a>
+						<div class="nav-list-body ani-collapse">
+							<p>Ipsam labore ad iste quibusdam eos ullam quas, eius animi eligendi et distinctio non fuga, omnis veritatis est harum. In vel quidem, maiores eligendi qui praesentium assumenda libero at debitis.</p>
+						</div>
+					</li>
+				</ul>
+
 
 				<h2>Collapse</h2>
 				<p><code>.ani-collapse</code> support <code>ng-enter, ng-leave, ng-hide and active</code></p>
@@ -1095,6 +1144,27 @@
 				</div>
 				<div class="ani-collapse" ng-repeat="i in items | filter:search">
 					<p>{{i}}</p>
+				</div>
+
+				<h2>Item group</h2>
+				<ul class="nav-pill marger" toggler="item-group">
+					<li><a href="">Link 1</a></li>
+					<li><a href="">Link 2</a></li>
+					<li><a href="">Link 3</a></li>
+				</ul>
+				<div class="item-group marger" toggled="item-group">
+					<div class="item">
+						<a class="item-head">Item 1</a>
+						<div class="item-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit fugiat pariatur velit, in a culpa iure! Sequi officiis, provident est soluta aut? Possimus nesciunt labore ducimus doloremque, sed minima eveniet.</p></div>
+					</div>
+					<div class="item">
+						<a class="item-head">Item 2</a>
+						<div class="item-body"><p>Cupiditate, architecto! Itaque quo corporis ut tenetur id similique incidunt non voluptates aspernatur repellendus saepe tempora fuga labore laboriosam rerum consequatur debitis laborum dolore deserunt reiciendis quasi, earum iusto dicta.</p></div>
+					</div>
+					<div class="item">
+						<a class="item-head">Item 3</a>
+						<div class="item-body"><p>Impedit modi numquam, fuga nemo harum cum. Provident a eos fuga dicta nostrum placeat maiores ipsa quas ratione. Labore dolorum excepturi repudiandae quas ratione optio id corporis praesentium velit aspernatur!</p></div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-1-4 pull-md-3-4 ">

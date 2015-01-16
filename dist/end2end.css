@@ -2360,27 +2360,31 @@ ol ol {
   border-radius: 0.1875em;
   overflow: hidden;
 }
-.nav-list > * > * {
+.nav-list > * > a {
   padding: 0.5em 1em;
 }
-.nav-list > * > *:link,
-.nav-list > * > *:visited {
+.nav-list > * > a:link,
+.nav-list > * > a:visited {
   color: #707070;
 }
-.nav-list > * > *:hover {
+.nav-list > * > a:hover {
   color: #3d3d3d;
 }
-.nav-list > * > *:active {
+.nav-list > * > a:active {
   color: #3d3d3d;
 }
-.nav-list > * > *:hover,
-.nav-list > * > *:focus {
+.nav-list > * > a:hover,
+.nav-list > * > a:focus {
   background-color: #f0f0f0;
+}
+.nav-list > * > a + * {
+  padding: 0 1em;
+  border-top: 1px solid #808080;
 }
 .nav-list > * + * {
   border-top: 1px solid #808080;
 }
-.nav-list > *.active > * {
+.nav-list > *.active > a {
   background-color: #f0f0f0;
 }
 .nav-list > *.danger > * {
@@ -2389,6 +2393,16 @@ ol ol {
 .nav-list > *.danger > *:hover,
 .nav-list > *.danger > *:focus {
   background-color: #f5d1d1;
+}
+.nav-list[toggler] > * > a + * {
+  display: none;
+}
+.nav-list[toggler] > *.active > a + * {
+  display: block;
+}
+.nav-list[toggler] > *.active-add,
+.nav-list[toggler] > *.active-remove {
+  transition: all 0.4s linear;
 }
 .nav-tab {
   border-bottom: 1px solid #808080;
@@ -3583,4 +3597,28 @@ img.right-xs {
 }
 .bg-danger {
   background-color: #f5d1d1;
+}
+.item-group {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+}
+.item-group[toggled] .item-body {
+  display: none;
+}
+.item-group[toggled] .active .item-body {
+  display: block;
+}
+.item {
+  border-top: 1px solid #808080;
+}
+.item:first-child {
+  border-top-width: 0;
+}
+.item-head {
+  padding: 0.5em 1em;
+  font-weight: bold;
+}
+.item-body {
+  border-top: 1px solid #808080;
+  padding: 0 1em;
 }

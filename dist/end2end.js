@@ -795,7 +795,7 @@ angular.module(
 	};
 }).directive("toggled", function(toggler, togglerHelper) {
 	return {
-		restrict: "A",
+		restrict: "AC",
 		link: function(scope, element, attrs){
 			var tg = toggler.get(attrs.toggled);
 			if (!tg) {
@@ -820,7 +820,7 @@ angular.module(
 	}
 
 	return {
-		restrict: "A",
+		restrict: "AC",
 		link: function(scope, element, attrs){
 			var tg = toggler.get(attrs.toggler);
 			if (!tg) {
@@ -861,8 +861,10 @@ angular.module(
 				c = angular.element(child[i]);
 				if (status[i]) {
 					$animate.addClass(c, "active");
+					$animate.removeClass(c.children()[1], "ng-hide");
 				} else {
 					$animate.removeClass(c, "active");
+					$animate.addClass(c.children()[1], "ng-hide");
 				}
 			}
 		}
