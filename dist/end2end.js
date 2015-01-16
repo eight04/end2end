@@ -3,20 +3,6 @@
 
 "use strict";
 
-function getAniTimeout(element){
-	var time, s, ms;
-	if (!window.getComputedStyle) {
-		return 0;
-	}
-	time = window.getComputedStyle(element[0] || element).getPropertyValue("transition-duration");
-	if (!time) {
-		return 0;
-	}
-	s = time.match(/^([\d.]+)s$/);
-	ms = (s && s[1] * 1000) || time.match(/^(\d+)ms$/)[1] * 1;
-	return ms;
-}
-
 angular.module(
 	"end2end", []
 ).directive("navbar", function($animate){
@@ -94,20 +80,16 @@ angular.module(
 			element.off("transitionend", end);
 			element.removeClass("collapsing");
 			done();
+//			console.log("end");
 		}
 		element.on("transitionend", end);
 
-//		var promise = $timeout(function(){
-//			element.removeClass("collapsing");
-//			done();
-//		}, getAniTimeout(element));
-
 		return function(canceled){
 			if (canceled) {
-//				$timeout.cancel(promise);
 				element.off("transitionend", end);
 				element.css("height", element[0].offsetHeight + "px");
 				done();
+//				console.log("cancel");
 			}
 		};
 	}
@@ -129,21 +111,16 @@ angular.module(
 			element.css("height", "");
 			element.removeClass("collapsing");
 			done();
+//			console.log("end");
 		}
 		element.on("transitionend", end);
 
-//		var promise = $timeout(function(){
-//			element.css("height", "");
-//			element.removeClass("collapsing");
-//			done();
-//		}, getAniTimeout(element));
-
 		return function(canceled){
 			if (canceled) {
-//				$timeout.cancel(promise);
 				element.off("transitionend", end);
 				element.css("height", element[0].offsetHeight + "px");
 				done();
+//				console.log("cancel");
 			}
 		};
 	}
@@ -324,7 +301,7 @@ angular.module(
 			});
 		}
 	};
-}).directive("scrollspyNav", function(scrollspy, $animate){
+}).directive("scrollspyNav", function(scrollspy, $animate, togglerHelper){
 	return {
 		restrict: "A",
 		link: function(scope, element) {
@@ -364,17 +341,13 @@ angular.module(
 
 					for (i = 0; i < activated.length; i++) {
 						if (notIn(activated[i], toActive)) {
-//							$animate.removeClass(activated[i], "active");
-							activated[i].removeClass("active");
-							$animate.addClass(activated[i].children()[1], "ng-hide");
+							togglerHelper.deactive(activated[i]);
 						}
 					}
 
 					for (i = 0; i < toActive.length; i++) {
 						if (notIn(toActive[i], activated)) {
-//							$animate.addClass(toActive[i], "active");
-							toActive[i].addClass("active");
-							$animate.removeClass(toActive[i].children()[1], "ng-hide");
+							togglerHelper.active(toActive[i]);
 						}
 					}
 
@@ -796,7 +769,7 @@ angular.module(
 			});
 		}
 	};
-}).factory("togglerHelper", function(){
+}).factory("togglerHelper", function($animate){
 	return {
 		getStatus: function(element) {
 			var status = [], i, child = element.children();
@@ -808,6 +781,14 @@ angular.module(
 				}
 			}
 			return status;
+		},
+		active: function(element) {
+			$animate.addClass(element, "active");
+			$animate.removeClass(element.children()[1], "ng-hide");
+		},
+		deactive: function(element) {
+			$animate.removeClass(element, "active");
+			$animate.addClass(element.children()[1], "ng-hide");
 		}
 	};
 }).directive("toggled", function(toggler, togglerHelper) {
@@ -858,13 +839,9 @@ angular.module(
 				}
 				tg.active(getChildIndex(element, ele));
 			});
-
-//			if (attrs.togglerName) {
-//				$parse(attrs.togglerName).assign(scope, );
-//			}
 		}
 	};
-}).factory("toggler", function($animate){
+}).factory("toggler", function($animate, togglerHelper){
 	var togglerJar = {};
 
 	function createToggler(id){
@@ -877,11 +854,9 @@ angular.module(
 			for (i = 0; i < child.length; i++) {
 				c = angular.element(child[i]);
 				if (status[i]) {
-					$animate.addClass(c, "active");
-					$animate.removeClass(c.children()[1], "ng-hide");
+					togglerHelper.active(c);
 				} else {
-					$animate.removeClass(c, "active");
-					$animate.addClass(c.children()[1], "ng-hide");
+					togglerHelper.deactive(c);
 				}
 			}
 		}
