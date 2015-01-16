@@ -55,12 +55,11 @@ angular.module(
 			nbCtrl.addCollapse(collapse);
 		}
 	};
-}).animation(".ani-collapse", function($timeout){
+}).animation(".ani-collapse", function($timeout, prepare){
 	function beforeCollapse(element, done){
-		var scrollHeight = element[0].scrollHeight;
 
 		// display: none
-		if (!scrollHeight) {
+		if (!prepare.test(element)) {
 			if (done) {
 				done();
 			}
@@ -69,7 +68,7 @@ angular.module(
 
 		// Start collapsing
 		if (!element.hasClass("collapsing")) {
-			element.css("height", scrollHeight + "px");
+			element.css("height", element[0].scrollHeight + "px");
 			element.addClass("collapsing");
 		}
 
@@ -80,6 +79,10 @@ angular.module(
 		}
 	}
 	function collapse(element, done){
+		if (!prepare.test(element)) {
+			done();
+		}
+
 		function active(){
 			if (!element.hasClass("ng-leave-active") && element.hasClass("ng-leave")) {
 				$timeout(active);
@@ -1422,7 +1425,7 @@ angular.module(
 				q = thread.que[i];
 				if (q.canceled) {
 					rejected.push(q);
-				} else if (prepare.test(q.element)) {
+				} else if (!prepare.test(q.element)) {
 					swap.push(q);
 				} else {
 					done.push(q);
@@ -1467,7 +1470,7 @@ angular.module(
 	};
 
 	return prepare;
-	
+
 }).directive("fillViewHeight", function(){
 	var jar = [];
 
