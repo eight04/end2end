@@ -834,12 +834,16 @@ angular.module(
 
 			element.on("click", function(e){
 				var t = e.target;
+
+				// Check whether is clicking on <a>
 				while (t && t.nodeName != "A" && t.parentNode != element[0]) {
 					t = t.parentNode;
 				}
-				if (!t || t == element[0]) {
+				if (!t || t.nodeName != "A") {
 					return;
 				}
+
+				// Get <li>
 				while (t.parentNode != element[0]) {
 					t = t.parentNode;
 				}
@@ -861,6 +865,16 @@ angular.module(
 		}
 	}
 
+	function getIndex(element) {
+		var i, lis = element[0].children;
+		for (i = 0; i < lis.length; i++) {
+			if (/\bactive\b/.test(lis[i].className)) {
+				return i;
+			}
+		}
+		return null;
+	}
+
 	return function(id) {
 		if (!jar[id]) {
 			var o = jar[id] = {
@@ -868,6 +882,14 @@ angular.module(
 				elements: [],
 				add: function(element) {
 					o.elements.push(element);
+					if (o.current != null) {
+						setStatus(element, o.current);
+					} else {
+						var index = getIndex(element);
+						if (index != null) {
+							o.active(index);
+						}
+					}
 				},
 				active: function(index) {
 					var i;
