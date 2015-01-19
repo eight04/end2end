@@ -120,6 +120,7 @@ angular.module(
 //		console.log(prepare.test(element));
 	}
 	function uncollapse(element, done) {
+//		console.log(element[0].scrollHeight);
 		element.css("height", element[0].scrollHeight + "px");
 
 		function end(){
@@ -789,7 +790,7 @@ angular.module(
 			});
 		}
 	};
-}).factory("togglerHelper", function($animate){
+}).factory("togglerHelper", function($animate, prepare){
 	return {
 		getStatus: function(element) {
 			var status = [], i, child = element.children();
@@ -803,12 +804,23 @@ angular.module(
 			return status;
 		},
 		active: function(element) {
+			var child = angular.element(element[0].children[1]);
 			$animate.addClass(element, "active");
-			$animate.removeClass(element.children()[1], "ng-hide");
+			if (!child[0] || element[0].nodeName != "LI") {
+				return;
+			}
+			if (!prepare.test(child)) {
+				child.addClass("ng-hide");
+			}
+			$animate.removeClass(child, "ng-hide");
 		},
 		deactive: function(element) {
+			var child = angular.element(element[0].children[1]);
 			$animate.removeClass(element, "active");
-			$animate.addClass(element.children()[1], "ng-hide");
+			if (!child[0] || element[0].nodeName != "LI") {
+				return;
+			}
+			$animate.addClass(child, "ng-hide");
 		}
 	};
 }).directive("toggled", function(toggler) {
