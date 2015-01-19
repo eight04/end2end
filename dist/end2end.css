@@ -238,6 +238,7 @@ hr {
   line-height: 1;
   display: flex;
   flex-wrap: wrap;
+  display: block\9;
   letter-spacing: -9999px\9;
   margin-left: -15px;
   margin-right: -15px;
@@ -2671,6 +2672,7 @@ ol ol {
 .panes {
   display: flex;
   flex-wrap: wrap;
+  display: block\9;
   letter-spacing: -9999px\9;
   flex-wrap: nowrap;
   white-space: nowrap\9;
