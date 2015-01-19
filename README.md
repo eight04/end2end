@@ -36,6 +36,7 @@ Todos
 * Need better way to seperate theme files.
 * Add ani-collapse-children.
 * Double scrollbar issue of scrollable modal.
+* Extra padding-left of select element.
 
 Annoying bugs note
 ------------------
