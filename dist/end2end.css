@@ -2379,10 +2379,6 @@ ol ol {
 .nav-list > * > a:focus {
   background-color: #f0f0f0;
 }
-.nav-list > * > a + * {
-  padding: 0 1em;
-  border-top: 1px solid #808080;
-}
 .nav-list > * + * {
   border-top: 1px solid #808080;
 }
@@ -2405,6 +2401,13 @@ ol ol {
 .nav-list[toggler] > *.active-add,
 .nav-list[toggler] > *.active-remove {
   transition: all 0.4s linear;
+}
+.nav-list-body {
+  padding: 0 1em;
+  border-top: 1px solid #808080;
+}
+.nav-list-table {
+  border-top: 1px solid #808080;
 }
 .nav-tab {
   border-bottom: 1px solid #808080;
@@ -2829,6 +2832,103 @@ th {
   display: table-cell;
   vertical-align: middle;
   white-space: nowrap;
+}
+.table,
+.table-default,
+.table-bordered {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+  border-collapse: separate;
+}
+.table > * > * > *,
+.table-default > * > * > *,
+.table-bordered > * > * > * {
+  padding: 0.375em 1em;
+  line-height: 1.25;
+  vertical-align: middle;
+}
+.table thead > * > *,
+.table-default thead > * > *,
+.table-bordered thead > * > * {
+  background-color: #f0f0f0;
+  text-align: center;
+}
+.nav-list-table .table,
+.nav-list-table .table-default,
+.nav-list-table .table-bordered {
+  border-width: 0;
+  width: 100%;
+}
+.table-default thead + tbody > :first-child > * {
+  border-top: 1px solid #808080;
+}
+.table-default > * > * > * {
+  border-left: 1px solid #808080;
+}
+.table-default > * > * > *:first-child {
+  border-left: none;
+}
+.table-bordered > tbody > * > * {
+  border-top: 1px solid #808080;
+}
+.table-bordered > tbody > :first-child > * {
+  border-top-width: 0;
+}
+.table-bordered > thead + tbody > :first-child > * {
+  border-top-width: 1px;
+}
+.table-bordered > * > * > * {
+  border-left: 1px solid #808080;
+}
+.table-bordered > * > * > *:first-child {
+  border-left-width: 0;
+}
+.table-cell-inner {
+  border-left: 1px solid #808080 !important;
+  border-top: 1px solid #808080 !important;
+}
+.table-cell-first {
+  border-left-width: 0!important;
+}
+.table-fixed-left {
+  border-right: 1px solid #808080;
+  border-left-width: 0;
+}
+.table-fixed-left + * {
+  border-left-width: 0;
+}
+.table-responsive {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+}
+.table-responsive > * {
+  border-width: 0;
+  border-radius: 0;
+}
+.nav-list-table .table-responsive {
+  border-width: 0;
+}
+.table-fixed .table-fixed-wrapper {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  overflow: hidden;
+}
+.table-fixed .table-responsive {
+  border-width: 0;
+  border-radius: 0;
+}
+.table-fixed .table-fixed-head {
+  border-bottom: 1px solid #808080;
+  background-color: #f0f0f0;
+}
+.table-fixed .table-fixed-table .table-responsive {
+  overflow: scroll;
+  overflow-y: hidden;
+}
+.table-fixed .table-fixed-table .table-responsive tbody tr:first-child th,
+.table-fixed .table-fixed-table .table-responsive tbody tr:first-child td {
+  border-top-width: 0;
 }
 .talk {
   margin: 0 auto;
@@ -3396,100 +3496,6 @@ img.right-xs {
   transition: all 0.2s;
   opacity: 0;
   transform: translateY(-25%);
-}
-.table-default {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
-  border-collapse: separate;
-}
-.table-default > * > * > * {
-  padding: 0.375em 1em;
-  line-height: 1.25;
-  vertical-align: middle;
-}
-.table-default thead > * > * {
-  background-color: #f0f0f0;
-  text-align: center;
-}
-.table-default tbody > :first-child > * {
-  border-top: 1px solid #808080;
-}
-.table-default > * > * > * {
-  border-left: 1px solid #808080;
-}
-.table-default > * > * > *:first-child {
-  border-left: none;
-}
-.table-bordered {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
-  border-collapse: separate;
-}
-.table-bordered > * > * > * {
-  padding: 0.375em 1em;
-  line-height: 1.25;
-  vertical-align: middle;
-}
-.table-bordered thead > * > * {
-  background-color: #f0f0f0;
-  text-align: center;
-}
-.table-bordered > * > * > * {
-  border-top: 1px solid #808080;
-}
-.table-bordered > thead > * > * {
-  border-top-width: 0;
-}
-.table-bordered > * > * > * {
-  border-left: 1px solid #808080;
-}
-.table-bordered > * > * > *:first-child {
-  border-left-width: 0;
-}
-.table-cell-inner {
-  border-left: 1px solid #808080 !important;
-  border-top: 1px solid #808080 !important;
-}
-.table-cell-first {
-  border-left-width: 0!important;
-}
-.table-fixed-left {
-  border-right: 1px solid #808080;
-  border-left-width: 0;
-}
-.table-fixed-left + * {
-  border-left-width: 0;
-}
-.table-responsive {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-}
-.table-responsive > * {
-  border-width: 0;
-  border-radius: 0;
-}
-.table-fixed .table-fixed-wrapper {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
-}
-.table-fixed .table-responsive {
-  border-width: 0;
-  border-radius: 0;
-}
-.table-fixed .table-fixed-head {
-  border-bottom: 1px solid #808080;
-  background-color: #f0f0f0;
-}
-.table-fixed .table-fixed-table .table-responsive {
-  overflow: scroll;
-  overflow-y: hidden;
-}
-.table-fixed .table-fixed-table .table-responsive tbody tr:first-child th,
-.table-fixed .table-fixed-table .table-responsive tbody tr:first-child td {
-  border-top-width: 0;
 }
 .blackboard {
   background-color: #f0f0f0;
