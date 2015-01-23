@@ -2160,7 +2160,15 @@ legend + .input-group,
 label + .radio,
 legend + .radio,
 label + .checkbox,
-legend + .checkbox {
+legend + .checkbox,
+label .form-control,
+legend .form-control,
+label .input-group,
+legend .input-group,
+label .radio,
+legend .radio,
+label .checkbox,
+legend .checkbox {
   margin-top: 0.3em;
 }
 .form-control {
