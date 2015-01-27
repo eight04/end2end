@@ -193,6 +193,12 @@ img {
 .collapsing {
 	transition: 0.4s all;
 	display: block!important;
+	// You need this to make Opera get correct scrollHeight
+	// http://codepen.io/eight04/pen/pvwmOP
+	&:after {
+		content: "";
+		display: block;
+	}
 }
 
 @-webkit-keyframes chrome-overflow-hack {

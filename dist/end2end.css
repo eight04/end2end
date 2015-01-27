@@ -3450,6 +3450,10 @@ img.right-xs {
   transition: 0.4s all;
   display: block!important;
 }
+.collapsing:after {
+  content: "";
+  display: block;
+}
 @-webkit-keyframes chrome-overflow-hack {
   to {
     margin-left: 0%;

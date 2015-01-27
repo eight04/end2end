@@ -40,6 +40,7 @@ Todos
 * Support Opera 12.17?
 	- Input group issue.
 	- Table fixed.
+	- Hovering on sidebar cause scrolling at the bottom of page.
 
 Annoying bugs note
 ------------------

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" ng-app="App">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" >
+	<title>Test Page</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<script src="https://code.angularjs.org/1.2.26/angular.js"></script>
+	<script src="https://code.angularjs.org/1.2.26/angular-animate.js"></script>
+
+	<link rel="stylesheet" href="../dist/end2end.css">
+	<script src="../dist/end2end.js"></script>
+
+	<script>
+		app = angular.module("App", ["end2end", "ngAnimate"]);
+		app.run(function($rootScope, dialog, modal, $interval){
+			$rootScope.dialog = dialog;
+			$rootScope.modal = modal;
+			$rootScope.items = ["Apple", "Orange", "Banana", "Grapes", "Sandwitch"];
+		});
+	</script>
+
+	<style>
+		.paint-grid .row {
+			background-color: #eee;
+		}
+
+		.paint-grid [class*="col-"] {
+			background-color: #ddd;
+		}
+
+		.paint-grid .content {
+			background-color: #ccc;
+			overflow: hidden;
+		}
+
+		.row {
+			display: block;
+			word-spacing: -9999px;
+		}
+
+		.row > * {
+			display: inline-block;
+			word-spacing: normal;
+			vertical-align: top;
+		}
+
+	</style>
+
+	<!--[if lte ie 8]>
+	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row affix-container">
+			<div class="col-md-3-4" scrollspy-target autonav-target>
+<!--
+				<h2>Title</h2>
+				<h2 id="grids">Grid system</h2>
+					<h2>Without gap</h2>
+					<h2>Change order</h2>
+					<h2>Row justify</h2>
+					<h2>Row inline</h2>
+				<h2 id="tables">Table</h2>
+				<h2>Without responsive class</h2>
+				<h2>With table-responsive</h2>
+				<h2>Fixed column</h2>
+				<h2 id="form">Form</h2>
+				<h2 id="images">Images</h2>
+				<h2 id="input-group">Input group</h2>
+				<h2 id="list">List</h2>
+				<h2 id="navs">Nav</h2>
+				<h2>Nav list</h2>
+				<h2>.nav-list-body</h2>
+				<h2>Nav tab</h2>
+				<h2>Nav pill</h2>
+				<h2>Nav justified</h2>
+				<h2>Nav tree</h2>
+				<h2 id="progress">Progress</h2>
+				<h2 id="dialog">Dialog</h2>
+				<h2 id="modal">Modal service</h2>
+				<h2 id="modal-dialog">Dialog service</h2>
+				<h2 id="panes">Panes</h2>
+				<h2 id="toggler">Toggler</h2>
+				<h2>Collapse</h2>
+
+-->
+				<h2>Title</h2>
+				<h2 id="grids">Grid system</h2>
+				<h3>Without gap</h3>
+				<h3>Change order</h3>
+				<h3>Row justify</h3>
+				<h3>Row inline</h3>
+				<h2 id="tables">Table</h2>
+				<h3>Without responsive class</h3>
+				<h3>With table-responsive</h3>
+				<h3>Fixed column</h3>
+				<h2 id="form">Form</h2>
+				<h2 id="images">Images</h2>
+				<h2 id="input-group">Input group</h2>
+				<h2 id="list">List</h2>
+				<h2 id="navs">Nav</h2>
+				<h3>Nav list</h3>
+				<h2>.nav-list-body</h2>
+				<h3>Nav tab</h3>
+				<h3>Nav pill</h3>
+				<h3>Nav justified</h3>
+				<h3>Nav tree</h3>
+				<h2 id="progress">Progress</h2>
+				<h2 id="dialog">Dialog</h2>
+				<h2 id="modal">Modal service</h2>
+				<h2 id="modal-dialog">Dialog service</h2>
+				<h2 id="panes">Panes</h2>
+				<h2 id="toggler">Toggler</h2>
+				<h2>Collapse</h2>
+<!--
+				<h2>Title</h2>
+				<h2 id="grids">Grid system</h2>
+					<h3>Without gap</h3>
+					<h3>Change order</h3>
+					<h3>Row justify</h3>
+					<h3>Row inline</h3>
+				<h2 id="tables">Table</h2>
+				<h3>Without responsive class</h3>
+				<h3>With table-responsive</h3>
+				<h3>Fixed column</h3>
+				<h2 id="form">Form</h2>
+				<h2 id="images">Images</h2>
+				<h2 id="input-group">Input group</h2>
+				<h2 id="list">List</h2>
+				<h2 id="navs">Nav</h2>
+				<h3>Nav list</h3>
+				<h4>.nav-list-body</h4>
+				<h3>Nav tab</h3>
+				<h3>Nav pill</h3>
+				<h3>Nav justified</h3>
+				<h3>Nav tree</h3>
+				<h2 id="progress">Progress</h2>
+				<h2 id="dialog">Dialog</h2>
+				<h2 id="modal">Modal service</h2>
+				<h2 id="modal-dialog">Dialog service</h2>
+				<h2 id="panes">Panes</h2>
+				<h2 id="toggler">Toggler</h2>
+				<h2>Collapse</h2>
+-->
+			</div>
+			<div class="col-md-1-4">
+				<div class="nav-group marger">
+					<div autonav-nav scrollspy-nav></div>
+					<ul class="nav-tree">
+						<li><a href="#">Back to top</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

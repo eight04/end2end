@@ -3,6 +3,16 @@
 
 "use strict";
 
+//function dump(element, depth) {
+//	depth = depth || 0;
+//	var space = Array(depth + 1).join("    ");
+//	console.log(space, element, element.scrollHeight);
+//	var i;
+//	for (i = 0; i < element.children.length; i++) {
+//		dump(element.children[i], depth + 1);
+//	}
+//}
+
 angular.module(
 	"end2end", []
 ).directive("navbar", function($animate){
@@ -66,6 +76,17 @@ angular.module(
 			return;
 		}
 
+//		if (element[0].offsetHeight > 10000) {
+//			// weird height?
+////			console.log('Weird offsetHeight?', element[0], element[0].offsetHeight);
+//			var i, children = element.children(), weird;
+//			for (i = 0; i < children.length; i++) {
+//				console.log(children[i], children[i].offsetHeight);
+//			}
+//			done();
+//			return;
+//		}
+
 		// Start collapsing
 		if (!element.hasClass("collapsing")) {
 			element.css("height", element[0].scrollHeight + "px");
@@ -93,6 +114,7 @@ angular.module(
 		$timeout(active);
 
 		function end(){
+//			console.log("transition end");
 			element.off("transitionend", end);
 			element.removeClass("collapsing");
 			done();
@@ -104,7 +126,6 @@ angular.module(
 				element.off("transitionend", end);
 				element.css("height", element[0].offsetHeight + "px");
 				done();
-//				console.log("cancel");
 			}
 		};
 	}
@@ -117,15 +138,27 @@ angular.module(
 		if (done) {
 			done();
 		}
-//		console.log(prepare.test(element));
 	}
 	function uncollapse(element, done) {
-//		console.log(element[0].scrollHeight);
-		element.css("height", element[0].scrollHeight + "px");
 
+		element.css("height", element[0].scrollHeight + "px");
 		function end(){
 			element.off("transitionend", end);
-			element.css("height", "");
+
+			// Removing height cause flickering in Opera?
+			// Wait till angular degist stop.
+			watch(function(){
+				return element[0].className;
+			}, function(value){
+				if (value.indexOf("ng-hide-remove-active") < 0) {
+					// Check if another animation using style.height
+					if (value.indexOf("collapsing") < 0) {
+						element.css("height", "");
+					}
+					return false;
+				}
+			});
+
 			element.removeClass("collapsing");
 			done();
 		}
@@ -141,7 +174,7 @@ angular.module(
 	}
 
 	// Some browsers don't support transition
-	if (!window.TransitionEvent) {
+	if (!window.TransitionEvent && document.documentElement.style.transition === undefined) {
 		return {};
 	}
 
@@ -366,7 +399,7 @@ angular.module(
 						}
 					}
 
-					for (i = 0; i < toActive.length; i++) {
+					for (i = toActive.length - 1; i >= 0; i--) {
 						if (notIn(toActive[i], activated)) {
 							togglerHelper.active(toActive[i]);
 						}
@@ -804,17 +837,22 @@ angular.module(
 			return status;
 		},
 		active: function(element) {
+//			console.log("active", element);
 			var child = angular.element(element[0].children[1]);
-			$animate.addClass(element, "active");
+//			$animate.addClass(element, "active");
+			element.addClass("active");
 			if (!child[0] || element[0].nodeName != "LI") {
 				return;
 			}
 			if (!prepare.test(child)) {
 				child.addClass("ng-hide");
+//				console.log('prepare failed');
 			}
 			$animate.removeClass(child, "ng-hide");
+//			child.removeClass("ng-hide");
 		},
 		deactive: function(element) {
+//			console.log("deactive", element);
 			var child = angular.element(element[0].children[1]);
 			$animate.removeClass(element, "active");
 			if (!child[0] || element[0].nodeName != "LI") {
@@ -1533,173 +1571,20 @@ angular.module(
 	};
 });
 
-//.factory('route', function(){
-//	var jar = {};
-//	return function(id) {
-//		id = id || "default";
-//		if (!jar[id]) {
-//			jar[id] = {};
-//		}
-//		return jar[id];
-//	};
-//}).directive('routeNav', function(route, $location){
-//
-//	var active = {
-//		on: function(element) {
-//			var parent = element.parent();
-//			if (parent[0].nodeName == "LI") {
-//				parent.addClass("active");
-//			} else {
-//				element.addClass("active");
-//			}
-//		},
-//		off: function(element) {
-//			var parent = element.parent();
-//			if (parent[0].nodeName == "LI") {
-//				parent.removeClass("active");
-//			} else {
-//				element.removeClass("active");
-//			}
-//		}
-//	};
-//
-//	return {
-//		restrict: "A",
-//		controller: function($scope, $attrs) {
-//			var id = $attrs.id,
-//				scope = route(id),
-//				nav = scope.nav = {};
-//
-//			this.add = function(o){
-//				if (!nav[o.route]) {
-//					nav[o.route] = {
-//						url: o.url,
-//						elements: [o.element]
-//					};
-//					if (o.url == location.href && !scope.current) {
-//						this.active(o.route);
-//					}
-//				} else {
-//					nav[o.route].elements.push(o.element);
-//					if (scope.current == o.route) {
-//						active.on(o.element);
-//					}
-//				}
-//			};
-//
-//			this.remove = function(o){
-//				var l = nav[o.route].elements, i;
-//				for (i = 0; i < l.length; i++) {
-//					if (l[i][0] == o.element[0]) {
-//						break;
-//					}
-//				}
-//				l[i] = l[l.length - 1];
-//				l.pop();
-//				if (!l.length) {
-//					nav[o.route] = null;
-//					if (scope.current == o.route) {
-//						scope.current = null;
-//					}
-//				}
-//			};
-//
-//			this.active = function (route) {
-//				if (route == scope.current) {
-//					return;
-//				}
-//
-//				var i, elements;
-//
-//				if (scope.current) {
-//					elements = nav[scope.current].elements;
-//					for (i = 0; i < elements.length; i++) {
-//						active.off(elements[i]);
-//					}
-//				}
-//
-//				scope.current = route;
-//				elements = nav[scope.current].elements;
-//				for (i = 0; i < elements.length; i++) {
-//					active.on(elements[i]);
-//				}
-//
-//				if (history.pushState) {
-//					// Angular will reset url after digest?
-////					history.pushState({route: scope.current}, document.title, nav[scope.current].url);
-//					$location.url(nav[scope.current].url);
-//					scope.pushing = 1;
-//				} else {
-//					location.href = nav[scope.current].url;
-//				}
-//			};
-//
-//			$scope.$on("$locationChangeStart", function(e){
-//				console.log(e, scope.pushing);
-//				if (scope.pushing == 1) {
-//					scope.pushing++;
-//				} else if (scope.pushing == 2) {
-////					e.preventDefault();
-////					scope.pushing = 0;
-//				}
-//			});
-//		}
-//	};
-//}).directive('routeView', function(route){
-//	return {
-//		restrict: "A",
-//		template: "<div ng-include='route.current'></div>",
-//		scope: true,
-//		link: function(scope, element, attrs){
-//			var id = attrs.routeView;
-//			scope.route = route(id);
-//		}
-//	};
-//}).directive('route', function(){
-//	return {
-//		restrict: "A",
-//		require: "^routeNav",
-//		link: function(scope, element, attrs, routeNav) {
-//			var route = {
-//				element: element,
-//				route: attrs.route,
-//				url: element[0].href
-//			};
-//
-//			routeNav.add(route);
-//
-//			element.on("$destroy", function(){
-//				routeNav.remove(route);
-//			});
-//
-//			element.on("click", function(e){
-//				e.preventDefault();
-////				e.stopImmediatePropagation();
-//				scope.$apply(function(){
-//					routeNav.active(route.route);
-//				});
-//			});
-//		}
-//	};
-//}).config(function($provide){
-//	$provide.decorator("$browser", function($delegate){
-//		var onUrlChange = $delegate.onUrlChange,
-//			url = $delegate.url;
-//
-//		$delegate.onUrlChange = function(){
-//			var ret = onUrlChange.apply(this, arguments);
-//			console.log(arguments, ret);
-//			return ret;
-//		};
-//
-//		$delegate.url = function(){
-//			var ret = url.apply(this, arguments);
-//			console.log(arguments, ret);
-//			return ret;
-//		};
-//
-//		return $delegate;
-//	});
-//});
+function watch(exp, callback) {
+	var hold = null;
+
+	var check = function() {
+		var newHold = exp(), digest;
+		if (newHold != hold) {
+			hold = newHold;
+			digest = callback(hold);
+		}
+		if (digest !== false) {
+			setTimeout(check);
+		}
+	};
+	setTimeout(check);
+}
 
 })();
