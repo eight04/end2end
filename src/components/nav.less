@@ -6,17 +6,31 @@
 		text-decoration: none;
 	}
 }
+
 .nav-table {
 	&:extend(.nav all);
 	.make-table-row();
 	display: table;
 	width: 100%;
+	_:-o-prefocus, & {
+		.make-flex();
+		width: auto;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+	}
 	> * {
 		width: 1%;
+		_:-o-prefocus, & {
+			width: auto;
+			display: block;
+		}
 	}
 	&:after {
 		content: " ";
 		display: table-cell;
+		_:-o-prefocus, & {
+			display: none;
+		}
 	}
 }
 
@@ -162,6 +176,9 @@
 .nav-justified {
 	&:after {
 		display: none;
+	}
+	_:-o-prefocus, & > * {
+		width: 100%;
 	}
 }
 .nav-group {

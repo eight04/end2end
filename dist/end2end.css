@@ -249,9 +249,11 @@ hr {
   display: inline-block\9;
   letter-spacing: normal\9;
   vertical-align: top\9;
+  min-width: 0;
 }
 .row > * {
   width: 100%;
+  min-width: 0;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -2354,16 +2356,70 @@ ol ol {
   vertical-align: middle;
   white-space: nowrap;
 }
+.nav-table _:-o-prefocus,
+.nav-table,
+.nav-tab _:-o-prefocus,
+.nav-tab,
+.nav-pill _:-o-prefocus,
+.nav-pill {
+  display: flex;
+  flex-wrap: wrap;
+  display: block\9;
+  letter-spacing: -9999px\9;
+  width: auto;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.nav-table _:-o-prefocus > *,
+.nav-table > *,
+.nav-table _:-o-prefocus:before,
+.nav-table:before,
+.nav-table _:-o-prefocus:after,
+.nav-table:after,
+.nav-tab _:-o-prefocus > *,
+.nav-tab > *,
+.nav-tab _:-o-prefocus:before,
+.nav-tab:before,
+.nav-tab _:-o-prefocus:after,
+.nav-tab:after,
+.nav-pill _:-o-prefocus > *,
+.nav-pill > *,
+.nav-pill _:-o-prefocus:before,
+.nav-pill:before,
+.nav-pill _:-o-prefocus:after,
+.nav-pill:after {
+  display: inline-block\9;
+  letter-spacing: normal\9;
+  vertical-align: top\9;
+  min-width: 0;
+}
 .nav-table > *,
 .nav-tab > *,
 .nav-pill > * {
   width: 1%;
+}
+.nav-table > * _:-o-prefocus,
+.nav-table > *,
+.nav-tab > * _:-o-prefocus,
+.nav-tab > *,
+.nav-pill > * _:-o-prefocus,
+.nav-pill > * {
+  width: auto;
+  display: block;
 }
 .nav-table:after,
 .nav-tab:after,
 .nav-pill:after {
   content: " ";
   display: table-cell;
+}
+.nav-table:after _:-o-prefocus,
+.nav-table:after,
+.nav-tab:after _:-o-prefocus,
+.nav-tab:after,
+.nav-pill:after _:-o-prefocus,
+.nav-pill:after {
+  display: none;
 }
 .nav-list {
   border: 1px solid #808080;
@@ -2524,6 +2580,10 @@ ol ol {
 }
 .nav-justified:after {
   display: none;
+}
+.nav-justified _:-o-prefocus,
+.nav-justified > * {
+  width: 100%;
 }
 .nav-group > *:before {
   content: "";
@@ -2694,6 +2754,7 @@ ol ol {
   display: inline-block\9;
   letter-spacing: normal\9;
   vertical-align: top\9;
+  min-width: 0;
 }
 .panes > *,
 .panes:before,
@@ -2706,10 +2767,20 @@ ol ol {
   display: inline-block\9;
   width: 100%;
 }
+.panes:before _:-o-prefocus,
+.panes:before {
+  width: 0;
+  min-width: 100%;
+}
 .pane {
   display: none;
   width: 100%;
   margin-left: -100%;
+}
+.pane _:-o-prefocus,
+.pane {
+  width: 0;
+  min-width: 100%;
 }
 .pane.active {
   display: block;

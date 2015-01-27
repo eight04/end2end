@@ -37,6 +37,9 @@ Todos
 * Add ani-collapse-children.
 * Double scrollbar issue of scrollable modal.
 * Extra padding-left of select element.
+* Support Opera 12.17?
+	- Input group issue.
+	- Table fixed.
 
 Annoying bugs note
 ------------------

@@ -7,12 +7,21 @@
 		display: block;
 		display: ~"inline-block\9";
 		width: 100%;
+		// Opera hack
+		_:-o-prefocus, & {
+			width: 0;
+			min-width: 100%;
+		}
 	}
 }
 .pane {
 	display: none;
 	width: 100%;
 	margin-left: -100%;
+	_:-o-prefocus, & {
+		width: 0;
+		min-width: 100%;
+	}
 	&.active {
 		display: block;
 		display: ~"inline-block\9";
