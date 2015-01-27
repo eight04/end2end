@@ -310,7 +310,7 @@ angular.module(
 }).factory("scrollspy", function($window){
 	var target, nav;
 	angular.element($window).on("scroll", function(){
-		if (!target) {
+		if (!target || !nav) {
 			return;
 		}
 		var id = target.getActiveId();
