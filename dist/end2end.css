@@ -2512,33 +2512,33 @@ ol ol {
   background-color: transparent;
 }
 .nav-tree {
-  transition: all 1s;
+  transition: height 1s;
   overflow: hidden;
 }
 .nav-tree .nav-tree {
   margin-left: 2em;
   font-size: 90%;
 }
-.nav-tree > * > a {
+.nav-tree a {
   padding: 0.5em;
   border-left: 0 solid #0a53f8;
 }
-.nav-tree > *.active > a,
-.nav-tree > *:hover > a {
+.nav-tree a:hover,
+.nav-tree li.active > a {
   border-left-width: 0.25em;
 }
-.nav-tree > *.active > a:link,
-.nav-tree > *:hover > a:link,
-.nav-tree > *.active > a:visited,
-.nav-tree > *:hover > a:visited {
+.nav-tree a:hover:link,
+.nav-tree li.active > a:link,
+.nav-tree a:hover:visited,
+.nav-tree li.active > a:visited {
   color: #0a53f8;
 }
-.nav-tree > *.active > a:hover,
-.nav-tree > *:hover > a:hover {
+.nav-tree a:hover:hover,
+.nav-tree li.active > a:hover {
   color: #0a53f8;
 }
-.nav-tree > *.active > a:active,
-.nav-tree > *:hover > a:active {
+.nav-tree a:hover:active,
+.nav-tree li.active > a:active {
   color: #0a53f8;
 }
 .nav-pill > * > * {

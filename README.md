@@ -41,6 +41,7 @@ Todos
 	- Input group issue.
 	- Table fixed.
 	- Hovering on sidebar cause scrolling at the bottom of page.
+	- Changing element style cause scrolling in Opera?
 
 Annoying bugs note
 ------------------

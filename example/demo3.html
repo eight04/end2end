@@ -6,48 +6,42 @@
 	<title>Test Page</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!--
-	<script src="https://code.angularjs.org/1.2.26/angular.js"></script>
-	<script src="https://code.angularjs.org/1.2.26/angular-animate.js"></script>
--->
-
-	<link rel="stylesheet" href="../dist/end2end.css">
-<!--	<script src="../dist/end2end.js"></script>-->
-
-	<script>
-//		app = angular.module("App", ["end2end", "ngAnimate"]);
-//		app.run(function($rootScope, dialog, modal, $interval){
-//			$rootScope.dialog = dialog;
-//			$rootScope.modal = modal;
-//			$rootScope.items = ["Apple", "Orange", "Banana", "Grapes", "Sandwitch"];
-//		});
-	</script>
+<!--	<link rel="stylesheet" href="demo3.css">-->
 
 	<style>
 		.filler {
 			height: 500px;
 		}
-		.magic:before {
-			content: "Magic! ";
-		}
 		.cont {
 			display: flex;
 		}
-	</style>
+		.box {
+			width: 100%;
+			background-color: silver;
+		}
 
-	<!--[if lte ie 8]>
-	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
-	<![endif]-->
+		.magic:after {
+			content: "";
+		}
+
+		.magic:hover {
+			color: red;
+		}
+
+		.you-can-trigger-it-even-with-this-rule :hover > * {
+			color: red;
+		}
+	</style>
 
 </head>
 
 <body>
+	<div class="filler"></div>
 	<div class="cont">
 		<div class="box">
-			<button class="magic">Just a button</button>
 			<div class="filler"></div>
-			<a>Just a link</a>
+			<div class="magic">Magic!</div>
+			<div class="filler"></div>
 		</div>
 	</div>
 	<div class="filler"></div>

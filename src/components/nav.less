@@ -121,25 +121,24 @@
 }
 .nav-tree {
 	&:extend(.nav all);
-	transition: all 1s;
+	transition: height 1s;
 	overflow: hidden;
+
 	.nav-tree {
 		margin-left: 2em;
 		font-size: 90%;
 	}
-	> * {
-		> a {
-			padding: 0.5em;
-			border-left: 0 solid @brand-primary;
-		}
 
-		&.active,
-		&:hover {
-			> a {
-				.make-link-color(@brand-primary, @brand-primary);
-				border-left-width: 0.25em;
-			}
-		}
+	a {
+		padding: 0.5em;
+		border-left: 0 solid @brand-primary;
+	}
+
+	a:hover,
+	li.active > a {
+//	a:hover {
+		.make-link-color(@brand-primary, @brand-primary);
+		border-left-width: 0.25em;
 	}
 }
 .nav-pill {
