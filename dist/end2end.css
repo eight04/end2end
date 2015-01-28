@@ -3484,6 +3484,17 @@ img.right-xs {
     margin-left: 0%;
   }
 }
+.ani-fade.ng-hide-add,
+.ani-fade.ng-hide-remove {
+  transition: opacity 0.2s linear;
+}
+.ani-fade.ng-hide-add-active,
+.ani-fade.ng-hide-remove {
+  opacity: 0;
+}
+.ani-fade.ng-hide-remove-active {
+  opacity: 1;
+}
 @media (max-width: 1023px) {
   .sidebar {
     border-left: 1px solid #a3a3a3;

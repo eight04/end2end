@@ -206,3 +206,19 @@ img {
 		margin-left: 0%;
 	}
 }
+
+.ani-fade {
+	&.ng-hide-add,
+	&.ng-hide-remove {
+		transition: opacity 0.2s linear;
+	}
+
+	&.ng-hide-add-active,
+	&.ng-hide-remove {
+		opacity: 0;
+	}
+
+	&.ng-hide-remove-active {
+		opacity: 1;
+	}
+}
