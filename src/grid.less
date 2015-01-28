@@ -50,7 +50,6 @@
 	margin-right: -@gap;
 	> * {
 		width: 100%;
-		min-width: 0;
 		padding-left: @gap;
 		padding-right: @gap;
 	}
@@ -93,6 +92,24 @@
 		visibility: ~"hidden\9";
 		vertical-align: ~"top\9";
 	}
+
+	@{opera} & {
+		text-align: justify;
+		margin-bottom: -1em;
+		// Opera does't like negative word-space with text-align: justify.
+		word-spacing: 0;
+
+		&:after {
+			content: "x";
+			display: inline-block;
+			width: 100%;
+			visibility: hidden;
+		}
+
+		> * {
+			text-align: left;
+		}
+	}
 }
 .row-left {
 	justify-content: flex-start;
@@ -101,23 +118,32 @@
 .row-center {
 	justify-content: center;
 	text-align: ~"center\9";
-
 	> * {
 		text-align: ~"left\9";
+	}
+	@{opera} & {
+		text-align: center;
+		> * {
+			text-align: left;
+		}
 	}
 }
 .row-right {
 	justify-content: flex-end;
 	text-align: ~"right\9";
-
 	> * {
 		text-align: ~"left\9";
+	}
+	@{opera} & {
+		text-align: center;
+		> * {
+			text-align: left;
+		}
 	}
 }
 .row-gap {
 	margin-top: -@gap;
 	min-height: @gap;
-
 	> * {
 		padding-top: @gap;
 	}
@@ -136,9 +162,15 @@
 }
 .row-top {
 	align-items: flex-start;
-
 	> * {
 		vertical-align: ~"top\9";
+	}
+	@{opera} & {
+		> * {
+			&, &:before, &:after {
+				vertical-align: top;
+			}
+		}
 	}
 }
 .row-middle {
@@ -147,12 +179,26 @@
 	> * {
 		vertical-align: ~"middle\9";
 	}
+	@{opera} & {
+		> * {
+			&, &:before, &:after {
+				vertical-align: middle;
+			}
+		}
+	}
 }
 .row-bottom {
 	align-items: flex-end;
 
 	> * {
 		vertical-align: ~"bottom\9";
+	}
+	@{opera} & {
+		> * {
+			&, &:before, &:after {
+				vertical-align: bottom;
+			}
+		}
 	}
 }
 

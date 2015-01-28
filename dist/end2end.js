@@ -3,16 +3,6 @@
 
 "use strict";
 
-//function dump(element, depth) {
-//	depth = depth || 0;
-//	var space = Array(depth + 1).join("    ");
-//	console.log(space, element, element.scrollHeight);
-//	var i;
-//	for (i = 0; i < element.children.length; i++) {
-//		dump(element.children[i], depth + 1);
-//	}
-//}
-
 angular.module(
 	"end2end", []
 ).directive("navbar", function($animate){
@@ -65,7 +55,7 @@ angular.module(
 			nbCtrl.addCollapse(collapse);
 		}
 	};
-}).animation(".ani-collapse", function($timeout, prepare){
+}).animation(".ani-collapse", function($timeout, prepare, watch){
 	function beforeCollapse(element, done){
 
 		// display: none
@@ -839,8 +829,8 @@ angular.module(
 		active: function(element) {
 //			console.log("active", element);
 			var child = angular.element(element[0].children[1]);
-//			$animate.addClass(element, "active");
-			element.addClass("active");
+			$animate.addClass(element, "active");
+//			element.addClass("active");
 			if (!child[0] || element[0].nodeName != "LI") {
 				return;
 			}
@@ -979,6 +969,9 @@ angular.module(
 			for (j = 0; j < fixedLength; j++) {
 				for (k = 0; k < rowspans.length; k++) {
 					if (rowspans[k].start == j) {
+						if (j == 0) {
+							trs[i].className += " table-fixed-inner-row";
+						}
 						j = rowspans[k].end + 1;
 					}
 				}
@@ -1569,23 +1562,23 @@ angular.module(
 			setHeight(element);
 		}
 	};
-});
+}).factory("watch", function(){
+	return function(exp, callback) {
+		var hold = null;
 
-function watch(exp, callback) {
-	var hold = null;
-
-	var check = function() {
-		var newHold = exp(), digest;
-		if (newHold != hold) {
-			hold = newHold;
-			digest = callback(hold);
-		}
-		if (digest !== false) {
-			setTimeout(check);
-		}
+		var check = function() {
+			var newHold = exp(), digest;
+			if (newHold != hold) {
+				hold = newHold;
+				digest = callback(hold);
+			}
+			if (digest !== false) {
+				setTimeout(check);
+			}
+		};
+		setTimeout(check);
 	};
-	setTimeout(check);
-}
+});
 
 })();
 angular.module('end2end').run(['$templateCache', function($templateCache) {

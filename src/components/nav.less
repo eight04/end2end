@@ -12,24 +12,17 @@
 	.make-table-row();
 	display: table;
 	width: 100%;
-	_:-o-prefocus, & {
-		.make-flex();
-		width: auto;
-		flex-wrap: nowrap;
-		justify-content: flex-start;
-	}
 	> * {
 		width: 1%;
-		_:-o-prefocus, & {
-			width: auto;
-			display: block;
-		}
 	}
 	&:after {
 		content: " ";
 		display: table-cell;
-		_:-o-prefocus, & {
-			display: none;
+	}
+	@{opera} & {
+		display: table-row;
+		&:after {
+			width: 100%;
 		}
 	}
 }
@@ -90,11 +83,11 @@
 }
 .nav-tab {
 	&:extend(.nav-table all);
-	border-bottom: 1px solid @border-color-base;
 	> * {
 		vertical-align: bottom;
 		white-space: nowrap;
 		padding-right: 1em;
+		border-bottom: 1px solid @border-color-base;
 		> * {
 			.make-border();
 			.make-link-color(@font-color-light, @font-color-base);
@@ -118,6 +111,9 @@
 			}
 		}
 	}
+	&:after {
+		border-bottom: 1px solid @border-color-base;
+	}
 }
 .nav-tree {
 	&:extend(.nav all);
@@ -134,11 +130,12 @@
 		border-left: 0 solid @brand-primary;
 	}
 
-	a:hover,
-	li.active > a {
-//	a:hover {
-		.make-link-color(@brand-primary, @brand-primary);
-		border-left-width: 0.25em;
+	li:hover,
+	li.active {
+		> a {
+			.make-link-color(@brand-primary, @brand-primary);
+			border-left-width: 0.25em;
+		}
 	}
 }
 .nav-pill {
@@ -175,9 +172,6 @@
 .nav-justified {
 	&:after {
 		display: none;
-	}
-	_:-o-prefocus, & > * {
-		width: 100%;
 	}
 }
 .nav-group {

@@ -57,6 +57,14 @@ th {
 		padding: 0;
 		width: 0;
 	}
+	@{opera} & tr {
+		&:before {
+			display: none;
+		}
+		&.table-fixed-inner-row:before {
+			display: table-cell;
+		}
+	}
 }
 
 // What's this?

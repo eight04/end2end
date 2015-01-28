@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 			},
 			gridCore: {
 				files: "src/gridCore.less",
-				tasks: "less:gridCore"
+				tasks: ["less:gridCore", "less:dist"]
 			},
 			src: {
 				files: "src/**/*.less",

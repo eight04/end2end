@@ -19,6 +19,15 @@
 			$rootScope.modal = modal;
 			$rootScope.items = ["Apple", "Orange", "Banana", "Grapes", "Sandwitch"];
 		});
+		app.directive('checkHeight', function(watch){
+			return function(scope, element) {
+				watch(function(){
+					return element[0].offsetHeight;
+				}, function(value) {
+					alert(value);
+				});
+			};
+		});
 	</script>
 
 	<style>
@@ -34,7 +43,6 @@
 			background-color: #ccc;
 			overflow: hidden;
 		}
-
 	</style>
 
 	<!--[if lte ie 8]>

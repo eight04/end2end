@@ -41,7 +41,7 @@ Todos
 	- Input group issue.
 	- Table fixed.
 	- Hovering on sidebar cause scrolling at the bottom of page.
-	- Changing element style cause scrolling in Opera?
+	- Flexbox has incorrect width/height. This cause resizing bug/scrolling jumps bug. You have to give them a static value to fix it. But how?
 
 Annoying bugs note
 ------------------

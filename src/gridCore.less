@@ -4,19 +4,19 @@
 	.gcd(@v1, @v2) when (@v1 = 0) {
 		@gcd: @v2;
 	}
-	
+
 	.gcd(@v1, @v2) when (@v1 > 0) and (@v1 < @v2) {
 		.gcd(mod(@v2, @v1), @v1);
 	}
-	 
+
 	.gcd(@v1, @v2) when (@v1 > 0) and (@v1 > @v2) {
 		.gcd(@v2, @v1);
 	}
-	 
+
 	.gcd(@v1, @v2) when (@v1 > 0) and (@v1 = @v2){
 		@gcd: @v1;
 	}
-	
+
 	.gcd(@v1, @v2);
 }
 
@@ -35,27 +35,27 @@
 	.col-@{size}-0 {
 		width: 1%;
 	}
-	
+
 	.col-@{size}-1 {
 		width: 100%;
 	}
-	
+
 	.make-grid(@i) when (@i =< @grids) {
 		.make-col(@j) when (@j =< @i) {
 			.gcd(@i, @j);
-			
+
 			.col-@{size}-@{j}-@{i} when (@gcd = 1) {
 				width: percentage(@j/@i);
 			}
-			
+
 			.push-@{size}-@{j}-@{i} when (@gcd = 1) {
 				left: percentage(@j/@i);
 			}
-			
+
 			.pull-@{size}-@{j}-@{i} when (@gcd = 1) {
 				right: percentage(@j/@i);
 			}
-			
+
 			.make-col(@j + 1);
 		}
 		.make-col(1);
