@@ -3261,6 +3261,19 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
 .input-group-justified > * > * > * {
   width: 100%;
 }
+.img {
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 0 1em #707070;
+}
+@media \0screen {
+  .img {
+    filter: progid:DXImageTransform.Microsoft.Shadow(Color=#8a8a8a, Strength=7, Direction=0), progid:DXImageTransform.Microsoft.Shadow(Color=#8a8a8a, Strength=7, Direction=90), progid:DXImageTransform.Microsoft.Shadow(Color=#8a8a8a, Strength=7, Direction=180), progid:DXImageTransform.Microsoft.Shadow(Color=#8a8a8a, Strength=7, Direction=270);
+  }
+}
+.img + .img {
+  margin-top: 1em;
+}
 .marger-xl {
   margin-top: 60px;
   margin-bottom: 60px;

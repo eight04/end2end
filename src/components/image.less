@@ -1,0 +1,15 @@
+.img {
+	display: block;
+	margin: 0 auto;
+	box-shadow: 0 0 1em @font-color-light;
+	@media @ie8 {
+		filter: progid:DXImageTransform.Microsoft.Shadow(Color=@font-color-lighter, Strength=7, Direction=0),
+			progid:DXImageTransform.Microsoft.Shadow(Color=@font-color-lighter, Strength=7, Direction=90),
+			progid:DXImageTransform.Microsoft.Shadow(Color=@font-color-lighter, Strength=7, Direction=180),
+			progid:DXImageTransform.Microsoft.Shadow(Color=@font-color-lighter, Strength=7, Direction=270);
+	}
+
+	+ .img {
+		margin-top: 1em;
+	}
+}
