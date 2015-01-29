@@ -1576,6 +1576,24 @@ angular.module(
 		};
 		setTimeout(check);
 	};
+}).directive("modelUpdate", function($timeout){
+	var delay = 3000;
+	return {
+		restrict: "A",
+		require: "ngModel",
+		scope: {
+			exp: "&modelUpdate"
+		},
+		link: function(scope, element, attrs, ngModel){
+			var timeout;
+			scope.$watch(function(){
+				return ngModel.$modelValue;
+			}, function(){
+				$timeout.cancel(timeout);
+				timeout = $timeout(scope.exp, delay);
+			});
+		}
+	};
 });
 
 })();
