@@ -366,21 +366,19 @@ angular.module(
 				active: function(id){
 					var ele, toActive, i;
 
-					if (!id) {
-						return;
-					}
-
-					ele = element[0].querySelector("[href='#" + id + "']");
-					if (!ele) {
-						return;
-					}
 					toActive = [];
-					ele = angular.element(ele);
-					while (ele[0] != element[0]) {
-						if (ele[0].nodeName == "LI") {
-							toActive.push(ele);
+
+					if (id) {
+						ele = element[0].querySelector("[href='#" + id + "']");
+						if (ele) {
+							ele = angular.element(ele);
+							while (ele[0] != element[0]) {
+								if (ele[0].nodeName == "LI") {
+									toActive.push(ele);
+								}
+								ele = ele.parent();
+							}
 						}
-						ele = ele.parent();
 					}
 
 					for (i = 0; i < activated.length; i++) {
