@@ -2539,6 +2539,19 @@ _:-o-prefocus, .nav-pill:after {
   padding: 0.5em;
   border-left: 0 solid #0a53f8;
 }
+.nav-tree a:focus {
+  border-left-width: 0.25em;
+}
+.nav-tree a:focus:link,
+.nav-tree a:focus:visited {
+  color: #0a53f8;
+}
+.nav-tree a:focus:hover {
+  color: #0a53f8;
+}
+.nav-tree a:focus:active {
+  color: #0a53f8;
+}
 .nav-tree li:hover > a,
 .nav-tree li.active > a {
   border-left-width: 0.25em;
