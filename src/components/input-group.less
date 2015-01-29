@@ -14,7 +14,6 @@
 // Input group
 .input-group {
 	.make-table-row();
-
 	// Table cell
 	> * {
 		+ * {
@@ -31,7 +30,7 @@
 			border-radius: 0;
 			background-clip: padding-box;
 			display: block;
-			width: auto;
+			width: 100%;
 			&.input-group-addon {
 				display: table;
 			}
@@ -44,22 +43,21 @@
 			border-top-right-radius: @radius-base;
 			border-bottom-right-radius: @radius-base;
 		}
-
-	}
-
-	&.stretch > * {
-		> * > * {
-			width: 100%;
-		}
-		&.shrink {
-			width: 1%;
-			> * > * {
-				width: auto;
-			}
+		&.shrink > * > * {
+			width: auto;
 		}
 	}
-
-	&.justify > * {
+}
+.input-group-inline {
+	&:extend(.input-group all);
+	display: inline-block;
+	> * > * > * {
+		width: auto;
+	}
+}
+.input-group-justified {
+	&:extend(.input-group all);
+	> * {
 		width: 1%;
 		> * > * {
 			width: 100%;

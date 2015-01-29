@@ -2221,7 +2221,15 @@ legend .input-group,
 label .radio,
 legend .radio,
 label .checkbox,
-legend .checkbox {
+legend .checkbox,
+label + .input-group-inline,
+legend + .input-group-inline,
+label .input-group-inline,
+legend .input-group-inline,
+label + .input-group-justified,
+legend + .input-group-justified,
+label .input-group-justified,
+legend .input-group-justified {
   margin-top: 0.3em;
 }
 .form-control {
@@ -3189,50 +3197,68 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
   padding: 0 0.5em;
   background-color: #f2f2f2;
 }
-.input-group {
+.input-group,
+.input-group-inline,
+.input-group-justified {
   display: block;
 }
-.input-group > * {
+.input-group > *,
+.input-group-inline > *,
+.input-group-justified > * {
   display: table-cell;
   vertical-align: middle;
   white-space: nowrap;
 }
-.input-group > * + * > * {
+.input-group > * + * > *,
+.input-group-inline > * + * > *,
+.input-group-justified > * + * > * {
   margin-left: -1px;
 }
-.input-group > * + * > * > * {
+.input-group > * + * > * > *,
+.input-group-inline > * + * > * > *,
+.input-group-justified > * + * > * > * {
   border-left: 1px solid transparent;
 }
-.input-group > * > * > * {
+.input-group > * > * > *,
+.input-group-inline > * > * > *,
+.input-group-justified > * > * > * {
   border-radius: 0;
   background-clip: padding-box;
   display: block;
-  width: auto;
+  width: 100%;
 }
-.input-group > * > * > *.input-group-addon {
+.input-group > * > * > *.input-group-addon,
+.input-group-inline > * > * > *.input-group-addon,
+.input-group-justified > * > * > *.input-group-addon {
   display: table;
 }
-.input-group > *:first-child > * > * {
+.input-group > *:first-child > * > *,
+.input-group-inline > *:first-child > * > *,
+.input-group-justified > *:first-child > * > * {
   border-top-left-radius: 0.1875em;
   border-bottom-left-radius: 0.1875em;
 }
-.input-group > *:last-child > * > * {
+.input-group > *:last-child > * > *,
+.input-group-inline > *:last-child > * > *,
+.input-group-justified > *:last-child > * > * {
   border-top-right-radius: 0.1875em;
   border-bottom-right-radius: 0.1875em;
 }
-.input-group.stretch > * > * > * {
-  width: 100%;
-}
-.input-group.stretch > *.shrink {
-  width: 1%;
-}
-.input-group.stretch > *.shrink > * > * {
+.input-group > *.shrink > * > *,
+.input-group-inline > *.shrink > * > *,
+.input-group-justified > *.shrink > * > * {
   width: auto;
 }
-.input-group.justify > * {
+.input-group-inline {
+  display: inline-block;
+}
+.input-group-inline > * > * > * {
+  width: auto;
+}
+.input-group-justified > * {
   width: 1%;
 }
-.input-group.justify > * > * > * {
+.input-group-justified > * > * > * {
   width: 100%;
 }
 .marger-xl {
