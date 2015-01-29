@@ -8,11 +8,31 @@ Demo page
 
 Features
 --------
-* IE8 support.
 * Responsive layout.
-* A rich grid system built with flex and inline-block.
-* Angular animation on modern browser (IE10+).
+* A grid system built with flex and inline-block.
+* Angular animation on modern browser.
 * Bootstrap's components rewrote in Angular.
+
+Dependency
+----------
+* Angular 1.2.x.
+* Angular Animate 1.2.x. (If you use ani-* classes.)
+
+Support Browsers
+----------------
+* IE8+.
+* Firefox latest.
+* Google Chrome latest.
+* Opera Presto latest.
+* Opera Blink latest.
+
+Old IE Issue
+------------
+* IE9- doesn't support CSS3 animation.
+* IE8 doesn't support round corner.
+* IE8 doesn't support media query, but you can use [repond.js][respond-js] polyfill.
+
+[respond-js]: https://github.com/scottjehl/Respond
 
 Todos
 -----
@@ -34,21 +54,19 @@ Todos
 * Min, max validator doesn't work in IE8.
 * Number validator doesn't work in IE8.
 * Need better way to seperate theme files.
-* Add ani-collapse-children.
+* Add ani-collapse-children?
 * Double scrollbar issue of scrollable modal.
 * Extra padding-left of select element.
 * Support Opera 12.17?
-	- Input group issue.
 	- Table fixed.
-	- Hovering on sidebar cause scrolling at the bottom of page.
-	- Flexbox has incorrect width/height. This cause resizing bug/scrolling jumps bug. You have to give them a static value to fix it. But how?
 
 Annoying bugs note
 ------------------
 * IE 9+ overflow, border-radius, and position bug(http://x.co/65DI4). The table-fixed-head corner issue at affix-bottom.
 * Chrome bug with table-fixed. Fixed by triggering redraw manually.
 * Chrome bug with flex and overflow: auto. Fixed by triggering redraw with animation.
+* Flexbox in Opera is buggy. If you mix flexbox and table together, Opera might even crash.
 
-The standard
-------------
-* Use `min-width:@window-size` and `max-width:(@window-size - 1)`.
+Other notes
+-----------
+* Use `min-width:@window-size` and `max-width:(@window-size - 1)` to avoid flickering.
