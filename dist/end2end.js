@@ -1645,7 +1645,7 @@ angular.module(
 
 			ngModel.$parsers.push(function(viewValue){
 				var empty = viewValue == "";
-				ngModel.$setValidity("number", empty || /^\d+(\.\d+)?$/.test(viewValue));
+				ngModel.$setValidity("number", empty || /^-?\d+(\.\d+)?$/.test(viewValue));
 				ngModel.$setValidity("min", empty || scope.min == null || +viewValue >= scope.min);
 				ngModel.$setValidity("max", empty || scope.max == null || +viewValue <= scope.max);
 				return viewValue;
