@@ -1034,6 +1034,19 @@ angular.module(
 		return Math.abs(bounds[0] - bounds[fixedLength]);
 	}
 
+	function calcSpans(table) {
+		var tds = table[0].querySelectorAll("[colspan='0']");
+
+		var i, rect;
+		for (i = 0; i < tds.length; i++) {
+			rect = tds[i].getBoundingClientRect();
+			tds[i].tableFixed = {
+				height: rect.bottom - rect.top
+			};
+			tds[i].className += " table-fixed-span-calc";
+		}
+	}
+
 	function setOffset(table, leftLength, rightLength){
 		var vbounds = [], i, rect, trs, theadRect,
 			sumLeft, sumRight, tableRect;
@@ -1058,6 +1071,8 @@ angular.module(
 
 		sumLeft = calcBounds("left", trs, leftLength, vbounds);
 		sumRight = calcBounds("right", trs, rightLength, vbounds);
+
+		calcSpans(table);
 
 		return {
 			left: sumLeft,
@@ -1127,6 +1142,14 @@ angular.module(
 					td.removeClass("table-fixed-left-calc");
 				}
 
+				tds = table[0].querySelectorAll(".table-fixed-span-calc");
+				for (i = 0; i < tds.length; i++) {
+					td = angular.element(tds[i]);
+					td.css("height", td[0].tableFixed.height);
+					td.addClass("table-fixed-cell table-fixed-span");
+					td.removeClass("table-fixed-span-calc");
+				}
+
 				tableFixedHead.css("padding-left", sum.left + "px");
 				tableFixedHead.css("padding-right", sum.right + "px");
 				tableFixedTable.css("padding-left", sum.left + "px");
@@ -1139,8 +1162,11 @@ angular.module(
 
 				// Make fixed header
 				var clone = table.clone();
+				var theadRect = table.find("thead")[0].getBoundingClientRect();
+				var theadHeight = theadRect.bottom - theadRect.top;
+//				console.log(theadHeight);
 				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
-				table.css("margin-top", "-" + sum.theadHeight + "px");
+				table.css("margin-top", "-" + theadHeight + "px");
 				// What the hack? use empty will break two-way binding in IE8
 //				headContainer.empty().append(clone);
 				headContainer[0].innerHTML = "";

@@ -2943,6 +2943,9 @@ _:-o-prefocus, .table-fixed tr:before {
 _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
   display: table-cell;
 }
+.table-fixed .table-fixed-span {
+  width: 100%;
+}
 .table-block {
   display: block;
   width: 100%;
