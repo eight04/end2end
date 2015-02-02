@@ -1607,8 +1607,8 @@ angular.module(
 		};
 		setTimeout(check);
 	};
-}).directive("modelUpdate", function($timeout){
-	var delay = 500;
+}).directive("modelUpdate", function(){
+
 	return {
 		restrict: "A",
 		require: "ngModel",
@@ -1616,24 +1616,18 @@ angular.module(
 			exp: "&modelUpdate"
 		},
 		link: function(scope, element, attrs, ngModel){
-			var timeout;
-
-			function update() {
-				$timeout.cancel(timeout);
-				timeout = null;
-				scope.exp();
-			}
+			var updateFlag = false;
 
 			scope.$watch(function(){
 				return ngModel.$modelValue;
 			}, function(){
-				$timeout.cancel(timeout);
-				timeout = $timeout(update, delay);
+				updateFlag = true;
 			});
 
 			element.on("blur", function(){
-				if (timeout) {
-					update();
+				if (updateFlag) {
+					scope.exp();
+					updateFlag = false;
 				}
 			});
 		}
