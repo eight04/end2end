@@ -1620,6 +1620,7 @@ angular.module(
 
 			function update() {
 				$timeout.cancel(timeout);
+				timeout = null;
 				scope.exp();
 			}
 
@@ -1627,10 +1628,14 @@ angular.module(
 				return ngModel.$modelValue;
 			}, function(){
 				$timeout.cancel(timeout);
-				timeout = $timeout(scope.exp, delay);
+				timeout = $timeout(update, delay);
 			});
 
-			element.on("blur", update);
+			element.on("blur", function(){
+				if (timeout) {
+					update();
+				}
+			});
 		}
 	};
 });
