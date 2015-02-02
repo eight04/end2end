@@ -2988,7 +2988,7 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
   border-width: 0;
   width: 100%;
 }
-.table-default thead + tbody > :first-child > * {
+.table-default * + tbody > :first-child > * {
   border-top: 1px solid #808080;
 }
 .table-default > * > * > * {
@@ -3003,7 +3003,7 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
 .table-bordered > tbody > :first-child > * {
   border-top-width: 0;
 }
-.table-bordered > thead + tbody > :first-child > * {
+.table-bordered > * + tbody > :first-child > * {
   border-top-width: 1px;
 }
 .table-bordered > * > * > * {

@@ -68,11 +68,6 @@ th {
 	.table-fixed-span {
 		width: 100%;
 	}
-	//	[colspan="0"] {
-//		position: absolute;
-//		left: 0;
-//		width: 100%;
-//	}
 }
 
 
@@ -111,7 +106,7 @@ th {
 }
 .table-default {
 	&:extend(.table all);
-	thead + tbody > :first-child > * {
+	* + tbody > :first-child > * {
 		border-top: 1px solid @border-color-base;
 	}
 	> * > * > * {
@@ -129,7 +124,7 @@ th {
 	> tbody > :first-child > * {
 		border-top-width: 0;
 	}
-	> thead + tbody > :first-child > * {
+	> * + tbody > :first-child > * {
 		border-top-width: 1px;
 	}
 	> * > * > * {
