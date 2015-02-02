@@ -4,62 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Form</title>
 	<style>
-		* {
-			box-sizing: border-box;
-		}
-		body {
-			padding-bottom: 2em;
-			width: 768px;
-			margin: 0 0 0 auto;
-		}
-		.container {
-			position: relative;
-			box-sizing: border-box;
-		}
-		.wrapper {
-			border-radius: 1em;
-			overflow: hidden;
-			background-color: orange;
-			height: 100px;
-		}
-		.box {
-			width: 768px;
-			height: 300px;
-/*			position: fixed;*/
-			top: 0;
-			right: 0;
-			background-color: yellow;
-			border: 3px solid;
-			box-sizing: border-box;
-		}
-		.filler {
-			height: 300px;
-		}
 		td {
-			max-width: 10em;
 			border: 1px solid;
 		}
 	</style>
 </head>
 <body>
-	<div class="filler"></div>
-	<div class="container">
-		<div class="wrapper">
-			<div class="box">test</div>
-		</div>
-		<table>
-			<tbody>
-				<tr>
-					<td>測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試測試</td>
-					<td>測試</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<script>
-		setTimeout(function(){
-			document.querySelector(".box").style.position = "fixed";
-		}, 1000);
-	</script>
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="520">Test</td>
+			</tr>
+			<tr>
+				<td>Content 1</td>
+				<td>Content 2</td>
+				<td>Content 3</td>
+				<td>Content 4</td>
+				<td>Content 5</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

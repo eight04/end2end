@@ -1035,7 +1035,8 @@ angular.module(
 	}
 
 	function calcSpans(table) {
-		var tds = table[0].querySelectorAll("[colspan='0']");
+		var tds = table[0].querySelectorAll("[fixed-span]");
+//		var tds = table[0].querySelectorAll("[colspan='0']");
 
 		var i, rect;
 		for (i = 0; i < tds.length; i++) {

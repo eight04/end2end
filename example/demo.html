@@ -687,7 +687,9 @@
 						</tbody>
 					</table>
 				</div>
-				<p>You can also use <code>colspan="0"</code>.</p>
+				<p>
+					You can also use <code>fixed-span</code> directive. Note that <code>colspan="0"</code> is ignored under IE10-, so you have to add an additional <code>fixed-span</code> directive.
+				</p>
 				<div class="table-fixed">
 					<table class="table-bordered" fixed-left="1">
 						<thead>
@@ -715,7 +717,7 @@
 								<td>Odio cum animi voluptate tempora nihil neque minima, expedita necessitatibus voluptatem quae at vel maxime pariatur nobis aspernatur distinctio velit magni architecto sunt debitis, dicta quis odit hic! Minus, est.</td>
 							</tr>
 							<tr>
-								<td colspan="0">Overall title</td>
+								<td colspan="0" fixed-span>Overall title</td>
 							</tr>
 							<tr>
 								<td>Content 1</td>
