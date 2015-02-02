@@ -1035,7 +1035,8 @@ angular.module(
 	}
 
 	function setOffset(table, leftLength, rightLength){
-		var vbounds = [], i, rect, trs, theadRect, tbodyRect, sumLeft, sumRight;
+		var vbounds = [], i, rect, trs, theadRect,
+			sumLeft, sumRight, tableRect;
 
 		trs = table.find("tr");
 
@@ -1053,7 +1054,7 @@ angular.module(
 
 		// Calculate thead, tbody
 		theadRect = table.find("thead")[0].getBoundingClientRect();
-		tbodyRect = table.find("tbody")[0].getBoundingClientRect();
+		tableRect = table[0].getBoundingClientRect();
 
 		sumLeft = calcBounds("left", trs, leftLength, vbounds);
 		sumRight = calcBounds("right", trs, rightLength, vbounds);
@@ -1062,7 +1063,7 @@ angular.module(
 			left: sumLeft,
 			right: sumRight,
 			theadHeight: theadRect.bottom - theadRect.top,
-			tbodyHeight: tbodyRect.bottom - tbodyRect.top
+			tbodyHeight: tableRect.bottom - theadRect.bottom
 		};
 	}
 
@@ -1577,7 +1578,7 @@ angular.module(
 		setTimeout(check);
 	};
 }).directive("modelUpdate", function($timeout){
-	var delay = 3000;
+	var delay = 500;
 	return {
 		restrict: "A",
 		require: "ngModel",
@@ -1586,12 +1587,20 @@ angular.module(
 		},
 		link: function(scope, element, attrs, ngModel){
 			var timeout;
+
+			function update() {
+				$timeout.cancel(timeout);
+				scope.exp();
+			}
+
 			scope.$watch(function(){
 				return ngModel.$modelValue;
 			}, function(){
 				$timeout.cancel(timeout);
 				timeout = $timeout(scope.exp, delay);
 			});
+
+			element.on("blur", update);
 		}
 	};
 });
