@@ -67,6 +67,7 @@ th {
 	}
 	.table-fixed-span {
 		width: 100%;
+		left: 0;
 	}
 }
 
@@ -182,7 +183,7 @@ th {
 		.table-responsive {
 			overflow: scroll;
 			overflow-y: hidden;
-			tbody tr:first-child {
+			thead + tbody tr:first-child {
 				th, td {
 					border-top-width: 0;
 				}

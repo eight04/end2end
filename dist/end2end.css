@@ -2946,6 +2946,7 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
 }
 .table-fixed .table-fixed-span {
   width: 100%;
+  left: 0;
 }
 .table-block {
   display: block;
@@ -3055,8 +3056,8 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
   overflow: scroll;
   overflow-y: hidden;
 }
-.table-fixed .table-fixed-table .table-responsive tbody tr:first-child th,
-.table-fixed .table-fixed-table .table-responsive tbody tr:first-child td {
+.table-fixed .table-fixed-table .table-responsive thead + tbody tr:first-child th,
+.table-fixed .table-fixed-table .table-responsive thead + tbody tr:first-child td {
   border-top-width: 0;
 }
 .talk {

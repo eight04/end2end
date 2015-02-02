@@ -1172,6 +1172,9 @@ angular.module(
 //				headContainer.empty().append(clone);
 				headContainer[0].innerHTML = "";
 				headContainer.append(clone);
+
+				// Hide scrollbar at the bottom
+				tableFixedTable.css("height", sum.tbodyHeight + "px");
 			}
 
 			var process = null;
@@ -1657,7 +1660,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/tableFixed.html',
-    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\" noscroll ng-transclude></div></div></div></div>"
+    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\" ng-transclude></div></div></div></div>"
   );
 
 }]);

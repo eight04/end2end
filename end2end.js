@@ -1172,6 +1172,9 @@ angular.module(
 //				headContainer.empty().append(clone);
 				headContainer[0].innerHTML = "";
 				headContainer.append(clone);
+
+				// Hide scrollbar at the bottom
+				tableFixedTable.css("height", sum.tbodyHeight + "px");
 			}
 
 			var process = null;
