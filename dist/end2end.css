@@ -2819,6 +2819,7 @@ _:-o-prefocus, .panes:before {
   display: none;
   width: 100%;
   margin-left: -100%;
+  position: relative;
 }
 .pane.active {
   display: block;
