@@ -1008,12 +1008,14 @@ angular.module(
 					vend = i;
 				}
 
-				td.className += " table-fixed-" + f + "-calc";
-				td.tableFixed = {
-					offset: Math.abs(bounds[j] - bounds[0]),
-					width: Math.abs(bounds[j] - bounds[end + 1]),
-					height: vbounds[vend + 1] - vbounds[i]
-				};
+				if (td.getAttribute("fixed-span") == null) {
+					td.className += " table-fixed-" + f + "-calc";
+					td.tableFixed = {
+						offset: Math.abs(bounds[j] - bounds[0]),
+						width: Math.abs(bounds[j] - bounds[end + 1]),
+						height: vbounds[vend + 1] - vbounds[i]
+					};
+				}
 
 				if (rowspan) {
 					rowspans.push({
@@ -1104,6 +1106,8 @@ angular.module(
 			scrollsync.create(headContainer, table.parent());
 
 			function redraw(){
+
+//				console.log("redraw");
 				var i, td, sum, thead, tds;
 
 				thead = table.find("thead");
@@ -1121,7 +1125,11 @@ angular.module(
 
 				thead.css("display", "");
 
+//				console.log("setOffset");
+
 				sum = setOffset(table, fixedLeft, fixedRight);
+
+//				console.log("setOffset done");
 
 				tds = table[0].querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < tds.length; i++) {
@@ -1143,12 +1151,14 @@ angular.module(
 					td.removeClass("table-fixed-left-calc");
 				}
 
+//				console.log("table-fixed-span-calc");
+
 				tds = table[0].querySelectorAll(".table-fixed-span-calc");
 				for (i = 0; i < tds.length; i++) {
 					td = angular.element(tds[i]);
-					td.css("height", td[0].tableFixed.height);
+					td.css("height", td[0].tableFixed.height + "px");
 					td.addClass("table-fixed-cell table-fixed-span");
-					td.removeClass("table-fixed-span-calc table-fixed-left table-fixed-right");
+					td.removeClass("table-fixed-span-calc");
 				}
 
 				tableFixedHead.css("padding-left", sum.left + "px");
@@ -1160,6 +1170,8 @@ angular.module(
 				table.css("display", "none");
 				void(table[0].offsetWidth);
 				table.css("display", "");
+
+//				console.log("Make fixed header");
 
 				// Make fixed header
 				var clone = table.clone();
@@ -1175,6 +1187,8 @@ angular.module(
 
 				// Hide scrollbar at the bottom
 				tableFixedTable.css("height", sum.tbodyHeight + "px");
+
+//				console.log("redraw done");
 			}
 
 			var process = null;
@@ -1183,6 +1197,7 @@ angular.module(
 					process.cancel();
 				}
 				process = prepare(element).then(redraw);
+//				console.log("render");
 			}
 
 			if (attrs.name) {
