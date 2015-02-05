@@ -26,8 +26,8 @@ Support Browsers
 * Opera Presto latest.
 * Opera Blink latest.
 
-Old IE Issue
-------------
+Old IE Issues
+-------------
 * IE9- doesn't support CSS3 animation.
 * IE8 doesn't support round corner.
 * IE8 doesn't support media query, but you can use [repond.js][respond-js] polyfill.
@@ -59,6 +59,10 @@ Todos
 * Extra padding-left of select element.
 * Support Opera 12.17?
 	- Table fixed.
+* Add popup.
+	- Trigger by hovering?
+	- How to interact with modal?
+	- How to manage z-index?
 
 Annoying bugs note
 ------------------
