@@ -888,15 +888,16 @@ angular.module(
 					return;
 				}
 
-				// Get <li>
-				while (t.parentNode != element[0]) {
-					t = t.parentNode;
+				// Only trigger on toggler>li>a
+				var li = t.parentNode;
+				if (li.parentNode != element[0]) {
+					return;
 				}
-
+				
 				if (!multiple) {
-					toggler(id).active(getChildIndex(element, t));
+					toggler(id).active(getChildIndex(element, li));
 				} else {
-					toggler(id).toggle(getChildIndex(element, t));
+					toggler(id).toggle(getChildIndex(element, li));
 				}
 			});
 		}
