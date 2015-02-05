@@ -872,7 +872,9 @@ angular.module(
 	return {
 		restrict: "AC",
 		link: function(scope, element, attrs){
-			var id = attrs.toggler;
+			var id = attrs.toggler,
+				multiple = attrs.multiple != null;
+
 			toggler(id).add(element);
 
 			element.on("click", function(e){
@@ -890,17 +892,23 @@ angular.module(
 				while (t.parentNode != element[0]) {
 					t = t.parentNode;
 				}
-				toggler(id).active(getChildIndex(element, t));
+
+				if (!multiple) {
+					toggler(id).active(getChildIndex(element, t));
+				} else {
+					toggler(id).toggle(getChildIndex(element, t));
+				}
 			});
 		}
 	};
 }).factory("toggler", function(togglerHelper){
 	var jar = {};
 
-	function setStatus(element, index){
+	function setStatus(element, status) {
 		var lis = element.children(), j;
+
 		for (j = 0; j < lis.length; j++) {
-			if (j == index) {
+			if (status[j]) {
 				togglerHelper.active(angular.element(lis[j]));
 			} else {
 				togglerHelper.deactive(angular.element(lis[j]));
@@ -908,37 +916,44 @@ angular.module(
 		}
 	}
 
-	function getIndex(element) {
-		var i, lis = element[0].children;
-		for (i = 0; i < lis.length; i++) {
-			if (/\bactive\b/.test(lis[i].className)) {
-				return i;
-			}
-		}
-		return null;
-	}
-
 	return function(id) {
 		if (!jar[id]) {
 			var o = jar[id] = {
-				current: null,
 				elements: [],
+				status: [],
 				add: function(element) {
 					o.elements.push(element);
-					if (o.current != null) {
-						setStatus(element, o.current);
-					} else {
-						var index = getIndex(element);
-						if (index != null) {
-							o.active(index);
+
+					var i, child = element.children();
+					for (i = 0; i < child.length; i++) {
+						if (/\bactive\b/.test(child[i].className) && !o.status[i]) {
+							o.toggle(i);
 						}
 					}
+					setStatus(element, o.status);
 				},
 				active: function(index) {
 					var i;
-					o.current = index;
+
+					if (o.status.length <= index) {
+						o.status.length = index + 1;
+					}
+
+					for (i = 0; i < o.status.length; i++) {
+						o.status[i] = i == index;
+					}
+
 					for (i = 0; i < o.elements.length; i++) {
-						setStatus(o.elements[i], o.current);
+						setStatus(o.elements[i], o.status);
+					}
+				},
+				toggle: function(index) {
+					var i;
+
+					o.status[index] = !o.status[index];
+
+					for (i = 0; i < o.elements.length; i++) {
+						setStatus(o.elements[i], o.status);
 					}
 				}
 			};
