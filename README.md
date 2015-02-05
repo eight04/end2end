@@ -13,10 +13,10 @@ Features
 * Angular animation on modern browser.
 * Bootstrap's components rewrote in Angular.
 
-Dependency
-----------
+Dependencies
+------------
 * Angular 1.2.x.
-* Angular Animate 1.2.x. (If you use ani-* classes.)
+* Angular Animate 1.2.x. (Optional)
 
 Support Browsers
 ----------------
