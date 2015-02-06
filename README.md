@@ -63,6 +63,7 @@ Todos
 	- Trigger by hovering?
 	- How to interact with modal?
 	- How to manage z-index?
+* Fix table header transclude problem.
 
 Annoying bugs note
 ------------------
