@@ -8,8 +8,14 @@
 }
 
 a {
-	transition: all 0.2s linear;
 	.make-link-color(@font-color-light, @brand-primary);
+	transition: all 0.2s linear;
+}
+
+.link {
+	color: @font-color-light;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 body {
