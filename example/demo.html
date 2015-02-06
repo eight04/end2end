@@ -564,6 +564,9 @@
 				<div class="marger">
 					<button class="btn-default" ng-click="tableFixed.render()">Redraw</button>
 				</div>
+				<div class="marger">
+					<input type="text" class="form-control" ng-model="myText">
+				</div>
 				<div class="table-fixed" fixed-left="2" fixed-right="1">
 					<table class="table-default">
 						<thead>
@@ -578,7 +581,7 @@
 									</div>
 								</th>
 								<th>Title 3</th>
-								<th>Title 4</th>
+								<th>{{myText}}</th>
 								<th>Title 5</th>
 								<th>
 									<div class="vcenter-table">
