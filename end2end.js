@@ -963,7 +963,7 @@ angular.module(
 	};
 }).directive("tableFixed", function($timeout, $parse, affix, scrollsync, prepare){
 
-	function calcBounds(f, trs, fixedLength, vbounds) {
+	function calcBounds(f, trs, fixedLength, vbounds, table) {
 		var bounds = [],
 			rowspans = [],
 			i, j, k,
@@ -971,10 +971,9 @@ angular.module(
 
 		// Get first cell rect
 		if (f == "left") {
-			bounds[0] = trs[0].children[0].getBoundingClientRect().left;
+			bounds[0] = table[0].getBoundingClientRect().left;
 		} else {
-			len = trs[0].children.length;
-			bounds[0] = trs[0].children[len - 1].getBoundingClientRect().right;
+			bounds[0] = table[0].getBoundingClientRect().right;
 		}
 
 		// Claculate horizontal bounds and save result to element.offset
@@ -1088,8 +1087,8 @@ angular.module(
 		theadRect = table.find("thead")[0].getBoundingClientRect();
 		tableRect = table[0].getBoundingClientRect();
 
-		sumLeft = calcBounds("left", trs, leftLength, vbounds);
-		sumRight = calcBounds("right", trs, rightLength, vbounds);
+		sumLeft = calcBounds("left", trs, leftLength, vbounds, table);
+		sumRight = calcBounds("right", trs, rightLength, vbounds, table);
 
 		calcSpans(table);
 
@@ -1222,7 +1221,7 @@ angular.module(
 				if (process) {
 					process.cancel();
 				}
-				process = prepare(element).then(redraw);
+				process = prepare(element, -1000).then(redraw);
 //				console.log("render");
 			}
 
@@ -1546,7 +1545,7 @@ angular.module(
 			});
 		}
 	};
-}).factory("prepare", function($q, $timeout){
+}).factory("prepare", function($q, $timeout, $filter){
 	var prepare, thread;
 
 	thread = {
@@ -1573,7 +1572,10 @@ angular.module(
 			}
 			thread.que = swap;
 
+			done = $filter("orderBy")(done, "priority", true);
+
 			for (i = 0; i < done.length; i++) {
+//			for (i = done.length - 1; i >= 0; i--) {
 				done[i].deferred.resolve();
 			}
 			for (i = 0; i < rejected.length; i++) {
@@ -1588,10 +1590,11 @@ angular.module(
 		}
 	};
 
-	prepare = function(element) {
+	prepare = function(element, priority) {
 		var q = {
 			element: element,
-			deferred: $q.defer()
+			deferred: $q.defer(),
+			priority: priority || 0
 		};
 		thread.que.push(q);
 		thread.start();
