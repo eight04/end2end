@@ -893,7 +893,7 @@ angular.module(
 				if (li.parentNode != element[0]) {
 					return;
 				}
-				
+
 				if (!multiple) {
 					toggler(id).active(getChildIndex(element, li));
 				} else {
@@ -1105,15 +1105,30 @@ angular.module(
 		restrict: "C",
 		templateUrl: "templates/tableFixed.html",
 		transclude: true,
-		link: function(scope, element, attrs) {
+		link: function(scope, element, attrs, controller, transclude) {
 			var fixedLeft = +attrs.fixedLeft || 0,
 				fixedRight = +attrs.fixedRight || 0,
-				setter, table, tableFixedHead, tableFixedTable, headContainer, affixWrapper;
+				setter, table, tableh, tableFixedHead, tableFixedTable, headContainer, bodyContainer, affixWrapper;
+
 
 			tableFixedHead = angular.element(element[0].querySelector(".table-fixed-head"));
 			tableFixedTable = angular.element(element[0].querySelector(".table-fixed-table"));
 
 			headContainer = tableFixedHead.children();
+			bodyContainer = tableFixedTable.children();
+
+			transclude(function(cloned){
+				headContainer.append(cloned);
+//				tableh = cloned.find("table");
+			});
+
+			transclude(function(cloned){
+				bodyContainer.append(cloned);
+//				table = cloned.find("table");
+			});
+
+//			console.log(table, tableh);
+			tableh = tableFixedHead.find("table");
 			table = tableFixedTable.find("table");
 
 			affixWrapper = angular.element(element[0].querySelector(".affix-wrapper"));
@@ -1121,9 +1136,7 @@ angular.module(
 			affix.affix(element, affixWrapper, affixWrapper.children());
 			scrollsync.create(headContainer, table.parent());
 
-			function redraw(){
-
-//				console.log("redraw");
+			function redrawTable(table) {
 				var i, td, sum, thead, tds;
 
 				thead = table.find("thead");
@@ -1141,11 +1154,7 @@ angular.module(
 
 				thead.css("display", "");
 
-//				console.log("setOffset");
-
 				sum = setOffset(table, fixedLeft, fixedRight);
-
-//				console.log("setOffset done");
 
 				tds = table[0].querySelectorAll(".table-fixed-left-calc");
 				for (i = 0; i < tds.length; i++) {
@@ -1167,8 +1176,6 @@ angular.module(
 					td.removeClass("table-fixed-left-calc");
 				}
 
-//				console.log("table-fixed-span-calc");
-
 				tds = table[0].querySelectorAll(".table-fixed-span-calc");
 				for (i = 0; i < tds.length; i++) {
 					td = angular.element(tds[i]);
@@ -1186,25 +1193,28 @@ angular.module(
 				table.css("display", "none");
 				void(table[0].offsetWidth);
 				table.css("display", "");
+			}
 
-//				console.log("Make fixed header");
+			function redraw(){
+
+				redrawTable(table);
+				redrawTable(tableh);
 
 				// Make fixed header
-				var clone = table.clone();
 				var theadRect = table.find("thead")[0].getBoundingClientRect();
+				var tableRect = table[0].getBoundingClientRect();
 				var theadHeight = theadRect.bottom - theadRect.top;
-//				console.log(theadHeight);
-				clone.css("margin-bottom", "-" + sum.tbodyHeight + "px");
+				var tbodyHeight = tableRect.bottom - theadRect.bottom;
+
+				tableh.css("margin-bottom", "-" + tbodyHeight + "px");
 				table.css("margin-top", "-" + theadHeight + "px");
 				// What the hack? use empty will break two-way binding in IE8
-//				headContainer.empty().append(clone);
-				headContainer[0].innerHTML = "";
-				headContainer.append(clone);
+//				headContainer[0].innerHTML = "";
+//				headContainer.append(clone);
 
 				// Hide scrollbar at the bottom
-				tableFixedTable.css("height", sum.tbodyHeight + "px");
+				tableFixedTable.css("height", tbodyHeight + "px");
 
-//				console.log("redraw done");
 			}
 
 			var process = null;
@@ -1764,7 +1774,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/tableFixed.html',
-    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\" ng-transclude></div></div></div></div>"
+    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\"></div></div></div></div>"
   );
 
 }]);
