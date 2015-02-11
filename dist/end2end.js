@@ -55,7 +55,7 @@ angular.module(
 			nbCtrl.addCollapse(collapse);
 		}
 	};
-}).animation(".ani-collapse", function($timeout, prepare, watch){
+}).animation(".ani-collapse", function(prepare, watch){
 	function beforeCollapse(element, done){
 
 		// display: none
@@ -96,12 +96,12 @@ angular.module(
 
 		function active(){
 			if (!element.hasClass("ng-leave-active") && element.hasClass("ng-leave")) {
-				$timeout(active);
+				setTimeout(active);
 				return;
 			}
 			element.css("height", "0");
 		}
-		$timeout(active);
+		setTimeout(active);
 
 		function end(){
 //			console.log("transition end");
@@ -427,7 +427,7 @@ angular.module(
 			};
 		}
 	};
-}).directive("e2eModal", function($compile, $http, $templateCache, $timeout){
+}).directive("e2eModal", function($compile, $http, $templateCache){
 	return {
 		restrict: "A",
 		link: function(scope, element) {
@@ -457,7 +457,7 @@ angular.module(
 			modal.element = element;
 			modal.focusElement = document.activeElement;
 
-			$timeout(function(){
+			setTimeout(function(){
 				var input = element[0].querySelector("[autofocus]");
 				if (input) {
 					input.focus();
@@ -488,7 +488,7 @@ angular.module(
 	modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
 	$document.find("body").append(modalStackElement);
 
-	$timeout(function(){
+	setTimeout(function(){
 		modalStack = modalStackElement.controller("modalStack");
 	});
 
@@ -961,7 +961,7 @@ angular.module(
 		}
 		return jar[id];
 	};
-}).directive("tableFixed", function($timeout, $parse, affix, scrollsync, prepare){
+}).directive("tableFixed", function($parse, affix, scrollsync, prepare){
 
 	function calcBounds(f, trs, fixedLength, vbounds, table) {
 		var bounds = [],
@@ -1556,7 +1556,7 @@ angular.module(
 				return;
 			}
 			thread.running = true;
-			$timeout(thread.process);
+			setTimeout(thread.process);
 		},
 		process: function(){
 			var swap = [], done = [], rejected = [], q, i;
@@ -1583,7 +1583,7 @@ angular.module(
 			}
 
 			if (thread.que.length) {
-				$timeout(thread.process, 300);
+				setTimeout(thread.process, 300);
 			} else {
 				thread.running = false;
 			}
