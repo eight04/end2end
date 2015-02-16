@@ -64,6 +64,7 @@ Todos
 	- How to interact with modal?
 	- How to manage z-index?
 * Fix table header transclude problem.
+* Add `parentScope` option to dialog.
 
 Annoying bugs note
 ------------------
