@@ -1759,6 +1759,21 @@ angular.module(
 			});
 		}
 	};
+}).directive("ngType", function(){
+	return {
+		restrict: "A",
+		link: function(scope, element, attrs){
+			scope.$watch(function(){
+				return scope.$eval(attrs.ngType);
+			}, function(value){
+				if (typeof value == "string") {
+					element.attr("type", value);
+				} else {
+					element.removeAttr("type");
+				}
+			});
+		}
+	};
 });
 
 })();
@@ -1766,7 +1781,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/dialog.html',
-    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand + ' ' + (dialog.size ? 'dialog-' + dialog.size : '')\"><div class=\"dialog-head\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button type=\"{{btn.submit?'submit':'button'}}\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.submit(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
+    "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand + ' ' + (dialog.size ? 'dialog-' + dialog.size : '')\"><div class=\"dialog-head\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button ng-type=\"btn.submit?'submit':'button'\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.submit(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 

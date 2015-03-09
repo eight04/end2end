@@ -11,7 +11,7 @@
 			<div class="row row-inline row-center">
 				<div class="col" ng-repeat="btn in dialog.btns">
 					<button
-						type="{{btn.submit?'submit':'button'}}"
+						ng-type="btn.submit?'submit':'button'"
 						class="btn btn-default"
 						ng-disabled="btn.submit && form.$invalid"
 						ng-click="dialog.submit(btn.value)"
