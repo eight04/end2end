@@ -1680,6 +1680,7 @@ angular.module(
 				if (updateFlag) {
 					scope.exp();
 					updateFlag = false;
+					scope.$apply();
 				}
 			});
 		}
