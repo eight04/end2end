@@ -1214,6 +1214,14 @@ angular.module(
 				// Hide scrollbar at the bottom
 				tableFixedTable.css("height", tbodyHeight + "px");
 
+				// Stupid chrome hack again
+				headContainer.css("webkitAnimationName", "stupid-chrome-hack");
+				bodyContainer.css("webkitAnimationName", "stupid-chrome-hack");
+				
+				void(bodyContainer[0].offsetWidth);
+				
+				headContainer.css("webkitAnimationName", "");
+				bodyContainer.css("webkitAnimationName", "");
 			}
 
 			var process = null;
