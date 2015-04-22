@@ -2627,9 +2627,11 @@ _:-o-prefocus, .nav-pill:after {
 }
 .navbar {
   position: relative;
+  width: 100%;
   z-index: 1000;
   color: #707070;
   border-bottom: 1px solid #a3a3a3;
+  background-color: white;
 }
 .navbar > * {
   padding-left: 0;
@@ -2638,6 +2640,14 @@ _:-o-prefocus, .nav-pill:after {
 .navbar > * > * {
   display: table-cell;
   vertical-align: middle;
+}
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.navbar-padded {
+  padding-top: 3em;
 }
 @media (min-width: 768px) {
   .navbar-collapse {

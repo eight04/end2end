@@ -21,20 +21,6 @@ module.exports = function(grunt) {
 					"src/gridCore.css": "src/gridCore.less"
 				}
 			},
-//			components: {
-//				expand: true,
-//				cwd: "src/components",
-//				src: "*.less",
-//				dest: "build/components",
-//				ext: ".css"
-//			},
-//			main: {
-//				expand: true,
-//				cwd: "src/",
-//				src: ["*.less", "!gridCore.less", "!vars.less", "!mixins.less"],
-//				dest: "build/",
-//				ext: ".css"
-//			},
 			dist: {
 				files: {
 					"dist/end2end.css": "end2end.less"
@@ -111,6 +97,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-bump');
 
 	// Default task(s).
+	grunt.registerTask('default', ['dist']);
 	grunt.registerTask('dist', ["clean", "less", "dist-js"]);
 	grunt.registerTask('dist-js', ["copy", "ngtemplates"]);
 

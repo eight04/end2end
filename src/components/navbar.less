@@ -1,9 +1,11 @@
 // Navbar component
 .navbar {
 	position: relative;
+	width: 100%;
 	z-index: 1000;
 	color: @font-color-light;
 	border-bottom: 1px solid @border;
+	background-color: white;
 	> * {
 		padding-left: 0;
 		padding-right: 0;
@@ -13,6 +15,15 @@
 			vertical-align: middle;
 		}
 	}
+}
+// Option for navbar
+.navbar-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.navbar-padded {
+	padding-top: 3em;
 }
 .navbar-collapse {
 	@media (min-width: @window-sm) {
