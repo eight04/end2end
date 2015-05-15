@@ -46,7 +46,7 @@
 	</style>
 
 	<!--[if lte ie 8]>
-	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.min.js"></script>
+	<script src="https://rawgit.com/scottjehl/Respond/master/dest/respond.src.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.js"></script>
 	<![endif]-->
 
@@ -387,81 +387,12 @@
 							<div class="content">Delectus, distinctio, laudantium.</div>
 						</div>
 					</div>
-
-					<!--
-					<h3>Display table</h3>
-					<p>
-						Wrap table in <code>.clipper</code> so it won't overflow on small screen.
-					</p>
-					<div class="clipper">
-						<div class="table-xs">
-							<div class="row">
-								<div class="col-xs-1-5">
-									<div class="content">
-										.col-xs-1-5
-									</div>
-								</div>
-								<div class="col-xs-1-5">
-									<div class="content">
-										.col-xs-1-5<br/>second-line
-									</div>
-								</div>
-								<div class="col-xs-1-5">
-									<div class="content">
-										.col-xs-1-5<br/>second-line<br/>third-line
-									</div>
-								</div>
-								<div class="col-xs-1-5">
-									<div class="content">
-										.col-xs-1-5<br/>second-line<br/>third-line<br/>4th-line
-									</div>
-								</div>
-								<div class="col-xs-1-5">
-									<div class="content">
-										.col-xs-1-5<br/>second-line<br/>third-line<br/>4th-line<br/>5th-line
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<h3>Table nogap</h3>
-					<div class="table-xs table-xs-nogap">
-						<div class="row">
-							<div class="col-xs-1-5">
-								<div class="content">
-									.col-xs-1-5
-								</div>
-							</div>
-							<div class="col-xs-1-5">
-								<div class="content">
-									.col-xs-1-5<br/>second-line
-								</div>
-							</div>
-							<div class="col-xs-1-5">
-								<div class="content">
-									.col-xs-1-5<br/>second-line<br/>third-line
-								</div>
-							</div>
-							<div class="col-xs-1-5">
-								<div class="content">
-									.col-xs-1-5<br/>second-line<br/>third-line<br/>4th-line
-								</div>
-							</div>
-							<div class="col-xs-1-5">
-								<div class="content">
-									.col-xs-1-5<br/>second-line<br/>third-line<br/>4th-line<br/>5th-line
-								</div>
-							</div>
-						</div>
-					</div>
-					-->
 				</div>
 
 				<h2 id="tables">Table</h2>
 
-				<h3>Without responsive class</h3>
-				<table class="table-default">
+				<h3>Raw table</h3>
+				<table class="table">
 					<thead>
 						<tr>
 							<th>Title</th>
@@ -508,54 +439,56 @@
 					</tbody>
 				</table>
 
-				<h3>With table-responsive</h3>
-				<div class="table-responsive">
-					<table class="table-default">
-						<thead>
-							<tr>
-								<th>Title 1</th>
-								<th>Title 2</th>
-								<th>Title 3</th>
-								<th>Title 4</th>
-								<th>Title 5</th>
-								<th>Title 6</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Content 1</td>
-								<td>Content 2</td>
-								<td>Content 3</td>
-								<td>Content 4</td>
-								<td>Content 5</td>
-								<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
-							</tr>
-							<tr>
-								<td>Content 1</td>
-								<td>Content 2</td>
-								<td>Content 3</td>
-								<td>Content 4</td>
-								<td>Content 5</td>
-								<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
-							</tr>
-							<tr>
-								<td>Content 1</td>
-								<td>Content 2</td>
-								<td>Content 3</td>
-								<td>Content 4</td>
-								<td>Content 5</td>
-								<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
-							</tr>
-							<tr>
-								<td>Content 1</td>
-								<td>Content 2</td>
-								<td>Content 3</td>
-								<td>Content 4</td>
-								<td>Content 5</td>
-								<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
-							</tr>
-						</tbody>
-					</table>
+				<h3>table-wrap</h3>
+				<div class="table-wrap">
+					<div class="clipper">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Title 1</th>
+									<th>Title 2</th>
+									<th>Title 3</th>
+									<th>Title 4</th>
+									<th>Title 5</th>
+									<th>Title 6</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, accusantium.</td>
+								</tr>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Tenetur sed iusto ad veritatis, velit molestiae reprehenderit quas quo.</td>
+								</tr>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Molestias non esse, ipsum delectus, nisi quam nesciunt ipsam dolorem.</td>
+								</tr>
+								<tr>
+									<td>Content 1</td>
+									<td>Content 2</td>
+									<td>Content 3</td>
+									<td>Content 4</td>
+									<td>Content 5</td>
+									<td>Provident voluptatibus molestiae nemo nesciunt quod quas laboriosam, commodi, repudiandae!</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 
 				<h3>Fixed column</h3>
@@ -568,7 +501,7 @@
 					<input type="text" class="form-control" ng-model="myText">
 				</div>
 				<div class="table-fixed" fixed-left="2" fixed-right="1">
-					<table class="table-default">
+					<table class="table">
 						<thead>
 							<tr>
 								<th>
@@ -628,7 +561,7 @@
 				</div>
 				<p><code>table-fixed</code> will also calculate colspan and rowspan.</p>
 				<div class="table-fixed" fixed-left="2" fixed-right="1" name="tableFixed">
-					<table class="table-default">
+					<table class="table">
 						<thead>
 							<tr>
 								<th rowspan="2">
@@ -694,7 +627,7 @@
 					You can also use <code>fixed-span</code> directive. Note that <code>colspan="0"</code> is ignored under IE10-, so you have to add an additional <code>fixed-span</code> directive.
 				</p>
 				<div class="table-fixed">
-					<table class="table-bordered" fixed-left="1">
+					<table class="table" fixed-left="1">
 						<thead>
 							<tr>
 								<th>Title 1</th>

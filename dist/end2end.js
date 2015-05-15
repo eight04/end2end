@@ -47,6 +47,10 @@ angular.module(
 		restrict: "C",
 		require: "?^navbar",
 		link: function(scope, element, attrs, nbCtrl) {
+			if (!nbCtrl) {
+				return;
+			}
+
 			var collapse = {
 				element: element,
 				show: element.hasClass("active")
@@ -1113,20 +1117,17 @@ angular.module(
 			tableFixedHead = angular.element(element[0].querySelector(".table-fixed-head"));
 			tableFixedTable = angular.element(element[0].querySelector(".table-fixed-table"));
 
-			headContainer = tableFixedHead.children();
-			bodyContainer = tableFixedTable.children();
+			headContainer = angular.element(element[0].querySelector(".table-fixed-head-inject"));
+			bodyContainer = angular.element(element[0].querySelector(".table-fixed-table-inject"));
 
 			transclude(function(cloned){
 				headContainer.append(cloned);
-//				tableh = cloned.find("table");
 			});
 
 			transclude(function(cloned){
 				bodyContainer.append(cloned);
-//				table = cloned.find("table");
 			});
 
-//			console.log(table, tableh);
 			tableh = tableFixedHead.find("table");
 			table = tableFixedTable.find("table");
 
@@ -1217,9 +1218,9 @@ angular.module(
 				// Stupid chrome hack again
 				headContainer.css("webkitAnimationName", "stupid-chrome-hack");
 				bodyContainer.css("webkitAnimationName", "stupid-chrome-hack");
-				
+
 				void(bodyContainer[0].offsetWidth);
-				
+
 				headContainer.css("webkitAnimationName", "");
 				bodyContainer.css("webkitAnimationName", "");
 			}
@@ -1801,7 +1802,7 @@ angular.module('end2end').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/tableFixed.html',
-    "<div class=\"table-fixed-wrapper\"><div class=\"affix-wrapper\"><div class=\"clipper\"><div class=\"table-fixed-head\"><div class=\"table-responsive\"></div></div></div></div><div class=\"clipper\"><div class=\"table-fixed-table\"><div class=\"table-responsive\"></div></div></div></div>"
+    "<div class=\"table-fixed-inner\"><div class=\"affix-wrapper\"><div class=\"affix-inner\"><div class=\"table-fixed-head\"><div class=\"table-fixed-wrap table-fixed-head-inject\"></div></div></div></div><div class=\"table-fixed-table\"><div class=\"table-fixed-wrap table-fixed-table-inject\"></div></div></div>"
   );
 
 }]);
