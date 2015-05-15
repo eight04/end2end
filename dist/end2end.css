@@ -2911,18 +2911,70 @@ th {
 .stretch {
   width: 100%;
 }
+.table,
+.table-default,
+.table-bordered {
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
+  border-collapse: collapse;
+}
+.table th,
+.table td,
+.table-default th,
+.table-default td,
+.table-bordered th,
+.table-bordered td {
+  padding: 0.375em 1em;
+  line-height: 1.25;
+  vertical-align: middle;
+}
+.table thead th,
+.table thead td,
+.table-default thead th,
+.table-default thead td,
+.table-bordered thead th,
+.table-bordered thead td {
+  background-color: #f0f0f0;
+  text-align: center;
+}
+.nav-list-table .table,
+.nav-list-table .table-default,
+.nav-list-table .table-bordered {
+  border-width: 0;
+  width: 100%;
+}
+.table-block {
+  display: block;
+  width: 100%;
+}
+.table-block > * {
+  width: 100%;
+}
+.table-row {
+  display: block;
+}
+.table-row > * {
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 .table-responsive {
+  display: inline-block;
+  vertical-align: top;
   overflow: auto;
   -webkit-animation-name: chrome-overflow-hack;
   -webkit-animation-duration: 9999s;
+  border: 1px solid #808080;
+  border-radius: 0.1875em;
   overflow-y: hidden;
-  display: inline-block;
   max-width: 100%;
-  vertical-align: top;
-}
-.table-responsive th,
-.table-responsive td {
   white-space: nowrap;
+}
+.table-responsive table {
+  border-radius: 0;
+}
+.nav-list-table .table-responsive {
+  border-width: 0;
 }
 .table-fixed {
   display: inline-block;
@@ -2964,47 +3016,40 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
   width: 100%;
   left: 0;
 }
-.table-block {
-  display: block;
-  width: 100%;
-}
-.table-block > * {
-  width: 100%;
-}
-.table-row {
-  display: block;
-}
-.table-row > * {
-  display: table-cell;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-.table,
-.table-default,
-.table-bordered {
+.table-fixed .table-fixed-wrapper {
   border: 1px solid #808080;
   border-radius: 0.1875em;
   overflow: hidden;
-  border-collapse: separate;
 }
-.table > * > * > *,
-.table-default > * > * > *,
-.table-bordered > * > * > * {
-  padding: 0.375em 1em;
-  line-height: 1.25;
-  vertical-align: middle;
-}
-.table thead > * > *,
-.table-default thead > * > *,
-.table-bordered thead > * > * {
-  background-color: #f0f0f0;
-  text-align: center;
-}
-.nav-list-table .table,
-.nav-list-table .table-default,
-.nav-list-table .table-bordered {
+.table-fixed .table-responsive {
   border-width: 0;
-  width: 100%;
+  border-radius: 0;
+}
+.table-fixed .table-fixed-head {
+  border-bottom: 1px solid #808080;
+  background-color: #f0f0f0;
+}
+.table-fixed .table-fixed-table .table-responsive {
+  overflow: scroll;
+  overflow-y: hidden;
+}
+.table-fixed .table-fixed-table .table-responsive thead + tbody tr:first-child th,
+.table-fixed .table-fixed-table .table-responsive thead + tbody tr:first-child td {
+  border-top-width: 0;
+}
+.table-cell-inner {
+  border-left: 1px solid #808080 !important;
+  border-top: 1px solid #808080 !important;
+}
+.table-cell-first {
+  border-left-width: 0!important;
+}
+.table-fixed-left {
+  border-right: 1px solid #808080;
+  border-left-width: 0;
+}
+.table-fixed-left + * {
+  border-left-width: 0;
 }
 .table-default * + tbody > :first-child > * {
   border-top: 1px solid #808080;
@@ -3029,52 +3074,6 @@ _:-o-prefocus, .table-fixed tr.table-fixed-inner-row:before {
 }
 .table-bordered > * > * > *:first-child {
   border-left-width: 0;
-}
-.table-cell-inner {
-  border-left: 1px solid #808080 !important;
-  border-top: 1px solid #808080 !important;
-}
-.table-cell-first {
-  border-left-width: 0!important;
-}
-.table-fixed-left {
-  border-right: 1px solid #808080;
-  border-left-width: 0;
-}
-.table-fixed-left + * {
-  border-left-width: 0;
-}
-.table-responsive {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-}
-.table-responsive > * {
-  border-width: 0;
-  border-radius: 0;
-}
-.nav-list-table .table-responsive {
-  border-width: 0;
-}
-.table-fixed .table-fixed-wrapper {
-  border: 1px solid #808080;
-  border-radius: 0.1875em;
-  overflow: hidden;
-}
-.table-fixed .table-responsive {
-  border-width: 0;
-  border-radius: 0;
-}
-.table-fixed .table-fixed-head {
-  border-bottom: 1px solid #808080;
-  background-color: #f0f0f0;
-}
-.table-fixed .table-fixed-table .table-responsive {
-  overflow: scroll;
-  overflow-y: hidden;
-}
-.table-fixed .table-fixed-table .table-responsive thead + tbody tr:first-child th,
-.table-fixed .table-fixed-table .table-responsive thead + tbody tr:first-child td {
-  border-top-width: 0;
 }
 .talk {
   margin: 0 auto;

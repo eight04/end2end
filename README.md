@@ -65,6 +65,8 @@ Todos
 	- How to manage z-index?
 * Fix table header transclude problem.
 * Add `parentScope` option to dialog.
+* Change how table-responsive works.
+	- What about border-radius?
 
 Annoying bugs note
 ------------------

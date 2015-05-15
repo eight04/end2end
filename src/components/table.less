@@ -1,4 +1,4 @@
-// Some reset
+// Reset table
 table {
 	border-spacing: 0;
 }
@@ -15,19 +15,57 @@ th {
 	width: 100%;
 }
 
-// Responsive wrapper
-.table-responsive {
-	.make-overflow();
-	overflow-y: hidden;
-	display: inline-block;
-	max-width: 100%;
-	vertical-align: top;
+// Table
+.table {
+	.make-border();
+	// We can't use border-radius on collapsed table
+	border-collapse: collapse;
 	th, td {
-		white-space: nowrap;
+		padding: (0.5 - (1.25 - 1) / 2em) 1em;
+		line-height: 1.25;
+		vertical-align: middle;
+	}
+	thead {
+		th, td {
+			background-color: @bg-color-base;
+			text-align: center;
+		}
+	}
+	.nav-list-table & {
+		border-width: 0;
+		width: 100%;
 	}
 }
 
-// Table fixed
+// What's this?
+.table-block {
+	display: block;
+	width: 100%;
+	> * {
+		width: 100%;
+	}
+}
+
+// Trick as <tr>
+.table-row {
+	.make-table-row();
+}
+
+.table-responsive {
+	.make-inline-block();
+	.make-overflow();
+	.make-border();
+	overflow-y: hidden;
+	max-width: 100%;
+	white-space: nowrap;
+	table {
+		border-radius: 0;
+	}
+	.nav-list-table & {
+		border-width: 0;
+	}
+}
+
 .table-fixed {
 	display: inline-block;
 	max-width: 100%;
@@ -69,104 +107,6 @@ th {
 		width: 100%;
 		left: 0;
 	}
-}
-
-
-// What's this?
-.table-block {
-	display: block;
-	width: 100%;
-	> * {
-		width: 100%;
-	}
-}
-
-// Trick as <tr>
-.table-row {
-	.make-table-row();
-}
-
-// Table
-.table {
-	.make-border();
-	overflow: hidden;
-	border-collapse: separate;
-	> * > * > * {
-		padding: (0.5 - (1.25 - 1) / 2em) 1em;
-		line-height: 1.25;
-		vertical-align: middle;
-	}
-	thead > * > * {
-		background-color: @bg-color-base;
-		text-align: center;
-	}
-	.nav-list-table & {
-		border-width: 0;
-		width: 100%;
-	}
-}
-.table-default {
-	&:extend(.table all);
-	* + tbody > :first-child > * {
-		border-top: 1px solid @border-color-base;
-	}
-	> * > * > * {
-		border-left: 1px solid @border-color-base;
-		&:first-child {
-			border-left: none;
-		}
-	}
-}
-.table-bordered {
-	&:extend(.table all);
-	> tbody > * > * {
-		border-top: 1px solid @border-color-base;
-	}
-	> tbody > :first-child > * {
-		border-top-width: 0;
-	}
-	> * + tbody > :first-child > * {
-		border-top-width: 1px;
-	}
-	> * > * > * {
-		border-left: 1px solid @border-color-base;
-		&:first-child {
-			border-left-width: 0;
-		}
-	}
-}
-
-.table-cell-inner {
-	border-left: 1px solid @border-color-base!important;
-	border-top: 1px solid @border-color-base!important;
-}
-.table-cell-first {
-	border-left-width: 0!important;
-}
-.table-fixed-left {
-	border-right: 1px solid @border-color-base;
-	border-left-width: 0;
-
-	+ * {
-		border-left-width: 0;
-	}
-}
-
-.table-responsive {
-	> * {
-		border-width: 0;
-		border-radius: 0;
-	}
-
-	border: 1px solid @border-color-base;
-	border-radius: @radius-base;
-
-	.nav-list-table & {
-		border-width: 0;
-	}
-}
-
-.table-fixed {
 	.table-fixed-wrapper {
 		.make-border();
 		overflow: hidden;
@@ -192,3 +132,52 @@ th {
 	}
 }
 
+.table-cell-inner {
+	border-left: 1px solid @border-color-base!important;
+	border-top: 1px solid @border-color-base!important;
+}
+.table-cell-first {
+	border-left-width: 0!important;
+}
+.table-fixed-left {
+	border-right: 1px solid @border-color-base;
+	border-left-width: 0;
+
+	+ * {
+		border-left-width: 0;
+	}
+}
+
+// Default table style
+.table-default {
+	&:extend(.table all);
+	* + tbody > :first-child > * {
+		border-top: 1px solid @border-color-base;
+	}
+	> * > * > * {
+		border-left: 1px solid @border-color-base;
+		&:first-child {
+			border-left: none;
+		}
+	}
+}
+
+// Bordered table style
+.table-bordered {
+	&:extend(.table all);
+	> tbody > * > * {
+		border-top: 1px solid @border-color-base;
+	}
+	> tbody > :first-child > * {
+		border-top-width: 0;
+	}
+	> * + tbody > :first-child > * {
+		border-top-width: 1px;
+	}
+	> * > * > * {
+		border-left: 1px solid @border-color-base;
+		&:first-child {
+			border-left-width: 0;
+		}
+	}
+}
