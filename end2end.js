@@ -88,7 +88,7 @@ angular.module(
 		}
 
 		// Render
-		void(element[0].offsetHeight);
+		void element[0].offsetHeight;
 		if (done) {
 			done();
 		}
@@ -128,7 +128,7 @@ angular.module(
 			element.css("height", "0");
 			element.addClass("collapsing");
 		}
-		void(element[0].offsetHeight);
+		void element[0].offsetHeight;
 		if (done) {
 			done();
 		}
@@ -1191,7 +1191,7 @@ angular.module(
 
 				// Stupid chrome hack
 				table.css("display", "none");
-				void(table[0].offsetWidth);
+				void table[0].offsetWidth;
 				table.css("display", "");
 			}
 
@@ -1219,7 +1219,7 @@ angular.module(
 				headContainer.css("webkitAnimationName", "stupid-chrome-hack");
 				bodyContainer.css("webkitAnimationName", "stupid-chrome-hack");
 
-				void(bodyContainer[0].offsetWidth);
+				void bodyContainer[0].offsetWidth;
 
 				headContainer.css("webkitAnimationName", "");
 				bodyContainer.css("webkitAnimationName", "");
