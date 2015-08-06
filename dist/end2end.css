@@ -2283,16 +2283,26 @@ legend .input-group-justified {
   margin: auto 0;
 }
 .radio label,
-.checkbox label {
-  display: inline-block;
+.checkbox label,
+label.radio,
+label.checkbox {
+  display: table;
   padding-left: 1.5em;
   cursor: pointer;
   line-height: 1.55;
   transition: 0.2s all linear;
 }
 .radio label:hover,
-.checkbox label:hover {
+.checkbox label:hover,
+label.radio:hover,
+label.checkbox:hover {
   color: #707070;
+}
+.radio + .radio,
+.radio + .checkbox,
+.checkbox + .radio,
+.checkbox + .checkbox {
+  margin-top: 0;
 }
 .form-inline input,
 .form-inline select,

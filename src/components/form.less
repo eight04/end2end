@@ -99,6 +99,7 @@ legend {
 		}
 	}
 }
+
 // Radio and checkbox
 .radio, .checkbox {
 	position: relative;
@@ -115,8 +116,8 @@ legend {
 		margin: auto 0;
 	}
 
-	label {
-		display: inline-block;
+	label, label& {
+		display: table;
 		padding-left: 1.5em;
 		cursor: pointer;
 		line-height: @line-height-base;
@@ -126,9 +127,14 @@ legend {
 			color: @font-color-light;
 		}
 	}
+
+	// Override legend + radio
+	& + & {
+		margin-top: 0;
+	}
 }
+
 // Inline form
 &.form-inline {
 	.make-form-inline();
 }
-
