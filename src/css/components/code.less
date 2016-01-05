@@ -1,0 +1,43 @@
+@import "../vars.less";
+@import "../mixins.less";
+
+// Code
+.code {
+	font-size: 90%;
+	position: relative;
+	margin-top: 1.5em;
+	&:before {
+		content: "Code";
+		position: absolute;
+		top: -1em;
+		left: 1.25em;
+		padding: 0.5em 0.4em 0.3em;
+		font-size: 80%;
+		margin-top: -1px;
+		line-height: 1;
+	}
+	> code {
+		display: block;
+		font-size: 100%;
+		padding: 0.8em 1em;
+		line-height: 1.2;
+		white-space: pre-wrap;
+		tab-size: 4;
+		-moz-tab-size: 4;
+		-o-tab-size: 4;
+		overflow: auto;
+	}
+}
+
+.code {
+	font-family: @font-family-monospace;
+	border: 1px dotted @border-color-base;
+	&:before {
+		border: 1px dotted @border-color-base;
+		background: white;
+	}
+	> code {
+		background-color: transparent;
+	}
+}
+

@@ -1,0 +1,50 @@
+// Panes
+.panes {
+	.make-flex();
+	.make-flex-nowrap();
+	&:before {
+		content: "";
+		display: block;
+		display: ~"inline-block\9";
+		width: 100%;
+
+		@{opera} & {
+			display: inline-block;
+		}
+	}
+}
+.pane {
+	display: none;
+	width: 100%;
+	margin-left: -100%;
+	position: relative;
+	&.active {
+		display: block;
+		display: ~"inline-block\9";
+		@{opera} & {
+			display: inline-block;
+		}
+	}
+}
+
+.pane {
+	&.active-remove {
+		transition: 0.2s all linear;
+		display: inline-block;
+
+		&-active {
+			opacity: 0;
+		}
+	}
+
+	&.active-add {
+		transition: 0.2s all linear;
+		display: inline-block;
+		opacity: 0;
+
+		&-active {
+			opacity: 1;
+		}
+	}
+}
+

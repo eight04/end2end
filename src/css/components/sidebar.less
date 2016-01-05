@@ -1,0 +1,109 @@
+// Sidebar
+.sidebar {
+	@media (max-width: (@sidebar-breakpoint - 1)) {
+		top: 0;
+		left: 100%;
+		position: fixed;
+		width: 320px;
+		height: 100%;
+
+		&.active {
+			left: auto;
+			right: 0;
+		}
+	}
+}
+.sidebar-toggle {
+	display: block;
+	position: absolute;
+	top: 17%;
+	right: 100%;
+	width: 1.7em;
+	height: 2em;
+	line-height: 2;
+	text-align: center;
+	z-index: 1090;
+	@media (min-width: @sidebar-breakpoint) {
+		display: none;
+	}
+}
+.sidebar-content {
+	position: relative;
+	z-index: 1110;
+	@media (max-width: (@sidebar-breakpoint - 1)) {
+		height: 100%;
+		background-color: white;
+		padding: 0 @gap;
+		overflow: auto;
+	}
+}
+
+@media (max-width: (@sidebar-breakpoint - 1)) {
+	.sidebar {
+		border-left: 1px solid @border;
+		z-index: 1100;
+
+		&.active-add {
+			transition: 0.4s all;
+			transform: translateX(100%);
+
+			&-active {
+				transform: none;
+			}
+		}
+		&.active-remove {
+			transition: 0.4s all;
+			right: 0;
+			left: auto;
+			transform: none;
+
+			&-active {
+				transform: translateX(100%);
+			}
+		}
+		&.active {
+			box-shadow: 0 0 1em black;
+
+			.sidebar-toggle:before {
+				content: "»";
+			}
+		}
+	}
+}
+
+.sidebar-toggle {
+	background-color: @color;
+	color: @color-bg;
+	border-radius: 0.36em 0 0 0.36em;
+	border: 1px solid @border;
+	border-right: none;
+	box-sizing: content-box;
+	opacity: 0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	box-shadow: 0 0 1em black;
+	transition: all 0.4s;
+
+	&:active {
+		box-shadow: 0 0 1em black;
+	}
+	&:focus {
+		background-color: @color;
+		color: @color-bg;
+		outline: none;
+	}
+
+	&:hover {
+		background-color: @color;
+		color: @color-bg;
+		width: 2em;
+		opacity: 1;
+	}
+
+	&:before {
+		content: "«";
+		.sidebar.active & {
+			content: "»";
+		}
+	}
+}
+

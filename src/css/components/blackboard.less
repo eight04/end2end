@@ -1,0 +1,34 @@
+// Blackboard
+.blackboard {
+	background-color: @bg-color-base;
+	padding-top: @gap*2;
+	padding-bottom: @gap*2;
+}
+.blackboard-head {
+	margin-top: 0.4em;
+}
+.blackboard-side {
+	font-size: 80%;
+}
+@media (min-width: @blackboard-breakpoint) {
+	.blackboard-head {
+		font-size: 320%;
+	}
+	.blackboard-body {
+		font-size: 140%;
+	}
+}
+@media (max-width: (@blackboard-breakpoint - 1)) {
+	.blackboard-head {
+		font-size: 210%;
+		margin-top: 0.6em;
+		text-align: center;
+	}
+	.blackboard {
+		padding: 0 0 @gap;
+	}
+	.blackboard-side {
+		line-height: 1.3;
+	}
+}
+
