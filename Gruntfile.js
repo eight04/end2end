@@ -3,19 +3,15 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		uglify: {
-			minified: {
-				files: {
-					"dist/dialog.min.js": "dist/dialog.js"
-				},
-				options: {
-					mangle: true,
-					compress: true,
-					sourceMap: true
-				}
-			}
-		},
 		less: {
+			css: {
+				files: [{
+					expand: true,
+					cwd: "src/css",
+					src: "**/*.less",
+					dest: "build"
+				}]
+			},
 			gridCore: {
 				files: {
 					"src/gridCore.css": "src/gridCore.less"
