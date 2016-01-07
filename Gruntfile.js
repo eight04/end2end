@@ -14,8 +14,8 @@ module.exports = function(grunt) {
 			}
 		},
 		eslint: {
-			end2end: {
-				src: ["src/js/**/*.js", "!Gruntfile.js"]
+			target: {
+				src: ["src/js/**/*.js"]
 			}
 		},
 		concat: {
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			grunt: {
-				files: "Gruntfile.js"
+				files: ["Gruntfile.js"]
 			},
 			css: {
 				files: ["src/css/**/*.less"],
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-bump');
 
 	// Default task(s).
-	grunt.registerTask('default', ['dist']);
+	grunt.registerTask('default', ["css", "js"]);
 	grunt.registerTask('css', ["less", "concat:css"]);
 	grunt.registerTask("js", ["eslint", "concat:js", "ngannotate", "ngtemplates"]);
 
