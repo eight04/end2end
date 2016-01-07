@@ -9,35 +9,44 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: "src/css",
 					src: "**/*.less",
-					dest: "build"
+					dest: "build/css"
 				}]
-			},
-			gridCore: {
-				files: {
-					"src/gridCore.css": "src/gridCore.less"
-				}
-			},
-			dist: {
-				files: {
-					"dist/end2end.css": "end2end.less"
-				}
 			}
 		},
 		eslint: {
 			end2end: {
-				src: ["*.js", "!Gruntfile.js"]
+				src: ["src/js/**/*.js", "!Gruntfile.js"]
 			}
 		},
-		copy: {
-			dist: {
+		concat: {
+			css: {
 				files: {
-					"dist/end2end.js": "end2end.js"
+					"dist/end2end.css": [
+						"build/css/base/*.css",
+						"build/css/grid/*.css",
+						"build/css/components/*.css"
+					]
+				}
+			},
+			js: {
+				files: {
+					"dist/end2end.js": [
+						"src/js/end2end.js",
+						"src/js/components/*.js"
+					]
+				}
+			}
+		},
+		ngAnnotate: {
+			target: {
+				files: {
+					"dist/end2end.js": ["dist/end2end.js"]
 				}
 			}
 		},
 		ngtemplates: {
 			end2end: {
-				src: "templates/**.html",
+				src: "src/templates/*.html",
 				dest: "dist/end2end.js",
 				options: {
 					htmlmin: {
@@ -52,25 +61,23 @@ module.exports = function(grunt) {
 			grunt: {
 				files: "Gruntfile.js"
 			},
-			gridCore: {
-				files: "src/gridCore.less",
-				tasks: ["less:gridCore", "less:dist"]
-			},
-			src: {
-				files: "src/**/*.less",
-				tasks: "less:dist"
-			},
-			main: {
-				files: "end2end.less",
-				tasks: "less:dist"
+			css: {
+				files: ["src/css/**/*.less"],
+				tasks: ["newer:less", "concat:css"]
 			},
 			js: {
-				files: ["*.js", "templates/*"],
-				tasks: "dist-js"
+				files: ["src/js/**/*.js"],
+				tasks: ["newer:eslint", "concat:js", "ngannotate", "ngtemplates"]
+			},
+			templates: {
+				files: ["src/templates/*.js"],
+				tasks: ["ngtemplates"]
 			}
 		},
-		clean: {
-			build: ["build"]
+		eslint: {
+			target: {
+				src: ["src/js/**/*.js"]
+			}
 		},
 		bump: {
 			options: {
@@ -83,18 +90,17 @@ module.exports = function(grunt) {
 	});
 
 	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-eslint');
-	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-angular-templates');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-ng-annotate');
+	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-bump');
 
 	// Default task(s).
 	grunt.registerTask('default', ['dist']);
-	grunt.registerTask('dist', ["clean", "less", "dist-js"]);
-	grunt.registerTask('dist-js', ["copy", "ngtemplates"]);
+	grunt.registerTask('css', ["less", "concat:css"]);
+	grunt.registerTask("js", ["eslint", "concat:js", "ngannotate", "ngtemplates"]);
 
 };
