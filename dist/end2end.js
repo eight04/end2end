@@ -1,65 +1,102 @@
 
-(function(){
+angular.module("end2end", []);
 
-"use strict";
 
-angular.module(
-	"end2end", []
-).directive("navbar", function($animate){
-	return {
-		restrict: "C",
-		controller: function() {
-			var collapse = null;
+angular.module("end2end").factory("affix", ["$window", function($window){
+	var affixJar = [];
 
-			this.addCollapse = function(c){
-				collapse = c;
-			};
+	function affix(o){
+		var rect, parentRect, containerRect, width, height, state;
 
-			this.toggle = function(){
-				if (!collapse) {
-					return;
-				}
+		rect = o.element[0].getBoundingClientRect();
+		containerRect = o.container[0].getBoundingClientRect();
+		parentRect = o.parent[0].getBoundingClientRect();
 
-				if (!collapse.show) {
-					$animate.addClass(collapse.element, "active");
-				} else {
-					$animate.removeClass(collapse.element, "active");
-				}
-				collapse.show = !collapse.show;
-			};
+		if (parentRect.top >= 0) {
+			state = "affix-top";
+		} else if (parentRect.top < 0 && containerRect.bottom - (rect.bottom - rect.top) <= 0) {
+			state = "affix-bottom";
+		} else {
+			state = "affix-fixed";
 		}
-	};
-}).directive("navbarToggle", function(){
-	return {
-		restrict: "C",
-		require: "?^navbar",
-		link: function(scope, element, attrs, nbCtrl) {
-			if (!nbCtrl) {
-				return;
+
+		if (state != "affix-top") {
+			width = o.parent[0].clientWidth + "px";
+			height = o.element[0].offsetHeight + "px";
+		} else {
+			width = "";
+			height = "";
+		}
+
+		if (width != o.width && width != "0px") {
+			o.element.css("width", width);
+			o.width = width;
+		}
+		if (height != o.height && height != "0px") {
+			o.parent.css("height", height);
+			o.height = height;
+		}
+
+		if (state != o.state) {
+			if (state == "affix-bottom") {
+				o.element.css("top", containerRect.bottom - containerRect.top - (rect.bottom - rect.top) + "px");
+			} else {
+				o.element.css("top", "");
 			}
-			element.on("click", function(){
-				nbCtrl.toggle();
+			o.element.removeClass(o.state);
+			o.element.addClass(state);
+			o.state = state;
+		}
+
+	}
+
+	function affixContainer(){
+		var i;
+		for (i = 0; i < affixJar.length; i++) {
+			affix(affixJar[i]);
+		}
+	}
+
+	angular.element($window).on("resize", affixContainer);
+	angular.element($window).on("scroll", affixContainer);
+
+	return {
+		affix: function(container, parent, element) {
+			affixJar.push({
+				element: element,
+				container: container,
+				parent: parent,
+				width: null,
+				state: null
 			});
 		}
 	};
-}).directive("navbarCollapse", function(){
+}]).directive("affix", ["affix", function(affix){
+
 	return {
 		restrict: "C",
-		require: "?^navbar",
-		link: function(scope, element, attrs, nbCtrl) {
-			if (!nbCtrl) {
-				return;
+		link: function(scope, element){
+			var containerElement = element;
+			while (!containerElement.hasClass("affix-container") && containerElement[0]) {
+				containerElement = containerElement.parent();
+			}
+			if (!containerElement[0]) {
+				throw "Can't find affix-container!";
 			}
 
-			var collapse = {
-				element: element,
-				show: element.hasClass("active")
-			};
+			var contentElement = angular.element(element[0].querySelector(".affix-content"));
+			if (!contentElement[0]) {
+				throw "Can't find affix-content!";
+			}
 
-			nbCtrl.addCollapse(collapse);
+			affix.affix(containerElement, element, contentElement);
 		}
 	};
-}).animation(".ani-collapse", function(prepare, watch){
+}]);
+
+// This module provide easy to use collpasing animation.
+
+angular.module("end2end").animation(".ani-collapse", ["prepare", "watch", function(prepare, watch){
 	function beforeCollapse(element, done){
 
 		// display: none
@@ -70,17 +107,6 @@ angular.module(
 			return;
 		}
 
-//		if (element[0].offsetHeight > 10000) {
-//			// weird height?
-////			console.log('Weird offsetHeight?', element[0], element[0].offsetHeight);
-//			var i, children = element.children(), weird;
-//			for (i = 0; i < children.length; i++) {
-//				console.log(children[i], children[i].offsetHeight);
-//			}
-//			done();
-//			return;
-//		}
-
 		// Start collapsing
 		if (!element.hasClass("collapsing")) {
 			element.css("height", element[0].scrollHeight + "px");
@@ -88,7 +114,7 @@ angular.module(
 		}
 
 		// Render
-		void(element[0].offsetHeight);
+		void element[0].offsetHeight;
 		if (done) {
 			done();
 		}
@@ -108,7 +134,7 @@ angular.module(
 		setTimeout(active);
 
 		function end(){
-//			console.log("transition end");
+			//			console.log("transition end");
 			element.off("transitionend", end);
 			element.removeClass("collapsing");
 			done();
@@ -128,7 +154,7 @@ angular.module(
 			element.css("height", "0");
 			element.addClass("collapsing");
 		}
-		void(element[0].offsetHeight);
+		void element[0].offsetHeight;
 		if (done) {
 			done();
 		}
@@ -218,370 +244,121 @@ angular.module(
 			return collapse(element, done);
 		}
 	};
-}).directive("checkPass", function(){
-	var passJar = {};
+}]);
 
-	function validate(id){
-		if (!passJar[id]) {
-			return;
-		}
 
-		var i, key = passJar[id][0].$modelValue, eq = true;
-		for (i = 1; i < passJar[id].length; i++) {
-			if (passJar[id][i].$modelValue != key) {
-				eq = false;
-				break;
+angular.module("end2end").factory("autonav", function(){
+	var targetElement, navElement, idPrefix = "nav";
+
+	function getParent(index, spec) {
+		var i;
+		for (i = spec - 1; i >= 0; i--) {
+			if (index[i]) {
+				return index[i];
 			}
-		}
-
-		for (i = 0; i < passJar[id].length; i++) {
-			passJar[id][i].$setValidity("checkPass", eq);
 		}
 	}
 
-	return {
-		restrict: "A",
-		require: "ngModel",
-		link: function(scope, element, attrs, ngModel){
-			var id = null;
-
-			attrs.$observe("checkPass", function(value){
-				var i;
-
-				if (passJar[id]){
-					for (i = 0; i < passJar[id].length; i++) {
-						if (passJar[id][i] == ngModel) {
-							passJar[id].splice(i, 1);
-							break;
-						}
-					}
-				}
-				validate(id);
-
-				id = value;
-				if (!passJar[id]) {
-					passJar[id] = [];
-				}
-				passJar[id].push(ngModel);
-				validate(id);
-			});
-
-			scope.$watch(function(){
-				return ngModel.$modelValue;
-			}, function(){
-				validate(id);
-			});
+	function cleanIndex(index, spec) {
+		var i;
+		for (i = +spec; i <= 6; i++) {
+			index[i] = null;
 		}
-	};
-}).directive("sidebar", function(){
-	return {
-		restrict: "C",
-		controller: function($element, $animate){
-			var controller = this;
+	}
 
-			controller.toggle = function(){
-				if (!$element.hasClass("active")) {
-					$animate.addClass($element, "active");
-					$element.on("click", controller.toggle);
-				} else {
-					$animate.removeClass($element, "active");
-					$element.off("click", controller.toggle);
-				}
-			};
+	function buildNavTree(nodes) {
+		var i, ul, li;
+		ul = angular.element("<ul class='nav-tree'></ul>");
+		for (i = 0; i < nodes.length; i++) {
+			li = angular.element("<li><a href='#" + idPrefix + nodes[i].id + "'>" + nodes[i].title + "</a></li>");
+			if (nodes[i].children.length) {
+				li.append(buildNavTree(nodes[i].children));
+			}
+			ul.append(li);
 		}
-	};
-}).directive("sidebarToggle", function(){
-	return {
-		restrict: "C",
-		require: "^sidebar",
-		link: function(scope, element, attrs, controller){
-			element.on("click", function(e){
-				controller.toggle();
-				e.stopPropagation();
-			});
-		}
-	};
-}).factory("scrollspy", function($window){
-	var target, nav;
-	angular.element($window).on("scroll", function(){
-		if (!target || !nav) {
+		ul.addClass("ani-collapse ng-hide");
+		return ul;
+	}
+
+	function init(){
+		if (!targetElement || !navElement) {
 			return;
 		}
-		var id = target.getActiveId();
-		nav.active(id);
-	});
+		var hs, hIndex, i, spec, parent, node, navtree;
+		hs = targetElement[0].querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+		// Build hs tree
+		hIndex = {
+			0: {
+				children: []
+			}
+		};
+		for (i = 0; i < hs.length; i++) {
+			spec = hs[i].nodeName.substr(1);
+			parent = getParent(hIndex, spec);
+			cleanIndex(hIndex, spec);
+			node = {
+				id: (parent.id ? (parent.id + ".") : "") + (parent.children.length + 1),
+				title: hs[i].textContent || hs[i].innerText,
+				element: hs[i],
+				spec: spec,
+				children: []
+			};
+			parent.children.push(node);
+			hIndex[spec] = node;
+			hs[i].id = idPrefix + node.id;
+		}
+
+		// Build nav tree
+		navtree = buildNavTree(hIndex[0].children);
+		navtree.removeClass("ng-hide");
+		navElement.append(navtree);
+	}
+
 	return {
-		registerTarget: function(e){
-			target = e;
+		setTarget: function(element){
+			targetElement = element;
+			init();
 		},
-		registerNav: function(e){
-			nav = e;
+		setNav: function(element){
+			navElement = element;
+			init();
 		}
 	};
-}).directive("scrollspyTarget", function(scrollspy){
+}).directive("autonavTarget", ["autonav", function(autonav){
 	return {
 		restrict: "A",
 		link: function(scope, element){
-			scrollspy.registerTarget({
-				element: element,
-				getActiveId: function(){
-					var eles = element[0].querySelectorAll("h1, h2, h3, h4, h5, h6"),
-						i, navs = [];
-					for (i = 0; i < eles.length; i++) {
-						if (!eles[i].id) {
-							continue;
-						}
-						navs.push({
-							element: eles[i],
-							rect: eles[i].getBoundingClientRect()
-						});
-					}
-					for (i = 0; i < navs.length; i++) {
-						// Use 1 instead of 0 to match sub-pixel
-						if (navs[i].rect.top <= 1 &&
-							(navs[i + 1] && navs[i + 1].rect.top > 1 ||
-							!navs[i + 1] && element[0].getBoundingClientRect().bottom > 1)) {
-							return navs[i].element.id;
-						}
-					}
-					return null;
-				}
-			});
+			autonav.setTarget(element);
 		}
 	};
-}).directive("scrollspyNav", function(scrollspy, $animate, togglerHelper){
+}]).directive("autonavNav", ["autonav", function(autonav){
 	return {
 		restrict: "A",
 		link: function(scope, element) {
-			var activated = [];
-
-			function notIn(element, nodes) {
-				var i;
-				for (i = 0; i < nodes.length; i++) {
-					if (nodes[i][0] == element[0]) {
-						return false;
-					}
-				}
-				return true;
-			}
-
-			scrollspy.registerNav({
-				element: element,
-				active: function(id){
-					var ele, toActive, i;
-
-					toActive = [];
-
-					if (id) {
-						ele = element[0].querySelector("[href='#" + id + "']");
-						if (ele) {
-							ele = angular.element(ele);
-							while (ele[0] != element[0]) {
-								if (ele[0].nodeName == "LI") {
-									toActive.push(ele);
-								}
-								ele = ele.parent();
-							}
-						}
-					}
-
-					for (i = 0; i < activated.length; i++) {
-						if (notIn(activated[i], toActive)) {
-							togglerHelper.deactive(activated[i]);
-						}
-					}
-
-					for (i = toActive.length - 1; i >= 0; i--) {
-						if (notIn(toActive[i], activated)) {
-							togglerHelper.active(toActive[i]);
-						}
-					}
-
-					activated = toActive;
-				}
-			});
+			autonav.setNav(element);
 		}
 	};
-}).directive("modalStack", function(){
+}]);
+
+
+angular.module("end2end").directive("autowrap", ["prepare", function(prepare){
 	return {
 		restrict: "C",
-		templateUrl: "templates/modalStack.html",
-		scope: true,
-		controller: function($scope){
-			this.modals = $scope.modals = [];
-
-			this.add = function(modal){
-				$scope.modals.push(modal);
-			};
-
-			this.remove = function(modal){
-				var i;
-				for (i = 0; i < $scope.modals.length; i++) {
-					if ($scope.modals[i] == modal) {
-						break;
-					}
-				}
-				if (i < $scope.modals.length) {
-					$scope.modals.splice(i, 1);
-				}
-			};
-
-			this.top = function(){
-				return this.modals.length > 0 && this.modals[this.modals.length - 1] || null;
-			};
-		}
-	};
-}).directive("e2eModal", function($compile, $http, $templateCache){
-	return {
-		restrict: "A",
 		link: function(scope, element) {
-			var key, modal = scope.modal;
+			prepare(element).then(function(){
+				var scrollWidth = element[0].scrollWidth,
+					offsetWidth = element[0].offsetWidth;
 
-			if (modal.scope) {
-				for (key in modal.scope) {
-					scope[key] = modal.scope[key];
+				if (offsetWidth < scrollWidth) {
+					element.addClass("wrap");
 				}
-			}
-
-			// Compile template
-			if (modal.templateUrl) {
-				$http({
-					method: "GET",
-					url: modal.templateUrl,
-					cache: $templateCache
-				}).success(function(result){
-					element.append(result);
-					$compile(element.contents())(scope);
-				});
-			} else {
-				element.append(modal.template);
-				$compile(element.contents())(scope);
-			}
-
-			modal.element = element;
-			modal.focusElement = document.activeElement;
-
-			setTimeout(function(){
-				var input = element[0].querySelector("[autofocus]");
-				if (input) {
-					input.focus();
-				}
-				if (document.activeElement == modal.focusElement) {
-					element[0].focus();
-				}
-			});
-
-			element.on("click", function(e){
-				if (e.target != element[0] || !modal.backdropToggle) {
-					return;
-				}
-				scope.$apply(function(){
-					if (modal.onbackdrop) {
-						modal.onbackdrop(e);
-					}
-					if (!e.defaultPrevented) {
-						modal.close();
-					}
-				});
 			});
 		}
 	};
-}).factory("modal", function($animate, $q, $compile, $rootScope, $timeout, $document){
-	var modalStack, modalStackElement;
+}]);
 
-	modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
-	$document.find("body").append(modalStackElement);
-
-	setTimeout(function(){
-		modalStack = modalStackElement.controller("modalStack");
-	});
-
-	$document.on("keydown", function(e){
-		var modal, inputs, dirty, next, i, t;
-		if (!modalStack || !(modal = modalStack.top()) || e.ctrlKey || e.altKey) {
-			return;
-		}
-
-		if (e.keyCode == 27 && !e.shiftKey && modal.escToggle) {
-			$rootScope.$apply(function(){
-				if (modal.onesc) {
-					modal.onesc(e);
-				}
-
-				if (!e.defaultPrevented) {
-					$timeout(function(){
-						modal.close();
-					});
-				}
-			});
-		}
-
-		if (e.keyCode == 9) {
-			inputs = modal.element[0].querySelectorAll("input, select, button, textarea, a, [tabindex]");
-			t = [];
-			for (i = 0; i < inputs.length; i++) {
-				if (!inputs[i].disabled) {
-					t.push(inputs[i]);
-				}
-			}
-			inputs = t;
-			for (i = 0; i < inputs.length; i++) {
-				if (inputs[i] == document.activeElement) {
-					if (!e.shiftKey) {
-						next = (i + 1) % inputs.length;
-					} else {
-						next = (i - 1 + inputs.length) % inputs.length;
-					}
-					inputs[next].focus();
-					dirty = true;
-					break;
-				}
-			}
-			if (!dirty && inputs.length) {
-				inputs[0].focus();
-			}
-			e.preventDefault();
-		}
-	});
-
-	return {
-		open: function(modal){
-			if (!modal.template && !modal.templateUrl) {
-				throw "template and templateUrl are undefined.";
-			}
-			if (modal.escToggle === undefined) {
-				modal.escToggle = true;
-			}
-			if (modal.backdropToggle === undefined) {
-				modal.backdropToggle = true;
-			}
-
-			var deferred = $q.defer();
-
-			modal.then = function(success, fail, notify){
-				return deferred.promise.then(success, fail, notify);
-			};
-
-			modal.close = function(value){
-				if (modal.onclose) {
-					modal.onclose(value);
-				}
-				modalStack.remove(modal);
-				deferred.resolve(value);
-				modal.focusElement.focus();
-			};
-
-			modal.on = function(event, callback) {
-				modal["on" + event] = callback;
-				return modal;
-			};
-
-			modalStack.add(modal);
-
-			return modal;
-		}
-	};
-}).factory("dialog", function(modal, $q){
+angular.module("end2end").factory("dialog", ["modal", "$q", function(modal, $q){
 	var types = {
 		create: {
 			title: "Dialog",
@@ -776,7 +553,7 @@ angular.module(
 			return createDialog(msg, title, "create");
 		}
 	};
-}).directive("e2eDialog", function($templateCache, $http, $compile, $controller){
+}]).directive("e2eDialog", ["$templateCache", "$http", "$compile", "$controller", function($templateCache, $http, $compile, $controller){
 	return {
 		restrict: "A",
 		link: function(scope, element){
@@ -815,157 +592,700 @@ angular.module(
 			});
 		}
 	};
-}).factory("togglerHelper", function($animate, prepare){
-	return {
-		getStatus: function(element) {
-			var status = [], i, child = element.children();
-			for (i = 0; i < child.length; i++) {
-				if (child[i].className.match(/\bactive\b/)) {
-					status.push(true);
-				} else {
-					status.push(false);
-				}
-			}
-			return status;
-		},
-		active: function(element) {
-//			console.log("active", element);
-			var child = angular.element(element[0].children[1]);
-			$animate.addClass(element, "active");
-//			element.addClass("active");
-			if (!child[0] || element[0].nodeName != "LI") {
-				return;
-			}
-			if (!prepare.test(child)) {
-				child.addClass("ng-hide");
-//				console.log('prepare failed');
-			}
-			$animate.removeClass(child, "ng-hide");
-//			child.removeClass("ng-hide");
-		},
-		deactive: function(element) {
-//			console.log("deactive", element);
-			var child = angular.element(element[0].children[1]);
-			$animate.removeClass(element, "active");
-			if (!child[0] || element[0].nodeName != "LI") {
-				return;
-			}
-			$animate.addClass(child, "ng-hide");
-		}
-	};
-}).directive("toggled", function(toggler) {
-	return {
-		restrict: "AC",
-		link: function(scope, element, attrs){
-			var id = attrs.toggled;
-			toggler(id).add(element);
-		}
-	};
-}).directive("toggler", function(toggler){
+}]);
 
-	function getChildIndex(element, child) {
-		var cs = element.children(), i;
-		for (i = 0; i < cs.length; i++) {
-			if (cs[i] == child) {
-				return i;
-			}
-		}
-		throw "Not children";
+
+angular.module("end2end").directive("fillViewHeight", function(){
+	var jar = [];
+
+	function setHeight(element) {
+		element.css("max-height", document.documentElement.clientHeight + "px");
 	}
 
-	return {
-		restrict: "AC",
-		link: function(scope, element, attrs){
-			var id = attrs.toggler,
-				multiple = attrs.multiple != null;
+	angular.element(window).on("resize", function(){
+		var i;
+		for (i = 0; i < jar.length; i++) {
+			setHeight(jar[i]);
+		}
+	});
 
-			toggler(id).add(element);
+	return {
+		restrict: "C",
+		link: function(scope, element){
+			jar.push(element);
+			setHeight(element);
+		}
+	};
+});
+
+
+angular.module("end2end").factory("loader", ["modal", function(modal){
+	var m = null;
+	return {
+		start: function(){
+			if (m) {
+				this.stop();
+			}
+			m = modal.open({
+				template: "Loading...",
+				escToggle: false,
+				backdropToggle: false
+			});
+		},
+		stop: function(){
+			if (!m) {
+				return;
+			}
+			m.close();
+			m = null;
+		}
+	};
+}]);
+
+angular.module("end2end").directive("modalStack", function(){
+	return {
+		restrict: "C",
+		templateUrl: "templates/modalStack.html",
+		scope: true,
+		controller: ["$scope", function($scope){
+			this.modals = $scope.modals = [];
+
+			this.add = function(modal){
+				$scope.modals.push(modal);
+			};
+
+			this.remove = function(modal){
+				var i;
+				for (i = 0; i < $scope.modals.length; i++) {
+					if ($scope.modals[i] == modal) {
+						break;
+					}
+				}
+				if (i < $scope.modals.length) {
+					$scope.modals.splice(i, 1);
+				}
+			};
+
+			this.top = function(){
+				return this.modals.length > 0 && this.modals[this.modals.length - 1] || null;
+			};
+		}]
+	};
+}).directive("e2eModal", ["$compile", "$http", "$templateCache", function($compile, $http, $templateCache){
+	return {
+		restrict: "A",
+		link: function(scope, element) {
+			var key, modal = scope.modal;
+
+			if (modal.scope) {
+				for (key in modal.scope) {
+					scope[key] = modal.scope[key];
+				}
+			}
+
+			// Compile template
+			if (modal.templateUrl) {
+				$http({
+					method: "GET",
+					url: modal.templateUrl,
+					cache: $templateCache
+				}).success(function(result){
+					element.append(result);
+					$compile(element.contents())(scope);
+				});
+			} else {
+				element.append(modal.template);
+				$compile(element.contents())(scope);
+			}
+
+			modal.element = element;
+			modal.focusElement = document.activeElement;
+
+			setTimeout(function(){
+				var input = element[0].querySelector("[autofocus]");
+				if (input) {
+					input.focus();
+				}
+				if (document.activeElement == modal.focusElement) {
+					element[0].focus();
+				}
+			});
 
 			element.on("click", function(e){
-				var t = e.target;
-
-				// Check whether is clicking on <a>
-				while (t && t.nodeName != "A" && t.parentNode != element[0]) {
-					t = t.parentNode;
-				}
-				if (!t || t.nodeName != "A") {
+				if (e.target != element[0] || !modal.backdropToggle) {
 					return;
 				}
+				scope.$apply(function(){
+					if (modal.onbackdrop) {
+						modal.onbackdrop(e);
+					}
+					if (!e.defaultPrevented) {
+						modal.close();
+					}
+				});
+			});
+		}
+	};
+}]).factory("modal", ["$animate", "$q", "$compile", "$rootScope", "$timeout", "$document", function($animate, $q, $compile, $rootScope, $timeout, $document){
+	var modalStack, modalStackElement;
 
-				// Only trigger on toggler>li>a
-				var li = t.parentNode;
-				if (li.parentNode != element[0]) {
-					return;
+	modalStackElement = $compile("<div class='modal-stack'></div>")($rootScope);
+	$document.find("body").append(modalStackElement);
+
+	setTimeout(function(){
+		modalStack = modalStackElement.controller("modalStack");
+	});
+
+	$document.on("keydown", function(e){
+		var modal, inputs, dirty, next, i, t;
+		if (!modalStack || !(modal = modalStack.top()) || e.ctrlKey || e.altKey) {
+			return;
+		}
+
+		if (e.keyCode == 27 && !e.shiftKey && modal.escToggle) {
+			$rootScope.$apply(function(){
+				if (modal.onesc) {
+					modal.onesc(e);
 				}
 
-				if (!multiple) {
-					toggler(id).active(getChildIndex(element, li));
-				} else {
-					toggler(id).toggle(getChildIndex(element, li));
+				if (!e.defaultPrevented) {
+					$timeout(function(){
+						modal.close();
+					});
+				}
+			});
+		}
+
+		if (e.keyCode == 9) {
+			inputs = modal.element[0].querySelectorAll("input, select, button, textarea, a, [tabindex]");
+			t = [];
+			for (i = 0; i < inputs.length; i++) {
+				if (!inputs[i].disabled) {
+					t.push(inputs[i]);
+				}
+			}
+			inputs = t;
+			for (i = 0; i < inputs.length; i++) {
+				if (inputs[i] == document.activeElement) {
+					if (!e.shiftKey) {
+						next = (i + 1) % inputs.length;
+					} else {
+						next = (i - 1 + inputs.length) % inputs.length;
+					}
+					inputs[next].focus();
+					dirty = true;
+					break;
+				}
+			}
+			if (!dirty && inputs.length) {
+				inputs[0].focus();
+			}
+			e.preventDefault();
+		}
+	});
+
+	return {
+		open: function(modal){
+			if (!modal.template && !modal.templateUrl) {
+				throw "template and templateUrl are undefined.";
+			}
+			if (modal.escToggle === undefined) {
+				modal.escToggle = true;
+			}
+			if (modal.backdropToggle === undefined) {
+				modal.backdropToggle = true;
+			}
+
+			var deferred = $q.defer();
+
+			modal.then = function(success, fail, notify){
+				return deferred.promise.then(success, fail, notify);
+			};
+
+			modal.close = function(value){
+				if (modal.onclose) {
+					modal.onclose(value);
+				}
+				modalStack.remove(modal);
+				deferred.resolve(value);
+				modal.focusElement.focus();
+			};
+
+			modal.on = function(event, callback) {
+				modal["on" + event] = callback;
+				return modal;
+			};
+
+			modalStack.add(modal);
+
+			return modal;
+		}
+	};
+}]);
+
+
+angular.module("end2end").directive("modelUpdate", function(){
+
+	return {
+		restrict: "A",
+		require: "ngModel",
+		scope: {
+			exp: "&modelUpdate"
+		},
+		link: function(scope, element, attrs, ngModel){
+			var updateFlag = false;
+
+			scope.$watch(function(){
+				return ngModel.$modelValue;
+			}, function(){
+				updateFlag = true;
+			});
+
+			element.on("blur", function(){
+				if (updateFlag) {
+					scope.exp();
+					updateFlag = false;
+					scope.$apply();
 				}
 			});
 		}
 	};
-}).factory("toggler", function(togglerHelper){
-	var jar = {};
+});
 
-	function setStatus(element, status) {
-		var lis = element.children(), j;
 
-		for (j = 0; j < lis.length; j++) {
-			if (status[j]) {
-				togglerHelper.active(angular.element(lis[j]));
-			} else {
-				togglerHelper.deactive(angular.element(lis[j]));
-			}
-		}
-	}
+angular.modue("end2end").directive("navbar", function($animate){
+	return {
+		restrict: "C",
+		controller: function() {
+			var collapse = null;
 
-	return function(id) {
-		if (!jar[id]) {
-			var o = jar[id] = {
-				elements: [],
-				status: [],
-				add: function(element) {
-					o.elements.push(element);
+			this.addCollapse = function(c){
+				collapse = c;
+			};
 
-					var i, child = element.children();
-					for (i = 0; i < child.length; i++) {
-						if (/\bactive\b/.test(child[i].className) && !o.status[i]) {
-							o.toggle(i);
-						}
-					}
-					setStatus(element, o.status);
-				},
-				active: function(index) {
-					var i;
-
-					if (o.status.length <= index) {
-						o.status.length = index + 1;
-					}
-
-					for (i = 0; i < o.status.length; i++) {
-						o.status[i] = i == index;
-					}
-
-					for (i = 0; i < o.elements.length; i++) {
-						setStatus(o.elements[i], o.status);
-					}
-				},
-				toggle: function(index) {
-					var i;
-
-					o.status[index] = !o.status[index];
-
-					for (i = 0; i < o.elements.length; i++) {
-						setStatus(o.elements[i], o.status);
-					}
+			this.toggle = function(){
+				if (!collapse) {
+					return;
 				}
+
+				if (!collapse.show) {
+					$animate.addClass(collapse.element, "active");
+				} else {
+					$animate.removeClass(collapse.element, "active");
+				}
+				collapse.show = !collapse.show;
 			};
 		}
-		return jar[id];
 	};
-}).directive("tableFixed", function($parse, affix, scrollsync, prepare){
+}).directive("navbarToggle", function(){
+	return {
+		restrict: "C",
+		require: "?^navbar",
+		link: function(scope, element, attrs, nbCtrl) {
+			if (!nbCtrl) {
+				return;
+			}
+			element.on("click", function(){
+				nbCtrl.toggle();
+			});
+		}
+	};
+}).directive("navbarCollapse", function(){
+	return {
+		restrict: "C",
+		require: "?^navbar",
+		link: function(scope, element, attrs, nbCtrl) {
+			if (!nbCtrl) {
+				return;
+			}
+
+			var collapse = {
+				element: element,
+				show: element.hasClass("active")
+			};
+
+			nbCtrl.addCollapse(collapse);
+		}
+	};
+});
+
+angular.module("end2end").directive("ngType", function(){
+	return {
+		restrict: "A",
+		link: function(scope, element, attrs){
+			scope.$watch(function(){
+				return scope.$eval(attrs.ngType);
+			}, function(value){
+				if (typeof value == "string") {
+					element.attr("type", value);
+				} else {
+					element.removeAttr("type");
+				}
+			});
+		}
+	};
+});
+
+angular.module("end2end").directive("noscroll", ["prepare", function(prepare){
+	return {
+		restrict: "A",
+		link: function(scope, element){
+			prepare(element).then(function(){
+				var vspace = element[0].offsetHeight - element[0].clientHeight,
+					hspace = element[0].offsetWidth - element[0].clientWidth;
+
+				element.css("margin-bottom", "-" + vspace + "px");
+				element.css("margin-right", "-" + hspace + "px");
+			});
+		}
+	};
+}]);
+
+
+angular.module("end2end").directive("number", function(){
+
+	return {
+		restrict: "A",
+		require: "ngModel",
+		scope: {
+			min: "=",
+			max: "="
+		},
+		link: function(scope, element, attrs, ngModel) {
+
+			ngModel.$parsers.push(function(viewValue){
+				var empty = viewValue == "";
+				ngModel.$setValidity("number", empty || /^-?\d+(\.\d+)?$/.test(viewValue));
+				ngModel.$setValidity("min", empty || scope.min == null || +viewValue >= scope.min);
+				ngModel.$setValidity("max", empty || scope.max == null || +viewValue <= scope.max);
+				return viewValue;
+			});
+
+			ngModel.$formatters.push(function(modelValue){
+				var empty = modelValue == null;
+				ngModel.$setValidity("number", empty || typeof modelValue == "number" && !isNaN(modelValue));
+				ngModel.$setValidity("min", empty || scope.min == null || modelValue >= scope.min);
+				ngModel.$setValidity("max", empty || scope.max == null || modelValue <= scope.max);
+				return modelValue;
+			});
+
+			element.on("keydown", function(e){
+				var value;
+
+				if (e.keyCode == "38") {
+					// Up
+					scope.$apply(function(){
+						if (scope.max != null && ngModel.$modelValue + 1 > scope.max) {
+							return;
+						}
+						if (scope.min == null && ngModel.$modelValue == null) {
+							return;
+						}
+						if (scope.min != null && (ngModel.$modelValue < scope.min || ngModel.$modelValue == null)) {
+							value = scope.min;
+						} else {
+							value = ngModel.$modelValue + 1;
+						}
+
+						ngModel.$setViewValue(value);
+						ngModel.$render();
+						element[0].select();
+					});
+				}
+
+				if (e.keyCode == "40") {
+					// Down
+					scope.$apply(function(){
+						if (scope.min != null && ngModel.$modelValue - 1 < scope.min) {
+							return;
+						}
+						if (scope.max == null && ngModel.$modelValue == null) {
+							return;
+						}
+						if (scope.max != null && (ngModel.$modelValue > scope.max || ngModel.$modelValue == null)) {
+							value = scope.max;
+						} else {
+							value = ngModel.$modelValue - 1;
+						}
+
+						ngModel.$setViewValue(value);
+						ngModel.$render();
+						element[0].select();
+					});
+				}
+			});
+		}
+	};
+});
+
+
+angular.module("end2end").factory("prepare", ["$q", "$timeout", "$filter", function($q, $timeout, $filter){
+	var prepare, thread;
+
+	thread = {
+		que: [],
+		running: false,
+		start: function(){
+			if (thread.running) {
+				return;
+			}
+			thread.running = true;
+			setTimeout(thread.process);
+		},
+		process: function(){
+			var swap = [], done = [], rejected = [], q, i;
+			for (i = 0; i < thread.que.length; i++) {
+				q = thread.que[i];
+				if (q.canceled) {
+					rejected.push(q);
+				} else if (!prepare.test(q.element)) {
+					swap.push(q);
+				} else {
+					done.push(q);
+				}
+			}
+			thread.que = swap;
+
+			done = $filter("orderBy")(done, "priority", true);
+
+			for (i = 0; i < done.length; i++) {
+				//			for (i = done.length - 1; i >= 0; i--) {
+				done[i].deferred.resolve();
+			}
+			for (i = 0; i < rejected.length; i++) {
+				rejected[i].deferred.reject();
+			}
+
+			if (thread.que.length) {
+				setTimeout(thread.process, 300);
+			} else {
+				thread.running = false;
+			}
+		}
+	};
+
+	prepare = function(element, priority) {
+		var q = {
+			element: element,
+			deferred: $q.defer(),
+			priority: priority || 0
+		};
+		thread.que.push(q);
+		thread.start();
+		return {
+			then: function(callback){
+				q.deferred.promise.then(callback);
+			},
+			cancel: function(){
+				q.canceled = true;
+			}
+		};
+	};
+
+	prepare.test = function(element) {
+		return element[0].offsetParent && (element[0].offsetWidth || element[0].offsetHeight);
+	};
+
+	return prepare;
+
+}]);
+
+angular.module("end2end").factory("scrollspy", ["$window", function($window){
+	var target, nav;
+	angular.element($window).on("scroll", function(){
+		if (!target || !nav) {
+			return;
+		}
+		var id = target.getActiveId();
+		nav.active(id);
+	});
+	return {
+		registerTarget: function(e){
+			target = e;
+		},
+		registerNav: function(e){
+			nav = e;
+		}
+	};
+}]).directive("scrollspyTarget", ["scrollspy", function(scrollspy){
+	return {
+		restrict: "A",
+		link: function(scope, element){
+			scrollspy.registerTarget({
+				element: element,
+				getActiveId: function(){
+					var eles = element[0].querySelectorAll("h1, h2, h3, h4, h5, h6"),
+						i, navs = [];
+					for (i = 0; i < eles.length; i++) {
+						if (!eles[i].id) {
+							continue;
+						}
+						navs.push({
+							element: eles[i],
+							rect: eles[i].getBoundingClientRect()
+						});
+					}
+					for (i = 0; i < navs.length; i++) {
+						// Use 1 instead of 0 to match sub-pixel
+						if (
+							navs[i].rect.top <= 1 &&
+							(
+								navs[i + 1] && navs[i + 1].rect.top > 1 ||
+								!navs[i + 1] && element[0].getBoundingClientRect().bottom > 1
+							)
+						) {
+							return navs[i].element.id;
+						}
+					}
+					return null;
+				}
+			});
+		}
+	};
+}]).directive("scrollspyNav", ["scrollspy", "$animate", "togglerHelper", function(scrollspy, $animate, togglerHelper){
+	return {
+		restrict: "A",
+		link: function(scope, element) {
+			var activated = [];
+
+			function notIn(element, nodes) {
+				var i;
+				for (i = 0; i < nodes.length; i++) {
+					if (nodes[i][0] == element[0]) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			scrollspy.registerNav({
+				element: element,
+				active: function(id){
+					var ele, toActive, i;
+
+					toActive = [];
+
+					if (id) {
+						ele = element[0].querySelector("[href='#" + id + "']");
+						if (ele) {
+							ele = angular.element(ele);
+							while (ele[0] != element[0]) {
+								if (ele[0].nodeName == "LI") {
+									toActive.push(ele);
+								}
+								ele = ele.parent();
+							}
+						}
+					}
+
+					for (i = 0; i < activated.length; i++) {
+						if (notIn(activated[i], toActive)) {
+							togglerHelper.deactive(activated[i]);
+						}
+					}
+
+					for (i = toActive.length - 1; i >= 0; i--) {
+						if (notIn(toActive[i], activated)) {
+							togglerHelper.active(toActive[i]);
+						}
+					}
+
+					activated = toActive;
+				}
+			});
+		}
+	};
+}])
+;
+
+
+angular.module("end2end").factory("scrollsync", function(){
+
+	function registEvent(nodes, node) {
+		var timeout = null;
+		function calc(){
+			if (node.triggered) {
+				node.triggered = false;
+				return;
+			}
+			var percentage = node.element[0].scrollLeft / (node.element[0].scrollWidth - node.element[0].clientWidth), i;
+
+			for (i = 0; i < nodes.length; i++) {
+				if (nodes[i] != node) {
+					nodes[i].triggered = true;
+					nodes[i].element[0].scrollLeft = percentage * (nodes[i].element[0].scrollWidth - nodes[i].element[0].clientWidth);
+				}
+			}
+		}
+		function scrollEnd(){
+			calc();
+		}
+		node.element.on("scroll", function (){
+			calc();
+			clearTimeout(timeout);
+			timeout = setTimeout(scrollEnd, 10);
+		});
+	}
+
+	return {
+		create: function(){
+			var i, nodes;
+			if (arguments.length > 1) {
+				nodes = [];
+				for (i = 0; i < arguments.length; i++) {
+					nodes.push({
+						element: arguments[i],
+						triggered: false
+					});
+				}
+			} else {
+				for (i = 0; i < arguments[0].length; i++) {
+					nodes.push({
+						element: arguments[0][i],
+						triggered: false
+					});
+				}
+			}
+
+			for (i = 0; i < nodes.length; i++) {
+				registEvent(nodes, nodes[i]);
+			}
+		}
+	};
+});
+
+angular.module("end2end").directive("sidebar", function(){
+	return {
+		restrict: "C",
+		controller: ["$element", "$animate", function($element, $animate){
+			var controller = this;
+
+			controller.toggle = function(){
+				if (!$element.hasClass("active")) {
+					$animate.addClass($element, "active");
+					$element.on("click", controller.toggle);
+				} else {
+					$animate.removeClass($element, "active");
+					$element.off("click", controller.toggle);
+				}
+			};
+		}]
+	};
+}).directive("sidebarToggle", function(){
+	return {
+		restrict: "C",
+		require: "^sidebar",
+		link: function(scope, element, attrs, controller){
+			element.on("click", function(e){
+				controller.toggle();
+				e.stopPropagation();
+			});
+		}
+	};
+});
+
+
+angular.module("end2end").directive("tableFixed", ["$parse", "affix", "scrollsync", "prepare", function($parse, affix, scrollsync, prepare){
 
 	function calcBounds(f, trs, fixedLength, vbounds, table) {
 		var bounds = [],
@@ -1057,7 +1377,7 @@ angular.module(
 
 	function calcSpans(table) {
 		var tds = table[0].querySelectorAll("[fixed-span]");
-//		var tds = table[0].querySelectorAll("[colspan='0']");
+		//		var tds = table[0].querySelectorAll("[colspan='0']");
 
 		var i, rect;
 		for (i = 0; i < tds.length; i++) {
@@ -1191,7 +1511,7 @@ angular.module(
 
 				// Stupid chrome hack
 				table.css("display", "none");
-				void(table[0].offsetWidth);
+				void table[0].offsetWidth;
 				table.css("display", "");
 			}
 
@@ -1209,8 +1529,8 @@ angular.module(
 				tableh.css("margin-bottom", "-" + tbodyHeight + "px");
 				table.css("margin-top", "-" + theadHeight + "px");
 				// What the hack? use empty will break two-way binding in IE8
-//				headContainer[0].innerHTML = "";
-//				headContainer.append(clone);
+				//				headContainer[0].innerHTML = "";
+				//				headContainer.append(clone);
 
 				// Hide scrollbar at the bottom
 				tableFixedTable.css("height", tbodyHeight + "px");
@@ -1219,7 +1539,7 @@ angular.module(
 				headContainer.css("webkitAnimationName", "stupid-chrome-hack");
 				bodyContainer.css("webkitAnimationName", "stupid-chrome-hack");
 
-				void(bodyContainer[0].offsetWidth);
+				void bodyContainer[0].offsetWidth;
 
 				headContainer.css("webkitAnimationName", "");
 				bodyContainer.css("webkitAnimationName", "");
@@ -1231,7 +1551,7 @@ angular.module(
 					process.cancel();
 				}
 				process = prepare(element, -1000).then(redraw);
-//				console.log("render");
+				//				console.log("render");
 			}
 
 			if (attrs.name) {
@@ -1244,407 +1564,162 @@ angular.module(
 			render();
 		}
 	};
-}).factory("affix", function($window){
-	var affixJar = [];
+}]);
 
-	function affix(o){
-		var rect, parentRect, containerRect, width, height, state;
-
-		rect = o.element[0].getBoundingClientRect();
-		containerRect = o.container[0].getBoundingClientRect();
-		parentRect = o.parent[0].getBoundingClientRect();
-
-		if (parentRect.top >= 0) {
-			state = "affix-top";
-		} else if (parentRect.top < 0 && containerRect.bottom - (rect.bottom - rect.top) <= 0) {
-			state = "affix-bottom";
-		} else {
-			state = "affix-fixed";
-		}
-
-		if (state != "affix-top") {
-			width = o.parent[0].clientWidth + "px";
-			height = o.element[0].offsetHeight + "px";
-		} else {
-			width = "";
-			height = "";
-		}
-
-		if (width != o.width && width != "0px") {
-			o.element.css("width", width);
-			o.width = width;
-		}
-		if (height != o.height && height != "0px") {
-			o.parent.css("height", height);
-			o.height = height;
-		}
-
-		if (state != o.state) {
-			if (state == "affix-bottom") {
-				o.element.css("top", containerRect.bottom - containerRect.top - (rect.bottom - rect.top) + "px");
-			} else {
-				o.element.css("top", "");
-			}
-			o.element.removeClass(o.state);
-			o.element.addClass(state);
-			o.state = state;
-		}
-
-	}
-
-	function affixContainer(){
-		var i;
-		for (i = 0; i < affixJar.length; i++) {
-			affix(affixJar[i]);
-		}
-	}
-
-	angular.element($window).on("resize", affixContainer);
-	angular.element($window).on("scroll", affixContainer);
-
+angular.module("end2end").factory("togglerHelper", ["$animate", "prepare", function($animate, prepare){
 	return {
-		affix: function(container, parent, element) {
-			affixJar.push({
-				element: element,
-				container: container,
-				parent: parent,
-				width: null,
-				state: null
-			});
-		}
-	};
-}).directive("affix", function(affix){
-
-	return {
-		restrict: "C",
-		link: function(scope, element){
-			var containerElement = element;
-			while (!containerElement.hasClass("affix-container") && containerElement[0]) {
-				containerElement = containerElement.parent();
-			}
-			if (!containerElement[0]) {
-				throw "Can't find affix-container!";
-			}
-
-			var contentElement = angular.element(element[0].querySelector(".affix-content"));
-			if (!contentElement[0]) {
-				throw "Can't find affix-content!";
-			}
-
-			affix.affix(containerElement, element, contentElement);
-		}
-	};
-}).factory("loader", function(modal){
-	var m = null;
-	return {
-		start: function(){
-			if (m) {
-				this.stop();
-			}
-			m = modal.open({
-				template: "Loading...",
-				escToggle: false,
-				backdropToggle: false
-			});
-		},
-		stop: function(){
-			if (!m) {
-				return;
-			}
-			m.close();
-			m = null;
-		}
-	};
-}).factory("autonav", function(){
-	var targetElement, navElement, idPrefix = "nav";
-
-	function getParent(index, spec) {
-		var i;
-		for (i = spec - 1; i >= 0; i--) {
-			if (index[i]) {
-				return index[i];
-			}
-		}
-	}
-
-	function cleanIndex(index, spec) {
-		var i;
-		for (i = +spec; i <= 6; i++) {
-			index[i] = null;
-		}
-	}
-
-	function buildNavTree(nodes) {
-		var i, ul, li;
-		ul = angular.element("<ul class='nav-tree'></ul>");
-		for (i = 0; i < nodes.length; i++) {
-			li = angular.element("<li><a href='#" + idPrefix + nodes[i].id + "'>" + nodes[i].title + "</a></li>");
-			if (nodes[i].children.length) {
-				li.append(buildNavTree(nodes[i].children));
-			}
-			ul.append(li);
-		}
-		ul.addClass("ani-collapse ng-hide");
-		return ul;
-	}
-
-	function init(){
-		if (!targetElement || !navElement) {
-			return;
-		}
-		var hs, hIndex, i, spec, parent, node, navtree;
-		hs = targetElement[0].querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-		// Build hs tree
-		hIndex = {
-			0: {
-				children: []
-			}
-		};
-		for (i = 0; i < hs.length; i++) {
-			spec = hs[i].nodeName.substr(1);
-			parent = getParent(hIndex, spec);
-			cleanIndex(hIndex, spec);
-			node = {
-				id: (parent.id ? (parent.id + ".") : "") + (parent.children.length + 1),
-				title: hs[i].textContent || hs[i].innerText,
-				element: hs[i],
-				spec: spec,
-				children: []
-			};
-			parent.children.push(node);
-			hIndex[spec] = node;
-			hs[i].id = idPrefix + node.id;
-		}
-
-		// Build nav tree
-		navtree = buildNavTree(hIndex[0].children);
-		navtree.removeClass("ng-hide");
-		navElement.append(navtree);
-	}
-
-	return {
-		setTarget: function(element){
-			targetElement = element;
-			init();
-		},
-		setNav: function(element){
-			navElement = element;
-			init();
-		}
-	};
-}).directive("autonavTarget", function(autonav){
-	return {
-		restrict: "A",
-		link: function(scope, element){
-			autonav.setTarget(element);
-		}
-	};
-}).directive("autonavNav", function(autonav){
-	return {
-		restrict: "A",
-		link: function(scope, element) {
-			autonav.setNav(element);
-		}
-	};
-}).factory("scrollsync", function(){
-
-	function registEvent(nodes, node) {
-		var timeout = null;
-		function calc(){
-			if (node.triggered) {
-				node.triggered = false;
-				return;
-			}
-			var percentage = node.element[0].scrollLeft / (node.element[0].scrollWidth - node.element[0].clientWidth), i;
-
-			for (i = 0; i < nodes.length; i++) {
-				if (nodes[i] != node) {
-					nodes[i].triggered = true;
-					nodes[i].element[0].scrollLeft = percentage * (nodes[i].element[0].scrollWidth - nodes[i].element[0].clientWidth);
-				}
-			}
-		}
-		function scrollEnd(){
-			calc();
-		}
-		node.element.on("scroll", function (){
-			calc();
-			clearTimeout(timeout);
-			timeout = setTimeout(scrollEnd, 10);
-		});
-	}
-
-	return {
-		create: function(){
-			var i, nodes;
-			if (arguments.length > 1) {
-				nodes = [];
-				for (i = 0; i < arguments.length; i++) {
-					nodes.push({
-						element: arguments[i],
-						triggered: false
-					});
-				}
-			} else {
-				for (i = 0; i < arguments[0].length; i++) {
-					nodes.push({
-						element: arguments[0][i],
-						triggered: false
-					});
-				}
-			}
-
-			for (i = 0; i < nodes.length; i++) {
-				registEvent(nodes, nodes[i]);
-			}
-		}
-	};
-}).factory("debug", function($log){
-	var timers = {};
-	return {
-		start: function(id){
-			id = id || "default";
-			timers[id] = [new Date()];
-			$log.log(id + " timer started");
-		},
-		elapse: function(id){
-			id = id || "default";
-			timers[id].push(new Date());
-			var len = timers[id].length;
-			$log.log(id + " elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
-
-		},
-		sum: function(id){
-			id = id || "default";
-			timers[id].push(new Date());
-			var len = timers[id].length;
-			$log.log(id + " elapsed: " + (timers[id][len - 1] - timers[id][len - 2]));
-			$log.log(id + " sum: " + (timers[id][len - 1] - timers[id][0]));
-		},
-		log: function(){
-			$log.log.apply($log, arguments);
-		}
-	};
-}).directive("noscroll", function(prepare){
-	return {
-		restrict: "A",
-		link: function(scope, element){
-			prepare(element).then(function(){
-				var vspace = element[0].offsetHeight - element[0].clientHeight,
-					hspace = element[0].offsetWidth - element[0].clientWidth;
-
-				element.css("margin-bottom", "-" + vspace + "px");
-				element.css("margin-right", "-" + hspace + "px");
-			});
-		}
-	};
-}).directive("autowrap", function(prepare){
-	return {
-		restrict: "C",
-		link: function(scope, element) {
-			prepare(element).then(function(){
-//				console.log("wrap");
-				var scrollWidth = element[0].scrollWidth,
-					offsetWidth = element[0].offsetWidth;
-
-				if (offsetWidth < scrollWidth) {
-					element.addClass("wrap");
-				}
-			});
-		}
-	};
-}).factory("prepare", function($q, $timeout, $filter){
-	var prepare, thread;
-
-	thread = {
-		que: [],
-		running: false,
-		start: function(){
-			if (thread.running) {
-				return;
-			}
-			thread.running = true;
-			setTimeout(thread.process);
-		},
-		process: function(){
-			var swap = [], done = [], rejected = [], q, i;
-			for (i = 0; i < thread.que.length; i++) {
-				q = thread.que[i];
-				if (q.canceled) {
-					rejected.push(q);
-				} else if (!prepare.test(q.element)) {
-					swap.push(q);
+		getStatus: function(element) {
+			var status = [], i, child = element.children();
+			for (i = 0; i < child.length; i++) {
+				if (child[i].className.match(/\bactive\b/)) {
+					status.push(true);
 				} else {
-					done.push(q);
+					status.push(false);
 				}
 			}
-			thread.que = swap;
-
-			done = $filter("orderBy")(done, "priority", true);
-
-			for (i = 0; i < done.length; i++) {
-//			for (i = done.length - 1; i >= 0; i--) {
-				done[i].deferred.resolve();
+			return status;
+		},
+		active: function(element) {
+			//			console.log("active", element);
+			var child = angular.element(element[0].children[1]);
+			$animate.addClass(element, "active");
+			//			element.addClass("active");
+			if (!child[0] || element[0].nodeName != "LI") {
+				return;
 			}
-			for (i = 0; i < rejected.length; i++) {
-				rejected[i].deferred.reject();
+			if (!prepare.test(child)) {
+				child.addClass("ng-hide");
+				//				console.log('prepare failed');
 			}
-
-			if (thread.que.length) {
-				setTimeout(thread.process, 300);
-			} else {
-				thread.running = false;
+			$animate.removeClass(child, "ng-hide");
+			//			child.removeClass("ng-hide");
+		},
+		deactive: function(element) {
+			//			console.log("deactive", element);
+			var child = angular.element(element[0].children[1]);
+			$animate.removeClass(element, "active");
+			if (!child[0] || element[0].nodeName != "LI") {
+				return;
 			}
+			$animate.addClass(child, "ng-hide");
 		}
 	};
+}]).directive("toggled", ["toggler", function(toggler) {
+	return {
+		restrict: "AC",
+		link: function(scope, element, attrs){
+			var id = attrs.toggled;
+			toggler(id).add(element);
+		}
+	};
+}]).directive("toggler", ["toggler", function(toggler){
 
-	prepare = function(element, priority) {
-		var q = {
-			element: element,
-			deferred: $q.defer(),
-			priority: priority || 0
-		};
-		thread.que.push(q);
-		thread.start();
-		return {
-			then: function(callback){
-				q.deferred.promise.then(callback);
-			},
-			cancel: function(){
-				q.canceled = true;
+	function getChildIndex(element, child) {
+		var cs = element.children(), i;
+		for (i = 0; i < cs.length; i++) {
+			if (cs[i] == child) {
+				return i;
 			}
-		};
-	};
-
-	prepare.test = function(element) {
-		return element[0].offsetParent && (element[0].offsetWidth || element[0].offsetHeight);
-	};
-
-	return prepare;
-
-}).directive("fillViewHeight", function(){
-	var jar = [];
-
-	function setHeight(element) {
-		element.css("max-height", document.documentElement.clientHeight + "px");
+		}
+		throw "Not children";
 	}
 
-	angular.element(window).on("resize", function(){
-		var i;
-		for (i = 0; i < jar.length; i++) {
-			setHeight(jar[i]);
-		}
-	});
-
 	return {
-		restrict: "C",
-		link: function(scope, element){
-			jar.push(element);
-			setHeight(element);
+		restrict: "AC",
+		link: function(scope, element, attrs){
+			var id = attrs.toggler,
+				multiple = attrs.multiple != null;
+
+			toggler(id).add(element);
+
+			element.on("click", function(e){
+				var t = e.target;
+
+				// Check whether is clicking on <a>
+				while (t && t.nodeName != "A" && t.parentNode != element[0]) {
+					t = t.parentNode;
+				}
+				if (!t || t.nodeName != "A") {
+					return;
+				}
+
+				// Only trigger on toggler>li>a
+				var li = t.parentNode;
+				if (li.parentNode != element[0]) {
+					return;
+				}
+
+				if (!multiple) {
+					toggler(id).active(getChildIndex(element, li));
+				} else {
+					toggler(id).toggle(getChildIndex(element, li));
+				}
+			});
 		}
 	};
-}).factory("watch", function(){
+}]).factory("toggler", ["togglerHelper", function(togglerHelper){
+	var jar = {};
+
+	function setStatus(element, status) {
+		var lis = element.children(), j;
+
+		for (j = 0; j < lis.length; j++) {
+			if (status[j]) {
+				togglerHelper.active(angular.element(lis[j]));
+			} else {
+				togglerHelper.deactive(angular.element(lis[j]));
+			}
+		}
+	}
+
+	return function(id) {
+		if (!jar[id]) {
+			var o = jar[id] = {
+				elements: [],
+				status: [],
+				add: function(element) {
+					o.elements.push(element);
+
+					var i, child = element.children();
+					for (i = 0; i < child.length; i++) {
+						if (/\bactive\b/.test(child[i].className) && !o.status[i]) {
+							o.toggle(i);
+						}
+					}
+					setStatus(element, o.status);
+				},
+				active: function(index) {
+					var i;
+
+					if (o.status.length <= index) {
+						o.status.length = index + 1;
+					}
+
+					for (i = 0; i < o.status.length; i++) {
+						o.status[i] = i == index;
+					}
+
+					for (i = 0; i < o.elements.length; i++) {
+						setStatus(o.elements[i], o.status);
+					}
+				},
+				toggle: function(index) {
+					var i;
+
+					o.status[index] = !o.status[index];
+
+					for (i = 0; i < o.elements.length; i++) {
+						setStatus(o.elements[i], o.status);
+					}
+				}
+			};
+		}
+		return jar[id];
+	};
+}]);
+
+
+angular.module("end2end").factory("watch", function(){
 	return function(exp, callback) {
 		var hold = null;
 
@@ -1660,148 +1735,31 @@ angular.module(
 		};
 		setTimeout(check);
 	};
-}).directive("modelUpdate", function(){
-
-	return {
-		restrict: "A",
-		require: "ngModel",
-		scope: {
-			exp: "&modelUpdate"
-		},
-		link: function(scope, element, attrs, ngModel){
-			var updateFlag = false;
-
-			scope.$watch(function(){
-				return ngModel.$modelValue;
-			}, function(){
-				updateFlag = true;
-			});
-
-			element.on("blur", function(){
-				if (updateFlag) {
-					scope.exp();
-					updateFlag = false;
-					scope.$apply();
-				}
-			});
-		}
-	};
-}).directive("number", function(){
-
-	return {
-		restrict: "A",
-		require: "ngModel",
-		scope: {
-			min: "=",
-			max: "="
-		},
-		link: function(scope, element, attrs, ngModel) {
-
-			ngModel.$parsers.push(function(viewValue){
-				var empty = viewValue == "";
-				ngModel.$setValidity("number", empty || /^-?\d+(\.\d+)?$/.test(viewValue));
-				ngModel.$setValidity("min", empty || scope.min == null || +viewValue >= scope.min);
-				ngModel.$setValidity("max", empty || scope.max == null || +viewValue <= scope.max);
-				return viewValue;
-			});
-
-			ngModel.$formatters.push(function(modelValue){
-				var empty = modelValue == null;
-				ngModel.$setValidity("number", empty || typeof modelValue == "number" && !isNaN(modelValue));
-				ngModel.$setValidity("min", empty || scope.min == null || modelValue >= scope.min);
-				ngModel.$setValidity("max", empty || scope.max == null || modelValue <= scope.max);
-				return modelValue;
-			});
-
-			element.on("keydown", function(e){
-				var value;
-
-				if (e.keyCode == "38") {
-					// Up
-					scope.$apply(function(){
-						if (scope.max != null && ngModel.$modelValue + 1 > scope.max) {
-							return;
-						}
-						if (scope.min == null && ngModel.$modelValue == null) {
-							return;
-						}
-						if (scope.min != null && (ngModel.$modelValue < scope.min || ngModel.$modelValue == null)) {
-							value = scope.min;
-						} else {
-							value = ngModel.$modelValue + 1;
-						}
-
-						ngModel.$setViewValue(value);
-						ngModel.$render();
-						element[0].select();
-					});
-				}
-
-				if (e.keyCode == "40") {
-					// Down
-					scope.$apply(function(){
-						if (scope.min != null && ngModel.$modelValue - 1 < scope.min) {
-							return;
-						}
-						if (scope.max == null && ngModel.$modelValue == null) {
-							return;
-						}
-						if (scope.max != null && (ngModel.$modelValue > scope.max || ngModel.$modelValue == null)) {
-							value = scope.max;
-						} else {
-							value = ngModel.$modelValue - 1;
-						}
-
-						ngModel.$setViewValue(value);
-						ngModel.$render();
-						element[0].select();
-					});
-				}
-			});
-		}
-	};
-}).directive("ngType", function(){
-	return {
-		restrict: "A",
-		link: function(scope, element, attrs){
-			scope.$watch(function(){
-				return scope.$eval(attrs.ngType);
-			}, function(value){
-				if (typeof value == "string") {
-					element.attr("type", value);
-				} else {
-					element.removeAttr("type");
-				}
-			});
-		}
-	};
 });
-
-})();
 angular.module('end2end').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('templates/dialog.html',
+  $templateCache.put('src/templates/dialog.html',
     "<div class=\"dialog\" ng-class=\"'dialog-' + dialog.brand + ' ' + (dialog.size ? 'dialog-' + dialog.size : '')\"><div class=\"dialog-head\">{{dialog.title}}</div><form class=\"dialog-body\" name=\"form\" ng-submit=\"\"><div class=\"marger pre-wrap\" ng-if=\"!!dialog.msg && !dialog.templateLoaded\">{{dialog.msg}}</div><div ng-if=\"!!dialog.templateUrl\" e2e-dialog></div><div class=\"marger\"><div class=\"row row-inline row-center\"><div class=\"col\" ng-repeat=\"btn in dialog.btns\"><button ng-type=\"btn.submit?'submit':'button'\" class=\"btn btn-default\" ng-disabled=\"btn.submit && form.$invalid\" ng-click=\"dialog.submit(btn.value)\" autofocus>{{btn.label}}</button></div></div></div></form></div>"
   );
 
 
-  $templateCache.put('templates/dialogStack.html',
+  $templateCache.put('src/templates/dialogStack.html',
     "<div class=\"modal-backdrop\"></div><div class=\"modal\" ng-repeat=\"dialog in dialogs\" id=\"dialog-{{dialog.id}}\"><div class=\"modal-wrapper\"><div class=\"modal-content\"><div class=\"dialog\"><div class=\"dialog-head\">{{dialog.title || dialog.type}}</div><div class=\"dialog-body\"><div class=\"marger\">{{dialog.msg}}</div><div class=\"marger\"><button class=\"btn-default\" ng-click=\"ok(dialog)\">確認</button> <button class=\"btn-default\" ng-if=\"dialog.type == 'confirm'\" ng-click=\"cancel(dialog)\">取消</button></div></div></div></div></div></div>"
   );
 
 
-  $templateCache.put('templates/eznavTree.html',
+  $templateCache.put('src/templates/eznavTree.html',
     "<ul class=\"nav-tree\" eznav-tree=\"nodes\"><li ng-repeat=\"node in nodes\" eznav-leaf=\"node\"></li></ul>"
   );
 
 
-  $templateCache.put('templates/modalStack.html',
+  $templateCache.put('src/templates/modalStack.html',
     "<div class=\"modal-backdrop active\" ng-if=\"modals.length\" ng-style=\"{'z-index':1399+(modals.length-1)*10}\"></div><div class=\"modal active\" ng-repeat=\"modal in modals\" e2e-modal=\"modal\" tabindex=\"0\" ng-style=\"{'z-index':1400+$index*10}\"></div>"
   );
 
 
-  $templateCache.put('templates/tableFixed.html',
+  $templateCache.put('src/templates/tableFixed.html',
     "<div class=\"table-fixed-inner\"><div class=\"affix-wrapper\"><div class=\"affix-inner\"><div class=\"table-fixed-head\"><div class=\"table-fixed-wrap table-fixed-head-inject\"></div></div></div></div><div class=\"table-fixed-table\"><div class=\"table-fixed-wrap table-fixed-table-inject\"></div></div></div>"
   );
 
