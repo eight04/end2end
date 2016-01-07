@@ -35,9 +35,13 @@ angular.module("end2end").factory("scrollspy", function($window){
 					}
 					for (i = 0; i < navs.length; i++) {
 						// Use 1 instead of 0 to match sub-pixel
-						if (navs[i].rect.top <= 1 &&
-							(navs[i + 1] && navs[i + 1].rect.top > 1 ||
-							 !navs[i + 1] && element[0].getBoundingClientRect().bottom > 1)) {
+						if (
+							navs[i].rect.top <= 1 &&
+							(
+								navs[i + 1] && navs[i + 1].rect.top > 1 ||
+								!navs[i + 1] && element[0].getBoundingClientRect().bottom > 1
+							)
+						) {
 							return navs[i].element.id;
 						}
 					}
