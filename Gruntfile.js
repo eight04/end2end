@@ -9,7 +9,8 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: "src/css",
 					src: "**/*.less",
-					dest: "build/css"
+					dest: "build/css",
+					ext: ".css"
 				}]
 			}
 		},
@@ -101,6 +102,6 @@ module.exports = function(grunt) {
 	// Default task(s).
 	grunt.registerTask('default', ["css", "js"]);
 	grunt.registerTask('css', ["less", "concat:css"]);
-	grunt.registerTask("js", ["eslint", "concat:js", "ngannotate", "ngtemplates"]);
+	grunt.registerTask("js", ["eslint", "concat:js", "ngAnnotate", "ngtemplates"]);
 
 };
